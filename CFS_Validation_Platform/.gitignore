@@ -1,0 +1,11 @@
+# eclipse specific git ignore
+.project
+.metadata
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
