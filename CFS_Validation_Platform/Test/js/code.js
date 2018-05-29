@@ -7,8 +7,19 @@ function readFile (evt) {
     var file = files[0]; 
     Papa.parse(file, {
     	complete: function(results) {
-    		console.log(results);
+    		log(results);
     	}
     });
  }
 
+function log(input){
+	$("#log-contect").empty();
+	var html = '<p>Errors <br>';
+	html += input.errors+'</p>';
+	html += '<p>Data <br>';
+	html += input.data.length+'</p>';
+	html += '<p>Meta <br>';
+	html += input.meta+'</p>';
+	$("#log-contect").append(html);
+	console.log(input)
+}
