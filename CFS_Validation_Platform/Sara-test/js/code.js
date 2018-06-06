@@ -56,7 +56,7 @@ function log(input){
 	console.log(input)
 }
 
-// check whether a field is empty or not 
+// check validate field is not empty
 function required(x) 	
 {	
 	if (x.length == 0)
@@ -66,5 +66,6 @@ function required(x)
 	}  	
    return true; 
 } 
+
 
     
