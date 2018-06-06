@@ -23,18 +23,6 @@ var config = {
 		beforeFirstChunk: undefined,
 		withCredentials: undefined
 	}
-//configuration object for verification functions
-var conf1= {
-	allowed_email: "", //characters allowed in email addresses
-	not_allowed_email:"" //characters not allowed in email addresses
-}
-//error flags object
-var flags = {
-	missing_req_char_flag:"",
-	missing_req_char_desc:"",
-	invalid_char_flag:"",
-	invalid_char_desc:""
-}
 
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
@@ -64,9 +52,46 @@ function log(input){
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
 	console.log(input)
+	check_invalid_char("me@test.com","email","conf1");
 }
 
-//character check
-function charCheck(input,type,config){
-	
+//configuration object for verification functions
+var conf1= {
+	email: {
+		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
+		not_allowed: /[(),:;<>[\]]/g,
+		required: /[@.]/g
+	}
+}
+//error flags object
+var flags = {
+	missing_req_char: {
+		flag: "",
+		msg: ""
+	},	
+	invalid_char: {
+		flag: "",
+		msg: ""
+	}
+}
+
+//returns true if the string only has the allowed characters
+function check_allowed_char(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+}
+
+//returns true if the string contains any illegal characters
+function check_invalid_char(input, type, config){
+	var filter = eval(config)[type].not_allowed;
+	console.log(filter.test(input));
+	return(filter.test(input));
+}
+
+//returns true if the string contains all required characters
+function check_req_char(input, type, config){
+	var filter = eval(config)[type].required;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
 }
