@@ -1,7 +1,7 @@
 //Global variables
 var inputData = [];
 
-config = {
+var config = {
 		delimiter: "",	// auto-detect
 		newline: "",	// auto-detect
 		quoteChar: '"',
@@ -26,8 +26,18 @@ config = {
 
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
-	x = " rd 21 POST"
-		console.log(pattern(x));
+	//test functions
+	check_allowed_char("poboxjjh 2.apt b_11b-12", "shippingAdress", conf1)
+	check_invalid_char("mn2hhhh", "shippingAdress", conf1)
+	check_req_char("mn2P_O_hhhh", "shippingAdress", conf1)
+	check_allowed_char("123", "phone", conf1)
+	check_invalid_char("mn2hhhh", "phone", conf1)
+	check_req_char("740-818-8807", "phone", conf1)
+	/*
+	console.log(Empty_not_allowed(""))
+	allnumeric("2333","numeric",conf1)
+	alphabetic("sax ds","alphabetic",conf1)
+	alphnumeric("sax()<vvv:ds","alphnumeric",conf1)*/
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -51,83 +61,125 @@ function log(input){
 	html += '<p>Header <br>';
 	html += input.data[0]+'</p>';
 	html += '<p>Meta <br>';
-	html += input.meta.delimiter+'</p>';
+	html += input.meta+'</p>';
 	$("#log-contect").append(html);
 	console.log(input)
+	check_req_char("m.e@test.com","email","conf1");
 }
 
-//check whether a field is empty or not 
-function required(x) 	
+//configuration object for verification functions
+var conf1= {
+	email: {
+		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
+		not_allowed: /[(),:;<>[\]]/g,
+		required: /^.+@{1}.+[.].+$/
+	},
+	shippingAdress: {
+		allowed: /[^a-zA-Z0-9 _.-]/g,
+		not_allowed: /(P_O_|P.O_|P..B|P.O_|P.O.|PO_B|PO_D|POB_|POST)/g,
+		required: /^.*/
+	},
+	phone:{
+		allowed: /[^0-9+$]/g,
+		not_allowed: /^.*/,
+		required:/^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/g,
+	},
+	
+	numeric:{
+		allowed: /[^0-9+$]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	},
+	alphabetic:{
+		allowed: /[^A-Za-z+$ ]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	},
+	alphnumeric:{
+		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	}
+}
+
+
+
+//error flags object
+var flags = {
+	missing_req_char: {
+		flag: "",
+		msg: ""
+	},	
+	invalid_char: {
+		flag: "",
+		msg: ""
+	}
+}
+//returns true if the string only has the allowed characters
+function check_allowed_char(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+}
+
+
+
+//returns true if the string contains any illegal characters
+function check_invalid_char(input, type, config){
+	var filter = eval(config)[type].not_allowed;
+	console.log(filter.test(input));
+	return(filter.test(input));
+}
+
+
+//returns true if the string contains all required characters
+function check_req_char(input, type, config){
+	var filter = eval(config)[type].required;
+	console.log(filter.test(input));
+	return(filter.test(input));
+}
+
+
+
+//*check whether a field is empty or not 
+function Empty_not_allowed(input) 	
 {	
-	if (x.length == 0)
+	if (input.length == 0)
 	{ 
-		alert("blank field");  	
 		return false;
 	}  	
    return true; 
 } 
 
-//validating for all numbers in a field
 
-function allnumeric(x)
-{
-	var numbers = /^[0-9]+$/;
-  	if(x.match(numbers))
-  	{
-  		return true;
-  	}
-  		else
-  	{
-  		alert(' input is not numeric characters only');
-  	return false;
-  	}
+//validating for numeric field
+
+//returns true if the string only has the allowed characters
+function allnumeric(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
 }
 
-//Validating for all letters in a field
-function allLetter(x)
-{
-	var letters = /^[A-Za-z]+$/;
-	if(x.match(letters))
-	{
-	return true;
-	}
-	else
-	{
-	alert("input is not letters only");
-    return false;
-	}
-}	
+//Validating for alphabetic field
 
-
-//Validating for all letters and space in a field
-function allLetterSpace(x)
-{
-	var letters = /^[A-Za-z ]+$/;
-	if(x.match(letters))
-	{
-    return true;
-	}
-	else
-	{
-		alert("input is not letters only");
-   return false;
-	}
+function alphabetic(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
 }
 
 // validating for alphanumeric( letters and numbers)
-function alphanumeric(x)
-{
-	var letterNumber = /^[0-9a-zA-Z]+$/;
-	if(x.match(letterNumber))
-	{
-	return true;
-  }
-else
-  { 
-   alert("input is not letters and numbers only"); 
-   return false; 
-  }
-  }
+
+function alphnumeric(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+	
+}
+	
+
+/*
  
 // Checking string length  
 function lengthRange(x, minlength, maxlength)
@@ -191,32 +243,9 @@ function Inval(x)
 		}
 	}
 }
-  
-// invalid Pattern of characters check for address (need revise)
-function pattern(x)
-{
-	var y;
-	var string;
-}
-    for ( y in  list {" P_O_", "P.O_","P..B","P.O_","P.O.","PO_B","PO_D","POB_","POST"}  ) 
-    {
-    	if(string.includs(y,0) is true )
-    	{
-    		alert ("not valid characters detected!");
-    		return false; 
-    	}	
-    } 
-}
- 
-    // Invalid pattern for one specific pattern
-  /*
-	var patt= / "P_O_"/ ;
-	var string ="";
-			
-		if(patt.test(str) is true ){
-	 alert ("not valid characters detected!");
-	return false;
-		}
-		*/
+  */
+
+
+
 
     
