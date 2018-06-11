@@ -26,18 +26,21 @@ var config = {
 
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
-	//test functions
+/*
 	check_allowed_char("poboxjjh 2.apt b_11b-12", "shippingAdress", conf1)
 	check_invalid_char("mn2hhhh", "shippingAdress", conf1)
 	check_req_char("mn2P_O_hhhh", "shippingAdress", conf1)
 	check_allowed_char("123", "phone", conf1)
 	check_invalid_char("mn2hhhh", "phone", conf1)
 	check_req_char("740-818-8807", "phone", conf1)
-	/*
 	console.log(Empty_not_allowed(""))
 	allnumeric("2333","numeric",conf1)
 	alphabetic("sax ds","alphabetic",conf1)
-	alphnumeric("sax()<vvv:ds","alphnumeric",conf1)*/
+	alphnumeric("sax()<vvv:ds","alphnumeric",conf1)
+	*/
+	console.log(lengthRange("ohe", "state", conf2))
+	console.log(lengthRange("25368544", "zipcode", conf2))
+	console.log(lengthRange("2536854422222", "faxnum", conf2))
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -178,24 +181,40 @@ function alphnumeric(input,type,config){
 	
 }
 	
+// lenght field validation
+var conf2= {
+		state: {
+			minlenght:2 ,
+			maxlenght:2
+				},
+		zipcode: {
+			minlenght:10 ,
+			maxlenght:10	
+			},
+		faxnum: {
+				minlenght:0 ,
+				maxlenght:10	
+				}
 
-/*
- 
-// Checking string length  
-function lengthRange(x, minlength, maxlength)
-{  	
-   //var userInput = inputData.value; // 
-   if(x.length >= minlength && x.length <= maxlength)
+
+}
+ function lengthRange(input, type, config){  
+	var lowerbound = eval(config)[type].minlenght;
+	var upperbound =eval(config)[type].maxlenght;
+   
+   if(input.length >= lowerbound && input.length <=upperbound)
       {  	
-        return true;  	
+	 
+	   return true;
       }
    else
-      {  	
-	alert("Please input between " +minlength+ " and " +maxlength+ " characters");  		
-        return false;  	
-      }  
+   {  	  		
+     return false;  	
+   }  
 }
-	
+ /*
+
+
 // Phone Number validation
 
 // validate a phone number of 10 digits with no comma, no spaces, no punctuation and 
@@ -226,26 +245,8 @@ function isInteger(x) {
     
 
 
-//Invalid character check(need revise)
-function Inval(x)
-{
-	var splChars = "*|,\":<>[]{}`\';()@&$#%";
-	var i;
-	for (var i = 0; i <x.length; i++){
-		if (splChars.indexOf(x.charAt(i)) != -1)
-		{ 
-		alert ("not valid characters detected!")
-		}
-	
-		else
-		{
-		return true 
-		}
-	}
-}
-  */
 
-
+*/
 
 
     
