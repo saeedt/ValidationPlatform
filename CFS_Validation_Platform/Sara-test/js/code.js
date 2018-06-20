@@ -37,10 +37,13 @@ $(document).ready(function(e) {
 	allnumeric("2333","numeric",conf1)
 	alphabetic("sax ds","alphabetic",conf1)
 	alphnumeric("sax()<vvv:ds","alphnumeric",conf1)
-	*/
+	
 	console.log(lengthRange("ohe", "state", conf2))
 	console.log(lengthRange("25368544", "zipcode", conf2))
 	console.log(lengthRange("2536854422222", "faxnum", conf2))
+	
+	*/
+	console.log(lkup6( "4231","Belgium", "BE"))
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -201,37 +204,19 @@ var conf2= {
  function lengthRange(input, type, config){  
 	var lowerbound = eval(config)[type].minlenght;
 	var upperbound =eval(config)[type].maxlenght;
-   
-   if(input.length >= lowerbound && input.length <=upperbound)
+    if(input.length >= lowerbound && input.length <=upperbound)
       {  	
-	 
 	   return true;
       }
-   else
-   {  	  		
-     return false;  	
-   }  
+    else
+      {  	  		
+       return false;  	
+      }  
 }
  /*
+ 
 
 
-// Phone Number validation
-
-// validate a phone number of 10 digits with no comma, no spaces, no punctuation and 
-//there will be no + sign in front the number, and phone numbers with 10 digits xxx_xxx_xxxx
-function phonenumber(x)
-{
-  var phoneno = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/;
-  if(x.match(phoneno))
-        {
-      return true;
-        }
-      else
-        {
-        alert("the phone number is not valid");
-        return false;
-        }
-}
 
 // check the input data to be an integer number (method 1)
 			
@@ -246,7 +231,53 @@ function isInteger(x) {
 
 
 
+
+
+// look up tables 
+
+// define config for look up tables
+
+var conf3:{
+	lookup1: {
+		sheets rows header... ,
+		
+			}, 
+	lookup2: 	
+}
+
 */
+function lkup6(zipecode, city, state){
+	var workbook = new Excel.Workbook();
+	workbook.xlsx.readfile("C:\Users\sa129715\git\ValidationPlatform\CFS_Validation_Platform\Sara-test\js\LKUP.xlsx");
+	var worksheet = workbook.getWorksheet("LKUP6");
+	var check;
+	var a;
+	var b;
+	var c;
+	var i;
+	for (i = 2; i <= worksheet['!range'].e.r; i++)
+	{
+		a = worksheet.Cells(i,1).Value;
+		b = worksheet.Cells(i,2).Value;
+		c = worksheet.Cells(i,3).Value;
+		if (a == zipecode&& b == city && c == state)
+		{  	
+			check = 1;
+			}
+			else
+			{  	  		
+			check = 0;  	
+		} 
+	}
+	if (check == 1)
+	{  	
+		return true;
+		}
+		else
+		{  	  		
+		return false;  	
+	} 
+}
 
 
     
