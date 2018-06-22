@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" /> 
         <script type="text/javascript" src="js/papaparse.js"></script>        
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>                
-        <script type="text/javascript" src="js/code.js"></script>               
+        <script type="text/javascript" src="js/converter.js"></script>               
     </head>
     <body>
     	<div id="input">
@@ -15,8 +15,9 @@
     	<div id='bodytext'>
     	Select CSV input lookup table:
     	<input type="file" id="file" name="file" enctype="multipart/form-data" /> <br>
-    	<div id="csvcontents"></div><hr>
-    	</div>
+    	<div id="csvcontents"></div>
+    	<input type="button" id='download' value="Download JSON" title="Download the output JSON object" >
+    	</div>    	
     	</div>
     	<div id="log">
     	<div id="head"><h2>Logs</h2></div>
