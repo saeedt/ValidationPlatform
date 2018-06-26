@@ -28,7 +28,7 @@ var config = {
 $(document).ready(function(e) {
 /*
 	check_allowed_char("poboxjjh 2.apt b_11b-12", "shippingAdress", conf1)
-	check_invalid_char("mn2hhhh", "shippingAdress", conf1)
+	check_invalid_char("p.obox", "shippingAdress", conf1)
 	check_req_char("mn2P_O_hhhh", "shippingAdress", conf1)
 	check_allowed_char("123", "phone", conf1)
 	check_invalid_char("mn2hhhh", "phone", conf1)
@@ -54,6 +54,7 @@ $(document).ready(function(e) {
 			
 	console.log(lkup("2"))
 	*/
+	
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -84,7 +85,7 @@ function log(input){
 }
 
 //configuration object for verification functions
-/*
+
 var conf1= {
 	email: {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
@@ -93,7 +94,7 @@ var conf1= {
 	},
 	shippingAdress: {
 		allowed: /[^a-zA-Z0-9 _.-]/g,
-		not_allowed: /(P_O_|P.O_|P..B|P.O_|P.O.|PO_B|PO_D|POB_|POST)/g,
+		not_allowed: /(P_O_|P[.]O_|P[..]B|P[.]O_|P[.]O[.]|PO_B|PO_D|POB_|POST)/g,
 		required: /^.*/
 /*
 	},
