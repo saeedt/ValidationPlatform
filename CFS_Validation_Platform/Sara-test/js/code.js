@@ -28,6 +28,7 @@ var config = {
 $(document).ready(function(e) {
 /*
 	check_allowed_char("poboxjjh 2.apt b_11b-12", "shippingAdress", conf1)
+<<<<<<< HEAD
 	check_invalid_char("p.obox", "shippingAdress", conf1)
 	check_req_char("mn2P_O_hhhh", "shippingAdress", conf1)
 	check_allowed_char("123", "phone", conf1)
@@ -55,6 +56,21 @@ $(document).ready(function(e) {
 	console.log(lkup("2"))
 	*/
 	
+=======
+	check_invalid_char("mn2hhhh", "shippingAdress", conf1)
+	check_req_char("mn2P_O_hhhh", "shippingAdress", conf1)
+	check_allowed_char("123", "phone", conf1)
+	check_invalid_char("mn2hhhh", "phone", conf1)
+	check_req_char("740-818-8807", "phone", conf1)
+	console.log(Empty_not_allowed(""))
+	allnumeric("2333","numeric",conf1)
+	alphabetic("sax ds","alphabetic",conf1)
+	alphnumeric("sax()<vvv:ds","alphnumeric",conf1)
+	*/
+	console.log(lengthRange("ohe", "state", conf2))
+	console.log(lengthRange("25368544", "zipcode", conf2))
+	console.log(lengthRange("2536854422222", "faxnum", conf2))
+>>>>>>> branch 'master' of https://github.com/saeedt/ValidationPlatform
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -85,6 +101,7 @@ function log(input){
 }
 
 //configuration object for verification functions
+<<<<<<< HEAD
 
 var conf1= {
 	email: {
@@ -523,3 +540,184 @@ function binarySearch(arr, target) {
     	}
     }
 }
+=======
+var conf1= {
+	email: {
+		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
+		not_allowed: /[(),:;<>[\]]/g,
+		required: /^.+@{1}.+[.].+$/
+	},
+	shippingAdress: {
+		allowed: /[^a-zA-Z0-9 _.-]/g,
+		not_allowed: /(P_O_|P.O_|P..B|P.O_|P.O.|PO_B|PO_D|POB_|POST)/g,
+		required: /^.*/
+	},
+	phone:{
+		allowed: /[^0-9+$]/g,
+		not_allowed: /^.*/,
+		required:/^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/g,
+	},
+	
+	numeric:{
+		allowed: /[^0-9+$]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	},
+	alphabetic:{
+		allowed: /[^A-Za-z+$ ]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	},
+	alphnumeric:{
+		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
+		not_allowed: /^.*/,
+		required:/^.*/
+	}
+}
+
+
+
+//error flags object
+var flags = {
+	missing_req_char: {
+		flag: "",
+		msg: ""
+	},	
+	invalid_char: {
+		flag: "",
+		msg: ""
+	}
+}
+//returns true if the string only has the allowed characters
+function check_allowed_char(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+}
+
+
+
+//returns true if the string contains any illegal characters
+function check_invalid_char(input, type, config){
+	var filter = eval(config)[type].not_allowed;
+	console.log(filter.test(input));
+	return(filter.test(input));
+}
+
+
+//returns true if the string contains all required characters
+function check_req_char(input, type, config){
+	var filter = eval(config)[type].required;
+	console.log(filter.test(input));
+	return(filter.test(input));
+}
+
+
+
+//*check whether a field is empty or not 
+function Empty_not_allowed(input) 	
+{	
+	if (input.length == 0)
+	{ 
+		return false;
+	}  	
+   return true; 
+} 
+
+
+//validating for numeric field
+
+//returns true if the string only has the allowed characters
+function allnumeric(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+}
+
+//Validating for alphabetic field
+
+function alphabetic(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+}
+
+// validating for alphanumeric( letters and numbers)
+
+function alphnumeric(input,type,config){
+	var filter = eval(config)[type].allowed;
+	console.log(!filter.test(input));
+	return(!filter.test(input));
+	
+}
+	
+// lenght field validation
+var conf2= {
+		state: {
+			minlenght:2 ,
+			maxlenght:2
+				},
+		zipcode: {
+			minlenght:10 ,
+			maxlenght:10	
+			},
+		faxnum: {
+				minlenght:0 ,
+				maxlenght:10	
+				}
+
+
+}
+ function lengthRange(input, type, config){  
+	var lowerbound = eval(config)[type].minlenght;
+	var upperbound =eval(config)[type].maxlenght;
+   
+   if(input.length >= lowerbound && input.length <=upperbound)
+      {  	
+	 
+	   return true;
+      }
+   else
+   {  	  		
+     return false;  	
+   }  
+}
+ /*
+
+
+// Phone Number validation
+
+// validate a phone number of 10 digits with no comma, no spaces, no punctuation and 
+//there will be no + sign in front the number, and phone numbers with 10 digits xxx_xxx_xxxx
+function phonenumber(x)
+{
+  var phoneno = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/;
+  if(x.match(phoneno))
+        {
+      return true;
+        }
+      else
+        {
+        alert("the phone number is not valid");
+        return false;
+        }
+}
+
+// check the input data to be an integer number (method 1)
+			
+function isInteger(x) {
+		    return x % 1 === 0;
+		}
+// check the input data to be an integer number (method 2)
+function isInteger(x) {
+    return Math.round(x) === x;
+}
+    
+
+
+
+*/
+
+
+    
+>>>>>>> branch 'master' of https://github.com/saeedt/ValidationPlatform
