@@ -41,7 +41,7 @@ $(document).ready(function(e) {
 	console.log(lengthRange("ohe", "state", conf2))
 	console.log(lengthRange("25368544", "zipcode", conf2))
 	console.log(lengthRange("2536854422222", "faxnum", conf2))
-	
+	*/
 	
 	console.log(lkup6( "4231","Belgium", "BE"))
 
@@ -53,7 +53,7 @@ $(document).ready(function(e) {
 			)
 			
 	console.log(lkup("2"))
-	*/
+	
 	document.getElementById('file').addEventListener('change', readFile, false);
 });
 
@@ -336,9 +336,7 @@ var lkup6 = [
 	// lookup table function for LKUp6
 	
 function lkup(a,b,c){
-	var a;
-	var b;
-	var c;
+
 	var check;
 	check = 0;
 	for (i = 0; i < lkup6.length; i++){
@@ -389,8 +387,7 @@ var lkup4 = [
 ]
 
 function lkup(a,b){
-	var a;
-	var b;
+	
 	var check;
 	check = 0;
 	for (i = 0; i < lkup4.length; i++){
@@ -440,9 +437,7 @@ var lkup5 = [
 	// lookup table function for LKUp6
 	
 function lkup(a,b,c){
-	var a;
-	var b;
-	var c;
+	
 	var check;
 	check = 0;
 	for (i = 0; i < lkup5.length; i++){
