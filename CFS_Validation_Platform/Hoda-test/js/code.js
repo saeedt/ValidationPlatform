@@ -83,9 +83,9 @@ var conf1= {
 //Variables for lookup tables
 var lkup1_unna = [
 	{
-		"HAZMAT_descr" : "Acetal", 
-		"unna_code" : "1088"
-	},
+		"HAZMAT_descr" : "Acetal",
+		"unna_code"	: "1088"
+	},		
 	{	
 		"HAZMAT_descr" : "Acetaldehyde", 
 		"unna_code" : "1089"
@@ -102,7 +102,7 @@ var lkup1_unna = [
 		"HAZMAT_descr" : "Acetone", 
 		"unna_code" : "1090"
 	}
-];	
+];		
 
 var lkup2_sctg = [
 	{
