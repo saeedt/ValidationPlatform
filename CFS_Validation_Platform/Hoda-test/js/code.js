@@ -73,7 +73,7 @@ var conf1= {
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{4}$/
 	},
-	
+
 	sctgCode: {
 		allowed: /[0-9]/g
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
@@ -81,29 +81,29 @@ var conf1= {
 	}
 };
 
-//Variables for lookup tables
-var lkup1_unna = [
+//variables for lookup tables
+var lkup1_HAZMAT = [
 	{
-		"HAZMAT_descr" : "Acetal", 
-		"unna_code" : "1088"
-	},
-	{	
-		"HAZMAT_descr" : "Acetaldehyde", 
-		"unna_code" : "1089"
+		"HAZMAT_descr" : "Acetal"
+		"unna_code"	: "1088"
 	},
 	{
-		"HAZMAT_descr" : "Acetaldehyde ammonia", 
-		"unna_code" : "1841"
+		"HAZMAT_descr" : "Acetaldehyde"
+		"unna_code"	: "1089"
 	},
-	{	
-		"HAZMAT_descr" : "Acetaldehyde oxime", 
-		"unna_code" : "2332"
-	},		
-	{	
-		"HAZMAT_descr" : "Acetone", 
-		"unna_code" : "1090"
+	{
+		"HAZMAT_descr" : "Acetaldehyde ammonia"
+		"unna_code"	: "1841"
+	},
+	{
+		"HAZMAT_descr" : "Acetaldehyde oxime"
+		"unna_code"	: "2332"
+	},
+	{
+		"HAZMAT_descr" : "Acetone"
+		"unna_code"	: "1090"
 	}
-];	
+];
 
 var lkup2_sctg = [
 	{
@@ -197,7 +197,7 @@ var lkup15_invSctg_tempContN = ["01009", "03100", "03211", "03219", "03311"];
 
 var lkup16_invSctg_missUnna = ["08310", "08410", "17110", "17120", "17201"]; 
 	
-var lkup17_sctg_unna = ["08310", "08410", "17110", "17120", "17201"];
+var lkup17_sctg_HAZMAT = ["08310", "08410", "17110", "17120", "17201"];
 	
 var lkup18_city_canada = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
 	
