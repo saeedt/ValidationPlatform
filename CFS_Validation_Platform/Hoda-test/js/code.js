@@ -81,7 +81,7 @@ var conf1= {
 	}
 };
 //Variables for lookup tables
-var lkup1_unna = [
+var lkup1_HAZMAT = [
 	{
 		"HAZMAT_descr" : "Acetal",
 		"unna_code"	: "1088"
@@ -196,7 +196,7 @@ var lkup15_invSctg_tempContN = ["01009", "03100", "03211", "03219", "03311"];
 
 var lkup16_invSctg_missUnna = ["08310", "08410", "17110", "17120", "17201"]; 
 	
-var lkup17_sctg_unna = ["08310", "08410", "17110", "17120", "17201"];
+var lkup17_sctg_HAZMAT = ["08310", "08410", "17110", "17120", "17201"];
 
 var lkup18_city_canada = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
 	
