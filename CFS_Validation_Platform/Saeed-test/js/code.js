@@ -52,7 +52,7 @@ function log(input){
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
 	console.log(input)
-	check_req_char("m.e@test.com","email","conf1");
+	check_invalid_char("me@test.com","email","conf1");
 }
 
 //configuration object for verification functions
@@ -60,7 +60,7 @@ var conf1= {
 	email: {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
 		not_allowed: /[(),:;<>[\]]/g,
-		required: /^.+@{1}.+[.].+$/
+		required: /[@.]/g
 	}
 }
 //error flags object
@@ -92,6 +92,6 @@ function check_invalid_char(input, type, config){
 //returns true if the string contains all required characters
 function check_req_char(input, type, config){
 	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
+	console.log(!filter.test(input));
+	return(!filter.test(input));
 }
