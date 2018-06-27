@@ -295,4 +295,4 @@ function sctgCode(input, type, config){
 	var filter = eval(config)[type].required;
 	console.log(filter.test(input));
 	return(filter.test(input));
-} 
+}
