@@ -79,7 +79,7 @@ var conf1= {
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{5}$/
 	}
-};
+
 //Variables for lookup tables
 var lkup1_HAZMAT = [
 	{
@@ -213,6 +213,7 @@ var flags = {
 		msg: ""
 	}
 };
+};
 
 //returns true if the string only has the allowed characters
 function check_allowed_char(input,type,config){
@@ -295,4 +296,29 @@ function sctgCode(input, type, config){
 	var filter = eval(config)[type].required;
 	console.log(filter.test(input));
 	return(filter.test(input));
+}
+
+//Binary search function
+
+function binarySearch(conf1,index) {
+
+var min = 0;//minimum index of array elements
+var max = array.length-1;//maximum index of array elements
+var guess;//index where we search for a value
+	while(min <= max){
+		guess = Math.floor((min + max) / 2 );
+		if(conf1[guess] === index){ 
+			return guess;
+			}
+		else 
+			if(conf1[guess] < index){ 
+				min = guess + 1;
+				}
+		else{
+			max = guess - 1;
+			}
+	}
+		return -1;// that mean elm not found in the array.
+	}
+
 }
