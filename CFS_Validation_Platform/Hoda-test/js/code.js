@@ -300,25 +300,25 @@ function sctgCode(input, type, config){
 
 //Binary search function
 
-function binarySearch(conf1,index) {
+function binarySearch(array,target) {
 
-var min = 0;//minimum index of array elements
-var max = array.length-1;//maximum index of array elements
-var guess;//index where we search for a value
-	while(min <= max){
+	let min = array[0];//minimum index of array elements
+	let max = array.length - 1;//maximum index of array elements
+	let guess;//index where we search for a value
+	
+	while(max => min) {
 		guess = Math.floor((min + max) / 2 );
-		if(conf1[guess] === index){ 
+		if (array [guess] === target) { 
 			return guess;
 			}
 		else 
-			if(conf1[guess] < index){ 
-				min = guess + 1;
-				}
-		else{
+			if (array [guess] < target) { 
 			max = guess - 1;
+			 }
+		else {
+			min = guess + 1;
 			}
 	}
-		return -1;// that mean elm not found in the array.
-	}
-
+		return -1;
 }
+
