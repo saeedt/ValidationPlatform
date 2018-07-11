@@ -52,7 +52,8 @@ function log(input){
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
 	console.log(input)
-	check_req_char("m.e@test.com","email","conf1");
+	//check_req_char("m.e@test.com","email","conf1");
+	check_allowed_char("PtO1?", "shippingAdress", "conf1");
 }
 
 //configuration object for verification functions
@@ -61,13 +62,19 @@ var conf1= {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
 		not_allowed: /[(),:;<>[\]]/g,
 		required: /^.+@{1}.+[.].+$/
+	},
+	shippingAdress: {
+		allowed: /[^a-zA-Z0-9 _.-]/g,
+		not_allowed: /(P_O_|P.O_|P..B|P.O_|P.O.|PO_B|PO_D|POB_|POST)/g,
+		required: /^.*/
 	}
 }
 //error flags object
 var flags = {
-	missing_req_char: {
-		flag: "",
-		msg: ""
+	sctg_blank: {
+		flag: "S3",
+		value:"1",
+		msg: "SCTG field is blank"
 	},	
 	invalid_char: {
 		flag: "",
