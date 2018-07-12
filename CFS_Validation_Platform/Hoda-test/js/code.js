@@ -876,7 +876,6 @@ function sctgCode(input, type, config){
 }
 
 //Binary search function
-
 function binarySearch(array,target) {
 
 	let min = array[0];//minimum index of array elements
