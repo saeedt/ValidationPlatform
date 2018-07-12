@@ -180,23 +180,23 @@ var lkup4_city_state_zip = [
 
 var lkup5_overseas_military_zip = ["13101", "13109", "13200", "13300", "13910"];
 
-var lkup6_invSctg_mode7 = ["17110", "17120", "17201", "17202", "17500"];
+var lkup6_inv_sctg_mode7 = ["17110", "17120", "17201", "17202", "17500"];
 
-var lkup7_invSctg_mode1_weight150 = ["02100", "02200", "02902", "02903", "02904"];
+var lkup7_inv_sctg_mode1_weight150 = ["02100", "02200", "02902", "02903", "02904"];
 
-var lkup8_invSctg_mode1_weight150_AK = ["17110", "17120", "17201", "17202", "17500"];
+var lkup8_inv_sctg_mode1_weight150_AK = ["17110", "17120", "17201", "17202", "17500"];
  	
-var lkup9_invSctg_mode8_weight1000 = ["41130", "41210", "41220", "41291", "41299"];
+var lkup9_inv_sctg_mode8_weight1000 = ["41130", "41210", "41220", "41291", "41299"];
 	
-var lkup10_invSctg_mode8_weight1000_AK = ["17110", "17120", "17201", "17202", "17500"];
+var lkup10_inv_sctg_mode8_weight1000_AK = ["17110", "17120", "17201", "17202", "17500"];
 	
-var lkup13_invSctg_tempContY = ["10010", "10020", "11010", "11020", "12011"];
+var lkup13_inv_sctg_tempContY = ["10010", "10020", "11010", "11020", "12011"];
 	
-var lkup15_invSctg_tempContN = ["01009", "03100", "03211", "03219", "03311"];
+var lkup15_inv_sctg_tempContN = ["01009", "03100", "03211", "03219", "03311"];
 
-var lkup16_invSctg_missUnna = ["08310", "08410", "17110", "17120", "17201"]; 
+var lkup16_inv_sctg_missUnna = ["08310", "08410", "17110", "17120", "17201"]; 
 	
-var lkup17_sctg_HAZMAT = ["08310", "08410", "17110", "17120", "17201"];
+var lkup17_sctg_unna = ["08310", "08410", "17110", "17120", "17201"];
 
 var lkup18_city_canada = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
 	
