@@ -204,14 +204,592 @@ var lkup19_city_mexico = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Ac
 
 //error flags object
 var flags = {
-	missing_req_char: {
-		flag: "",
-		msg: ""
+	overseas_military_zip: {
+		flag: "S1",
+		value: "1",
+		msg: "Please enter a valid zipcode."
 	},	
-	invalid_char: {
-		flag: "",
+	inv_zip_state: {
+		flag: "S1",
+		value: "2",
+		msg: "Please enter a valid zipcode for state selected."
+	},
+	inv_mode: {
+		flag: "S2",
+		value: "3",
+		msg: "Please provide a valid transport mode including multimode."
+	},
+	sctg_16xxx: {
+		flag: "S3",
+		value: "3",
+		msg: "You have entered an invalid SCTG code. Please enter a valid code."
+	},	
+	inv_sctg_mode7: {
+		flag: "S4",
+		value: "1",
+		msg: "Please enter a valid commodity code for mode provided."
+	},
+	inv_sctg_mode1_weight150_orAK: {
+		flag: "S4",
+		value: "2",
+		msg: "Please enter a valid commodity code for mode, weight and state provided."
+	},
+	inv_sctg_mode8_weight1000_orAK: {
+		flag: "S4",
+		value: "3",
+		msg: "Please enter a valid commodity code for mode, weight and state provided."
+	},
+	zero_ship_value: {
+		flag: "S5",
+		value: "2",
+		msg: "Please provide a shipment value."
+	},
+	negative_ship_value: {
+		flag: "S5",
+		value: "3",
+		msg: "Please provide a shipment value."
+	},
+	zero_ship_weight: {
+		flag: "S6",
+		value: "2",
+		msg: "Please provide a shipment weight."
+	},
+	negative_ship_weight: {
+		flag: "S6",
+		value: "3",
+		msg: "Please provide a shipment weight."
+	},
+	maxWeight_threshold_mode: {
+		flag: "S7",
+		value: "1",
+		msg: "Please enter a valid shipment weight. Weight exceeds maximum weight for mode provided."
+	},
+	minWeight_threshold_mode: {
+		flag: "S7",
+		value: "2",
+		msg: "Please enter a valid shipment weight. Weight is less than minimum weight for mode provided."
+	},
+	valueW_sctg_lessThanExpected: {
+		flag: "S8",
+		value: "1",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	valueW_sctg_greaterThanExpected: {
+		flag: "S8",
+		value: "2",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	valueW_sctg16_17_18_lessThanExpected: {
+		flag: "S8",
+		value: "3",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	valueW_sctg16_17_18_greaterThanExpected: {
+		flag: "S8",
+		value: "4",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	valueW_allSctg_lessThanExpected: {
+		flag: "S8",
+		value: "5",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	valueW_allSctg_greaterThanExpected: {
+		flag: "S8",
+		value: "6",
+		msg: "Please provide a valid shipment value. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	sctg_balnk_unna: {
+		flag: "S9",
+		value: "1",
+		msg: "Please enter the 4-digit 'UN' or 'NA' number for commodity code provided."
+	},
+	notAllowed_sctg_unna: {
+		flag: "S9",
+		value: "3",
+		msg: "Please provide a valid 'UN' or 'NA' code for commodity code provided."
+	},
+	inv_sctg_unna: {
+		flag: "S9",
+		value: "4",
+		msg: "Please provide a valid 'UN' or 'NA' code for commodity code provided."
+	}, 
+	sctg_naics_provisionalPass: {
+		flag: "S10",
+		value: "1",
+		msg: "Provisional pass (NAICS/SCTG)"
+	},//Not sure about the error message
+	sctg_naics_provisionalStop: {
+		flag: "S10",
+		value: "2",
+		msg: "Provisional stop (NAICS/SCTG)"
+	},//Not sure about the error message
+	sctg_naics_automaticStop: {
+		flag: "S10",
+		value: "3",
+		msg: "Automatic stop (NAICS/SCTG)"
+	},//Not sure about the error message
+//I excluded the edit flag S11 since its rules are defined by our own validation flags.	
+	inv_sctg_tempContY: {
+		flag: "S12",
+		value: "1",
+		msg: "Please provide a valid commodity code for temperature controlled shipment selected."
+	},
+	inv_sctg_tempContN: {
+		flag: "S12",
+		value: "3",
+		msg: "Please provide a valid commodity code if the shipment is not temperature controlled."
+	},
+	mode7_tempContY: {
+		flag: "S13",
+		value: "1",
+		msg: "Please provide a valid transport mode for temperature controlled shipment selected."
+	},
+	ship_date_quarter1: {
+		flag: "S14",
+		value: "1",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	ship_date_quarter2: {
+		flag: "S14",
+		value: "2",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	ship_date_quarter3: {
+		flag: "S14",
+		value: "3",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	ship_date_quarter4: {
+		flag: "S14",
+		value: "4",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	autoFill_error1: {
+		flag: "S15",
+		value: "1",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	autoFill_error2: {
+		flag: "S15",
+		value: "2",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	autoFill_error3: {
+		flag: "S15",
+		value: "3",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	autoFill_error4: {
+		flag: "S15",
+		value: "4",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	autoFill_error5: {
+		flag: "S15",
+		value: "5",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	autoFill_error6: {
+		flag: "S15",
+		value: "6",
+		msg: "Edit flag value indicated the number of variables that fail the edit."
+	},//Not sure about the error message
+	inv_mode_exportCountry: {
+		flag: "S16",
+		value: "1",
+		msg: "Please enter a valid mode for country provided."
+	},//When export mode is 2, 3 or 4 and export country is not Mexico or Canada. 
+	inv_exportCity_country: {
+		flag: "S17",
+		value: "1",
+		msg: "Please enter a valid city for country provided."
+	},
+	inv_exportCountry: {
+		flag: "S17",
+		value: "2",
+		msg: "Please provide a valid country."
+	},
+	blank_numberOf_ship: {
+		flag: "S30",
+		value: "2",
+		msg: "You entered 0 shipments. If this is not correct, please change your response."
+	},
+	zero_numberOf_ship: {
+		flag: "S30",
+		value: "6",
+		msg: "You entered 0 shipments. If this is not correct, please change your response."
+	},
+	max_numberOf_ship: {
+		flag: "S30",
+		value: "20",
+		msg: "You entered more than 100,000 shipments. If this is not correct, please change your response."
+	},
+	blank_tot_ship_value: {
+		flag: "S31",
+		value: "2",
+		msg: "Please provide total value of shipments. Estimates are acceptable."
+	},
+	zero_tot_ship_value: {
+		flag: "S31",
+		value: "6",
+		msg: "Please provide total value of shipments. Estimates are acceptable."
+	},
+	tot_ship_value_atv_sum: {
+		flag: "S31",
+		value: "28",
 		msg: ""
-	}
+	},//Not sure about the message for the error: ATV =  SUM ( YEARWGT * QTRWGT * WEEKWGT * SHIP_VALUE )
+	tot_ship_value_atv_valueWeek_1billion: {
+		flag: "S31",
+		value: "29",
+		msg: ""
+	},//Not sure about the message for the error: (ATV*1000)–(TOT_VALUE_WEEK*52))|>$1 Billion and (TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.2 or > 5, reference look up table Total-value-week and ATV
+	tot_ship_value_atv_valueWeek_20million: {
+		flag: "S31",
+		value: "30",
+		msg: ""
+	},//Not sure about the message for the error: |(ATV*1000)–(TOT_VALUE_WEEK*52)|>$20 Million or ESTAB_WEIGHT>5] and |(TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.1 or > 10
+	checkBox_moreThan_40ship: {
+		flag: "S32",
+		value: "2",
+		msg: "Please make a selection."
+	},
+	checkBox_moreThan_40ship_numberOfShip: {
+		flag: "S32",
+		value: "40",
+		msg: "The total number of shipments entered should be ''. Please verify the number of shipments entered."
+	},
+	blank_ship_ID: {
+		flag: "S33",
+		value: "2",
+		msg: "Please provide a shipment ID number."
+	},
+	blank_numberOf_ship_reported: {
+		flag: "S34",
+		value: "2",
+		msg: "You entered 0 shipments. If this is not correct, please change your response."
+	},
+	numberOf_ship_reported_atv_mos_1billion: {
+		flag: "S34",
+		value: "28",
+		msg: ""
+	},//Not sure about the message for the error: |ATV - MOS| > $1 billion and (MOS/ATV) is < 0.2 or > 5
+	numberOf_ship_reported_atv_mos_20million: {
+		flag: "S34",
+		value: "29",
+		msg: ""
+	},//Not sure about the message for the error: [|ATV - MOS| > $20 million or Estab Wgt > 5] and ratio of (MOS/ATV) < 0.1 or > 10
+	blank_ship_date_month: {
+		flag: "S35",
+		value: "2",
+		msg: "Please provide a shipment date."
+	},
+	inv_ship_date_month: {
+		flag: "S35",
+		value: "20",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	blank_ship_date_day: {
+		flag: "S36",
+		value: "2",
+		msg: "Please provide a shipment date."
+	},
+	inv_ship_date_day: {
+		flag: "S36",
+		value: "20",
+		msg: "Please provide a shipment date within the reporting period."
+	},
+	blank_ship_value: {
+		flag: "S37",
+		value: "2",
+		msg: "Please provide a shipment value."
+	},
+	ship_value_atv_sum: {
+		flag: "S37",
+		value: "28",
+		msg: ""
+	},//Not sure about the message for the error: ATV =  SUM ( YEARWGT * QTRWGT * WEEKWGT * SHIP_VALUE )
+	ship_value_atv_valueWeek_1billion: {
+		flag: "S37",
+		value: "29",
+		msg: ""
+	},//Not sure about the message for the error: (ATV*1000)–(TOT_VALUE_WEEK*52))|>$1 Billion and (TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.2 or > 5, reference look up table Total-value-week and ATV
+	ship_value_atv_valueWeek_20million: {
+		flag: "S37",
+		value: "30",
+		msg: ""
+	},//Not sure about the message for the error: |(ATV*1000)–(TOT_VALUE_WEEK*52)|>$20 Million or ESTAB_WEIGHT>5] and |(TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.1 or > 10
+	blank_ship_weight: {
+		flag: "S38",
+		value: "2",
+		msg: "Please provide a shipment weight."
+	},
+	vWeight_sctg_lessThanExpected: {
+		flag: "S38",
+		value: "34",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	vWeight_sctg_greaterThanExpected: {
+		flag: "S38",
+		value: "35",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	vWeight_sctg16_17_18_lessThanExpected: {
+		flag: "S38",
+		value: "36",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	vWeight_sctg16_17_18_greaterThanExpected: {
+		flag: "S38",
+		value: "37",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	vWeight_allSctg_lessThanExpected: {
+		flag: "S38",
+		value: "38",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	vWeight_allSctg_greaterThanExpected: {
+		flag: "S38",
+		value: "39",
+		msg: "Please provide a valid shipment weight. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	ship_weight_mode0: {
+		flag: "S38",
+		value: "40",
+		msg: "Please provide a valid shipment weight for the mode selected."
+	},//If mode = 0 (Unknown mode), then shipments will be converted to 3 or 4 based on shipment weight.
+	ship_weight_lessThanOrEqualTo_80000_mode0: {
+		flag: "S38",
+		value: "41",
+		msg: "Please provide a valid shipment weight for the mode selected."
+	},//If weight ≤ 80,000 lbs, then mode 0 will be converted to 3 (for-hire truck).
+	ship_weight_greaterThan_80000_mode0: {
+		flag: "S38",
+		value: "42",
+		msg: "Please provide a valid shipment weight for the mode selected."
+	},//If weight > 80,000 lbs, then mode 0 will be coveted to 4 (rail).
+	ship_weight_mode9: {
+		flag: "S38",
+		value: "43",
+		msg: "Please provide a valid shipment weight for the mode selected."
+	},//If mode = 9 (Other mode), then shipments will likely be converted to 3 or 4 based on shipment weight.
+	blank_sctg: {
+		flag: "S39",
+		value: "2",
+		msg: "Please provide a commodity code."
+	},
+	sctg_not5digit: {
+		flag: "S39",
+		value: "3",
+		msg: "You have entered an invalid SCTG code. Please enter a valid code."
+	},
+	sctg_vw_lessThanExpected: {
+		flag: "S39",
+		value: "34",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	sctg_vw_greaterThanExpected: {
+		flag: "S39",
+		value: "35",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	sctg16_17_18_vw_lessThanExpected: {
+		flag: "S39",
+		value: "36",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	sctg16_17_18_vw_greaterThanExpected: {
+		flag: "S39",
+		value: "37",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	allSctg_vw_lessThanExpected: {
+		flag: "S39",
+		value: "38",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is less than excpected for SCTG provided."
+	},
+	allSctg_vw_greaterThanExpected: {
+		flag: "S39",
+		value: "39",
+		msg: "Please provide a valid SCTG code. Shipment value to weight ratio is greater than excpected for SCTG provided."
+	},
+	nonAlphabetic_sctg_descr: {
+		flag: "S40",
+		value: "1",
+		msg: "Please provide a valid commodity description."
+	},//When commodity description is not an alphabetic value.
+	blank_sctg_descr: {
+		flag: "S40",
+		value: "2",
+		msg: "Please provide a commodity description."
+	},
+	inv_sctg_descr: {
+		flag: "S40",
+		value: "5",
+		msg: "Please provide a valid commodity description."
+	},//When commodity description has invalid characters.
+	blank_temp_cont: {
+		flag: "S41",
+		value: "2",
+		msg: "Please make a selection."
+	},
+	inv_tempContY_sctg: {
+		flag: "S41",
+		value: "34",
+		msg: "Please provide a valid commodity code for temperature controlled shipment selected."
+	},
+	inv_tempContN_sctg: {
+		flag: "S41",
+		value: "35",
+		msg: "Please provide a valid commodity code if the shipmnet is not temperature controlled."
+	},
+	unna_not4digit: {
+		flag: "S42",
+		value: "3",
+		msg: "You have entered an invalid 'UN' or 'NA' code. Please enter a valid code."
+	},
+	inv_unna: {
+		flag: "S42",
+		value: "22",
+		msg: "You have entered an invalid 'UN' or 'NA' code. Please enter a valid code."
+	},
+	tempContY_mode7: {
+		flag: "S42",
+		value: "28",
+		msg: "Please provide a valid transport mode for temperature controlled shipment selected."
+	},
+	balnk_unna_sctg: {
+		flag: "S42",
+		value: "34",
+		msg: "Please enter the 4-digit 'UN' or 'NA' number for commodity code provided."
+	},
+	unna_notAllowed_sctg: {
+		flag: "S42",
+		value: "35",
+		msg: "Please provide a valid 'UN' or 'NA' code for commodity code provided."
+	},
+	inv_unna_sctg: {
+		flag: "S42",
+		value: "36",
+		msg: "Please provide a valid 'UN' or 'NA' code for commodity code provided."
+	}, 
+	nonAlphabetic_destinationCity: {
+		flag: "S43",
+		value: "1",
+		msg: "Please provide a valid destination city."
+	},
+	blank_destinationCity: {
+		flag: "S43",
+		value: "2",
+		msg: "Please provide a destination city."
+	},
+	inv_destinationCity: {
+		flag: "S43",
+		value: "22",
+		msg: "Please provide a valid destination city."
+	},
+	blank_destinationState: {
+		flag: "S44",
+		value: "2",
+		msg: "Please provide a destination state."
+	},
+	inv_destinationState_zip: {
+		flag: "S44",
+		value: "34",
+		msg: "Please enter a valid zipcode for state selected."
+	},
+	blank_destinationZip: {
+		flag: "S45",
+		value: "2",
+		msg: "Please enter a valid zipcode for state selected."
+	},
+	destinationZip_not5digit: {
+		flag: "S45",
+		value: "3",
+		msg: "Please enter a valid zipcode for state selected."
+	},
+	blank_mode: {
+		flag: "S46",
+		value: "2",
+		msg: "Please provide a transport mode."
+	},
+	blank_mode: {
+		flag: "S46",
+		value: "22",
+		msg: "Please provide a transport mode."
+	},
+	mode7_inv_sctg: {
+		flag: "S46",
+		value: "28",
+		msg: "Please enter a valid commodity code for mode provided."
+	},
+	mode_maxWeight_threshold: {
+		flag: "S46",
+		value: "29",
+		msg: "Please enter a valid transport mode. Weight exceeds maximum weight for mode provided."
+	},
+	mode_minWeight_threshold: {
+		flag: "S46",
+		value: "30",
+		msg: "Please enter a valid transport mode. Weight is less than minimum weight for mode provided."
+	},
+	mode7_inv_sctg: {
+		flag: "S46",
+		value: "34",
+		msg: "Please enter a valid transport mode for SCTG code provided."
+	},
+	mode1_inv_sctg_weight150_orAK: {
+		flag: "S46",
+		value: "35",
+		msg: "Please enter a valid transport mode for SCTG code, weight and state provided."
+	},
+	mode8_inv_sctg_weight1000_orAK: {
+		flag: "S46",
+		value: "36",
+		msg: "Please enter a valid transport mode for SCTG code, weight and state provided."
+	},
+	inv_mode_sctg: {
+		flag: "S46",
+		value: "40",
+		msg: "Please enter a valid transport mode for SCTG code provided."
+	},
+	checkbox_export: {
+		flag: "S47",
+		value: "2",	
+		msg: "Please make a selection."
+	},
+	nonAlphabetic_exportCity: {
+		flag: "S48",
+		value: "1",
+		msg: "Please provide a valid city."
+	},
+	blank_exportCity: {
+		flag: "S48",
+		value: "2",
+		msg: "Please provide a city."
+	},
+	nonAlphabetic_exportCountry: {
+		flag: "S49",
+		value: "1",
+		msg: "Please provide a valid country."
+	},
+	blank_exportCountry: {
+		flag: "S49",
+		value: "2",
+		msg: "Please provide a country."
+	},
+	inv_exportCountry_mode: {
+		flag: "S49",
+		value: "28",
+		msg: "Please provide a valid country for mode selected."
+	},
+	blank_exportMode: {
+		flag: "S50",
+		value: "2",
+		msg: "Please provide an export mode."
+	},	
 };
 };
 
