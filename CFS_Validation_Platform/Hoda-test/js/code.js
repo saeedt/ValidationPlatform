@@ -202,7 +202,7 @@ var lkup18_city_canada = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Aberne
 	
 var lkup19_city_mexico = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
 
-//error flags object
+//error flags objects
 var flags = {
 	overseas_military_zip: {
 		flag: "S1",
