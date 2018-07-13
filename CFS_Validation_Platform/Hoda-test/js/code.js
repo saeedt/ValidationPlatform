@@ -791,7 +791,6 @@ var flags = {
 		msg: "Please provide an export mode."
 	},	
 };
-};
 //returns true if the string only has the allowed characters
 function check_allowed_char(input,type,config){
 	var filter = eval(config)[type].allowed;
