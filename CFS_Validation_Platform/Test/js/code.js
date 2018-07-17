@@ -184,3 +184,23 @@ function lkup_binary(table,column,index){
     }	
 	return result;
 }
+//sample integration function
+function test_int(input){
+	var result;
+	result.flags = [];
+	result.messages= [];
+	ressult.tests= [];	
+	if (!check_req_char("m.e@test.com","email","conf1")){
+		ressult.flags.push("some flag and value");
+		result.messages.push("some message");
+		ressult.tests.push("some flag name");
+	}
+	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
+	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
+	if (result.flags.size>0){
+		result.pass = false;
+	} else {
+		result.pass = true;
+	}
+	return result;
+}
