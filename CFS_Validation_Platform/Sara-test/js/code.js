@@ -538,3 +538,421 @@ function binarySearch(arr, target) {
     	}
     }
 }
+//error flags object
+
+var flags = {
+// SHIPPING ADDRESS ATTRIBUTE
+	E20_2: {
+		name: "ShipCheck_blank"
+		flag: "E20",
+		value:"2",
+		msg: "checkbox is not selected"
+	},
+	E21_1: {
+		name:"ShipCompanyName1_dataType"
+		flag: "E21",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},	
+	E21_2: {
+		name:"ShipCompanyName1_blank"
+		flag: "E21",
+		value:"2",
+		msg: "ShipmentCompanyName1 is blank"
+	},
+		
+	E22_1: {
+	name:"ShipCompanyName2_dataType"
+		flag: "E22",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},
+	
+	E23_1: {
+	name:"shipAddress_dataType"
+		flag: "E23",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},
+	E23_2: {
+	name:"shipAddress_blank"
+		flag: "E23",
+		value:"2",
+		msg: "Adresss is blank"
+	},
+	
+	E23_3: {
+	name:"shipAddress_invalid_char_New"
+		flag: "E23",
+		value:"3",
+		msg: " The respondent provided P_O_/P.O_/P..B/P.O_/P.O./PO_B/PO_D/POB_/POST} Box in their shipping address"
+	},
+	E4_1: {
+	name:"shipAddress_invalid_char_Exist"
+		flag: "E4",
+		value:"2",
+		msg: " The respondent provided P.O.Box Box in their shipping address"
+		},
+	E24_1: {
+	name:"shipCity_dataType"
+		flag: "E24",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+		},
+	E24_2: {
+	name:"shipCity_blank"
+		flag: "E24",
+		value:"2",
+		msg: "City is blank"
+	},
+	E24_22: {
+	name:"shipCity-lookuptableCross"
+		flag: "E24",
+		value:"22",
+		msg: "The city is not matched with state and zip Code"
+	},
+	
+	E25_1: {
+	name:"shipState_dataType"
+		flag: "E25",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+		},
+	E25_2: {
+	name:"shipState_blank"
+		flag: "E25",
+		value:"2",
+		msg: "state is blank"
+		},
+	E25_4: {
+	name:"shipState_fieldLenght"
+		flag: "E25",
+		value:"4",
+		msg: "The lenght of state is not matched with it's abbreviation "
+		},
+	E25_22: {
+	name:"shipState-lookuptablefind"
+		flag: "E25",
+		value:"22",
+		msg: "The state is not exist"
+		},
+	E24_22: {
+	name:"shipState-lookuptable_Cross_New"
+		flag: "E24",
+		value:"22",
+		msg: "The state is not matched with city and zip Code"
+		},
+	E4_1: {
+	name:"shipState-lookuptable_Cross_Exist"
+		flag: "E4",
+		value:"1",
+		msg: "The state is not matched with zip Code"
+	},
+	E26_1: {
+	name:"shipZipCode_dataType"
+		flag: "E26",
+		value:"1",
+		msg: "None numeric charecter is entered or Incorrect data type is entered "
+		},
+	E26_2: {
+	name:"shipZipCode_blank"
+		flag: "E26",
+		value:"2",
+		msg: "zip Code is blank"
+		},
+	E26_4: {
+	name:"shipZipCode_fieldLenght"
+		flag: "E26",
+		value:"4",
+		msg: "The lenght of zip code is not 10 digit "
+		},
+	E26_22: {
+	name:"shipZipCode-lookuptable_find"
+		flag: "E26",
+		value:"22",
+		msg: "The zip code is not exist"
+		},
+	E24_22:{
+	name:"shipZipCode-lookuptable_Cross_New"
+		flag: "E24",
+		value:"22",
+		msg: "The zip code is not matched with city and state"
+		},
+	E4_1 :{
+	name:"shipZipCode-lookuptable_Cross_Exist"
+		flag: "E4",
+		value:"1",
+		msg: "The zip code is not matched with  state"
+		},
+		
+		// MAILING ADDRESS ATRRIBUTE
+	E27_2: {
+	name:"mailCheck_blank"
+		flag: "E27",
+		value:"2",
+		msg: "checkbox is not selected"
+	},
+	E28_2: {
+	name:"mailCompanyName1_dataType"
+		flag: "E28",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},	
+	E28_2: {
+	name:"mailCompanyName1_blank"
+		flag: "E28",
+		value:"2",
+		msg: "ShipmentCompanyName1 is blank"
+	},
+	E29_1: {
+	name:"mailCompanyName2_dataType"
+		flag: "E29",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},
+	
+	E30_1: {
+	name:"mailAddressAttention_dataType"
+		flag: "E30",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},
+	
+	E31_1: {
+	name:"mailAddress_dataType"
+		flag: "E31",
+		value:"1",
+		msg: "None alphanumeric charecter is entered or Incorrect data type is entered "
+	},
+	E31_2: {
+	name:"mailAddress_blank"
+		flag: "E31",
+		value:"2",
+		msg: "Adresss is blank"
+	},
+	
+	
+	E32_1: {
+	name:"mailCity_dataType"
+		flag: "E32",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+		},
+	E32_2: {
+	name:"mailCity_blank"
+		flag: "E32",
+		value:"2",
+		msg: "City is blank"
+	},
+	E32_22: {
+	name:"mailCity-lookuptableCross"
+		flag: "E32",
+		value:"22",
+		msg: "The city is not matched with state and zip Code"
+	},
+	
+	E31_2: {
+	name:"mailState_dataType"
+		flag: "E33",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+		},
+	E33_2: {
+	name:"mailState_blank"
+		flag: "E33",
+		value:"2",
+		msg: "state is blank"
+		},
+	E33_3: {
+	name:"mailState_fieldLenght"
+		flag: "E33",
+		value:"3",
+		msg: "The lenght of state is not matched with it's abbreviation "
+		},
+	E33_22: {
+	name:"mailState-lookuptablefind"
+		flag: "E33",
+		value:"22",
+		msg: "The state is not exist"
+		},
+	E32_22: {
+	name:"mailState-lookuptable_Cross_New"
+		flag: "E32",
+		value:"22",
+		msg: "The state is not matched with city and zip Code"
+		},
+	E6_1: {
+	name:"mailState-lookuptable_Cross_Exist"
+		flag: "E6",
+		value:"1",
+		msg: "The state is not matched with zip Code"
+	},
+	E34_1: {
+	name:"mailZipCode_dataType"
+		flag: "E34",
+		value:"1",
+		msg: "None numeric charecter is entered or Incorrect data type is entered "
+		},
+	E34_2: {
+	name:"mailZipCode_blank"
+		flag: "E34",
+		value:"2",
+		msg: "Zip Code is blank"
+		},
+	E34_4: {
+	name:"mailZipCode_fieldLenght"
+		flag: "E34",
+		value:"4",
+		msg: "The lenght of zip code is not 10 digit "
+		},
+	E34_22: {
+	name:"mailZipCode-lookuptable_find"
+		flag: "E34",
+		value:"22",
+		msg: "The zip code is not exist"
+		},
+	E24_22:{
+	name:"mailZipCode-lookuptable_Cross_New"
+		flag: "E24",
+		value:"22",
+		msg: "The zip code is not matched with city and state"
+		},
+	E6_1:{
+	name:"mailZipCode-lookuptable_Cross_Exist"
+		flag: "E6",
+		value:"1",
+		msg: "The zip code is not matched with  state"
+		},
+		//OPERATING STATUS ATTRIBUTE
+		
+	E35_2: {
+	name:"statusCheck_blank"
+		flag: "E35",
+		value:"2",
+		msg: "check box is not selected"
+		},
+	E5_1:{
+	name:"operatingStatus_CrossCons_DateOfCeased_Exist"
+		flag: "E5",
+		value:"1",
+		msg: "Item C = 3 (ceased operation) or the respondent desn't provided a date for ceased operation"
+		},
+	E36_3:{
+	name:"dateOf Ceased_Format"
+		flag: "E36",
+		value:"3",
+		msg: "Date of ceased operation is not entered in MMDDYYYY format"
+		},
+	E37_2: {
+	name:"primIndustCheck_blank"
+		flag: "E37",
+		value:"2",
+		msg: "check box is not selected"
+		},
+	E38_2: {
+	name:"primIndustAct_dataType"
+		flag: "E38",
+		value:"2",
+		msg: "None numeric charecter is entered or Incorrect data type is entered "
+		},
+	E38_40: {
+	name:"primIndustAct_CrossConst"
+		flag: "E38",
+		value:"40",
+		msg: " "No" check box is selected  but the activity  is not entered "
+		},
+	// CONTACT INFORMATION ATTRIBUTE 
+	
+	E39_1: {
+	name:"contactName_dataType"
+		flag: "E39",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+	},
+	E39_2: {
+	name:"ContactName_blank"
+		flag: "E39",
+		value:"2",
+		msg: "Contact name is blank"
+	},	
+	E40_1: {
+	name:"contactTitle_dataType"
+		flag: "E40",
+		value:"1",
+		msg: "None alphabetic charecter is entered or Incorrect data type is entered "
+	},
+	E40_2: {
+	name:"ContactTitle_blank"
+		flag: "40",
+		value:"2",
+		msg: "Contact Title is blank"
+	},		
+	E41_1: {
+	name:"contacPhone_dataType"
+		flag: "E41",
+		value:"1",
+		msg: "None anumeric charecter is entered or Incorrect data type is entered "
+	},
+	E41_2: {
+	name:"ContactPhone_blank"
+		flag: "41",
+		value:"2",
+		msg: "Contact Phone number is blank"
+	},	
+	E7_1: {
+	name:"contacFax_dataType"
+		flag: "E7",
+		value:"1",
+		msg: " Fax number contains other format than intiger numeric entries "
+	},
+	E42_2: {
+	name:"contactFax_blank"
+		flag: "E42",
+		value:"2",
+		msg: "Contact Fax number is blank"
+	},
+	E7_2: {
+	name:"contactFax_fieldLenght"
+		flag: "E7",
+		value:"2",
+		msg: "The lenght of fax number is less than 10 digit "
+		},
+	E42_3 :{
+	name:"contactFaxd_Format"
+		flag: "E42",
+		value:"3",
+		msg: "The format as area code-phone-extenstion is not provided"
+		},
+		//REMARKS ATTRIBUTE
+	E43_41: {
+	name:"Remark_CrossConst_OperatStatusCheck"
+		flag: "E43",
+		value:"41",
+		msg: "  Operating status is checked as "in operation" but description of operation change is not entered   "
+		},
+	E43_42: {
+	name:"Remark_CrossConst_ShipWeighttype"
+		flag: "E43",
+		value:"42",
+		msg: "   Net shipment weight is not in pound and the weight unit in not mentioned in Remark    "
+		},
+		// COMPLETION TIME
+	E10_1: {
+	name:"completTime_dataType"
+		flag: "E10",
+		value:"1",
+		msg: " Either hours or minutes have something other than a number  "
+	},
+	E10_2: {
+	name:"completTime_blank"
+		flag: "E10",
+		value:"2",
+		msg: "Both hour and minutes are blank"
+	},
+	E10_3: {
+	name:"CompletTime_Range"
+		flag: "E10",
+		value:"3",
+		msg: "The value of completion time is more than 10 hours "
+		},
+}
