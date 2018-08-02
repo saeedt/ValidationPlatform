@@ -1981,7 +1981,7 @@ function test_int(input){
 	}
 	return result;
 }
-	function test_int(input){
+function test_int(input){
 		var result;
 		result.flags = [];
 		result.messages= [];
@@ -1998,7 +1998,7 @@ function test_int(input){
 		}
 		return result;
 	}
-		function test_int(input){
+function test_int(input){
 			var result;
 			result.flags = [];
 			result.messages= [];
@@ -2020,7 +2020,7 @@ function test_int(input){
 		"state" : "MA",
 		"zip" : "01008"
 
-			function test_int(input){
+function test_int(input){
 				var result;
 				result.flags = [];
 				result.messages= [];
@@ -2037,16 +2037,16 @@ function test_int(input){
 				}
 				return result;
 			}
-				function test_int(input){
-					var result;
-					result.flags = [];
-					result.messages= [];
-					ressult.tests= [];	
-					if (!lkup_exhaustive("city_state_zip","state","MA")){
-						ressult.flags.push("E33_22 );
-						result.messages.push("  The state is not matched with state and zip code ");
-						ressult.tests.push("mailState-lookuptableCross");
-					}
+function test_int(input){
+				var result;
+				result.flags = [];
+				result.messages= [];
+				ressult.tests= [];	
+				if (!lkup_exhaustive("city_state_zip","state","MA")){
+					ressult.flags.push("E33_22 );
+					result.messages.push("  The state is not matched with state and zip code ");
+					ressult.tests.push("mailState-lookuptableCross");
+				}
 						if (result.flags.size>0){
 						result.pass = false;
 					} else {
@@ -2054,15 +2054,14 @@ function test_int(input){
 					}
 					return result;
 				}
-					function test_int(input){
-						var result;
-						result.flags = [];
-						result.messages= [];
-						ressult.tests= [];	
-						if (!lkup_binary("city_state_zip","Zip","01008")){
-							ressult.flags.push("E33_22 );
-							result.messages.push("  The Zip code is not matched with state and zip code ");
-							ressult.tests.push("mailZipCode-lookuptableCross");
+function test_int(input){
+				var result;
+				result.flags = [];
+				ressult.tests= [];	
+				if (!lkup_binary("city_state_zip","Zip","01008")){
+						ressult.flags.push("E33_22 );
+						result.messages.push("  The Zip code is not matched with state and zip code ");
+						ressult.tests.push("mailZipCode-lookuptableCross");
 						}
 							if (result.flags.size>0){
 							result.pass = false;
@@ -2070,3 +2069,4 @@ function test_int(input){
 							result.pass = true;
 						}
 						return result;
+}
