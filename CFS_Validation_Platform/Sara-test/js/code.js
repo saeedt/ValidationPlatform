@@ -2069,5 +2069,6 @@ function test_int(input){
 							result.pass = true;
 						}
 						return result;
-}
+},
+
 ,
