@@ -57,69 +57,77 @@ function log(input){
 
 //configuration object for verification functions
 var conf1= {
+		
+	ship_ID: {
+		allowed: /[^a-zA-Z0-9]/g,
+		not_allowed: /[`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		required: ""	
+	},		
+	
 	email: {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
 		not_allowed: /[(),:;<>[\]]/g,
 		required: /^.+@{1}.+[.].+$/
-
-	dateFormat: {
+	},
+	
+	ship_date: {
 		allowed: /[0-9]/g,
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{2}-?\d{2}-?\d{4}$/
 	},	
 	
 	unnaNumber: {
-		allowed: /[0-9]/g
+		allowed: /[0-9]/g,
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{4}$/
 	},
 	
 	sctgCode: {
-		allowed: /[0-9]/g
+		allowed: /[0-9]/g,
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{5}$/
 	},
 	
 	zipCode: {
-		allowed: /[0-9]/g
+		allowed: /[0-9]/g,
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{5}$/
 	},
 	
 	stateCode: {
-		allowed: /[A-Za-z]/g
+		allowed: /[A-Za-z]/g,
 		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: /^\d{2}$/
 	},
 	
 	city: {
-		allowed: /[A-Za-z]/g
+		allowed: /[A-Za-z]/g,
 		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: ""
 	},
 	
 	state: {
-		allowed: /[A-Za-z]/g
+		allowed: /[A-Za-z]/g,
 		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: ""
 	},
 	
 	country: {
-		allowed: /[A-Za-z]/g
+		allowed: /[A-Za-z]/g,
 		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: ""
 	},
 	
 	mode: {
-		allowed: /[0-9]/g
+		allowed: /[0-9]/g,
 		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
 		required: "",
 		minlenght:1 ,
 		maxlenght:4
 	},
-		
+}
 //Variables for lookup tables
-var lkup1_hazmat = [
+var lkup1 = [
 	{
 		"hazmat_descr" : "Acetal",
 		"unna_code"	: "1088"
@@ -142,7 +150,7 @@ var lkup1_hazmat = [
 	}
 ];		
 
-var lkup2_sctg = [
+var lkup2 = [
 	{
 		"sctg_descr" : "Wheat",
 		"sctg_code" : "02100"
@@ -165,80 +173,112 @@ var lkup2_sctg = [
 	}				
 ];	
 
-var lkup3_mode = [
+var lkup3 = [
 	{
 		"mode_descr" : "Railroad",
-		"mode_code" : "4"
+		"mode" : "4"
 	},
 	{	
 		"mode_descr" : "Inland water",
-		"mode_code" : "5"
+		"mode" : "5"
 	},
 	{
 		"mode_descr" : "Deep sea",
-		"mode_code" : "6"
+		"mode" : "6"
 	},
 	{
 		"mode_descr" : "Pipeline",
-		"mode_code" : "7"
+		"mode" : "7"
 	},
 	{
 		"mode_descr" : "Air",
-		"mode_code" : "8"
+		"mode" : "8"
 	}
 ];					
 
-var lkup4_city_state_zip = [
+var lkup4 = [
 	{
 		"city" : "Agawam",
 		"state" : "MA",
-		"zip" : "01001"
+		"zipCode" : "01001"
 	},
 	{
 		"city" : "Amherst",
 		"state" : "MA",
-		"zip" : "01002"
+		"zipCode" : "01002"
 	},
 	{
 		"city" : "Barre",
 		"state" : "MA",
-		"zip" : "01005"
+		"zipCode" : "01005"
 	},
 	{
 		"city" : "Belchertown",
 		"state" : "MA",
-		"zip" : "01007"
+		"zipCode" : "01007"
 	},
 	{
 		"city" : "Blandford",
 		"state" : "MA",
-		"zip" : "01008"
+		"zipCode" : "01008"
 	}
 ];						
 
-var lkup5_overseas_military_zip = ["13101", "13109", "13200", "13300", "13910"];
+var lkup5 = ["13101", "13109", "13200", "13300", "13910"];
 
-var lkup6_inv_sctg_mode7 = ["17110", "17120", "17201", "17202", "17500"];
+var lkup6 = ["17110", "17120", "17201", "17202", "17500"];
 
-var lkup7_inv_sctg_mode1_weight150 = ["02100", "02200", "02902", "02903", "02904"];
+var lkup7 = ["02100", "02200", "02902", "02903", "02904"];
 
-var lkup8_inv_sctg_mode1_weight150_AK = ["17110", "17120", "17201", "17202", "17500"];
+var lkup8 = ["17110", "17120", "17201", "17202", "17500"];
  	
-var lkup9_inv_sctg_mode8_weight1000 = ["41130", "41210", "41220", "41291", "41299"];
+var lkup9 = ["41130", "41210", "41220", "41291", "41299"];
 	
-var lkup10_inv_sctg_mode8_weight1000_AK = ["17110", "17120", "17201", "17202", "17500"];
-	
-var lkup13_inv_sctg_tempContY = ["10010", "10020", "11010", "11020", "12011"];
-	
-var lkup15_inv_sctg_tempContN = ["01009", "03100", "03211", "03219", "03311"];
+var lkup10 = ["17110", "17120", "17201", "17202", "17500"];
 
-var lkup16_inv_sctg_missUnna = ["08310", "08410", "17110", "17120", "17201"]; 
+var lkup11 = [
+	{
+		"sctg" : "02100",
+		"vw_lb" : "0.02546",
+		"vw_ub" : "0.26954"
+	},
+	{
+		"sctg" : "02200",
+		"vw_lb" : "0.02886",
+		"vw_ub" : "0.16191"
+	},
+	{
+		"sctg" : "02901",
+		"vw_lb" : "0.06828",
+		"vw_ub" : "127.36676"
+	},
+	{
+		"sctg" : "02902",
+		"vw_lb" : "0.00635",
+		"vw_ub" : "1.05098"
+	},
+	{
+		"sctg" : "02903",
+		"vw_lb" : "0.00801",
+		"vw_ub" : "26.34756"
+	},
+];	
 	
-var lkup17_sctg_unna = ["08310", "08410", "17110", "17120", "17201"];
+var lkup12 = ["10010", "10020", "11010", "11020", "12011"];
+	
+var lkup13 = ["02100", "02200", "02902", "02902", "02903"];
 
-var lkup18_city_canada = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
+var lkup14 = ["01009", "03100", "03211", "03219", "03311"]; 
 	
-var lkup19_city_mexico = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
+var lkup15 = ["08310", "08410", "17110", "17120", "17201"];
+
+var lkup16 = ["17500", "17600", "18100", "18200", "18210"];
+
+var lkup17 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
+	
+var lkup18 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
+
+var lkup19 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
 
 //Edit flags for shipment attributes
 var flags = {
@@ -258,7 +298,7 @@ var flags = {
 			flag: "S2",
 			value: "3",
 			name: "inv_mode",
-			msg: "Mode is invalid."
+			msg: "Mode of transport is invalid."
 	},
 	S3_3: {
 			flag: "S3",
@@ -416,7 +456,7 @@ var flags = {
 		flag: "S13",
 		value: "1",
 		name: "mode7_tempContY",
-		msg: "Temperature control response is invalid for mode includes pipeline (7)."
+		msg: "Temperature control response is invalid for mode of transport includes pipeline (7)."
 	},
 	S14_1: {
 		flag: "S14",
@@ -482,7 +522,7 @@ var flags = {
 		flag: "S16",
 		value: "1",
 		name: "inv_mode_exportCountry",
-		msg: "Export mode (truck or rail) is invalid for countries other than Mexico or Canada."
+		msg: "Export mode of transport (truck or rail) is invalid for countries other than Mexico or Canada."
 	},
 	S17_1: {
 		flag: "S17",
@@ -571,7 +611,7 @@ var flags = {
 	S31_2: {
 		flag: "S31",
 		value: "2",
-		name: "miss_totShipValue"
+		name: "miss_totShipValue",
 		msg: "Total value of shipments is missing."
 	},
 	S31_6: {
@@ -595,7 +635,7 @@ var flags = {
 	S31_30: {
 		flag: "S31",
 		value: "30",
-		name: "totShipValue_atv_valueWeek_20million"
+		name: "totShipValue_atv_valueWeek_20million",
 		msg: ""
 	},//Not sure about the message for the error: |(ATV*1000)–(TOT_VALUE_WEEK*52)|>$20 Million or ESTAB_WEIGHT>5] and |(TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.1 or > 10
 	S32_2: {
@@ -631,19 +671,19 @@ var flags = {
 	S34_2: {
 		flag: "S34",
 		value: "2",
-		name: "miss_numberOfShip",
+		name: "miss_numberOfShipReported",
 		msg: "Total number of shipments is missing."
 	},
 	S34_28: {
 		flag: "S34",
 		value: "28",
-		name: "numberOfShip_atv_mos_1billion",
+		name: "numberOfShipReported_atv_mos_1billion",
 		msg: ""
 	},//Not sure about the message for the error: |ATV - MOS| > $1 billion and (MOS/ATV) is < 0.2 or > 5
 	S34_29: {
 		flag: "S34",
 		value: "29",
-		name: "numberOfShip_atv_mos_20million",
+		name: "numberOfShipReported_atv_mos_20million",
 		msg: ""
 	},//Not sure about the message for the error: [|ATV - MOS| > $20 million or Estab Wgt > 5] and ratio of (MOS/ATV) < 0.1 or > 10
 	S35_2: {
@@ -752,25 +792,25 @@ var flags = {
 		flag: "S38",
 		value: "40",
 		name: "ship_weight_mode0",
-		msg: "Shipment weight is invalid for mode unknown (0)."
+		msg: "Shipment weight is invalid for mode of transport unknown (0)."
 	},//If mode = 0 (Unknown mode), then shipments will be converted to 3 or 4 based on shipment weight.
 	S38_41: {
 		flag: "S38",
 		value: "41",
 		name: "ship_weight_lessThanOrEqualTo_80000_mode0",
-		msg: "Shipment weight (≤ 80,000 lbs) is invalid for mode unknown (0)."
+		msg: "Shipment weight (≤ 80,000 lbs) is invalid for mode of transport unknown (0)."
 	},//If weight ≤ 80,000 lbs, then mode 0 will be converted to 3 (for-hire truck).
 	S38_42: {
 		flag: "S38",
 		value: "42",
 		name: "ship_weight_greaterThan_80000_mode0",
-		msg: "Shipment weight (> 80,000 lbs) is invalid for mode unknown (0)."
+		msg: "Shipment weight (> 80,000 lbs) is invalid for mode of transport unknown (0)."
 	},//If weight > 80,000 lbs, then mode 0 will be coveted to 4 (rail).
 	S38_43: {
 		flag: "S38",
 		value: "43",
 		name: "ship_weight_mode9",
-		msg: "Shipment weight is invalid for other mode (9)."
+		msg: "Shipment weight is invalid for other mode of transport (9)."
 	},//If mode = 9 (Other mode), then shipments will likely be converted to 3 or 4 based on shipment weight.
 	S39_2: {
 		flag: "S39",
@@ -980,61 +1020,61 @@ var flags = {
 		flag: "S46",
 		value: "1",
 		name: "nonNumeric_mode",
-		msg: "Mode is not numeric."
+		msg: "Mode of transport is not numeric."
 	},
 	S46_2: {
 		flag: "S46",
 		value: "2",
 		name: "miss_mode",
-		msg: "Mode is missing."
+		msg: "Mode of transport is missing."
 	},
 	S46_5: {
 		flag: "S46",
 		value: "5",
 		name: "invChar_mode",
-		msg: "Mode has invalid character."
+		msg: "Mode of transport has invalid character."
 	},
 	S46_28: {
 		flag: "S46",
 		value: "28",
 		name: "mode7_inv_tempCont",
-		msg: "Temperature control response is invalid for mode includes pipeline (7)."
+		msg: "Temperature control response is invalid for mode of transport includes pipeline (7)."
 	},
 	S46_29: {
 		flag: "S46",
 		value: "29",
 		name: "mode_maxWeight_threshold",
-		msg: "Shipment weight exceeds maximum weight for modes 1, 2, 3, 8, 12, 13, 18, 21, 31 and 81."
+		msg: "Shipment weight exceeds maximum weight for modes of transport 1, 2, 3, 8, 12, 13, 18, 21, 31 and 81."
 	},
 	S46_30: {
 		flag: "S46",
 		value: "30",
 		name: "mode_minWeight_threshold",
-		msg: "Shipment weight is less than minimum weight for modes 4, 5 and 6."
+		msg: "Shipment weight is less than minimum weight for modes of transport 4, 5 and 6."
 	},
 	S46_34: {
 		flag: "S46",
 		value: "34",
 		name: "mode7_inv_sctg",
-		msg: "SCTG code is invalid for mode includes pipeline (7)."
+		msg: "SCTG code is invalid for mode of transport includes pipeline (7)."
 	},
 	S46_35: {
 		flag: "S46",
 		value: "35",
 		name: "mode1_inv_sctg_weight150_orAK",
-		msg: "SCTG code is invalid for mode includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."
+		msg: "SCTG code is invalid for mode of transport includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."
 	},
 	S46_36: {
 		flag: "S46",
 		value: "36",
 		name: "mode8_inv_sctg_weight1000_orAK",
-		msg: "SCTG code is invalid for mode includes air (8), shipment weight ≥ 1000 lbs, or state ≠ AK."
+		msg: "SCTG code is invalid for mode of transport includes air (8), shipment weight ≥ 1000 lbs, or state ≠ AK."
 	},
 	S46_40: {
 		flag: "S46",
 		value: "40",
 		name: "inv_mode_sctg",
-		msg: "SCTG code/mode combination is invalid."
+		msg: "SCTG code/mode of transport combination is invalid."
 	},
 	S47_2: {
 		flag: "S47",
@@ -1082,23 +1122,23 @@ var flags = {
 		flag: "S49",
 		value: "28",
 		name: "inv_exportCountry_mode",
-		msg: "Export mode (truck or rail) is invalid for countries other than Mexico or Canada."
+		msg: "Export mode of transport (truck or rail) is invalid for countries other than Mexico or Canada."
 	},
 	S50_1: {
 		flag: "S50",
 		value: "1",
 		name: "nonNumeric_exportMode",
-		msg: "Export mode is not numeric."
+		msg: "Export mode of transport is not numeric."
 	},
 	S50_2: {
 		flag: "S50",
 		value: "2",
 		name: "miss_exportMode",
-		msg: "Export mode is missing."
+		msg: "Export mode of transport is missing."
 	},	
 };
 //returns true if the string only has the allowed characters
-function check_allowed_char(input,type,config){
+function check_allowed_char(input, type, config){
 	var filter = eval(config)[type].allowed;
 	console.log(!filter.test(input));
 	return(!filter.test(input));
@@ -1118,186 +1158,28 @@ function check_req_char(input, type, config){
 	return(filter.test(input));
 }
 
-//returns true if the date only has the allowed characters
-function date_format(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input));
-}  
-
-//returns true if the date contains any invalid characters
-function date_format(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-}
-
-//returns true if the date matches the mm-dd-yyyy format
-function date_format(input, type, config){
-	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
-}
-
-//returns true if the UNNA number only has the allowed characters
-function unnaNumber(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-}  
-
-//returns true if the UNNA number contains any invalid characters
-function unnaNumber(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
- 
-//returns true if the UNNA number matches the 4-digit format
-function unnaNumber(input, type, config){
-	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
-  
-//returns true if the SCTG commodity code only has the allowed characters
-function sctgCode(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if the SCTG commodity code contains any invalid characters
-function sctgCode(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
-//returns true if the SCTG commodity code matches the 5-digit format
-function sctgCode(input, type, config){
-	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
-}
-
-//returns true if zipcode only has the allowed characters
-function zipCode(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if zipcode contains any invalid characters
-function zipCode(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
-//returns true if zipcode matches the 5-digit format
-function zipCode(input, type, config){
-	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
-}
-
-//returns true if state code only has the allowed characters
-function stateCode(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if state code contains any invalid characters
-function stateCode(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
-//returns true if state code matches the 2-character format
-function stateCode(input, type, config){
-	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
-}
-
-//returns true if city only has the allowed characters
-function city(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if city contains any invalid characters
-function city(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
-//returns true if state only has the allowed characters
-function state(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if state contains any invalid characters
-function state(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
-//returns true if country only has the allowed characters
-function country(input, type, config){
-	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input))
-} 
-
-//returns true if country contains any invalid characters
-function country(input, type, config){
-	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
-} 
-
 //Presence check function
-function presence_check(x) {	
-	if (x.length == 0) {
+function presence_check(input){	
+	if (input.length == 0){
 		return false; 
 	}
 	return true;
 } 
 //Zero input function
-function zero_input(x) {	
-	if (x == 0) {
+function zero_value(input){	
+	if (input == 0){
 		return false; 
 	}
 	return true;
 } 
 //Negative input function
-function negative_input(x) {	
-	if (x < 0) {
-		return false; 
-	}
-	return true;
-} 
-//Range validation function
-function range_input(x) {	
-	if (x >= 100000) {
+function negative_value(input){	
+	if (input < 0){
 		return false; 
 	}
 	return true;
 } 
 
-function validateCheckBox(x) {
-    if (x.checked == false) {
-        return false;
-    } else { }
-}
 //lookup based on exhaustive
 function lkup_exhaustive(table,column,index){
 	var list = eval(table);
@@ -1336,974 +1218,651 @@ function lkup_binary(table,column,index){
 	return result;
 }
 
-function test_int(numOfShip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(numOfShip)){
-		ressult.flags.push("S30_2");
-	 	result.messages.push("Total number of outbound shipments is missing.");
-	 	ressult.tests.push("miss_numberOfShip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
+//Function for value to weight ratio 
+function value_weight_ratio(input1, input2) {
+	var ship_value = input1;
+	var ship_weight	= input2;
+	var ship_vw = input1 / input2;	
+	if (lkup_binary("lkup11","vw_lb",index) == true && index > ship_vw || lkup_binary("lkup11","vw_ub",index) == true && index < ship_vw) {
+		return true;
+		} else {
+			return false;
+		}
+}	
 
-function test_int(numOfShip) {
+//Integration functions for shipment attributes
+function test_numberOfShip(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zero_input(numOfShip)){
-		ressult.flags.push("S30_6");
-	 	result.messages.push("Total number of outbound shipments is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("zero_numberOfShip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S30_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!zero_value(input)){
+		error = "S30_6";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (input >= 100000){
+		error = "S30_20";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}	
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
+};
 
-function test_int(numOfShip) {
+function test_totShipValue(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!range_input(numOfShip)){
-		ressult.flags.push("S30_20");
-	 	result.messages.push("Total number of outbound shipments is greater than 100,000 shipments.");
-	 	ressult.tests.push("max_numberOfShip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
-
-function test_int(totShipValue) {
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S31_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!zero_value(input)){
+		error = "S31_6";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
+}
+	
+function test_ship_ID(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(totShipValue)){
-		ressult.flags.push("S31_2");
-	 	result.messages.push("Total value of shipments is missing.");
-	 	ressult.tests.push("miss_totShipValue");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
-
-function test_int(totShipValue) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zero_input(totShipValue)){
-		ressult.flags.push("S31_6");
-	 	result.messages.push("Total value of shipments is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("zero_totShipValue");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
-
-function test_int(checkBox_moreThan_40ship) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(checkBox_moreThan_40ship)){
-		ressult.flags.push("S32_2");
-	 	result.messages.push("No selection is made.");
-	 	ressult.tests.push("checkBox_moreThan_40ship");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-} 
-
-function test_int(ship_ID) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!alphanumeric(ship_ID)){
-		ressult.flags.push("S33_1");
-	 	result.messages.push("Shipment ID is not alphanumeric.");
-	 	ressult.tests.push("nonAlphanumeric_ship_ID");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "ship_ID", "conf1")){
+		error = "S33_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S33_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "ship_ID", "conf1")){
+		error = "S33_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}	
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_ID) {
+function test_ship_date_month(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(ship_ID)){
-		ressult.flags.push("S33_2");
-	 	result.messages.push("Shipment ID is missing.");
-	 	ressult.tests.push("miss_ship_ID");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S35_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_req_char(input, "ship_date", "conf1")){
+		error = "S35_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(numberOfShip) {
+function test_ship_date_day(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(numberOfShip)){
-		ressult.flags.push("S34_2");
-	 	result.messages.push("Total number of shipments is missing.");
-	 	ressult.tests.push("miss_numberOfShip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S36_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_req_char(input, "ship_date", "conf1")){
+		error = "S36_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_date_month) {
+function test_ship_value(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(ship_date_month)){
-		ressult.flags.push("S35_2");
-	 	result.messages.push("Shipment date (month) is missing.");
-	 	ressult.tests.push("miss_ship_date_month");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-function test_int(ship_date_month) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!date_format(ship_date_month)){
-		ressult.flags.push("S35_3");
-	 	result.messages.push("Shipment date (month) is not in MM/DD format.");
-	 	ressult.tests.push("invFormat_ship_date_month");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(ship_date_day) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(ship_date_day)){
-		ressult.flags.push("S36_2");
-	 	result.messages.push("Shipment date (day) is missing.");
-	 	ressult.tests.push("miss_ship_date_day");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S37_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!zero_value(input)){
+		error = "S5_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!negative_value(input)){
+		error = "S5_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_date_day) {
+function test_ship_weight(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!date_format(ship_date_day)){
-		ressult.flags.push("S36_3");
-	 	result.messages.push("Shipment date (day) is not in MM/DD format.");
-	 	ressult.tests.push("invFormat_ship_date_day");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S38_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!zero_input(input)){
+		error = "S6_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!negative_input(input)){
+		error = "S6_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}	
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_value) {
+function test_sctg(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(ship_value)){
-		ressult.flags.push("S37_2");
-	 	result.messages.push("Shipment value is missing.");
-	 	ressult.tests.push("miss_ship_value");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!presence_check(input)){
+		error = "S39_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_req_char(input, "sctgCode", "conf1")){
+		error = "S39_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_value) {
+function test_sctg_descr(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zero_input(ship_value)){
-		ressult.flags.push("S5_2");
-	 	result.messages.push("Shipment value is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("zero_ship_value");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "", "conf1")){
+		error = "S40_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S40_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "", "conf1")){
+		error = "S40_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}		
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_value) {
+function test_unna(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!negative_input(ship_value)){
-		ressult.flags.push("S5_3");
-	 	result.messages.push("Shipment value is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("negative_ship_value");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_req_char(input, "unnaNumber", "conf1")){
+		error = "S42_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_binary("lkup1", "unna_code", index)){
+		error = "S42_22";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}		
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_weight) {
+function test_destinationCity(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(ship_weight)){
-		ressult.flags.push("S38_2");
-	 	result.messages.push("Shipment weight is missing.");
-	 	ressult.tests.push("miss_ship_weight");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "city", "conf1")){
+		error = "S43_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S43_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "city", "conf1")){
+		error = "S43_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_exhaustive("lkup4", "city", index)){
+		error = "S43_22";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}			
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_weight) {
+function test_destinationState(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zero_input(ship_weight)){
-		ressult.flags.push("S6_2");
-	 	result.messages.push("Shipment weight is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("zero_ship_weight");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "state", "conf1")){
+		error = "S44_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S44_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_req_char(input, "state", "conf1")){
+		error = "S44_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "state", "conf1")){
+		error = "S44_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_exhaustive("lkup4", "state", index)){
+		error = "S44_22";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}			
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(ship_weight) {
+function test_destinationZip(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!negative_input(ship_weight)){
-		ressult.flags.push("S6_3");
-	 	result.messages.push("Shipment weight is invalid. The value must be greater than zero.");
-	 	ressult.tests.push("negative_ship_weight");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "zipCode", "conf1")){
+		error = "S45_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S45_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_req_char(input, "zipCode", "conf1")){
+		error = "S45_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "zipCode", "conf1")){
+		error = "S45_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_binary("lkup4", "zipCode", index)){
+		error = "S1_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}			
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(sctg) {
+function test_mode(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(sctg)){
-		ressult.flags.push("S39_2");
-	 	result.messages.push("SCTG code is missing.");
-	 	ressult.tests.push("miss_sctg");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "mode", "conf1")){
+		error = "S46_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S46_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "mode", "conf1")){
+		error = "S46_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_binary("lkup3", "mode", index)){
+		error = "S2_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}			
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(sctg) {
+function test_exportCity(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!sctgCode(sctg)){
-		ressult.flags.push("S39_3");
-	 	result.messages.push("SCTG code is not a 5-digit number.");
-	 	ressult.tests.push("invFormat_sctg");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "city", "conf1")){
+		error = "S48_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S48_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "city", "conf1")){
+		error = "S48_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}		
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(unna) {
+function test_exportCountry(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(unna)){
-		ressult.flags.push("S9_2");
-	 	result.messages.push("The 4-digit 'UN' or 'NA' number is invalid.");
-	 	ressult.tests.push("inv_unna");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "country", "conf1")){
+		error = "S49_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S49_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!check_invalid_char(input, "country", "conf1")){
+		error = "S49_5";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!lkup_exhaustive("lkup20", "", index)){
+		error = "S17_2";
+				ressult.flgname.push((flags)[error].name);
+				ressult.flgname.push((flags)[error].flag);
+				ressult.flgname.push((flags)[error].value);
+				ressult.flgname.push((flags)[error].msg);
+		}	
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
 
-function test_int(sctg_descr) {
+function test_exportMode(input){
 	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!alphanumeric(sctg_descr)){
-		ressult.flags.push("S40_1");
-	 	result.messages.push("Commodity description is not alphanumeric.");
-	 	ressult.tests.push("nonAlphanumeric_sctg_descr");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+		if (!check_allowed_char(input, "mode", "conf1")){
+		error = "S50_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!presence_check(input)){
+		error = "S50_2";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}			
+		if (result.flags.size>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
 }
-
-function test_int(sctg_descr) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zero_input(sctg_descr)){
-		ressult.flags.push("S40_2");
-	 	result.messages.push("Commodity description is missing.");
-	 	ressult.tests.push("miss_sctg_descr");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(temp_cont) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!validateCheckBox(temp_cont)){
-		ressult.flags.push("S41_2");
-	 	result.messages.push("No selection is made.");
-	 	ressult.tests.push("miss_temp_cont");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allLetter(destinationCity)){
-		ressult.flags.push("S43_1");
-	 	result.messages.push("U.S. destination (city) is not alphabetic.");
-	 	ressult.tests.push("nonAlphabetic_destinationCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(destinationCity)){
-		ressult.flags.push("S43_2");
-	 	result.messages.push("U.S. destination (city) is missing.");
-	 	ressult.tests.push("miss_destinationCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!destinationCity(destinationCity)){
-		ressult.flags.push("S43_5");
-	 	result.messages.push("U.S. destination (city) has invalid character.");
-	 	ressult.tests.push("invChar_destinationCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(destinationCity)){
-		ressult.flags.push("S43_22");
-	 	result.messages.push("U.S. destination (city) is invalid.");
-	 	ressult.tests.push("inv_destinationCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allLetter(destinationState)){
-		ressult.flags.push("S44_1");
-	 	result.messages.push("U.S. destination (state) is not alphabetic.");
-	 	ressult.tests.push("nonAlphabetic_destinationState");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(destinationState)){
-		ressult.flags.push("S44_2");
-	 	result.messages.push("U.S. destination (state) is missing.");
-	 	ressult.tests.push("miss_destinationState");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!stateCode(destinationState)){
-		ressult.flags.push("S44_3");
-	 	result.messages.push("U.S. destination (state) is not two-letter state abbreviation.");
-	 	ressult.tests.push("invFormat_destinationState");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!destinationState(destinationState)){
-		ressult.flags.push("S44_5");
-	 	result.messages.push("U.S. destination (state) has invalid character.");
-	 	ressult.tests.push("invChar_destinationState");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(destinationState)){
-		ressult.flags.push("S44_22");
-	 	result.messages.push("U.S. destination (state) is invalid.");
-	 	ressult.tests.push("inv_destinationState");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationState) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(destinationState)){
-		ressult.flags.push("S44_34");
-	 	result.messages.push("Zipcode/state combination is invalid.");
-	 	ressult.tests.push("inv_destinationState_zip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allnumeric(destinationZip)){
-		ressult.flags.push("S45_1");
-	 	result.messages.push("U.S. destination (zip code) is not numeric.");
-	 	ressult.tests.push("nonNumeric_destinationZip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(destinationZip)){
-		ressult.flags.push("S45_2");
-	 	result.messages.push("U.S. destination (zip code) is missing.");
-	 	ressult.tests.push("miss_destinationZip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zipCode(destinationZip)){
-		ressult.flags.push("S45_3");
-	 	result.messages.push("U.S. destination (zip code) is not a 5-digit number.");
-	 	ressult.tests.push("invFormat_destinationZip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!zipCode(destinationZip)){
-		ressult.flags.push("S45_5");
-	 	result.messages.push("U.S. destination (zip code) has invalid character.");
-	 	ressult.tests.push("invChar_destinationZip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(destinationZip)){
-		ressult.flags.push("S1_1");
-	 	result.messages.push("Zipcode contains overseas military mail address.");
-	 	ressult.tests.push("overseas_military_zip");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(destinationZip) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(destinationZip)){
-		ressult.flags.push("S1_2");
-	 	result.messages.push("Zipcode/state combination is invalid.");
-	 	ressult.tests.push("inv_zip_state");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(mode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allnumeric(mode)){
-		ressult.flags.push("S46_1");
-	 	result.messages.push("Mode is not numeric.");
-	 	ressult.tests.push("nonNumeric_mode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(mode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(mode)){
-		ressult.flags.push("S46_2");
-	 	result.messages.push("Mode is missing.");
-	 	ressult.tests.push("miss_mode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(mode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(mode)){
-		ressult.flags.push("S2_3");
-	 	result.messages.push("Mode is invalid.");
-	 	ressult.tests.push("inv_mode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(checkbox_exportMode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!validateCheckbox(checkbox_exportMode)){
-		ressult.flags.push("S47_2");
-	 	result.messages.push("No selection is made.");
-	 	ressult.tests.push("checkbox_exportMode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-function test_int(exportCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allLetter(exportCity)){
-		ressult.flags.push("S48_1");
-	 	result.messages.push("Foreign destination (city) is not alphabetic.");
-	 	ressult.tests.push("nonAlphabetic_exportCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(exportCity)){
-		ressult.flags.push("S48_2");
-	 	result.messages.push("Foreign destination (city) is missing.");
-	 	ressult.tests.push("miss_exportCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCity) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!city(exportCity)){
-		ressult.flags.push("S48_5");
-	 	result.messages.push("Foreign destination (city) has invalid character.");
-	 	ressult.tests.push("invChar_exportCity");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCountry) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allLetter(exportCountry)){
-		ressult.flags.push("S49_1");
-	 	result.messages.push("Foreign destination (country) is not alphabetic.");
-	 	ressult.tests.push("nonAlphabetic_exportCountry");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCountry) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(exportCountry)){
-		ressult.flags.push("S49_2");
-	 	result.messages.push("Foreign destination (country) is missing.");
-	 	ressult.tests.push("miss_exportCountry");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCountry) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!country(exportCountry)){
-		ressult.flags.push("S49_5");
-	 	result.messages.push("Foreign destination (country) has invalid character.");
-	 	ressult.tests.push("invChar_exportCountry");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportCountry) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!lkup_binary(exportCountry)){
-		ressult.flags.push("S17_2");
-	 	result.messages.push("Export country is invalid.");
-	 	ressult.tests.push("inv_exportCountry");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportMode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!allnumeric(exportMode)){
-		ressult.flags.push("S50_1");
-	 	result.messages.push("Export mode is not numeric.");
-	 	ressult.tests.push("nonNumeric_exportMode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-function test_int(exportMode) {
-	var result;
-	result.flags = [];
-	result.messages= [];
-	ressult.tests= [];	
-	if (!presence_check(exportMode)){
-		ressult.flags.push("S50_2");
-	 	result.messages.push("Export mode is missing");
-	 	ressult.tests.push("miss_exportMode");
-	}
-	if (result.flags.size>0){
-		result.pass = false;
-	} else {
-	 	result.pass = true;
-	}
-	return result;
-}
-
-
