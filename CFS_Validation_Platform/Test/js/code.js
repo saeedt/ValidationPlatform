@@ -129,7 +129,7 @@ var city_state_zip = [
 	{
 		"city" : "Amherst",
 		"state" : "MA",
-		"zip" : "01002"
+		"zip" : "01001"
 	},
 	{
 		"city" : "Barre",
@@ -146,7 +146,25 @@ var city_state_zip = [
 		"state" : "MA",
 		"zip" : "01008"
 		}
-];		
+];
+
+//matches a given object with an array of values
+function matchObj(ref,list,column){
+	for (var i=0; i<list.length; i++){
+		if ((list[i])[column] == ref[column]){
+			var match = true;
+			for (var key in list[i]){
+				if ((list[i])[key].toUpperCase() != ref[key].toUpperCase()){
+					match = false;
+					break;
+				}				
+			}
+			if (match) return true;			
+		}
+	} 
+	return false;
+}
+
 //lookup based on exhaustive
 function lkup_exhaustive(table,column,index){
 	var list = eval(table);
@@ -156,6 +174,31 @@ function lkup_exhaustive(table,column,index){
 		if ((list[i])[column] == index){
 			result = list[i];
 			result.found = true;
+			break;
+		}
+	}
+	return result;
+}
+
+//exhaustive lookup returning multiple matches
+function lkup_exhaustive_m(table,column,index){
+	var list = eval(table);
+	var result = new Object();
+	result.data = [];
+	result.data.push(list[0]);
+	result.found = false;
+	for (var i = 0; i < list.length; i++){
+		if ((list[i])[column] == index){
+			result.data[0] = list[i];
+			result.found = true;
+			var j = 1;
+    		while ((i+j)<list.length){
+    			if ((list[i+j])[column] == index){
+    				result.data.push(list[i+j]);
+        			j++;
+    			} else 
+    				break;
+    		}
 			break;
 		}
 	}
@@ -202,5 +245,47 @@ function test_int(input){
 	} else {
 		result.pass = true;
 	}
+	return result;
+}
+
+//binary lookup returning multiple matches
+function lkup_binary_m(table,column,index){
+	var list = eval(table);	
+	var l_Index = 0;
+	var h_Index = list.length-1;
+	var m_Index;
+	var result = new Object();
+	result.data = [];
+	result.data.push(list[l_Index]);
+	result.found = false;
+	//console.log("initial assignment: "+ result);
+	while (l_Index < h_Index -1) {
+    	m_Index = l_Index + Math.floor((h_Index - l_Index)/2);
+    	if (parseInt((list[m_Index])[column]) == parseInt(index)){
+    		result.data[0] = list[m_Index];
+    		result.found = true;
+    		var j = 1;
+    		while ((m_Index+j)<list.length){
+    			if (parseInt((list[m_Index+j])[column]) == parseInt(index)){
+    				result.data.push(list[m_Index+j]);
+        			j++;
+    			}else 
+    				break;    			
+    		}
+    		j = 1;
+    		while ((m_Index-j)>=0){
+    			if (parseInt((list[m_Index-j])[column]) == parseInt(index)){
+    				result.data.push(list[m_Index-j]);
+        			j++;
+    			}else 
+    				break;    			
+    		}    		
+			break;
+    	} else if (parseInt((list[m_Index])[column]) < parseInt(index)) {
+    		l_Index = m_Index;
+    	} else {
+    		h_Index = m_Index;
+    	}
+    }	
 	return result;
 }

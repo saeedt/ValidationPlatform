@@ -55,7 +55,17 @@ function log(input){
 	//check_req_char("m.e@test.com","email","conf1");
 	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
 	//console.log(lkup_exhaustive("city_state_zip","zip","01002"));
-	console.log(lkup_exhaustive_m("city_state_zip","zip","01001"));
+	console.log(lkup_binary_m("city_state_zip","zip","01001"));
+	//using the multiple match lookup and object match functions
+	var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
+	//creating the reference (input) object 
+	var test2 = {	
+			"city" : "Agawam",
+			"state" : "MA",
+			"zip" : "01001"
+		};
+	console.log(matchObj(test2,test1,"zip"));
+	//console.log(lkup_exhaustive_m("city_state_zip","zip","01001"));
 }
 
 //configuration object for verification functions
