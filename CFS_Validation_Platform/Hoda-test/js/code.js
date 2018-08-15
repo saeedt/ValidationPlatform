@@ -52,7 +52,7 @@ function log(input){
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
 	console.log(input)
-	check_req_char("m.e@test.com","email","conf1");
+	//check_req_char("m.e@test.com","email","conf1");
 }
 
 //configuration object for verification functions

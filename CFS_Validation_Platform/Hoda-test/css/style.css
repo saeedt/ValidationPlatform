@@ -1,0 +1,59 @@
+body {                
+    color: #000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;    
+    line-height: 1.4;    
+    color: #111111;
+    background-color: #EEEEEE;
+    margin: 0;
+}
+#input{
+	width:50%;
+	float:left;
+	
+}
+div#head {
+  margin: 2px 2px 2px 2px;	
+  font: 12px sans-serif;
+  background: #009999;
+  padding-left: 10px;
+  	/* height: 40px; */ 
+  border: 1px solid; 
+  border-radius: 2px;
+  display: block;
+}
+div#head:hover{
+	background-color: #4DB8B8;
+}
+div#bodytext {
+  margin: 2px 2px 2px 2px;
+  padding: 5px 10px 5px 10px;
+  font: 14px sans-serif;  
+  background: #D8D8DC;
+  align: top;
+  border: 1px; 
+  border-style: dotted;
+  border-radius: 2px;  
+  min-height: 200px;
+}
+div#bodytext:hover{
+	background-color: #E8E8EA;
+}
+div#csvcontents{
+	word-wrap: break-word;
+}
+#log {
+    /*    float: right;*/
+    width: 49.8%;
+    /* height: 738px; */
+    cursor: default;
+    border: 1px; 
+  	border-style: dotted;
+  	border-radius: 2px;
+  	float: right;
+}
+#analyzer {
+	width: 500px;
+    float: left;                
+    padding-left: 10px; 
+    padding-right: 15px; 
+}
