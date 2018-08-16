@@ -7,39 +7,145 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" /> 
         <script type="text/javascript" src="js/papaparse.js"></script>        
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>                
-        <script type="text/javascript" src="js/code.js"></script>               
+        <script type="text/javascript" src="js/company_form.js"></script>               
     </head>
     <body>
     	<div id="input">
     	<div id="head"><h2>Item A: Name and Shipping Address</h2></div>   	
     	<div id='bodytext'>
-    	Company Name 1 <input type="text" name="cn1" title="Company Name 1" size="100" maxlength="100"><br>
-    	Company Name 2 <input type="text" name="cn2" title="Company Name 2" size="100" maxlength="100"><br>
-    	Address <input type="text" name="add" title="Address" size="100" maxlength="100"><br>
-    	City <input type="text" name="city" title="City" size="20" maxlength="20"> State <input type="text" name="state" title="State" size="2" maxlength="2"> ZIP Code <input type="text" name="zip1" title="ZIP Code" size="5" maxlength="5">-<input type="text" name="zip2" title="ZIP Code" size="4" maxlength="4">
+    	Company Name 1 <input type="text" name="a_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
+    	Company Name 2 <input type="text" name="a_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
+    	Address <input type="text" name="a_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
+    	City <input type="text" name="a_city" title="City" size="20" maxlength="20" placeholder="City"> State <select name="a_state" title="State" > 
+    	<option value="" selected="selected">(Select a state)</option> 
+    	<option value="AL">AL</option>
+		<option value="AK">AK</option>
+		<option value="AR">AR</option>	
+		<option value="AZ">AZ</option>
+		<option value="CA">CA</option>
+		<option value="CO">CO</option>
+		<option value="CT">CT</option>
+		<option value="DC">DC</option>
+		<option value="DE">DE</option>
+		<option value="FL">FL</option>
+		<option value="GA">GA</option>
+		<option value="HI">HI</option>
+		<option value="IA">IA</option>	
+		<option value="ID">ID</option>
+		<option value="IL">IL</option>
+		<option value="IN">IN</option>
+		<option value="KS">KS</option>
+		<option value="KY">KY</option>
+		<option value="LA">LA</option>
+		<option value="MA">MA</option>
+		<option value="MD">MD</option>
+		<option value="ME">ME</option>
+		<option value="MI">MI</option>
+		<option value="MN">MN</option>
+		<option value="MO">MO</option>	
+		<option value="MS">MS</option>
+		<option value="MT">MT</option>
+		<option value="NC">NC</option>	
+		<option value="NE">NE</option>
+		<option value="NH">NH</option>
+		<option value="NJ">NJ</option>
+		<option value="NM">NM</option>			
+		<option value="NV">NV</option>
+		<option value="NY">NY</option>
+		<option value="ND">ND</option>
+		<option value="OH">OH</option>
+		<option value="OK">OK</option>
+		<option value="OR">OR</option>
+		<option value="PA">PA</option>
+		<option value="RI">RI</option>
+		<option value="SC">SC</option>
+		<option value="SD">SD</option>
+		<option value="TN">TN</option>
+		<option value="TX">TX</option>
+		<option value="UT">UT</option>
+		<option value="VT">VT</option>
+		<option value="VA">VA</option>
+		<option value="WA">WA</option>
+		<option value="WI">WI</option>	
+		<option value="WV">WV</option>
+		<option value="WY">WY</option>
+		</select> ZIP Code <input type="text" name="a_zip1" title="ZIP Code" size="5" maxlength="5" placeholder="00000">-<input type="text" name="a_zip2" title="ZIP Code" size="4" maxlength="4" placeholder="0000">
     	</div>
     	    	
     	<div id="head"><h2>Item B: Name and Mailing Address</h2></div>   	
     	<div id='bodytext'>
-    	Company Name 1 <input type="text" name="cn1" title="Company Name 1" size="100" maxlength="100"><br>
-    	Company Name 2 <input type="text" name="cn2" title="Company Name 2" size="100" maxlength="100"><br>
-    	Attention <input type="text" name="att" title="Attention" size="100" maxlength="100"><br>
-    	Address <input type="text" name="add" title="Address" size="100" maxlength="100"><br>
-    	City <input type="text" name="city" title="City" size="20" maxlength="20"> State <input type="text" name="state" title="State" size="2" maxlength="2"> ZIP Code <input type="text" name="zip1" title="ZIP Code" size="5" maxlength="5">-<input type="text" name="zip2" title="ZIP Code" size="4" maxlength="4">
+    	Company Name 1 <input type="text" name="b_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
+    	Company Name 2 <input type="text" name="b_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
+    	Attention <input type="text" name="b_att" title="Attention" size="100" maxlength="100" placeholder="Attention"><br>
+    	Address <input type="text" name="b_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
+    	City <input type="text" name="b_city" title="City" size="20" maxlength="20" placeholder="City"> State <select name="b_state" title="State" > 
+    	<option value="" selected="selected">(Select a state)</option> 
+    	<option value="AL">AL</option>
+		<option value="AK">AK</option>
+		<option value="AR">AR</option>	
+		<option value="AZ">AZ</option>
+		<option value="CA">CA</option>
+		<option value="CO">CO</option>
+		<option value="CT">CT</option>
+		<option value="DC">DC</option>
+		<option value="DE">DE</option>
+		<option value="FL">FL</option>
+		<option value="GA">GA</option>
+		<option value="HI">HI</option>
+		<option value="IA">IA</option>	
+		<option value="ID">ID</option>
+		<option value="IL">IL</option>
+		<option value="IN">IN</option>
+		<option value="KS">KS</option>
+		<option value="KY">KY</option>
+		<option value="LA">LA</option>
+		<option value="MA">MA</option>
+		<option value="MD">MD</option>
+		<option value="ME">ME</option>
+		<option value="MI">MI</option>
+		<option value="MN">MN</option>
+		<option value="MO">MO</option>	
+		<option value="MS">MS</option>
+		<option value="MT">MT</option>
+		<option value="NC">NC</option>	
+		<option value="NE">NE</option>
+		<option value="NH">NH</option>
+		<option value="NJ">NJ</option>
+		<option value="NM">NM</option>			
+		<option value="NV">NV</option>
+		<option value="NY">NY</option>
+		<option value="ND">ND</option>
+		<option value="OH">OH</option>
+		<option value="OK">OK</option>
+		<option value="OR">OR</option>
+		<option value="PA">PA</option>
+		<option value="RI">RI</option>
+		<option value="SC">SC</option>
+		<option value="SD">SD</option>
+		<option value="TN">TN</option>
+		<option value="TX">TX</option>
+		<option value="UT">UT</option>
+		<option value="VT">VT</option>
+		<option value="VA">VA</option>
+		<option value="WA">WA</option>
+		<option value="WI">WI</option>	
+		<option value="WV">WV</option>
+		<option value="WY">WY</option>
+		</select> ZIP Code <input type="text" name="b_zip1" title="ZIP Code" size="5" maxlength="5" placeholder="00000">-<input type="text" name="b_zip2" title="ZIP Code" size="4" maxlength="4" placeholder="0000">
     	</div>
     	
     	<div id="head"><h2>Item C: Operating Status</h2></div>   	
-    	<div id='bodytext'>
+    	<div id='bodytext'>    	
     	Which of the following best describes this location’s operating status during week 1?<br>    	
- 		<input type="radio" name="status" value="1"> In Operation<br>
-  		<input type="radio" name="status" value="2"> Temporarily or seasonally inactive<br>
-  		<input type="radio" name="status" value="3"> Ceased operation - Enter date ceased operation: MM<input type="text" name="month" title="Month" size="2" maxlength="2"> DD<input type="text" name="day" title="Day" size="2" maxlength="2"> YYYY<input type="text" name="year" title="Year" size="4" maxlength="4">
+ 		<input type="radio" name="c_status" value="In_Operation"> In Operation<br>
+  		<input type="radio" name="c_status" value="Inactive"> Temporarily or seasonally inactive<br>
+  		<input type="radio" name="c_status" value="Ceased"> Ceased operation - Enter date ceased operation: <input type="text" name="c_co_month" title="Month" size="2" maxlength="2" placeholder="MM"> <input type="text" name="c_co_day" title="Day" size="2" maxlength="2" placeholder="DD"> <input type="text" name="c_co_year" title="Year" size="4" maxlength="4" placeholder="YYYY">	   	
 	   	</div>
     	
     	<div id="head"><h2>Item D: Total Number and Value of Outbound Shipments</h2></div>   	
     	<div id='bodytext'>
-    	Total number of outbound shipments during week1 <input type="text" name="no_shipments" title="Total No. of outbound shipments" size="9" maxlength="9"><br>
-    	Total value of outbound shipments during week1 $<input type="text" name="val_shipments" title="Total value of outbound shipments" size="9" maxlength="9"><br><hr>
+    	Total number of outbound shipments during week1 <input type="text" name="d_no_shipments" title="Total No. of outbound shipments" size="9" maxlength="9"><br>
+    	Total value of outbound shipments during week1 $<input type="text" name="d_val_shipments" title="Total value of outbound shipments" size="9" maxlength="9"><br><hr>
     	Verify the data and submit the From <input type="button" id='submit' value="Submit" title="Submit the form" >
     	</div>
     	</div>

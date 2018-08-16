@@ -61,7 +61,7 @@ function download(){
 	var a         = document.createElement('a');
 	a.href        = 'data:attachment/csv,' + encodeURIComponent(output);
 	a.target      = '_blank';
-	a.download    = 'Problems.csv';
+	a.download    = 'output.json';
 	document.body.appendChild(a);
 	a.click();    	
 };
