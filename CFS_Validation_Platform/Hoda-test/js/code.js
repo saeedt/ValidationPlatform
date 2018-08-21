@@ -26,8 +26,10 @@ var config = {
 
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
+	//Empty_not_allowed("input") 	
 	document.getElementById('file').addEventListener('change', readFile, false);
-});
+	});
+
 
 //file reader based on papaparse when the file picker is clicked
 function readFile (evt) {
@@ -51,18 +53,21 @@ function log(input){
 	html += '<p>Meta <br>';
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
-	console.log(input)
+	//console.log(input)
 	//check_req_char("m.e@test.com","email","conf1");
-}
+	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
+	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
+	//console.log(lkup_binary("city_state_zip","zip","01007"));
 
 //configuration object for verification functions
+
 var conf1= {
 		
 	ship_ID: {
 		allowed: /[^a-zA-Z0-9]/g,
-		not_allowed: /[`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
-		required: ""	
-	},		
+		not_allowed: /^.*/,
+		required: /^.*/	
+	},	
 	
 	email: {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
@@ -72,62 +77,89 @@ var conf1= {
 	
 	ship_date: {
 		allowed: /[0-9]/g,
-		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		not_allowed: /[A-Za-z`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
 		required: /^\d{2}-?\d{2}-?\d{4}$/
 	},	
 	
 	unnaNumber: {
 		allowed: /[0-9]/g,
-		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		not_allowed: /[A-Za-z`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
 		required: /^\d{4}$/
 	},
 	
 	sctgCode: {
 		allowed: /[0-9]/g,
-		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		not_allowed: /[A-Za-z`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
 		required: /^\d{5}$/
 	},
 	
 	zipCode: {
 		allowed: /[0-9]/g,
-		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		not_allowed: /[A-Za-z`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
 		required: /^\d{5}$/
 	},
 	
 	stateCode: {
 		allowed: /[A-Za-z]/g,
-		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
+		not_allowed: /[0-9`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
 		required: /^\d{2}$/
 	},
 	
 	city: {
 		allowed: /[A-Za-z]/g,
-		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
-		required: ""
+		not_allowed: /(APO|FPO|DPO)/g,
+		required: /^.*/
 	},
 	
 	state: {
 		allowed: /[A-Za-z]/g,
-		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
-		required: ""
+		not_allowed: /(AA|AE|AP)/g,
+		required: /^.*/
 	},
 	
 	country: {
 		allowed: /[A-Za-z]/g,
-		not_allowed: /[0-9`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
-		required: ""
+		not_allowed: /[0-9`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
+		required: /^.*/
 	},
 	
 	mode: {
 		allowed: /[0-9]/g,
-		not_allowed: /[A-Za-z`~!@#$%^&*(.)_-=+{|}:;?,<>[\]'"]/g,
-		required: "",
+		not_allowed: /[A-Za-z`~!@#$%^&*(.)_=+{|}:;?,<>[\]'"-]/g,
+		required: /^.*/,
 		minlenght:1 ,
 		maxlenght:4
 	},
 }
 //Variables for lookup tables
 var lkup1 = [
+	{
+		"sctg" : "02100",
+		"vw_lb" : "0.02546",
+		"vw_ub" : "0.26954"
+	},
+	{
+		"sctg" : "02200",
+		"vw_lb" : "0.02886",
+		"vw_ub" : "0.16191"
+	},
+	{
+		"sctg" : "02901",
+		"vw_lb" : "0.06828",
+		"vw_ub" : "127.36676"
+	},
+	{
+		"sctg" : "02902",
+		"vw_lb" : "0.00635",
+		"vw_ub" : "1.05098"
+	},
+	{
+		"sctg" : "02903",
+		"vw_lb" : "0.00801",
+		"vw_ub" : "26.34756"
+	},
+];	
+var lkup2 = [
 	{
 		"hazmat_descr" : "Acetal",
 		"unna_code"	: "1088"
@@ -149,29 +181,6 @@ var lkup1 = [
 		"unna_code" : "1090"
 	}
 ];		
-
-var lkup2 = [
-	{
-		"sctg_descr" : "Wheat",
-		"sctg_code" : "02100"
-	},
-	{	
-		"sctg_descr" : "Rye",
-		"sctg_code" : "02901"
-	},
-	{
-		"sctg_descr" : "Barley",
-		"sctg_code" : "02902" 	
-	},
-	{
-		"sctg_descr" : "Oats",
-		"sctg_code" : "02903" 	
-	},
-	{
-		"sctg_descr" : "Grain sorghum",
-		"sctg_code" : "02904" 	
-	}				
-];	
 
 var lkup3 = [
 	{
@@ -205,7 +214,7 @@ var lkup4 = [
 	{
 		"city" : "Amherst",
 		"state" : "MA",
-		"zipCode" : "01002"
+		"zipCode" : "01001"
 	},
 	{
 		"city" : "Barre",
@@ -224,9 +233,9 @@ var lkup4 = [
 	}
 ];						
 
-var lkup5 = ["13101", "13109", "13200", "13300", "13910"];
+var lkup5 = ["09009", "09011", "09012", "09021", "09028"];
 
-var lkup6 = ["17110", "17120", "17201", "17202", "17500"];
+var lkup6 = ["13101", "13109", "13200", "13300", "13910"];
 
 var lkup7 = ["02100", "02200", "02902", "02903", "02904"];
 
@@ -235,50 +244,22 @@ var lkup8 = ["17110", "17120", "17201", "17202", "17500"];
 var lkup9 = ["41130", "41210", "41220", "41291", "41299"];
 	
 var lkup10 = ["17110", "17120", "17201", "17202", "17500"];
-
-var lkup11 = [
-	{
-		"sctg" : "02100",
-		"vw_lb" : "0.02546",
-		"vw_ub" : "0.26954"
-	},
-	{
-		"sctg" : "02200",
-		"vw_lb" : "0.02886",
-		"vw_ub" : "0.16191"
-	},
-	{
-		"sctg" : "02901",
-		"vw_lb" : "0.06828",
-		"vw_ub" : "127.36676"
-	},
-	{
-		"sctg" : "02902",
-		"vw_lb" : "0.00635",
-		"vw_ub" : "1.05098"
-	},
-	{
-		"sctg" : "02903",
-		"vw_lb" : "0.00801",
-		"vw_ub" : "26.34756"
-	},
-];	
 	
-var lkup12 = ["10010", "10020", "11010", "11020", "12011"];
+var lkup11 = ["10010", "10020", "11010", "11020", "12011"];
 	
-var lkup13 = ["02100", "02200", "02902", "02902", "02903"];
+var lkup12 = ["02100", "02200", "02902", "02903", "02904"];
 
-var lkup14 = ["01009", "03100", "03211", "03219", "03311"]; 
+var lkup13 = ["01009", "03100", "03211", "03219", "03311"]; 
 	
-var lkup15 = ["08310", "08410", "17110", "17120", "17201"];
+var lkup14 = ["08310", "08410", "17110", "17120", "17201"];
 
-var lkup16 = ["17500", "17600", "18100", "18200", "18210"];
+var lkup15 = ["17500", "17600", "18100", "18200", "18210"];
 
-var lkup17 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
+var lkup16 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"] ;
 	
-var lkup18 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
+var lkup17 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
 
-var lkup19 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
+var lkup18 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
 
 //Edit flags for shipment attributes
 var flags = {
@@ -447,6 +428,12 @@ var flags = {
 		msg: "SCTG code is invalid with a positive temperature control response."
 	},
 	S12_2: {
+		flag: "S12",
+		value: "2",
+		name: "inv_sctg_tempContY",
+		msg: "SCTG code is invalid with a positive temperature control response."
+	},
+	S12_3: {
 		flag: "S12",
 		value: "3",
 		name: "inv_sctg_tempContN",
@@ -864,7 +851,7 @@ var flags = {
 		flag: "S39",
 		value: "40",
 		name: "inv_sctg_mode",
-		msg: "SCTG code/mode combination is invalid."
+		msg: "SCTG code/mode of transport combination is invalid."
 	},
 	S40_1: {
 		flag: "S40",
@@ -899,6 +886,12 @@ var flags = {
 	S41_35: {
 		flag: "S41",
 		value: "35",
+		name: "inv_tempContY_sctg",
+		msg: "SCTG code is invalid with a positive temperature control response."
+	},
+	S41_36: {
+		flag: "S41",
+		value: "36",
 		name: "inv_tempContN_sctg",
 		msg: "SCTG code is invalid with a negative temperature control response."
 	},
@@ -1137,6 +1130,7 @@ var flags = {
 		msg: "Export mode of transport is missing."
 	},	
 };
+
 //returns true if the string only has the allowed characters
 function check_allowed_char(input, type, config){
 	var filter = eval(config)[type].allowed;
@@ -1158,27 +1152,57 @@ function check_req_char(input, type, config){
 	return(filter.test(input));
 }
 
-//Presence check function
+//presence check function
 function presence_check(input){	
-	if (input.length == 0){
-		return false; 
-	}
-	return true;
+	if (input.length == 0 || input == 'null' || input == 'NA' || typeof(input) == 'undefined') { 
+		return false;
+	}   	
+	else {
+		return true;
+	}		 
 } 
+
 //Zero input function
 function zero_value(input){	
 	if (input == 0){
-		return false; 
+		return true; 
 	}
-	return true;
+	return false;
 } 
+
 //Negative input function
 function negative_value(input){	
 	if (input < 0){
-		return false; 
+		return true; 
 	}
-	return true;
+	return false;
 } 
+//Linear search function
+function linearSearch(table, index){
+	for (var i = 0; i < list.length; i++){
+	    if(table[i] == index){ 
+	    	return true;
+	}
+	}	    
+	return false;
+}
+
+//matches a given object with an array of values
+function matchObj(ref,list,column){
+	for (var i=0; i<list.length; i++){
+		if ((list[i])[column] == ref[column]){
+			var match = true;
+			for (var key in list[i]){
+				if ((list[i])[key].toUpperCase() != ref[key].toUpperCase()){
+					match = false;
+					break;
+				}				
+			}
+			if (match) return true;			
+		}
+	} 
+	return false;
+}
 
 //lookup based on exhaustive
 function lkup_exhaustive(table,column,index){
@@ -1189,6 +1213,31 @@ function lkup_exhaustive(table,column,index){
 		if ((list[i])[column] == index){
 			result = list[i];
 			result.found = true;
+			break;
+		}
+	}
+	return result;
+}
+
+//exhaustive lookup returning multiple matches
+function lkup_exhaustive_m(table,column,index){
+	var list = eval(table);
+	var result = new Object();
+	result.data = [];
+	result.data.push(list[0]);
+	result.found = false;
+	for (var i = 0; i < list.length; i++){
+		if ((list[i])[column] == index){
+			result.data[0] = list[i];
+			result.found = true;
+			var j = 1;
+    		while ((i+j)<list.length){
+    			if ((list[i+j])[column] == index){
+    				result.data.push(list[i+j]);
+        			j++;
+    			} else 
+    				break;
+    		}
 			break;
 		}
 	}
@@ -1218,17 +1267,47 @@ function lkup_binary(table,column,index){
 	return result;
 }
 
-//Function for value to weight ratio 
-function value_weight_ratio(input1, input2) {
-	var ship_value = input1;
-	var ship_weight	= input2;
-	var ship_vw = input1 / input2;	
-	if (lkup_binary("lkup11","vw_lb",index) == true && index > ship_vw || lkup_binary("lkup11","vw_ub",index) == true && index < ship_vw) {
-		return true;
-		} else {
-			return false;
-		}
-}	
+//binary lookup returning multiple matches
+function lkup_binary_m(table,column,index){
+	var list = eval(table);	
+	var l_Index = 0;
+	var h_Index = list.length-1;
+	var m_Index;
+	var result = new Object();
+	result.data = [];
+	result.data.push(list[l_Index]);
+	result.found = false;
+	//console.log("initial assignment: "+ result);
+	while (l_Index < h_Index -1) {
+    	m_Index = l_Index + Math.floor((h_Index - l_Index)/2);
+    	if (parseInt((list[m_Index])[column]) == parseInt(index)){
+    		result.data[0] = list[m_Index];
+    		result.found = true;
+    		var j = 1;
+    		while ((m_Index+j)<list.length){
+    			if (parseInt((list[m_Index+j])[column]) == parseInt(index)){
+    				result.data.push(list[m_Index+j]);
+        			j++;
+    			}else 
+    				break;    			
+    		}
+    		j = 1;
+    		while ((m_Index-j)>=0){
+    			if (parseInt((list[m_Index-j])[column]) == parseInt(index)){
+    				result.data.push(list[m_Index-j]);
+        			j++;
+    			}else 
+    				break;    			
+    		}    		
+			break;
+    	} else if (parseInt((list[m_Index])[column]) < parseInt(index)) {
+    		l_Index = m_Index;
+    	} else {
+    		h_Index = m_Index;
+    	}
+    }	
+	return result;
+}
 
 //Integration functions for shipment attributes
 function test_numberOfShip(input){
@@ -1266,7 +1345,7 @@ function test_numberOfShip(input){
 			result.pass = true;
 		}
 			return result;
-};
+}
 
 function test_totShipValue(input){
 	var result;
@@ -1435,6 +1514,7 @@ function test_ship_value(input){
 function test_ship_weight(input){
 	var result;
 	var error;
+	var modes = [1, 12, 13, 18, 21, 31, 81];
 	result.flgname = [];
 	result.flgflag = [];
 	result.flgvalu = [];
@@ -1485,6 +1565,20 @@ function test_sctg(input){
 		}
 		if (!check_req_char(input, "sctgCode", "conf1")){
 		error = "S39_3";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!linearSearch("lkup14", input) && !presence_check("unna_code")){
+		error = "S9_1";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!linearSearch("lkup15", input) && presence_check("unna_code") == true){
+		error = "S9_3";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
 			ressult.flgname.push((flags)[error].value);
@@ -1550,13 +1644,27 @@ function test_unna(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_binary("lkup1", "unna_code", index)){
+		if (!lkup_binary_m("lkup2", "unna_code", index)){
 		error = "S42_22";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
-		}		
+		}	
+		if (!linearSearch("lkup14", input) && !presence_check("unna_code")){
+		error = "S42_34";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
+		if (!linearSearch("lkup15", input) && presence_check("unna_code") == true){
+		error = "S42_35";
+			ressult.flgname.push((flags)[error].name);
+			ressult.flgname.push((flags)[error].flag);
+			ressult.flgname.push((flags)[error].value);
+			ressult.flgname.push((flags)[error].msg);
+		}
 		if (result.flags.size>0){
 			result.pass = false;
 		}
@@ -1594,7 +1702,7 @@ function test_destinationCity(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_exhaustive("lkup4", "city", index)){
+		if (!lkup_exhaustive_m("lkup4", "city", index)){
 		error = "S43_22";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
@@ -1645,7 +1753,7 @@ function test_destinationState(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_exhaustive("lkup4", "state", index)){
+		if (!lkup_exhaustive_m("lkup4", "state", index)){
 		error = "S44_22";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
@@ -1696,7 +1804,7 @@ function test_destinationZip(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_binary("lkup4", "zipCode", index)){
+		if (!lkup_binary_m("lkup4", "zipCode", index)){
 		error = "S1_1";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
@@ -1740,7 +1848,7 @@ function test_mode(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_binary("lkup3", "mode", index)){
+		if (!lkup_binary_m("lkup3", "mode", index)){
 		error = "S2_3";
 			ressult.flgname.push((flags)[error].name);
 			ressult.flgname.push((flags)[error].flag);
@@ -1821,7 +1929,7 @@ function test_exportCountry(input){
 			ressult.flgname.push((flags)[error].value);
 			ressult.flgname.push((flags)[error].msg);
 		}
-		if (!lkup_exhaustive("lkup20", "", index)){
+		if (!lkup_exhaustive_m("lkup18", "", index)){
 		error = "S17_2";
 				ressult.flgname.push((flags)[error].name);
 				ressult.flgname.push((flags)[error].flag);
@@ -1860,8 +1968,7 @@ function test_exportMode(input){
 		}			
 		if (result.flags.size>0){
 			result.pass = false;
-		}
-		else {
+		}else {
 			result.pass = true;
 		}
 			return result;
