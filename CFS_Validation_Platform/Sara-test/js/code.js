@@ -895,12 +895,18 @@ function city_shipping_address(input){
 		ressult.flgname.push((flags)[error].msg);
 		}
 	if (!lkup_exhaustive_m("city_state_zip","city","")){
-		error = "E24_3"
+		//error = "???"//
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-			}			
+			}	
+	if (!matchobj("test1","test2","zip")){
+		//error = "???"//
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
 	if (result.flags.size>0){
 					result.pass = false;
 	}
@@ -937,13 +943,20 @@ function state_shipping_address(input){
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
 		}
-	if (!lkup_exhaustive("city_state_zip","city","")){
+	if (!lkup_exhaustive_m("city_state_zip","city","")){
 		error = "???"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-			}			
+			}		
+	if (!matchobj("city_state_zip","city","")){
+		error = "???"
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+			}	
 	if (result.flags.size>0){
 					result.pass = false;
 	}
