@@ -60,7 +60,8 @@ function log(input){
 	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
 	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
 	//console.log(lkup_binary("city_state_zip","zip","01007"));
-	console.log(Empty_not_allowed("null");
+	//console.log(presence_check("null"));
+	console.log (lkup_exhaustive_m("city_state_zip","zip","01007"));
 	
 }
 var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
@@ -71,7 +72,7 @@ var test2 = {
 		"zip" : "01001"
 	};
 console.log(matchObj(test2,test1,"zip"));
-}
+
 
 
 //configuration object for verification functions
@@ -119,11 +120,11 @@ var conf1= {
 	faxnum: {
 		minlenght:0 ,
 		maxlenght:10
-	},
-	shippingwWeight:{
-		minRange=10000
-		maxRange=20000
-	}
+	}//,
+	//shippingwWeight:{
+	//	minRange:10000
+	//	maxRange:20000
+	//}
 }
 
 //error flags object
@@ -194,10 +195,10 @@ var flags = {
 				msg: "City is blank"
 			},
 			E24_22: {
-				name:"shipCity-lookuptableCross",
+				name:"shipCityStateZip-lookuptableCross",
 				flag: "E24",
 				value:"22",
-				msg: "The city is not matched with state and zip Code"
+				msg: "city state zipe code are not matched"
 			},
 			
 			E25_1: {
@@ -224,12 +225,12 @@ var flags = {
 				value:"22",
 				msg: "The state is not exist"
 				},
-			E24_22: {
-				name:"shipState-lookuptable_Cross_New",
-				flag: "E24",
-				value:"22",
-				msg: "The state is not matched with city and zip Code"
-				},
+			//E24_22: {
+				//name:"shipCityStateZip-lookuptableCross",
+				//flag: "E24",
+				//value:"22",
+				//msg: "The state is not matched with city and zip Code"
+				//},
 			E4_1: {
 				name:"shipState-lookuptable_Cross_Exist",
 				flag: "E4",
@@ -260,12 +261,12 @@ var flags = {
 				value:"22",
 				msg: "The zip code is not exist"
 				},
-			E24_22:{
-				name:"shipZipCode-lookuptable_Cross_New",
-				flag: "E24",
-				value:"22",
-				msg: "The zip code is not matched with city and state"
-				},
+			//E24_22:{
+			//	name:"shipZipCode-lookuptable_Cross_New",
+				//flag: "E24",
+				//value:"22",
+				//msg: "The zip code is not matched with city and state"
+				//},
 			E4_1 :{
 				name:"shipZipCode-lookuptable_Cross_Exist",
 				flag: "E4",
@@ -333,7 +334,7 @@ var flags = {
 				msg: "City is blank"
 			},
 			E32_22: {
-				name:"mailCity-lookuptableCross",
+				name:"mailCityStateZip-lookuptableCross",
 				flag: "E32",
 				value:"22",
 				msg: "The city is not matched with state and zip Code"
@@ -363,17 +364,18 @@ var flags = {
 				value:"22",
 				msg: "The state is not exist"
 				},
-			E33_22: {
-				name:"mailState-lookuptable_Cross_New",
-				flag: "E32",
-				value:"22",
-				msg: "The state is not matched with city and zip Code"
-				},
-			E6_1: {
-				name:"mailState-lookuptable_Cross_Exist",
-				flag: "E6",
-				value:"1",
-				msg: "The state is not matched with zip Code"
+			//E33_22: {
+			//	name:"mailState-lookuptable_Cross_New",
+				//flag: "E32",
+				//value:"22",
+				//msg: "The state is not matched with city and zip Code"
+				//},
+				// No use for E6-1
+			//E6_1: {
+				//name:"mailState-lookuptable_Cross_Exist",
+			//	flag: "E6",
+			//	value:"1",
+				//msg: "The state is not matched with zip Code"
 			},
 			E34_1: {
 				name:"mailZipCode_dataType",
@@ -399,18 +401,19 @@ var flags = {
 				value:"22",
 				msg: "The zip code is not exist"
 				},
-			E24_22:{
-				name:"mailZipCode-lookuptable_Cross_New",
-				flag: "E24",
-				value:"22",
-				msg: "The zip code is not matched with city and state"
-				},
-			E6_1:{
-				name:"mailZipCode-lookuptable_Cross_Exist",
-				flag: "E6",
-				value:"1",
-				msg: "The zip code is not matched with  state"
-				},
+			//E32_22:{
+			//	name:"mailZipCode-lookuptable_Cross_New",
+				//flag: "E24",
+				//value:"22",
+				//msg: "The zip code is not matched with city and state"
+			//	},
+				// we don't use E6-1 
+			//E6_1:{
+			//	name:"mailZipCode-lookuptable_Cross_Exist",
+				//flag: "E6",
+				//value:"1",
+				//msg: "The zip code is not matched with  state"
+				//},
 				//OPERATING STATUS ATTRIBUTE
 				
 			E35_2: {
@@ -549,7 +552,7 @@ var flags = {
 				value:"3",
 				msg: "The value of completation time is more than 10 hours "
 				},
-
+*/
 //returns true if the string only has the allowed characters
 				
 function check_allowed_char(input,type,config){
@@ -760,7 +763,8 @@ function presence_check (input){
      }	
  	return result;
  }
-  
+ 
+/*  
 //sample integration function
 function test_int(input){
 	var result;
@@ -779,8 +783,9 @@ function test_int(input){
 	}
 	return result;
 }
-
+*/
 // Integration functions for Establishment attributes and their flags
+ 
 function shipping_Company_name1 (input){
 		var result;
 		var error;
@@ -886,35 +891,30 @@ function city_shipping_address(input){
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-		}
+	}
 	if (!presence-check(input)){
 		error = "E24-2"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-		}
+	}
 	if (!lkup_exhaustive_m("city_state_zip","city","")){
 		//error = "???"//
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-			}	
-	if (!matchobj("test1","test2","zip")){
-		//error = "???"//
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+		//ressult.flgname.push((flags)[error].name);
+		//ressult.flgname.push((flags)[error].flag);
+		//ressult.flgname.push((flags)[error].value);
+		//ressult.flgname.push((flags)[error].msg);
+	}	
 	if (result.flags.size>0){
-					result.pass = false;
+		result.pass = false;
 	}
 	else {
-					result.pass = true;
+		result.pass = true;
 	}
 	return result;
 }	
+
 function state_shipping_address(input){
 	var result;
 	var error;
@@ -922,50 +922,129 @@ function state_shipping_address(input){
 	result.flgflag = [];
 	result.flgvalu = [];
 	result.flgmesg = [];
-	if (!check_allowed_char("", "alphabetic", "conf1")){
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
 		error = "E25_1"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-		}
+	}
 	if (!presence-check(input)){
 		error = "E25-2"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-		}
+	}
 	if (!length_field_check(input)){
-		error = "E25-4"
+		error = "E25-5"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-		}
-	if (!lkup_exhaustive_m("city_state_zip","city","")){
-		error = "???"
+	}
+	if (!lkup_exhaustive_m("city_state_zip","state",input)){
+		//error = "E25_22"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-			}		
-	if (!matchobj("city_state_zip","city","")){
-		error = "???"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-			}	
+	}			
 	if (result.flags.size>0){
-					result.pass = false;
+		result.pass = false;
 	}
 	else {
-					result.pass = true;
+		result.pass = true;
 	}
 	return result;
 }	
 
+function zip_shipping_address(input){
+	var result;
+	var error;
+	result.flgname = [];
+	result.flgflag = [];
+	result.flgvalu = [];
+	result.flgmesg = [];
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
+		//error = "..."
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+	}
+	if (!presence-check(input)){
+		//error = "..."
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+	}
+	if (!length_field_check(input)){
+		//error = "E25_4"
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+	}
+	if (!lkup_exhaustive_m("city_state_zip","zip",input)){
+		//error = "E25_22"
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+	}			
+	if (result.flags.size>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}	
 
-
+function matchobj_integrate(city, state, zip){
+	var result;
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];	
+	var test2 = lkup_exhaustive_m("city_state_zip","city", city).data
+	var test3= lkup_exhaustive_m("city_state_zip","state",state).data
+	var test4 = lkup_exhaustive_m("city_state_zip","zip", zip).data
+	
+	if (!matchobj(city,"test2","city")||!matchobj(state,"test3","city")||!matchobj(zip,"test4","city")){
+		error = "E24-22"
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+	}
+	
+	//var test3= lkup_exhaustive_m("city_state_zip","state",state).data
+	//if (!matchobj(state,"test3","city")){
+	//	error = "..."
+		//ressult.flgname.push((flags)[error].name);
+		//ressult.flgname.push((flags)[error].flag);
+		//ressult.flgname.push((flags)[error].value);
+		//ressult.flgname.push((flags)[error].msg);
+	//}
+	
+	//if (!matchobj(zip,"test4","city")){
+		//error = "..."
+		//ressult.flgname.push((flags)[error].name);
+		//ressult.flgname.push((flags)[error].flag);
+		//ressult.flgname.push((flags)[error].value);
+		//ressult.flgname.push((flags)[error].msg);
+	//}
+	if (result.flags.size>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}	
+	
 
