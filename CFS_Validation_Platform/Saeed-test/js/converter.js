@@ -132,7 +132,7 @@ function log(input){
 			for (var i=1; i<input.data.length;i++){
 				output.data+='{';
 				for (var j=0; j<columns.length; j++){
-					output.data += '"'+input.data[0][j]+'":"'+input.data[i][j]+'",'
+					output.data += '"'+combo.options[combo.selectedIndex].required_columns[j].trim().toUpperCase()+'":"'+input.data[i][columns[j]].trim()+'",'
 				}
 				output.data = output.data.slice(0, -1);
 				output.data +='},';
