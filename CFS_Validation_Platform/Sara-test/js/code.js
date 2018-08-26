@@ -71,9 +71,9 @@ var test2 = {
 		"state" : "MA",
 		"zip" : "01001"
 	};
-console.log(matchObj(test2,test1,"zip"));
+//console.log(matchObj(test2,test1,"zip"));
 
-
+console.log(matchobj_integrate("Athens", "OH", "45701"))
 
 //configuration object for verification functions
 var conf1= {
@@ -114,8 +114,8 @@ var conf1= {
 		maxlenght:2
 	},
 	zipcode: {
-			minlenght:10 ,
-			maxlenght:10	
+			minlenght:5,
+			maxlenght:5	
 	},
 	faxnum: {
 		minlenght:0 ,
@@ -966,7 +966,7 @@ function zip_shipping_address(input){
 	result.flgflag = [];
 	result.flgvalu = [];
 	result.flgmesg = [];
-	if (!check_allowed_char(input, "alphabetic", "conf1")){
+	if (!check_allowed_char(input, "numeric", "conf1")){
 		//error = "..."
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
@@ -1009,19 +1009,22 @@ function matchobj_integrate(city, state, zip){
 	result.flgname  =  [];
 	result.flgflag  =  [];
 	result.flgvalue =  [];
-	result.flgmsg   =  [];	
-	var test2 = lkup_exhaustive_m("city_state_zip","city", city).data
-	var test3= lkup_exhaustive_m("city_state_zip","state",state).data
+	result.flgmsg   =  [];
+	var ref = {	
+			"city" : city,
+			"state" : state,
+			"zip" : zip,
+	};
+	//var test2 = lkup_exhaustive_m("city_state_zip","city", city).data
+	//var test3= lkup_exhaustive_m("city_state_zip","state",state).data
 	var test4 = lkup_exhaustive_m("city_state_zip","zip", zip).data
-	
-	if (!matchobj(city,"test2","city")||!matchobj(state,"test3","city")||!matchobj(zip,"test4","city")){
+	if (!matchobj(ref, test2,"city")||!matchobj(ref, test3,"state")||!matchobj(ref, test4,"zip")){
 		error = "E24-22"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
 	}
-	
 	//var test3= lkup_exhaustive_m("city_state_zip","state",state).data
 	//if (!matchobj(state,"test3","city")){
 	//	error = "..."
