@@ -60,20 +60,21 @@ function log(input){
 	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
 	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
 	//console.log(lkup_binary("city_state_zip","zip","01007"));
-	//console.log(presence_check("null"));
-	console.log (lkup_exhaustive_m("city_state_zip","zip","01007"));
+	console.log(lkup_exhaustive_m("city_state_zip","zip","01007") );
+	
 	
 }
-var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
+
+//var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
 //creating the reference (input) object 
-var test2 = {	
-		"city" : "Agawam",
-		"state" : "MA",
-		"zip" : "01001"
-	};
+//var test2 = {	
+	//	"city" : "Agawam",
+	//	"state" : "MA",
+		//"zip" : "01001"
+//	};
 //console.log(matchObj(test2,test1,"zip"));
 
-console.log(matchobj_integrate("Athens", "OH", "45701"))
+
 
 //configuration object for verification functions
 var conf1= {
@@ -114,16 +115,16 @@ var conf1= {
 		maxlenght:2
 	},
 	zipcode: {
-			minlenght:5,
-			maxlenght:5	
+			minlenght:10 ,
+			maxlenght:10	
 	},
 	faxnum: {
 		minlenght:0 ,
 		maxlenght:10
-	}//,
+	},
 	//shippingwWeight:{
 	//	minRange:10000
-	//	maxRange:20000
+		//maxRange:20000
 	//}
 }
 
@@ -176,10 +177,10 @@ var flags = {
 				value:"5",
 				msg: " Invalid characters such as  P_O_/P.O_/P..B/P.O_/P.O./PO_B/PO_D/POB_/POST} Box is entered in shipping address"
 			},
-			E4_1: {
+			E4_3: {
 				name:"shipAddress_invalid_char_Exist",
-				flag: "E4",,
-				value:"2",
+				flag: "E4",
+				value:"4",
 				msg: " The respondent provided P.O.Box Box in their shipping address",
 				},
 			E24_1: {
@@ -194,11 +195,11 @@ var flags = {
 				value:"2",
 				msg: "City is blank"
 			},
-			E24_22: {
-				name:"shipCityStateZip-lookuptableCross",
+			E24_23: {
+				name:"shipCity-state-zip-lukup-Cross",
 				flag: "E24",
-				value:"22",
-				msg: "city state zipe code are not matched"
+				value:"23",
+				msg: "The combination of zip, state, city is invalid"
 			},
 			
 			E25_1: {
@@ -219,18 +220,7 @@ var flags = {
 				value:"4",
 				msg: "The lenght of state is not matched with it's abbreviation "
 				},
-			E25_22: {
-				name:"shipState-lookuptablefind",
-				flag: "E25",
-				value:"22",
-				msg: "The state is not exist"
-				},
-			//E24_22: {
-				//name:"shipCityStateZip-lookuptableCross",
-				//flag: "E24",
-				//value:"22",
-				//msg: "The state is not matched with city and zip Code"
-				//},
+			
 			E4_1: {
 				name:"shipState-lookuptable_Cross_Exist",
 				flag: "E4",
@@ -261,19 +251,7 @@ var flags = {
 				value:"22",
 				msg: "The zip code is not exist"
 				},
-			//E24_22:{
-			//	name:"shipZipCode-lookuptable_Cross_New",
-				//flag: "E24",
-				//value:"22",
-				//msg: "The zip code is not matched with city and state"
-				//},
-			E4_1 :{
-				name:"shipZipCode-lookuptable_Cross_Exist",
-				flag: "E4",
-				value:"1",
-				msg: "The zip code is not matched with  state"
-				},
-				
+										
 				// MAILING ADDRESS ATRRIBUTE
 			E27_2: {
 				name:"mailCheck_blank",
@@ -281,7 +259,7 @@ var flags = {
 				value:"2",
 				msg: "checkbox is not selected"
 			},
-			E28_2: {
+			E28_1: {
 				name:"mailCompanyName1_dataType",
 				flag: "E28",
 				value:"1",
@@ -320,7 +298,6 @@ var flags = {
 				msg: "Adresss is blank"
 			},
 			
-			
 			E32_1: {
 				name:"mailCity_dataType",
 				flag: "E32",
@@ -333,14 +310,14 @@ var flags = {
 				value:"2",
 				msg: "City is blank"
 			},
-			E32_22: {
-				name:"mailCityStateZip-lookuptableCross",
+			E32_23: {
+				name:"mailCity-state-zip-lukup-Cross",
 				flag: "E32",
 				value:"22",
-				msg: "The city is not matched with state and zip Code"
+				msg: "The combination of city, state, zipe is invalid"
 			},
 			
-			E31_2: {
+			E33_1: {
 				name:"mailState_dataType",
 				flag: "E33",
 				value:"1",
@@ -352,30 +329,18 @@ var flags = {
 				value:"2",
 				msg: "state is blank"
 				},
-			E33_3: {
+			E33_4: {
 				name:"mailState_fieldLenght",
 				flag: "E33",
 				value:"3",
-				msg: "The lenght of state is not matched with it's abbreviation "
+				msg: "The lenght of state is not contains only 2 characters   "
 				},
-			E33_22: {
-				name:"mailState-lookuptablefind",
-				flag: "E33",
-				value:"22",
-				msg: "The state is not exist"
-				},
-			//E33_22: {
-			//	name:"mailState-lookuptable_Cross_New",
-				//flag: "E32",
-				//value:"22",
-				//msg: "The state is not matched with city and zip Code"
-				//},
-				// No use for E6-1
-			//E6_1: {
-				//name:"mailState-lookuptable_Cross_Exist",
-			//	flag: "E6",
-			//	value:"1",
-				//msg: "The state is not matched with zip Code"
+			
+			E6_1: {
+				name:"mailState-lookuptable_Cross_Exist",
+				flag: "E6",
+				value:"1",
+				msg: "The state is not matched with zip Code"
 			},
 			E34_1: {
 				name:"mailZipCode_dataType",
@@ -401,20 +366,7 @@ var flags = {
 				value:"22",
 				msg: "The zip code is not exist"
 				},
-			//E32_22:{
-			//	name:"mailZipCode-lookuptable_Cross_New",
-				//flag: "E24",
-				//value:"22",
-				//msg: "The zip code is not matched with city and state"
-			//	},
-				// we don't use E6-1 
-			//E6_1:{
-			//	name:"mailZipCode-lookuptable_Cross_Exist",
-				//flag: "E6",
-				//value:"1",
-				//msg: "The zip code is not matched with  state"
-				//},
-				//OPERATING STATUS ATTRIBUTE
+		//OPERATING STATUS ATTRIBUTE
 				
 			E35_2: {
 				name:"statusCheck_blank",
@@ -456,14 +408,14 @@ var flags = {
 			name:"primIndustAct_CrossConst",
 				flag: "E38",
 				value:"40",
-				msg: " "No" check box is selected  but the activity  is not entered "
-				},
+				msg: " 'No' check box is selected  but the activity  is not entered "},
+
 			// CONTACT INFORMATION ATTRIBUTE 
-			
+		
 			E39_1: {
-			name:"contactName_dataType",
-				flag: "E39",
-				value:"1",
+				name:"contactName_dataType",
+				flag : "E39",
+				value: "1",
 				msg: "None alphabetic charecter is entered or Incorrect data type is entered "
 			},
 			E39_2: {
@@ -551,8 +503,8 @@ var flags = {
 				flag: "E10",
 				value:"3",
 				msg: "The value of completation time is more than 10 hours "
-				},
-*/
+				}
+}
 //returns true if the string only has the allowed characters
 				
 function check_allowed_char(input,type,config){
@@ -605,7 +557,7 @@ function Range_value_check(input, type, config){
 }
 
 // presence check function
-
+console.log(presence_check ("sara"));
 function presence_check (input){	
 	if (input.length == 0 || input == 'null' || input == 'NA' || typeof(input) == 'undefined') { 
 		return false;
@@ -676,29 +628,31 @@ function presence_check (input){
  }
 
  //exhaustive lookup returning multiple matches
+ 
  function lkup_exhaustive_m(table,column,index){
- 	var list = eval(table);
- 	var result = new Object();
- 	result.data = [];
- 	result.data.push(list[0]);
- 	result.found = false;
- 	for (var i = 0; i < list.length; i++){
- 		if ((list[i])[column] == index){
- 			result.data[0] = list[i];
- 			result.found = true;
- 			var j = 1;
-     		while ((i+j)<list.length){
-     			if ((list[i+j])[column] == index){
-     				result.data.push(list[i+j]);
-         			j++;
-     			} else 
-     				break;
-     		}
- 			break;
- 		}
- 	}
- 	return result;
- }
+		var list = eval(table);
+		var result = new Object();
+		result.data = [];
+		result.data.push(list[0])=[];
+		result.found = false;
+		for (var i = 0; i < list.length; i++){
+			if ((list[i])[column] == index){
+				result.data[0] = list[i];
+				result.found = true;
+				var j = 1;
+	    		while ((i+j)<list.length){
+	    			if ((list[i+j])[column] == index){
+	    				result.data.push(list[i+j]);
+	        			j++;
+	    			} else 
+	    				break;
+	    		}
+				break;
+			}
+		}
+		return result;
+	}
+
 
  function lkup_binary(table,column,index){
  	var list = eval(table);	
@@ -763,8 +717,7 @@ function presence_check (input){
      }	
  	return result;
  }
- 
-/*  
+  
 //sample integration function
 function test_int(input){
 	var result;
@@ -783,39 +736,42 @@ function test_int(input){
 	}
 	return result;
 }
-*/
+
 // Integration functions for Establishment attributes and their flags
- 
+console.log( shipping_Company_name1("ann@123"));
 function shipping_Company_name1 (input){
-		var result;
+		var result = new Object();
 		var error;
 		result.flgname  =  [];
 		result.flgflag  =  [];
 		result.flgvalue =  [];
 		result.flgmsg   =  [];
+		//result.pass = true
 		
-		if (!check_allowed_char("", "alphanumeric", "conf1")){
+		if (!check_allowed_char(input, "alphanumeric", "conf1")){
 			error = "E21_1"
-			ressult.flgname.push((flags)[error].name);
-			ressult.flgname.push((flags)[error].flag);
-			ressult.flgname.push((flags)[error].value);
-			ressult.flgname.push((flags)[error].msg);
+			result.flgname.push(flags[error].name);
+			result.flgflag.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
 			}
 		if (!presence_check(input)){
-			error = "E21-2"
-			ressult.flgname.push((flags)[error].name);
-			ressult.flgname.push((flags)[error].flag);
-			ressult.flgname.push((flags)[error].value);
-			ressult.flgname.push((flags)[error].msg);
-					}
-		if (result.flags.size>0){
-						result.pass = false;
+			error = "E21_2"
+			result.flgname.push(flags[error].name);
+			result.flgflag.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+		if (result.flgname.size>0){
+			result.pass = false;
 		}
 		else {
-						result.pass = true;
+			result.pass = true;
 		}
 		return result;
 }	
+
+
 
 function shipping_Company_name2(input){
 	var result;
@@ -868,15 +824,14 @@ function street_shipping_address(input){
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-			}			}
+			}			
 	if (result.flags.size>0){
 					result.pass = false;
 	}
 	else {
 					result.pass = true;
-	}
-	return result;
-}	
+	} return result;
+}
 
 function city_shipping_address(input){
 	var result;
@@ -891,30 +846,35 @@ function city_shipping_address(input){
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}
+		}
 	if (!presence-check(input)){
 		error = "E24-2"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}
+		}
 	if (!lkup_exhaustive_m("city_state_zip","city","")){
 		//error = "???"//
-		//ressult.flgname.push((flags)[error].name);
-		//ressult.flgname.push((flags)[error].flag);
-		//ressult.flgname.push((flags)[error].value);
-		//ressult.flgname.push((flags)[error].msg);
-	}	
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+		}	
+	if (!matchobj("test1","test2","zip")){
+		//error = "???"//
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+		}
 	if (result.flags.size>0){
-		result.pass = false;
+					result.pass = false;
 	}
 	else {
-		result.pass = true;
-	}
-	return result;
+					result.pass = true;
+	}return result;
 }	
-
 function state_shipping_address(input){
 	var result;
 	var error;
@@ -922,132 +882,50 @@ function state_shipping_address(input){
 	result.flgflag = [];
 	result.flgvalu = [];
 	result.flgmesg = [];
-	if (!check_allowed_char(input, "alphabetic", "conf1")){
+	if (!check_allowed_char("", "alphabetic", "conf1")){
 		error = "E25_1"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}
+		}
 	if (!presence-check(input)){
 		error = "E25-2"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}
+		}
 	if (!length_field_check(input)){
-		error = "E25-5"
+		error = "E25-4"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}
-	if (!lkup_exhaustive_m("city_state_zip","state",input)){
-		//error = "E25_22"
+		}
+	if (!lkup_exhaustive_m("city_state_zip","city","")){
+		error = "???"
 		ressult.flgname.push((flags)[error].name);
 		ressult.flgname.push((flags)[error].flag);
 		ressult.flgname.push((flags)[error].value);
 		ressult.flgname.push((flags)[error].msg);
-	}			
+			}		
+	if (!matchobj("city_state_zip","city","")){
+		error = "???"
+		ressult.flgname.push((flags)[error].name);
+		ressult.flgname.push((flags)[error].flag);
+		ressult.flgname.push((flags)[error].value);
+		ressult.flgname.push((flags)[error].msg);
+			}	
 	if (result.flags.size>0){
-		result.pass = false;
+					result.pass = false;
 	}
 	else {
-		result.pass = true;
+					result.pass = true;
 	}
 	return result;
 }	
 
-function zip_shipping_address(input){
-	var result;
-	var error;
-	result.flgname = [];
-	result.flgflag = [];
-	result.flgvalu = [];
-	result.flgmesg = [];
-	if (!check_allowed_char(input, "numeric", "conf1")){
-		//error = "..."
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-	}
-	if (!presence-check(input)){
-		//error = "..."
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-	}
-	if (!length_field_check(input)){
-		//error = "E25_4"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-	}
-	if (!lkup_exhaustive_m("city_state_zip","zip",input)){
-		//error = "E25_22"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-	}			
-	if (result.flags.size>0){
-		result.pass = false;
-	}
-	else {
-		result.pass = true;
-	}
-	return result;
-}	
 
-function matchobj_integrate(city, state, zip){
-	var result;
-	var error;
-	result.flgname  =  [];
-	result.flgflag  =  [];
-	result.flgvalue =  [];
-	result.flgmsg   =  [];
-	var ref = {	
-			"city" : city,
-			"state" : state,
-			"zip" : zip,
-	};
-	//var test2 = lkup_exhaustive_m("city_state_zip","city", city).data
-	//var test3= lkup_exhaustive_m("city_state_zip","state",state).data
-	var test4 = lkup_exhaustive_m("city_state_zip","zip", zip).data
-	if (!matchobj(ref, test2,"city")||!matchobj(ref, test3,"state")||!matchobj(ref, test4,"zip")){
-		error = "E24-22"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-	}
-	//var test3= lkup_exhaustive_m("city_state_zip","state",state).data
-	//if (!matchobj(state,"test3","city")){
-	//	error = "..."
-		//ressult.flgname.push((flags)[error].name);
-		//ressult.flgname.push((flags)[error].flag);
-		//ressult.flgname.push((flags)[error].value);
-		//ressult.flgname.push((flags)[error].msg);
-	//}
-	
-	//if (!matchobj(zip,"test4","city")){
-		//error = "..."
-		//ressult.flgname.push((flags)[error].name);
-		//ressult.flgname.push((flags)[error].flag);
-		//ressult.flgname.push((flags)[error].value);
-		//ressult.flgname.push((flags)[error].msg);
-	//}
-	if (result.flags.size>0){
-		result.pass = false;
-	}
-	else {
-		result.pass = true;
-	}
-	return result;
-}	
-	
+
 
