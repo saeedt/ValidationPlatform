@@ -68,10 +68,10 @@ function log(input){
 //var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
 //creating the reference (input) object 
 //var test2 = {	
-	//	"city" : "Agawam",
-	//	"state" : "MA",
+		//"city" : "Agawam",
+		//"state" : "MA",
 		//"zip" : "01001"
-//	};
+	//};
 //console.log(matchObj(test2,test1,"zip"));
 
 
@@ -85,7 +85,7 @@ var conf1= {
 	},
 	shippingAddress: {
 		allowed: /[^a-zA-Z0-9 _.-]/g,
-		not_allowed: /(P_O_|P.O_|P..B|P.O_|P.O.|PO_B|PO_D|POB_|POST)/g,
+		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g,
 		required: /^.*/
 	},
 	state: {
@@ -114,14 +114,18 @@ var conf1= {
 		minlenght:2 ,
 		maxlenght:2
 	},
-	zipcode: {
-			minlenght:10 ,
-			maxlenght:10	
+	zipCode: {
+			minlenght:5 ,
+			maxlenght:5	
 	},
+	dateOfCeased:{
+			allowed:/[^0-9/\ ]/g, 
+			required: /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g
+		},
 	faxnum: {
 		minlenght:0 ,
 		maxlenght:10
-	},
+	}
 	//shippingwWeight:{
 	//	minRange:10000
 		//maxRange:20000
@@ -506,7 +510,7 @@ var flags = {
 				}
 }
 //returns true if the string only has the allowed characters
-				
+console.log(check_allowed_char("12/sa/2014", "dateOfCeased", "conf1"));				
 function check_allowed_char(input,type,config){
 	var filter = eval(config)[type].allowed;
 	console.log(!filter.test(input));
@@ -521,6 +525,7 @@ function check_invalid_char(input, type, config){
 }
 
 //returns true if the string contains all required characters
+//console.log(check_req_char("12/22/2014", "dateOfCeased", "conf1"));
 function check_req_char(input, type, config){
 	var filter = eval(config)[type].required;
 	console.log(filter.test(input));
@@ -557,7 +562,7 @@ function Range_value_check(input, type, config){
 }
 
 // presence check function
-console.log(presence_check ("sara"));
+//console.log(presence_check ("sara"));
 function presence_check (input){	
 	if (input.length == 0 || input == 'null' || input == 'NA' || typeof(input) == 'undefined') { 
 		return false;
@@ -596,6 +601,16 @@ function presence_check (input){
  ];
 
  //matches a given object with an array of values
+var test1 = lkup_binary_m("city_state_zip","zip","01005").data;
+//creating the reference (input) object 
+var test2 ={
+ 		"city" : "Barre",
+ 		"state" : "FA",
+ 		"zip" : "01005"
+ 	};
+ 
+console.log(matchObj(test2,test1,"zip"));
+
  function matchObj(ref,list,column){
  	for (var i=0; i<list.length; i++){
  		if ((list[i])[column] == ref[column]){
@@ -613,6 +628,7 @@ function presence_check (input){
  }
 
  //lookup based on exhaustive
+ //console.log(lkup_exhaustive ("city_state_zip","01021","zip"));
  function lkup_exhaustive(table,column,index){
  	var list = eval(table);
  	var result = list[0];
@@ -628,12 +644,12 @@ function presence_check (input){
  }
 
  //exhaustive lookup returning multiple matches
- 
+ //console.log(lkup_exhaustive_m ("city_state_zip","01001","zip"));
  function lkup_exhaustive_m(table,column,index){
 		var list = eval(table);
 		var result = new Object();
 		result.data = [];
-		result.data.push(list[0])=[];
+		result.data.push(list[0]);
 		result.found = false;
 		for (var i = 0; i < list.length; i++){
 			if ((list[i])[column] == index){
@@ -677,6 +693,9 @@ function presence_check (input){
  	return result;
  }
 //binary lookup returning multiple matches
+ console.log(lkup_binary_m("city_state_zip","zip","01001"));
+ console.log(lkup_binary_m("city_state_zip","zip","01021"));
+ 
  function lkup_binary_m(table,column,index){
  	var list = eval(table);	
  	var l_Index = 0;
@@ -738,7 +757,9 @@ function test_int(input){
 }
 
 // Integration functions for Establishment attributes and their flags
-console.log( shipping_Company_name1("ann@123"));
+// shipping address attributes
+
+console.log(shipping_Company_name1("dfsa"));
 function shipping_Company_name1 (input){
 		var result = new Object();
 		var error;
@@ -746,8 +767,7 @@ function shipping_Company_name1 (input){
 		result.flgflag  =  [];
 		result.flgvalue =  [];
 		result.flgmsg   =  [];
-		//result.pass = true
-		
+		result.pass = true;
 		if (!check_allowed_char(input, "alphanumeric", "conf1")){
 			error = "E21_1"
 			result.flgname.push(flags[error].name);
@@ -762,170 +782,500 @@ function shipping_Company_name1 (input){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 			}
-		if (result.flgname.size>0){
+		console.log(result.flgname.length);
+		if (result.flgname.length>0){
 			result.pass = false;
-		}
-		else {
-			result.pass = true;
 		}
 		return result;
 }	
 
-
-
+//console.log( shipping_Company_name2("ann@123"));
 function shipping_Company_name2(input){
-	var result;
+	var result = new Object();
 	var error;
 	result.flgname  =  [];
 	result.flgflag  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	if (!check_allowed_char("", "alphanumeric", "conf1")){
-		error = "E22_1"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+	result.pass = true;
+	if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "E21_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	
-	if (result.flags.size>0){
-					result.pass = false;
-	}
-	else {
-					result.pass = true;
+	if (result.flgname.lenght>0){
+		result.pass = false;
 	}
 	return result;
 }	
-
+console.log(street_shipping_address("Athens, andover,P.O_"));
 function street_shipping_address(input){
-	var result;
+	var result = new Object();
 	var error;
 	result.flgname  =  [];
 	result.flgflag  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	if (!check_allowed_char("","alphanumeric", "conf1")){
+	result.pass = true;
+	if (!check_allowed_char(input, "alphanumeric", "conf1")){
 		error = "E23_1"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
 	if (!presence_check(input)){
-		error = "E23-2"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+		error = "E23_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	if (check_invalid_char("", "shippingAddress", "conf1")){
+	if (check_invalid_char(input, "shippingAddress", "conf1")){
 		error = "E23_5"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-			}			
-	if (result.flags.size>0){
-					result.pass = false;
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (result.flgname.lenght>0){
+		result.pass = false;
 	}
-	else {
-					result.pass = true;
-	} return result;
+	return result;
 }
 
 function city_shipping_address(input){
-	var result;
+	var result = new Object();
 	var error;
 	result.flgname  =  [];
 	result.flgflag  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	if (!check_allowed_char("", "alphabetic", "conf1")){
-		error = "E24_1"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+	result.pass = true;
+	
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
+		error = "E23_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	if (!presence-check(input)){
-		error = "E24-2"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+	if (!presence_check(input)){
+		error = "E23_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	if (!lkup_exhaustive_m("city_state_zip","city","")){
-		//error = "???"//
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-		}	
-	if (!matchobj("test1","test2","zip")){
-		//error = "???"//
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-		}
-	if (result.flags.size>0){
+		
+	if (result.flgname.lenght>0){
 					result.pass = false;
 	}
-	else {
-					result.pass = true;
-	}return result;
+	return result;
 }	
+
 function state_shipping_address(input){
-	var result;
+	var result = new Object();
 	var error;
-	result.flgname = [];
-	result.flgflag = [];
-	result.flgvalu = [];
-	result.flgmesg = [];
-	if (!check_allowed_char("", "alphabetic", "conf1")){
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true;
+	
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
 		error = "E25_1"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	if (!presence-check(input)){
-		error = "E25-2"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
+	if (!presence_check(input)){
+		error = "E25_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
-	if (!length_field_check(input)){
-		error = "E25-4"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-		}
-	if (!lkup_exhaustive_m("city_state_zip","city","")){
-		error = "???"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-			}		
-	if (!matchobj("city_state_zip","city","")){
-		error = "???"
-		ressult.flgname.push((flags)[error].name);
-		ressult.flgname.push((flags)[error].flag);
-		ressult.flgname.push((flags)[error].value);
-		ressult.flgname.push((flags)[error].msg);
-			}	
-	if (result.flags.size>0){
+	
+	if(!length_field_check(input, "state", "conf1")){
+		error = "E25_4"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+			}
+	
+	if (result.flgname.lenght>0){
 					result.pass = false;
 	}
-	else {
-					result.pass = true;
+	return result;
+}	
+
+console.log(zip_shipping_address("01007"));
+
+function zip_shipping_address(input){
+	var result = new Object();
+	var error;
+	var test4 = lkup_binary_m("city_state_zip","zip", input).data;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true;
+	if (!check_allowed_char(input, "numeric", "conf1")){
+		error = "E26_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 	}
+	if (!presence_check(input)){
+		error = "E26_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	if(!length_field_check(input, "zipCode", "conf1")){
+		error = "E26_4"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	if(!lkup_binary_m("city_state_zip","zip",input)){
+		error = "E26_22"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	
+	if (result.flgname.lenght>0){
+		result.pass = false;
+	}
+	return result;
+}	
+
+//mailing address attributes integration functions
+
+function mailing_Company_name1 (input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+	
+	if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "E28_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E28_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (result.flgname.lenght>0){
+		result.pass = false;
+	}
+
 	return result;
 }	
 
 
 
+function mailing_Company_name2(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+
+	if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "E29_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	
+	if (result.flgname.lenght>0){
+					result.pass = false;
+	}
+	
+	return result;
+	}	
+
+
+function street_mailing_address(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+
+	if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "E31_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E31_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	//if (check_invalid_char(input, "shippingAddress", "conf1")){
+		//error = "?"
+	//	result.flgname.push(flags[error].name);
+		//result.flgflag.push(flags[error].flag);
+		//result.flgvalue.push(flags[error].value);
+		//result.flgmsg.push(flags[error].msg);
+		//}
+	if (result.flgname.lenght>0){
+					result.pass = true;
+	}
+	 return result;
+	}
+
+function city_mailing_address(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+	
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
+		error = "E32_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E32_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	
+	//if (!matchobj("test1","test2","zip")){
+		//error = "E32_23"//
+		//result.flgname.push(flags[error].name);
+		//result.flgflag.push(flags[error].flag);
+		//result.flgvalue.push(flags[error].value);
+		//result.flgmsg.push(flags[error].msg);
+		//}
+	if (result.flgname.lenght>0){
+					result.pass = false;
+	}
+	return result;
+	}	
+
+function state_mailing_address(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+	
+	if (!check_allowed_char(input, "alphabetic", "conf1")){
+		error = "E33_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E33_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	
+	if(!length_field_check(input, "state", "conf1")){
+		error = "E33_4"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+			}
+		
+	if (result.flgname.lenght>0){
+					result.pass = false;
+	}
+	return result;
+	}	
+
+
+console.log(zip_mailing_address("01026"));
+console.log(zip_mailing_address("01001"));
+function zip_mailing_address(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true;
+	
+	if (!check_allowed_char(input, "numeric", "conf1")){
+		error = "E34_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E34_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	
+	if(!length_field_check(input, "zipCode", "conf1")){
+		error = "E34_4"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+		
+	if(lkup_binary_m("city_state_zip","zip",input)){
+		error = "E34_22"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	console.log(result.flgname.length);
+	if (result.flgname.lenght>0){
+		result.pass = false;
+}
+return result;
+}	
+
+
+console.log( date_Of_Ceased("12/sa/2018"));	
+function date_Of_Ceased(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true
+	
+	if (!check_allowed_char(input, "dateOfCeased", "conf1")){
+		error = "E31_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (!presence_check(input)){
+		error = "E31_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (check_req_char(input, "dateOfCeased", "conf1")){
+		error = "E36_3"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if (result.flgname.lenght>0){
+					result.pass = false;
+	}
+	return result;
+}
+
+
+// integrated match function
+
+
+console.log(matchobj_integrate1("Agawam", "MA", "01001"));
+
+function matchobj_integrate1(input1, input2, input3){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	var test1 = {
+			"city" : input1 ,
+			"state" : input2,
+			"zip" : input3
+	};
+	var test2 = lkup_binary_m("city_state_zip","zip", input3).data;
+	if (matchObj(test1,test2,"zip")){
+		result.pass = true;
+	}
+	else {
+		result.pass = false;
+		error = "E24_23"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	return result;
+}
+
+var example = {
+		"city" : "Agawam" ,
+		"state" : "MH",
+		"zip" : "01001"
+};
+console.log(matchobj_integrate2(example));
+function matchobj_integrate2(input){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	var input3 = input.zip;
+	var test2 = lkup_binary_m("city_state_zip","zip", input3).data;
+	if (matchObj(input,test2,"zip")){
+		result.pass = true;
+	}
+	else {
+		result.pass = false;
+		error = "E24_23"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	return result;
+}
 
