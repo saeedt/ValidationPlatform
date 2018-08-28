@@ -510,7 +510,7 @@ var flags = {
 				}
 }
 //returns true if the string only has the allowed characters
-console.log(check_allowed_char("12/sa/2014", "dateOfCeased", "conf1"));				
+console.log(check_allowed_char("12/08/2014", "dateOfCeased", "conf1"));				
 function check_allowed_char(input,type,config){
 	var filter = eval(config)[type].allowed;
 	console.log(!filter.test(input));
@@ -525,15 +525,15 @@ function check_invalid_char(input, type, config){
 }
 
 //returns true if the string contains all required characters
-//console.log(check_req_char("12/22/2014", "dateOfCeased", "conf1"));
+console.log(check_req_char("12/08/2014", "dateOfCeased", "conf1"));
 function check_req_char(input, type, config){
 	var filter = eval(config)[type].required;
-	console.log(filter.test(input));
-	return(filter.test(input));
+	console.log(!filter.test(input));
+	return(!filter.test(input));
 }
 
 
-// lenght field validation function
+// length field validation function
 
  function length_field_check(input, type, config){  
 	var lowerbound = eval(config)[type].minlenght;
@@ -1078,14 +1078,7 @@ function city_mailing_address(input){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	
-	//if (!matchobj("test1","test2","zip")){
-		//error = "E32_23"//
-		//result.flgname.push(flags[error].name);
-		//result.flgflag.push(flags[error].flag);
-		//result.flgvalue.push(flags[error].value);
-		//result.flgmsg.push(flags[error].msg);
-		//}
+		
 	if (result.flgname.lenght>0){
 					result.pass = false;
 	}
@@ -1131,7 +1124,7 @@ function state_mailing_address(input){
 	}	
 
 
-console.log(zip_mailing_address("01026"));
+//console.log(zip_mailing_address("01026"));
 console.log(zip_mailing_address("01001"));
 function zip_mailing_address(input){
 	var result = new Object();
@@ -1141,21 +1134,20 @@ function zip_mailing_address(input){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	
 	if (!check_allowed_char(input, "numeric", "conf1")){
 		error = "E34_1"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		}
+	}
 	if (!presence_check(input)){
 		error = "E34_2"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		}
+	}
 	
 	if(!length_field_check(input, "zipCode", "conf1")){
 		error = "E34_4"
@@ -1163,19 +1155,20 @@ function zip_mailing_address(input){
 		result.flgflag.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		}
-		
-	if(lkup_binary_m("city_state_zip","zip",input)){
+	}
+	var check = lkup_binary_m("city_state_zip","zip",input).found;
+	console.log(check);
+	if (!check  ){
 		error = "E34_22"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		}
-	console.log(result.flgname.length);
-	if (result.flgname.lenght>0){
+	}
+	//console.log(result.flgname.length);
+	if (result.flgname.length>0){
 		result.pass = false;
-}
+		}
 return result;
 }	
 
