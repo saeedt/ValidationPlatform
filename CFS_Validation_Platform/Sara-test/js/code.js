@@ -1,5 +1,4 @@
 
-
 //Global variables
 var inputData = [];
 
@@ -132,7 +131,7 @@ var conf1= {
 	//}
 }
 
-//error flags object
+//Error flags object
 
 var flags = {
 		// SHIPPING ADDRESS ATTRIBUTE
@@ -1248,6 +1247,7 @@ var example = {
 		"state" : "MH",
 		"zip" : "01001"
 };
+
 console.log(matchobj_integrate2(example));
 function matchobj_integrate2(input){
 	var result = new Object();
