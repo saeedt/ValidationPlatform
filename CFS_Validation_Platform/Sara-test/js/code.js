@@ -59,8 +59,8 @@ function log(input){
 	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
 	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
 	//console.log(lkup_binary("city_state_zip","zip","01007"));
-	console.log(lkup_exhaustive_m("city_state_zip","zip","01007") );
-	
+	//console.log(lkup_exhaustive_m("city_state_zip","zip","01007") );
+	console.log(check_req_char("12/08/2014", "dateOfCeased", "conf1"));
 	
 }
 
@@ -120,7 +120,8 @@ var conf1= {
 	dateOfCeased:{
 			allowed:/[^0-9/\ ]/g, 
 			required: /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g
-		},
+	//required:/^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
+	},
 	faxnum: {
 		minlenght:0 ,
 		maxlenght:10
@@ -512,23 +513,23 @@ var flags = {
 console.log(check_allowed_char("12/08/2014", "dateOfCeased", "conf1"));				
 function check_allowed_char(input,type,config){
 	var filter = eval(config)[type].allowed;
-	console.log(!filter.test(input));
-	return(!filter.test(input));
+	//console.log(!filter.test(input));
+	return(filter.test(input));
 }
 
 //returns true if the string contains any illegal characters
 function check_invalid_char(input, type, config){
 	var filter = eval(config)[type].not_allowed;
-	console.log(filter.test(input));
-	return(filter.test(input));
+	//console.log(filter.test(input));
+	return(!filter.test(input));
 }
 
 //returns true if the string contains all required characters
-console.log(check_req_char("12/08/2014", "dateOfCeased", "conf1"));
+//console.log(check_req_char("12/08/2014", "dateOfCeased", "conf1"));
 function check_req_char(input, type, config){
 	var filter = eval(config)[type].required;
-	console.log(!filter.test(input));
-	return(!filter.test(input));
+	//console.log(!filter.test(input));
+	return(filter.test(input));
 }
 
 
@@ -758,8 +759,8 @@ function test_int(input){
 // Integration functions for Establishment attributes and their flags
 // shipping address attributes
 
-console.log(shipping_Company_name1("dfsa"));
-function shipping_Company_name1 (input){
+console.log(shipping_Company_name_1("dfsa"));
+function shipping_Company_name_1 (input){
 		var result = new Object();
 		var error;
 		result.flgname  =  [];
@@ -788,8 +789,8 @@ function shipping_Company_name1 (input){
 		return result;
 }	
 
-//console.log( shipping_Company_name2("ann@123"));
-function shipping_Company_name2(input){
+//console.log( shipping_Company_name_2("ann@123"));
+function shipping_Company_name_2(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -809,8 +810,8 @@ function shipping_Company_name2(input){
 	}
 	return result;
 }	
-console.log(street_shipping_address("Athens, andover,P.O_"));
-function street_shipping_address(input){
+console.log(shipping_address("Athens, andover,P.O_"));
+function shipping_address(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -845,7 +846,7 @@ function street_shipping_address(input){
 	return result;
 }
 
-function city_shipping_address(input){
+function shipping_city(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -875,7 +876,7 @@ function city_shipping_address(input){
 	return result;
 }	
 
-function state_shipping_address(input){
+function shipping_state(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -913,9 +914,9 @@ function state_shipping_address(input){
 	return result;
 }	
 
-console.log(zip_shipping_address("01007"));
+console.log(shipping_zip5("01007"));
 
-function zip_shipping_address(input){
+function shipping_zip5(input){
 	var result = new Object();
 	var error;
 	var test4 = lkup_binary_m("city_state_zip","zip", input).data;
@@ -961,7 +962,7 @@ function zip_shipping_address(input){
 
 //mailing address attributes integration functions
 
-function mailing_Company_name1 (input){
+function mailing_Company_name_1 (input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -993,7 +994,7 @@ function mailing_Company_name1 (input){
 
 
 
-function mailing_Company_name2(input){
+function mailing_Company_name_2(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -1018,7 +1019,7 @@ function mailing_Company_name2(input){
 	}	
 
 
-function street_mailing_address(input){
+function mailing_address(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -1054,7 +1055,7 @@ function street_mailing_address(input){
 	 return result;
 	}
 
-function city_mailing_address(input){
+function mailing_city(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -1084,7 +1085,7 @@ function city_mailing_address(input){
 	return result;
 	}	
 
-function state_mailing_address(input){
+function mailing_state(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -1123,9 +1124,9 @@ function state_mailing_address(input){
 	}	
 
 
-//console.log(zip_mailing_address("01026"));
-console.log(zip_mailing_address("01001"));
-function zip_mailing_address(input){
+//console.log(mailing_zip("01026"));
+console.log(mailing_zip("01001"));
+function mailing_zip(input){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
