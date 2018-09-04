@@ -406,7 +406,7 @@ var flags = {
 			name:"dateOf Ceased_Format",
 				flag: "E36",
 				value:"3",
-				msg: "Date of ceased operation is not entered in MMDDYYYY format"
+				msg: "Date of ceased operation is not entered in  MMDDYYYY format "
 				},
 			E37_2: {
 			name:"primIndustCheck_blank",
@@ -1262,7 +1262,9 @@ function mailing_zip(input1, input2, input3){
 }	
 
 
-//console.log( date_Of_Ceased("12/sa/2018"));	
+//console.log( date_Of_Ceased("12/32/2018"));
+//console.log( date_Of_Ceased("12/sa/2018"));
+
 function date_Of_Ceased(input){
 	var result = new Object();
 	var error;
@@ -1273,7 +1275,7 @@ function date_Of_Ceased(input){
 	result.pass = true
 	
 	if (!check_allowed_char(input, "dateOfCeased", "conf1")){
-		error = "E31_1"
+		error = "E36_1"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
