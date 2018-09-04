@@ -579,7 +579,7 @@ function Range_value_check(input, type, config){
 
 
 // presence check for check marks
-
+/*
 function check_box(input){	
 	if (typeof(input) == 'undefined') { 
 		return false;
@@ -591,6 +591,7 @@ function check_box(input){
 
 //console.log(check_box("ceased"));
 // presence check
+
 function presence_check(input){	
 	if (input.length == 0 || input == 'null' || input == 'NA' || typeof(input) == 'undefined') { 
 		return false;
@@ -599,6 +600,22 @@ function presence_check(input){
 		return true;
 	}		 
 } 
+
+// presence check
+*/
+function presence_check(input){	
+	if ( typeof(input) == 'undefined') { 
+		return false;
+	}   	
+	else if (input.length == 0 || input == 'null' || input == 'NA' ) {
+		return false;
+	}   	
+	else {
+		return true;
+	}		 
+} 
+			 
+//console.log(presence_check(""));
 
 //test lookup table
  var city_state_zip = [
@@ -779,7 +796,7 @@ var test2 ={
 		result.flgvalue =  [];
 		result.flgmsg   =  [];
 		result.pass = true;
-		if (!check_box(input)){
+		if (!presence_check(input)){
 			error = "E20_2"
 			result.flgname.push(flags[error].name);
 			result.flgflag.push(flags[error].flag);
@@ -1262,7 +1279,7 @@ function date_Of_Ceased(input){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	//if (!check_box(input)){
+	//if (!presence_check(input)){
 	//	error = "E31_2"
 		//result.flgname.push(flags[error].name);
 		//result.flgflag.push(flags[error].flag);
@@ -1365,7 +1382,7 @@ function check_operating_Status(input1, input2, input3){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (check_box(input1) && check_box(input2) && check_box(input3)){
+	if (presence_check(input1) && presence_check(input2) && presence_check(input3)){
 		error = "E35_2"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
@@ -1395,7 +1412,7 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if ((check_box(input1) && ! check_box(input2))||(!check_box(input1) && check_box(input2)) ){
+	if ((presence_check && ! presence_check(input2))||(!presence_check(input1) && presence_check(input2)) ){
 		error = "E5_1"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
@@ -1418,7 +1435,7 @@ function Verfication_priamaryIndustry_checkBox (input){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (!presence_check_box(input)){
+	if (!presence_check(input)){
 		error = "E37_2"
 		result.flgname.push(flags[error].name);
 		result.flgflag.push(flags[error].flag);
