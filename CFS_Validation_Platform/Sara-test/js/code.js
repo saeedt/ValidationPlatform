@@ -965,7 +965,7 @@ function shipping_state(input){
 	return result;
 }	
 
-//console.log(shipping_zip5("Aga23wam", "Mh2","01001"));
+console.log(shipping_zip("Aga23wam", "Mh2","01001"));
 
 function shipping_zip(input1, input2, input3){
 	var result = new Object();
@@ -1248,6 +1248,8 @@ function mailing_zip(input1, input2, input3){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
+	//cosole.log(lkup_binary_m("city_state_zip","zip",input3).data>0)));
+
 	if(!matchObj(test1, test2, "zip")){
 		error = "E32_23"
 		result.flgname.push(flags[error].name);
