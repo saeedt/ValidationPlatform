@@ -82,7 +82,31 @@ function log(input){
 	//console.log(test_destinationZip("01043"));
 	//console.log(test_mode(8, "Y", 4999999, "17110", "AL"));
 	//console.log(test_exportCity("12FR5*"));
-	console.log(test_exportCountry("Iran", "Paris", 7));
+	//console.log(test_exportCountry("Iran", "Paris", 7));
+	//console.log(test_exportCountry("Belgum", "venice", 3));
+	//console.log(test_numberOfShip(1000000));
+	//console.log(test_totShipValue(0));
+	//console.log(test_totShipValue(""));
+	//console.log(test_ship_ID("gh65"));
+	//console.log(test_ship_date_day(8));
+	//console.log(test_ship_value(5, 100, "02200"));
+	//console.log(range_val_check(12, "ship_date_month", "conf1"));
+	//console.log(test_numberOfShip(1567));
+	//console.log(test_totShipValue(100));
+	//console.log(test_moreThan40Ship(""));
+	//console.log(test_ship_ID("tgh67"));
+	//console.log(test_ship_value(2, 100, "17110"));
+	//console.log(test_ship_value(1, 10000, "41110"));
+	//console.log( test_ship_weight(1, 200000, "41110", 18));
+	//console.log( test_ship_weight(1, 50, "41110", 4));
+	//console.log(test_sctg("41130", "Y", 1, 4000, "AL", 28, "1088"));
+	//console.log(test_temp_control("N", "07119"));
+	//console.log(test_unna("9876"));
+	//console.log(test_unna("1088", "14992"));
+	//console.log(test_destinationCity("Paris222APO"));
+	//console.log(test_destinationZip("09009"));
+	//console.log(test_mode("", "Y", 450, "14992", "OH"));
+	console.log(test_exportCountry("I22ran", "Mashhad", 2));
 }	
 
 //configuration object for verification functions
@@ -92,70 +116,83 @@ var conf1= {
 		allowed: /[^a-zA-Z0-9]/g,
 		not_allowed: /^.*/,
 		required: /^.*/	
-	},	
-	
+	},		
 	email: {
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
 		not_allowed: /[(),:;<>[\]]/g,
 		required: /^.+@{1}.+[.].+$/
-	},
-	
-	ship_date: {
+	},	
+	ship_date_day: {
 		allowed: /[0-9]/g,
 		not_allowed: /^.*/,
-		required: /^\d{2}-?\d{2}-?\d{4}$/
+		required: /^.*/,
+		minRange: 1,
+		maxRange: 31		
 	},	
-	
+	ship_date_month: {
+		allowed: /[0-9]/g,
+		not_allowed: /^.*/,
+		required: /^.*/,
+		minRange: 1,
+		maxRange: 12	
+	},	
+	numberOfShip: {
+		minRange:1,
+		maxRange:100000
+	},	
+	totShipValue: {
+		minRange: 1
+	},	
+	ship_value: {
+		minRange: 1
+	},
+	ship_weight: {
+		minRange: 1
+	},
 	unna: {
 		allowed: /[0-9]/g,
 		not_allowed: /^.*/,
-		required: /^\d{4}$/,
-		minlenght:4,
-		maxlenght:4
-	},
-	
+		required: /^.*/,
+		minRange:4,
+		maxRange:4
+	},	
 	sctg: {
 		allowed: /[0-9]/g,
 		not_allowed: /^.*/,
 		required: /^\d{5}$/,
-		minlenght:5,
-		maxlenght:5	
-	},
-	
+		minRange:5,
+		maxRange:5	
+	},	
 	zip: {
 		allowed: /[0-9]/g,
 		not_allowed: /^.*/,
 		required: /^.*/,
-		minlenght:5,
-		maxlenght:10	
-	},
-	
+		minRange:5,
+		maxRange:10	
+	},	
 	city: {
 		allowed: /[A-Za-z]/g,
 		not_allowed: /(APO|FPO|DPO)/g,
 		required: /^.*/
-	},
-	
+	},	
 	state: {
 		allowed: /[A-Za-z]/g,
 		not_allowed: /(AA|AE|AP)/g,
 		required: /^.*/,
-		minlenght:2,
-		maxlenght:2
-	},
-	
+		minRange:2,
+		maxRange:2
+	},	
 	country: {
 		allowed: /[A-Za-z]/g,
 		not_allowed: /^.*/,
 		required: /^.*/
 	},
-	
 	mode: {
 		allowed: /[0-9]/g,
 		not_allowed: /^.*/,
 		required: /^.*/,
-		minlenght:1,
-		maxlenght:4
+		minRange:1,
+		maxRange:4
 	},
 	numeric:{
 		allowed: /[^0-9+$]/g,
@@ -214,6 +251,16 @@ var lkup1 = [
 		"sctg" : "14992",
 		"vw_lb" : 0.00453,
 		"vw_ub" : 16658.75
+	},
+	{
+		"sctg" : "17110",
+		"vw_lb" : 0.08168,
+		"vw_ub" : 1.13683
+	},
+	{
+		"sctg" : "41110",
+		"vw_lb" : 0.00038,
+		"vw_ub" : 89.19525
 	}	
 	];
 	
@@ -313,59 +360,11 @@ var lkup14 = ["08310", "08410", "17110", "17120", "17201"];
 
 var lkup15 = ["14992", "17500", "17600", "18100", "18200", "18210"];
 
-var lkup16 = [
-	{
-		"city" :"Abbey"
-	},
-	{
-		"city" :"Abbotsford"
-	},
-	{
-		"city" :"Abercorn"
-	},
-	{
-		"city": "Aberdeen"
-	},
-	{
-		"city": "Abernethy"
-	}
-];	
+var lkup16 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"];
 	
-var lkup17 = [
-	{
-		"city": "Aconchi"
-	},
-	{
-		"city": "Acteopan"
-	},
-	{	
-		"city": "Acuamanala"
-	},
-	{	
-		"city": "Acuitlapan"
-	},
-	{
-		"city": "Acula"
-	}
-];	
+var lkup17 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
 
-var lkup18 = [
-	{
-		"country": "Afghanistan"
-	},
-	{
-		"country": "Albania",
-	},
-	{
-		"country": "Algeria"
-	},
-	{
-		"country": "Angola"
-	},
-	{
-		"country": "Argentina"
-	}
-];	
+var lkup18 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
 
 var lkup19 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33"];
 
@@ -417,8 +416,7 @@ var flags = {
 			flag: "S4",
 			value: "2",
 			name: "inv_sctg_mode1_weight150_orAK",
-			msg: "SCTG code is invalid for mode includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."
-		
+			msg: "SCTG code is invalid for mode includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."		
 	},
 	S4_3: {
 			flag: "S4",
@@ -432,22 +430,10 @@ var flags = {
 		name: "zero_ship_value",
 		msg: "Shipment value is invalid. The value must be greater than zero."
 	},
-	S5_3: {
-		flag: "S5",
-		value: "3",
-		name: "negative_ship_value",
-		msg: "Shipment value is invalid. The value must be greater than zero."
-	},
 	S6_2: {
 		flag: "S6",
 		value: "2",
 		name: "zero_ship_weight",
-		msg: "Shipment weight is invalid. The value must be greater than zero."
-	},
-	S6_3: {
-		flag: "S6",
-		value: "3",
-		name: "negative_ship_weight",
 		msg: "Shipment weight is invalid. The value must be greater than zero."
 	},
 	S7_1: {
@@ -703,17 +689,11 @@ var flags = {
 		name: "miss_numberOfShip",
 		msg: "Total number of outbound shipments is missing."
 	},
-	S30_6: {
-		flag: "S30",
-		value: "6",
-		name: "zero_numberOfShip",
-		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
-	},
 	S30_20: {
 		flag: "S30",
 		value: "20",
-		name: "max_numberOfShip",
-		msg: "Total number of outbound shipments is greater than 100,000 shipments."
+		name: "outOfRange_numberOfShip",
+		msg: "Total number of outbound shipments is invalid. The total number of outbound shipments must be between 1 and 100,000."
 	},
 	S31_2: {
 		flag: "S31",
@@ -721,11 +701,11 @@ var flags = {
 		name: "miss_totShipValue",
 		msg: "Total value of shipments is missing."
 	},
-	S31_6: {
+	S31_20: {
 		flag: "S31",
-		value: "6",
+		value: "20",
 		name: "zero_totShipValue",
-		msg: "Total value of shipments is invalid. The value must be greater than zero."
+		msg: "Total value of shipments is not in range."
 	},
 	S31_28: {
 		flag: "S31",
@@ -793,23 +773,29 @@ var flags = {
 		name: "numberOfShipReported_atv_mos_20million",
 		msg: ""
 	},//Not sure about the message for the error: [|ATV - MOS| > $20 million or Estab Wgt > 5] and ratio of (MOS/ATV) < 0.1 or > 10
+	S35_1: {
+		flag: "S35",
+		value: "1",
+		name: "nonNumeric_ship_date_month",
+		msg: "Shipment date (month) is not numeric."
+	},
 	S35_2: {
 		flag: "S35",
 		value: "2",
 		name: "miss_ship_date_month",
 		msg: "Shipment date (month) is missing."
 	},
-	S35_3: {
-		flag: "S35",
-		value: "3",
-		name: "invFormat_ship_date_month",
-		msg: "Shipment date (month) is not in MM/DD format."
-	},
 	S35_20: {
 		flag: "S35",
 		value: "20",
 		name: "inv_ship_date_month",
-		msg: "Shipment date (month) is not within the reporting period."
+		msg: "Shipment date (month) is not within the range."
+	},
+	S36_1: {
+		flag: "S36",
+		value: "1",
+		name: "nonNumeric_ship_date_day",
+		msg: "Shipment date (day) is not numeric."
 	},
 	S36_2: {
 		flag: "S36",
@@ -817,17 +803,11 @@ var flags = {
 		name: "miss_ship_date_day",
 		msg: "Shipment date (day) is missing."
 	},
-	S36_3: {
-		flag: "S36",
-		value: "3",
-		name: "invFormat_ship_date_day",
-		msg: "Shipment date (day) is not in MM/DD format."
-	},
 	S36_20: {
 		flag: "S36",
 		value: "20",
 		name: "inv_ship_date_day",
-		msg: "Shipment date (day) is not within the reporting period."
+		msg: "Shipment date (day) is not within the range."
 	},
 	S37_2: {
 		flag: "S37",
@@ -919,6 +899,12 @@ var flags = {
 		name: "ship_weight_mode9",
 		msg: "Shipment weight is invalid for other mode of transport (9)."
 	},//If mode = 9 (Other mode), then shipments will likely be converted to 3 or 4 based on shipment weight.
+	S39_1: {
+		flag: "S39",
+		value: "1",
+		name: "nonNumeric_sctg",
+		msg: "SCTG code is not numeric."
+	},
 	S39_2: {
 		flag: "S39",
 		value: "2",
@@ -1014,6 +1000,12 @@ var flags = {
 		value: "36",
 		name: "inv_tempContN_sctg",
 		msg: "SCTG code is invalid with a negative temperature control response."
+	},
+	S42_1: {
+		flag: "S42",
+		value: "3",
+		name: "invFormat_unna",
+		msg: "'UN' or 'NA' code is nnumeric."
 	},
 	S42_3: {
 		flag: "S42",
@@ -1121,13 +1113,19 @@ var flags = {
 		flag: "S45",
 		value: "3",
 		name: "invFormat_destinationZip",
-		msg: "U.S. destination (zip code) is not a 5-digit number."
+		msg: "U.S. destination (zip code) is not a 5-digit or 10-digit number."
 	},
 	S45_5: {
 		flag: "S45",
 		value: "5",
 		name: "invChar_destinationZip",
 		msg: "U.S. destination (zip code) has invalid character."
+	},
+	S45_22: {
+		flag: "S45",
+		value: "22",
+		name: "inv_destinationZip",
+		msg: "U.S. destination (zip code) is invalid."
 	},
 	S46_1: {
 		flag: "S46",
@@ -1271,33 +1269,7 @@ function check_req_char(input, type, config){
 	//console.log(filter.test(input));
 	return(filter.test(input));
 }
-
-//presence check function
-function presence_check(input){	
-	if (input.length == 0 || input == 'null' || input == 'NA' || typeof(input) == 'undefined') { 
-		return false;
-	}   	
-	else {
-		return true;
-	}		 
-} 
-
-//Zero input function
-function zero_value(input){	
-	if (input == 0){
-		return false; 
-	}
-	return true;
-} 
-
-//Negative input function
-function negative_value(input){	
-	if (input < 0){
-		return false; 
-	}
-	return true;
-} 
-
+//Lookup linear function
 function lkup_linear(table,input){
 	var tbl = eval(table);
 	for (var i=0; i<tbl.length; i++){
@@ -1307,6 +1279,38 @@ function lkup_linear(table,input){
 	}	
 	return false;	
 }
+//Range validation check
+function range_val_check(input, type, config){
+	var cfg = eval(config)[type];
+	var min_pass = true;
+	var max_pass = true;
+		if (typeof(cfg.minRange != "undefined")){
+			if (input < cfg.minRange){
+				min_pass = false;
+			}
+		}
+		if(typeof(cfg.maxRange != "undefined")){
+			if (input > cfg.maxRange){
+				max_pass = false;
+			}
+		}
+		if (min_pass && max_pass){
+			return true;
+		}
+	return false;
+	}
+
+function presence_check(input){	
+	if ( typeof(input) == 'undefined') { 
+		return false;
+	}   	
+	else if (input.length == 0 || input == 'null' || input == 'NA' ) {
+		return false;
+	}   	
+	else {
+		return true;
+	}		 
+} 
 
 //matches a given object with an array of values
 function matchObj(ref,list,column){
@@ -1417,14 +1421,7 @@ function test_numberOfShip(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!zero_value(input)){
-			error = "S30_6";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (input > 100000){
+		if (!range_val_check (input, "numberOfShip", "conf1")){ 
 			error = "S30_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1454,8 +1451,8 @@ function test_totShipValue(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!zero_value(input)){
-			error = "S31_6";
+		if (!range_val_check(input, "totShipValue", "conf1")){
+			error = "S31_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1469,7 +1466,30 @@ function test_totShipValue(input){
 		}
 			return result;
 }
-	
+
+function test_moreThan40Ship(input){
+	var result = new Object();
+	var error;
+	result.flagname = [];
+	result.flags = [];
+	result.flagval = [];
+	result.flagmsg = [];
+		if (!presence_check(input)){
+			error = "S32_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (result.flags.length>0){
+			result.pass = false;
+		}
+		else {
+			result.pass = true;
+		}
+			return result;
+}
+
 function test_ship_ID(input){
 	var result = new Object();
 	var error;
@@ -1507,6 +1527,13 @@ function test_ship_date_month(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+			error = "S35_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (!presence_check(input)){
 			error = "S35_2";
 			result.flagname.push((flags)[error].name);
@@ -1514,8 +1541,8 @@ function test_ship_date_month(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!check_req_char(input, "ship_date", "conf1")){
-			error = "S35_3";
+		if (!range_val_check(input, "ship_date_month", "conf1")){
+			error = "S35_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1537,6 +1564,13 @@ function test_ship_date_day(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+			error = "S36_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (!presence_check(input)){
 			error = "S36_2";
 			result.flagname.push((flags)[error].name);
@@ -1544,8 +1578,8 @@ function test_ship_date_day(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!check_req_char(input, "ship_date", "conf1")){
-			error = "S36_3";
+		if (!range_val_check(input, "ship_date_day", "conf1")){
+			error = "S36_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1576,20 +1610,20 @@ function test_ship_value(value, weight, sctg){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!zero_value(value)){
+		if (!range_val_check(weight, "ship_weight", "conf1")){
+			error = "S6_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (!range_val_check(value, "ship_value", "conf1")){
 			error = "S5_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!negative_value(value)){
-			error = "S5_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
+		}	
 		if (lkup_result.found){
 			if (lkup_linear("lkup19", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){
@@ -1598,11 +1632,7 @@ function test_ship_value(value, weight, sctg){
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		  }
-		if (lkup_result.found){
-			if (lkup_linear("lkup19", sctg.substr(0,2))){
+				}	
 				if (lkup_result.data[0].vw_ub < vw_ratio){	
 					error = "S8_2";
 					result.flagname.push((flags)[error].name);
@@ -1610,50 +1640,38 @@ function test_ship_value(value, weight, sctg){
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
 				}
+			
 			}
-		}	
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_lb > vw_ratio){			
-					error = "S8_3";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_ub < vw_ratio){		
-					error = "S8_4";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		} else	if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_lb > vw_ratio){		
-							error = "S8_5";
-							result.flagname.push((flags)[error].name);
-							result.flags.push((flags)[error].flag);
-							result.flagval.push((flags)[error].value);
-							result.flagmsg.push((flags)[error].msg);
-						}
+			else if (lkup_linear("lkup20", sctg.substr(0,2))){
+					if (lkup_result.data[0].vw_lb > vw_ratio){			
+						error = "S8_3";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					if (lkup_result.data[0].vw_ub < vw_ratio){		
+						error = "S8_4";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
 					}
-		} else	if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_ub < vw_ratio){			
+			}else if (lkup_result.data[0].vw_lb > vw_ratio){	
+						error = "S8_5";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+				} else { 
+					(lkup_result.data[0].vw_lb < vw_ratio)
 							error = "S8_6";
 							result.flagname.push((flags)[error].name);
 							result.flags.push((flags)[error].flag);
 							result.flagval.push((flags)[error].value);
 							result.flagmsg.push((flags)[error].msg);
-						}
-					}	
-				}	
+				}
+		}
 		if (result.flags.length>0){
 			result.pass = false;
 		}else {
@@ -1678,6 +1696,13 @@ function test_ship_weight(value, weight, sctg, mode){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
+		if (!range_val_check(weight, "ship_weight", "conf1")){
+			error = "S6_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}	
 		if (lkup_result.found){
 			if (lkup_linear("lkup19", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){
@@ -1686,76 +1711,45 @@ function test_ship_weight(value, weight, sctg, mode){
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup19", sctg.substr(0,2))){
+				}	
 				if (lkup_result.data[0].vw_ub < vw_ratio){	
 					error = "S38_35";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
+				}			
 			}
-		}	
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_lb > vw_ratio){			
-					error = "S38_36";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_ub < vw_ratio){		
-					error = "S38_37";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		} else if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_lb > vw_ratio){		
-							error = "S38_38";
-							result.flagname.push((flags)[error].name);
-							result.flags.push((flags)[error].flag);
-							result.flagval.push((flags)[error].value);
-							result.flagmsg.push((flags)[error].msg);
-						}
+			else if (lkup_linear("lkup20", sctg.substr(0,2))){
+					if (lkup_result.data[0].vw_lb > vw_ratio){			
+						error = "S38_36";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					if (lkup_result.data[0].vw_ub < vw_ratio){		
+						error = "S38_37";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
 					}
-		} else if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_ub < vw_ratio){			
+			}else if (lkup_result.data[0].vw_lb > vw_ratio){	
+						error = "S38_38";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+				} else { 
+						(lkup_result.data[0].vw_lb < vw_ratio)
 							error = "S38_39";
 							result.flagname.push((flags)[error].name);
 							result.flags.push((flags)[error].flag);
 							result.flagval.push((flags)[error].value);
 							result.flagmsg.push((flags)[error].msg);
-						}
-					}	
-		}	
-		if (!zero_value(weight)){
-			error = "S6_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+				}
 		}
-		if (!negative_value(weight)){
-			error = "S6_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}	
 		if (lkup_linear("lkup22", mode)){
 			if(weight > 150){
 					error = "S7_1";
@@ -1764,7 +1758,8 @@ function test_ship_weight(value, weight, sctg, mode){
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
 			}
-		} else if (lkup_linear("lkup23", mode)){ 
+		}	
+		if (lkup_linear("lkup23", mode)){ 
 			if(weight > 80000){
 				error = "S7_1";
 				result.flagname.push((flags)[error].name);
@@ -1772,7 +1767,8 @@ function test_ship_weight(value, weight, sctg, mode){
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-		} else if(mode == 8 && weight > 2000){
+		}	
+		if (mode == 8 && weight > 2000){
 			error = "S7_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1787,7 +1783,8 @@ function test_ship_weight(value, weight, sctg, mode){
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
 			 }
-		} else if (mode == 4 && weight < 100){
+		}
+		if (mode == 4 && weight < 100){
 			error = "S7_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1808,19 +1805,37 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 	var error;
 	var vw_ratio = value/weight;
 	var lkup_result = lkup_binary_m("lkup1","sctg", sctg);
+	var mode = [];
+	var mode1 = mode.includes(7);
+	var mode2 = mode.includes(1);
+	var mode3 = mode.includes(8);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+		if (!range_val_check(weight, "ship_weight", "conf1")){
+			error = "S6_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}	
+		if (!check_allowed_char(sctg, "numeric", "conf1")){
+			error = "S39_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (!presence_check(sctg)){
-		error = "S39_2";
+			error = "S39_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!check_req_char(sctg, "sctg", "conf1")){
-		error = "S39_3";
+			error = "S39_3";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1834,74 +1849,53 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup19", sctg.substr(0,2))){
+				}	
 				if (lkup_result.data[0].vw_ub < vw_ratio){	
 					error = "S39_35";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
+				}			
 			}
-		}	
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_lb > vw_ratio){			
-					error = "S39_36";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_ub < vw_ratio){		
-					error = "S39_37";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		} else if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_lb > vw_ratio){		
-							error = "S39_38";
-							result.flagname.push((flags)[error].name);
-							result.flags.push((flags)[error].flag);
-							result.flagval.push((flags)[error].value);
-							result.flagmsg.push((flags)[error].msg);
-						}
+			else if (lkup_linear("lkup20", sctg.substr(0,2))){
+					if (lkup_result.data[0].vw_lb > vw_ratio){			
+						error = "S39_36";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					if (lkup_result.data[0].vw_ub < vw_ratio){		
+						error = "S39_37";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
 					}
-		} else if (lkup_result.found){
-					if (lkup_linear("lkup21", sctg.substr(0,2))){
-						if (lkup_result.data[0].vw_ub < vw_ratio){			
+			}else if (lkup_result.data[0].vw_lb > vw_ratio){	
+						error = "S39_38";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+				} else { (lkup_result.data[0].vw_lb < vw_ratio)
 							error = "S39_39";
 							result.flagname.push((flags)[error].name);
 							result.flags.push((flags)[error].flag);
 							result.flagval.push((flags)[error].value);
 							result.flagmsg.push((flags)[error].msg);
 						}
-					}	
-		}	
-		if (lkup_result.found){
-			if (lkup_linear("lkup11", sctg.substr(0,2))){ 
+		}
+			if  (lkup_linear("lkup11", sctg.substr(0,2))){ 
 				if (temp_control == "Y"){
-					error = "S12_1";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
+						error = "S12_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
 				}
 			} 
-		}
-		if (lkup_result.found){
 			if (lkup_linear("lkup12", sctg.substr(0,2))){ 
 				if (temp_control == "Y"){			
 					error = "S12_2";
@@ -1911,9 +1905,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 					result.flagmsg.push((flags)[error].msg);
 				}
 			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup13", sctg.substr(0,2))){ 
+			if (lkup_linear("lkup13", sctg.substr(0,2))){
 				if (temp_control == "N"){	
 					error = "S12_3";
 					result.flagname.push((flags)[error].name);
@@ -1922,32 +1914,96 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 					result.flagmsg.push((flags)[error].msg);
 				}
 			}
-		}
-		if (lkup_linear("lkup14", sctg)){
-			if (!presence_check(unna)){
-				error = "S9_1";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
+			if (lkup_linear("lkup14", sctg)){
+				if (!presence_check(unna)){
+					error = "S9_1";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}
 			}
-		}
-		if (presence_check(unna)){
+			if (!lkup_binary_m("lkup2", "unna_code", unna).found){
+					error = "S9_2";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+			}
 			if (!lkup_linear("lkup15", sctg)){
-				error = "S9_3";
+				if (presence_check(unna)){
+					error = "S9_3";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}
+			}
+			if (sctg.substr(0,2) == 16 && sctg != 16000){
+				error = "S3_3";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-		}
-		if (sctg.substr(0,2) == 16 && sctg != 16000){
-			error = "S3_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
+			if (!lkup_linear("lkup6", sctg)){
+				if (mode == mode1){ 
+					error = "S4_1";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}
+			}
+			if (lkup_linear("lkup7", sctg)){
+				if (mode == mode2){ 
+					if (weight>=150){
+						error = "S4_2";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}	
+			}
+			if (lkup_linear("lkup8", sctg)){ 
+				if (mode == mode2){
+					if (weight>=150){
+						if (state != "AK"){		
+							error = "S4_2";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+					}
+				}
+			}
+			if (lkup_linear("lkup9",sctg)){  
+				if (mode == mode3){
+					if	(weight>=1000){
+						error = "S4_3";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}
+			}
+			if (lkup_linear("lkup10", sctg)){
+				if (mode == mode3){
+					if (weight>=1000){
+						if (state != "AK"){	
+							error = "S4_3";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+
+						}
+					}
+				}
+			}
 		if (result.flags.length>0){
 			result.pass = false;
 		}
@@ -2003,35 +2059,31 @@ function test_temp_control(temp_control, sctg){
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (lkup_result.found){
-			if (lkup_linear("lkup11", sctg.substr(0,2))){ 
-				if (temp_control == "Y"){
+			if (temp_control == "Y"){
+				if (lkup_linear("lkup11", sctg.substr(0,2))){ 
 					error = "S41_34";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
-			} 		
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup12", sctg.substr(0,2))){ 
-				if (temp_control == "Y"){			
+				}	
+				else if (lkup_linear("lkup12", sctg.substr(0,2))){ 			
 					error = "S41_35";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
-				}
+					}
 			}
-		}
-		if (lkup_result.found){
-			if (lkup_linear("lkup13", sctg.substr(0,2))){ 
+			else {
 				if (temp_control == "N"){	
+				if (lkup_linear("lkup13", sctg.substr(0,2))){ 
 					error = "S41_36";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
+				}
 				}
 			}
 		}	
@@ -2044,36 +2096,42 @@ function test_temp_control(temp_control, sctg){
 			return result;
 }
 
-function test_unna(input){
+function test_unna(unna, sctg){
 	var result = new Object();
 	var error;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_req_char(input,"unna", "conf1")){
-			console.log("found!");
+		if (!check_allowed_char(unna,"numeric", "conf1")){
+			error = "S42_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (!range_val_check(unna,"unna", "conf1")){
 			error = "S42_3";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!lkup_binary_m("lkup2", "unna_code", input).found){
+		if (!lkup_binary_m("lkup2", "unna_code", unna).found){
 			error = "S42_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}	
-		if (lkup_linear("lkup14",input).found  && !presence_check(input)){
+		if (lkup_linear("lkup14",sctg) && !presence_check(unna)){
 			error = "S42_34";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (lkup_linear("lkup15",input) && presence_check(input)){
+		if (lkup_linear("lkup15",sctg) && presence_check(unna)){
 			error = "S42_35";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -2096,7 +2154,7 @@ function test_destinationCity(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!lkup_exhaustive_m("lkup4", "city", input).found){
+		if (!lkup_linear("lkup4",input)){
 			error = "S43_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -2185,7 +2243,7 @@ function test_destinationZip(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!lkup_exhaustive_m("lkup4", "zipCode", input).found){
-			error = "S1_1";
+			error = "S45_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -2205,15 +2263,8 @@ function test_destinationZip(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!check_req_char(input, "zip", "conf1")){
+		if (!range_val_check(input, "zip", "conf1")){
 			error = "S45_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!check_invalid_char(input, "zip", "conf1")){
-			error = "S45_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -2238,6 +2289,10 @@ function test_destinationZip(input){
 function test_mode(mode, temp_control, weight, sctg, state){
 	var result = new Object();
 	var error;
+	var mode = [];
+	var mode1 = mode.includes(7);
+	var mode2 = mode.includes(1);
+	var mode3 = mode.includes(8);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -2278,7 +2333,8 @@ function test_mode(mode, temp_control, weight, sctg, state){
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
 			}
-		} else if (lkup_linear("lkup23", mode)){ 
+		}	
+		if (lkup_linear("lkup23", mode)){ 
 			if(weight > 80000){
 				error = "S46_29";
 				result.flagname.push((flags)[error].name);
@@ -2286,7 +2342,8 @@ function test_mode(mode, temp_control, weight, sctg, state){
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-		} else if(mode == 8 && weight > 2000){
+		}	
+		if (mode == 8 && weight > 2000){
 			error = "S46_29";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -2301,22 +2358,25 @@ function test_mode(mode, temp_control, weight, sctg, state){
 					result.flagval.push((flags)[error].value);
 					result.flagmsg.push((flags)[error].msg);
 			 }
-		} else if (mode == 4 && weight < 100){
+		}
+		if (mode == 4 && weight < 100){
 			error = "S46_30";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!lkup_linear("lkup6", mode) && mode == 7){
-			error = "S46_34";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!lkup_linear("lkup6", sctg)){
+			if (mode == mode1){ 
+				error = "S46_34";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
 		}
 		if (lkup_linear("lkup7", sctg)){
-			if (mode == 1){ 
+			if (mode == mode2){ 
 				if (weight>=150){
 					error = "S46_35";
 					result.flagname.push((flags)[error].name);
@@ -2327,7 +2387,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}	
 		}
 		if (lkup_linear("lkup8", sctg)){ 
-			if (mode == 1){
+			if (mode == mode2){
 				if (weight>=150){
 					if (state != "AK"){		
 						error = "S46_35";
@@ -2340,7 +2400,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup9",sctg)){  
-			if (mode == 8){
+			if (mode == mode3){
 				if	(weight>=1000){
 					error = "S46_36";
 					result.flagname.push((flags)[error].name);
@@ -2351,7 +2411,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup10", sctg)){
-			if (mode == 8){
+			if (mode == mode3){
 				if (weight>=1000){
 					if (state != "AK"){	
 						error = "S46_36";
@@ -2442,8 +2502,8 @@ function test_exportCountry(country, city, mode){
 				}
 			}
 		}
-		if (!lkup_exhaustive_m("lkup16","city", city).found){
-			if (!lkup_exhaustive_m("lkup17", "city",city).found){
+		if (!lkup_linear("lkup16", city)){
+			if (!lkup_linear("lkup17", city)){
 				error = "S17_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -2451,7 +2511,7 @@ function test_exportCountry(country, city, mode){
 				result.flagmsg.push((flags)[error].msg);
 			}	
 		}
-		if (!lkup_exhaustive_m("lkup18", "country", country).found){
+		if (!lkup_linear("lkup18", country)){
 				error = "S17_2";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
