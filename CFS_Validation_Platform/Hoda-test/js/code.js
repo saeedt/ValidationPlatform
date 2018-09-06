@@ -105,8 +105,9 @@ function log(input){
 	//console.log(test_unna("1088", "14992"));
 	//console.log(test_destinationCity("Paris222APO"));
 	//console.log(test_destinationZip("09009"));
-	//console.log(test_mode("", "Y", 450, "14992", "OH"));
-	console.log(test_exportCountry("I22ran", "Mashhad", 2));
+	//console.log(test_mode("8", "Y", 450, "02902", "OH"));
+	//console.log(test_exportCountry("I22ran", "Mashhad", 2));
+	//console.log(test_destinationState("OH"));
 }	
 
 //configuration object for verification functions
@@ -379,6 +380,12 @@ var lkup23 = ["2", "3"];
 var lkup24 = ["4", "5", "6"];
 
 var lkup25 = ["2", "3", "4"];
+
+var lkup26 = ["7"];
+
+var lkup27 = ["1"];
+
+var lkup28 = ["8"];
 
 //Edit flags for shipment attributes
 var flags = {
@@ -1299,7 +1306,7 @@ function range_val_check(input, type, config){
 		}
 	return false;
 	}
-
+//Presence check
 function presence_check(input){	
 	if ( typeof(input) == 'undefined') { 
 		return false;
@@ -1311,6 +1318,17 @@ function presence_check(input){
 		return true;
 	}		 
 } 
+
+//Character check
+function check_char(table, input){
+	var tbl = eval(table);
+	for (var i = 0; i < tbl.length; i++){
+		if (input.includes(tbl[i])){
+			return true;
+		}
+	}
+	return false;
+}
 
 //matches a given object with an array of values
 function matchObj(ref,list,column){
@@ -1805,10 +1823,6 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 	var error;
 	var vw_ratio = value/weight;
 	var lkup_result = lkup_binary_m("lkup1","sctg", sctg);
-	var mode = [];
-	var mode1 = mode.includes(7);
-	var mode2 = mode.includes(1);
-	var mode3 = mode.includes(8);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1947,7 +1961,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				result.flagmsg.push((flags)[error].msg);
 			}
 			if (!lkup_linear("lkup6", sctg)){
-				if (mode == mode1){ 
+				if (!check_char("lkup26", mode)){ 
 					error = "S4_1";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
@@ -1956,7 +1970,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}
 			}
 			if (lkup_linear("lkup7", sctg)){
-				if (mode == mode2){ 
+				if (!check_char("lkup27", mode)){ 
 					if (weight>=150){
 						error = "S4_2";
 						result.flagname.push((flags)[error].name);
@@ -1967,7 +1981,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}	
 			}
 			if (lkup_linear("lkup8", sctg)){ 
-				if (mode == mode2){
+				if (!check_char("lkup27", mode)){
 					if (weight>=150){
 						if (state != "AK"){		
 							error = "S4_2";
@@ -1980,7 +1994,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}
 			}
 			if (lkup_linear("lkup9",sctg)){  
-				if (mode == mode3){
+				if (!check_char("lkup28", mode)){
 					if	(weight>=1000){
 						error = "S4_3";
 						result.flagname.push((flags)[error].name);
@@ -1991,7 +2005,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}
 			}
 			if (lkup_linear("lkup10", sctg)){
-				if (mode == mode3){
+				if (!check_char("lkup28", mode)){
 					if (weight>=1000){
 						if (state != "AK"){	
 							error = "S4_3";
@@ -2289,10 +2303,6 @@ function test_destinationZip(input){
 function test_mode(mode, temp_control, weight, sctg, state){
 	var result = new Object();
 	var error;
-	var mode = [];
-	var mode1 = mode.includes(7);
-	var mode2 = mode.includes(1);
-	var mode3 = mode.includes(8);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -2367,7 +2377,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!lkup_linear("lkup6", sctg)){
-			if (mode == mode1){ 
+			if (!check_char("lkup26", mode)){ 
 				error = "S46_34";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -2376,7 +2386,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup7", sctg)){
-			if (mode == mode2){ 
+			if (!check_char("lkup27", mode)){ 
 				if (weight>=150){
 					error = "S46_35";
 					result.flagname.push((flags)[error].name);
@@ -2387,7 +2397,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}	
 		}
 		if (lkup_linear("lkup8", sctg)){ 
-			if (mode == mode2){
+			if (!check_char("lkup27", mode)){
 				if (weight>=150){
 					if (state != "AK"){		
 						error = "S46_35";
@@ -2400,7 +2410,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup9",sctg)){  
-			if (mode == mode3){
+			if (!check_char("lkup28", mode)){
 				if	(weight>=1000){
 					error = "S46_36";
 					result.flagname.push((flags)[error].name);
@@ -2411,7 +2421,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup10", sctg)){
-			if (mode == mode3){
+			if (!check_char("lkup28", mode)){
 				if (weight>=1000){
 					if (state != "AK"){	
 						error = "S46_36";
