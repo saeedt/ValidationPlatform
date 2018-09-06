@@ -1,69 +1,74 @@
-//Global variables
-var inputData = [];
-
-var config = {
-		delimiter: "",	// auto-detect
-		newline: "",	// auto-detect
-		quoteChar: '"',
-		escapeChar: '"',
-		header: false,
-		trimHeader: false,
-		dynamicTyping: false,
-		preview: 0,
-		encoding: "",
-		worker: true,
-		comments: false,
-		step: undefined,
-		complete: undefined,
-		error: undefined,
-		download: false,
-		skipEmptyLines: true,
-		chunk: undefined,
-		fastMode: undefined,
-		beforeFirstChunk: undefined,
-		withCredentials: undefined
-	}
-
+var shipment;
+var company;
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
-	document.getElementById('file').addEventListener('change', readFile, false);
+	document.getElementById('cfile').addEventListener('change', readFile_c, false);
+	document.getElementById('sfile').addEventListener('change', readFile_s, false);
+	document.getElementById("submit").disabled = true;
 });
 
-//file reader based on papaparse when the file picker is clicked
-function readFile (evt) {
-    var files = evt.target.files;
-    var file = files[0]; 
-    Papa.parse(file, {
-    	complete: function(results) {
-    		log(results);
-    	}
-    }, config);
+function readFile_s (evt) {
+    var file = evt.target.files[0];
+    $("#cfiledetails").empty();   
+    Papa.parse(file, {    	
+    		delimiter: ",",
+    		newline: "",	// auto-detect
+    		quoteChar: '"',
+    		escapeChar: '"',
+    		header: true, //store in array - 
+    		trimHeader: true,
+    		dynamicTyping: false,
+    		preview: 0,
+    		encoding: "",
+    		worker: false,
+    		comments: false,
+    		step: undefined,
+    		complete: function(result) {
+	    		shipment = result.data;	    		
+	    		$('#sfiledetails').empty();
+	    		var html = 'Shipment data file<br>' ;
+	    		if (result.errors.length>0){
+	    			html += 'Errors: '+ result.errors.join()+'<br>';		
+	    		} else {
+	    			html += result.data.length+' rows of data, '+result.meta.cursor+' characters <br>';
+	    			html += 'File header: '+ result.meta.fields.join()+ '<br>';
+	    		}
+	    		$('#sfiledetails').append(html);    		
+    		},
+    		error: undefined,
+    		download: false,
+    		skipEmptyLines: true,
+    		chunk: undefined,
+    		fastMode: undefined,
+    		beforeFirstChunk: undefined,
+    		withCredentials: undefined   		
+    });
+ }
+
+function readFile_c (evt) {
+    var file = evt.target.files[0];
+    var fr = new FileReader();
+    fr.onload = function () {
+    	//console.log(fr.result);
+    	var result = JSON.parse(fr.result);
+    	console.log(result);
+	};
+    fr.readAsText(file);        
  }
 
 //processing the input and displaying the results
-function log(input){
-	inputData = input.data;
-	$("#log-contect").empty();
-	var html = '<p>Errors <br>';
-	html += input.errors+'</p>';
-	html += '<p>Header <br>';
-	html += input.data[0]+'</p>';
-	html += '<p>Meta <br>';
-	html += input.meta+'</p>';
-	$("#log-contect").append(html);
+function log(input,loc){	
+	$(loc).empty();
+	var html = 'Shipment data file<br>' ;
+	if (input.errors.length>0){
+		html += 'Errors: '+ input.errors.join()+'<br>';		
+	} else {
+		html += input.data.length+' rows of data, '+input.meta.cursor+' characters <br>';
+		html += 'File header: '+ input.meta.fields.join()+ '<br>';
+	}
+	$(loc).append(html);
 	console.log(input)
-	//check_req_char("m.e@test.com","email","conf1");
-	//check_allowed_char("PtO1?", "shippingAdress", "conf1");
-	//console.log(lkup_exhaustive("city_state_zip","zip","01007"));
-	//console.log(lkup_binary("city_state_zip","zip","01007"));
-	var test1 = lkup_exhaustive_m("city_state_zip","zip","01001").data;
-	//creating the reference (input) object 
-	var test2 = {	
-			"city" : "Agawam",
-			"state" : "MA",
-			"zip" : "01001"
-		};
-	console.log(matchObj(test2,test1,"zip"));
+
 }
 
 //configuration object for verification functions
