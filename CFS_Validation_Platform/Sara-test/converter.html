@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+        <title>Data Validation Platform</title>        
+        <link rel="stylesheet" type="text/css" href="css/style.css" /> 
+        <script type="text/javascript" src="js/papaparse.js"></script>        
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/converter_config.js"></script>                
+        <script type="text/javascript" src="js/converter.js"></script>                       
+    </head>
+    <body>
+    	<div id="input">
+    	<div id="head"><h2>CSV to JSON Lookup Table Converter</h2></div>   	
+    	<div id='bodytext'>
+    	Select CSV input lookup table:
+    	<input type="file" id="file" name="file" enctype="multipart/form-data" /> <br>    	
+    	Lookup Table Type <select id="type" name="type" title="Lookup Table Type" > </select>    	
+    	<input type="button" id='download' value="Download JSON" title="Download the output JSON object" >
+    	<div id="csvcontents"></div>
+    	</div>    	
+    	</div>
+    	<div id="log">
+    	<div id="head"><h2>Logs</h2></div>
+    	<div id='bodytext'>
+    	<div id="log-contect">
+    	</div>
+    	</div>
+    	</div>
+        <div id="input">
+    	<div id="head"><h2>Controls</h2></div>   	
+    	<div id='bodytext'>    	    				
+					
+		</div>
+		</div>
+    	
+
+        
+    </body>
+</html>
