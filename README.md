@@ -1,4 +1,4 @@
-# Data Verification Platform
+# Data Validation Platform
 Data validation platform is an application developed in JavaScript to verify the CFS survey response data and generate a report based on the results. 
 
 ## Compatibility
