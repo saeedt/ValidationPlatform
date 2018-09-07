@@ -32,7 +32,7 @@ function length_field_check(input, type, config){
       }  
 }
 //Range value check function
-function Range_val_check(input, type, config){  
+function range_val_check(input, type, config){  
 	var min_pass=true;
 	var max_pass=true;
 	var cfg=eval(config)[type];
@@ -174,4 +174,16 @@ function check_char(table, input){
 		}
 	}
 	return false;
+}
+
+//merges arrays in obj2 with those of obj1 and returns obj1
+function merge_objs(obj1,obj2){
+	for (var key in obj1){
+		if (typeof(obj1[key])!="undefined" && typeof(obj2[key])!="undefined"){
+			if (obj2[key].length>0){
+				obj1[key].push.apply(obj1[key],obj2[key]);
+			}
+		}
+	}
+	return obj1;
 }

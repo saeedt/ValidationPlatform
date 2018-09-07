@@ -42,14 +42,9 @@ div#csvcontents{
 	word-wrap: break-word;
 }
 #log {
-    /*    float: right;*/
+    float: right;
     width: 49.8%;
-    /* height: 738px; */
-    cursor: default;
-    border: 1px; 
-  	border-style: dotted;
-  	border-radius: 2px;
-  	float: right;
+   
 }
 #analyzer {
 	width: 500px;

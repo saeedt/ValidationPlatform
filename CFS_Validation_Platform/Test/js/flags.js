@@ -201,20 +201,20 @@ var flags = {
 				name:"mailState_fieldLenght",
 				flag: "E33",
 				value:"3",
-				msg: "The lenght of state doesn't not contains only 2 characters   "
+				msg: "The lenght of the state abbriviation is more than 2 characters"
 				},
 			
 			E6_1: {
 				name:"mailState-lookuptable_Cross_Exist",
 				flag: "E6",
 				value:"1",
-				msg: "The state doesn't not matched with zip Code"
+				msg: "The state does not match the zip code provided"
 			},
 			E34_1: {
 				name:"mailZipCode_dataType",
 				flag: "E34",
 				value:"1",
-				msg: "None numeric charecter is entered or Incorrect data type is entered "
+				msg: "None numeric charecter is entered or Incorrect data type is entered"
 				},
 			E34_2: {
 				name:"mailZipCode_blank",
@@ -232,7 +232,7 @@ var flags = {
 				name:"mailZipCode-lookuptable_find",
 				flag: "E34",
 				value:"22",
-				msg: "The zip code doesn't not exist"
+				msg: "The zip code does not exist"
 				},
 		//OPERATING STATUS ATTRIBUTE
 				
@@ -246,7 +246,7 @@ var flags = {
 				name:"operatingStatus_CrossCons_DateOfCeased_Exist",
 				flag: "E5",
 				value:"1",
-				msg: "Item C = 3 (ceased operation) or the respondent desn't provided a date for ceased operation"
+				msg: "Item C = 3 (ceased operation) or the respondent has not provided the ceased operation date"
 				},
 			E36_1:{
 					name:"dateOf Ceased_datatype",
@@ -725,7 +725,7 @@ var flags = {
 				flag: "S32",
 				value: "40",
 				name: "checkBox_moreThan_40ship_numberOfShip",
-				msg: "Total number of shipments does not match with information provided in Item D."
+				msg: "Total number of shipments does not match the information provided in Item D."
 			},
 			S33_1: {
 				flag: "S33",
