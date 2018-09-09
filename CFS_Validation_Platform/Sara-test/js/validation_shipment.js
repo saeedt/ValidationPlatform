@@ -279,7 +279,7 @@ function test_ship_date_day(input){
 		}
 			return result;
 }
-console.log(test_ship_value("1200","21000","02901"));
+//console.log(test_ship_value("1200","21000","02901"));
 function test_ship_value(value, weight, sctg){
 	var result = new Object();
 	var error;
