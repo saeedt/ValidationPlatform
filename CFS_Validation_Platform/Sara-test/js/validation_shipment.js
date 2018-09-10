@@ -1061,6 +1061,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
+		// commodity code 14,17,18,19, 20 are not in lkup 6 and how to satisfy checking other SCTG codes
 		if (!lkup_linear("lkup6", sctg)){
 			if (!check_char("lkup26", mode)){ 
 				error = "S46_34";
@@ -1186,19 +1187,32 @@ function test_exportCountry(country, city, mode){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
+		//if (lkup_linear("lkup25", mode)){
+		//	if (country != "Mexico"){
+			//	if (country != "Canada"){
 		if (lkup_linear("lkup25", mode)){
-			if (country != "Mexico"){
-				if (country != "Canada"){
+				if (country != "Mexico" ||country != "Canada" || ! presence_check(country) ){
 					error = "S49_28";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
 					result.flgmsg.push((flags)[error].msg);
 				}
-			}
 		}
-		if (!lkup_linear("lkup16", city)){
-			if (!lkup_linear("lkup17", city)){
+		
+		//if (!lkup_linear("lkup16", city)){
+		//	if (!lkup_linear("lkup17", city)){
+		if (country == Canda ){
+			if (lkup_linear("lkup16", city)){
+				error = "S17_1";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);
+			}	
+		}
+		if (country == Mexico ){
+			if (lkup_linear("lkup16", city)){
 				error = "S17_1";
 				result.flgname.push((flags)[error].name);
 				result.flgs.push((flags)[error].flag);
@@ -1248,7 +1262,8 @@ function test_exportMode(input){
 		}else {
 			result.pass = true;
 		}
-			return result;
+		return result;
+		}
 }
-}
+
 
