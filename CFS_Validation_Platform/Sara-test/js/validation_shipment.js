@@ -962,7 +962,7 @@ function test_destinationZip(input){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(input, "zip", "conf1")){
+		if (!length_field_check(input, "zipCode5", "conf1")){
 			error = "S45_3";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);

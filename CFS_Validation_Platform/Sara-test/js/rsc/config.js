@@ -7,22 +7,15 @@ var conf1= {
 	shippingAddress: {
 		allowed: /[^a-zA-Z0-9 _.-]/g,
 		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g,
-		required: /^.*/
 	},
 	numeric:{
-		allowed: /[^0-9+$]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^0-9+$]/g
 	},
 	alphabetic:{
-		allowed: /[^A-Za-z+$ ]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^A-Za-z+$ ]/g
 	},
 	alphanumeric:{
-		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g
 	},	
 	state: {
 		minlenght:2 ,
@@ -38,7 +31,6 @@ var conf1= {
 },
 	dateOfCeased:{
 			allowed:/[^0-9/\ ]/g, 
-			//required: /^[0-9]{2}[\/][0-9]{2}[\/][0-9]{4}$/g
 			required:/^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
 	},
 	phone:{
@@ -56,9 +48,7 @@ var conf1= {
 		maxRange: 8,
 	},
 	ship_ID: {
-		allowed: /[^a-zA-Z0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/	
+		allowed: /[^a-zA-Z0-9]/g	
 	},		
 
 	ship_date_day: {
@@ -90,28 +80,21 @@ var conf1= {
 	},
 	unna: {
 		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
 		minRange:4,
 		maxRange:4
 	},	
 	sctg: {
 		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
 		required: /^\d{5}$/,
 		minRange:5,
 		maxRange:5	
 	},	
 	 
 		country: {
-		allowed: /[A-Za-z]/g,
-		not_allowed: /^.*/,
-		required: /^.*/
+		allowed: /[A-Za-z]/g
 	},
 	mode: {
 		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
 		minRange:1,
 		maxRange:4
 	}
