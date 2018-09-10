@@ -362,12 +362,13 @@ function test_ship_value(value, weight, sctg){
 		}
 		if (result.flgs.length>0){
 			result.pass = false;
-		}else {
+		}
+		else {
 			result.pass = true;
 		}
 		return result;
 }
-/*
+
 function test_ship_weight(value, weight, sctg, mode){
 	var result = new Object();
 	var error;
@@ -408,43 +409,47 @@ function test_ship_weight(value, weight, sctg, mode){
 					result.flgmsg.push((flags)[error].msg);
 				}			
 			}
-			else if (lkup_linear("lkup20", sctg.substr(0,2))){
-					if (lkup_result.data[0].vw_lb > vw_ratio){			
-						error = "S38_36";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-					}	
-					if (lkup_result.data[0].vw_ub < vw_ratio){		
-						error = "S38_37";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-					}
-			}else if (lkup_result.data[0].vw_lb > vw_ratio){	
-						error = "S38_38";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-				} else { 
-						(lkup_result.data[0].vw_lb < vw_ratio)
-							error = "S38_39";
-							result.flgname.push((flags)[error].name);
-							result.flgs.push((flags)[error].flag);
-							result.flgvalue.push((flags)[error].value);
-							result.flgmsg.push((flags)[error].msg);
-				}
 		}
-		if (lkup_linear("lkup22", mode)){
-			if(weight > 150){
-					error = "S7_1";
+		else if (lkup_linear("lkup20", sctg.substr(0,2))){
+				if (lkup_result.data[0].vw_lb > vw_ratio){			
+					error = "S38_36";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
 					result.flgmsg.push((flags)[error].msg);
+				}	
+				if (lkup_result.data[0].vw_ub < vw_ratio){		
+					error = "S38_37";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);
+				}
+		}
+		else if (!lkup_linear("lkup19", sctg.substr(0,2)) && !lkup_linear("lkup20", sctg.substr(0,2))){
+			if(lkup_result.data[0].vw_lb > vw_ratio){	
+				error = "S38_36";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);442
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);	
+			}
+			if(lkup_result.data[0].vw_lb < vw_ratio){	
+				error = "S38_37";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);	
+			}
+		}
+			
+		if (lkup_linear("lkup22", mode)){
+			if(weight > 150){
+				error = "S7_1";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);
 			}
 		}	
 		if (lkup_linear("lkup23", mode)){ 
@@ -456,7 +461,9 @@ function test_ship_weight(value, weight, sctg, mode){
 				result.flgmsg.push((flags)[error].msg);
 			}
 		}	
-		if (mode == 8 && weight > 2000){
+		//if (mode == 8 && weight > 2000){
+		if (lkup_linear("lkup28", mode)){
+			if(weight>2000){
 			error = "S7_1";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
@@ -465,28 +472,32 @@ function test_ship_weight(value, weight, sctg, mode){
 		}
 		if (lkup_linear("lkup24", mode)){
 			if(weight < 5000){
-					error = "S7_2";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
-			 }
-		}
-		if (mode == 4 && weight < 100){
 			error = "S7_2";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
+			}
+		}
+		if (mode == 4 && weight < 100){
+			// it needs to add code for NAICS 33,42,45
+			//if (lkup_linear("lkup29", mode)){
+				//if(weight < 100){
+			//}
+				error = "S7_2";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);
 		}
 		if (result.flgs.length>0){
-			result.pass = false;
+				result.pass = false;
 		}
 		else {
 			result.pass = true;
 		}
 			return result;
-}
+	}
 
 function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 	var result = new Object();
@@ -497,13 +508,13 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 	result.flgs = [];
 	result.flgvalue = [];
 	result.flgmsg = [];
-		if (!range_val_check(weight, "ship_weight", "conf1")){
-			error = "S6_2";
-			result.flgname.push((flags)[error].name);
-			result.flgs.push((flags)[error].flag);
-			result.flgvalue.push((flags)[error].value);
-			result.flgmsg.push((flags)[error].msg);
-		}	
+		//if (!range_val_check(weight, "ship_weight", "conf1")){
+		//	error = "S6_2";
+		//	result.flgname.push((flags)[error].name);
+		//	result.flgs.push((flags)[error].flag);
+		//	result.flgvalue.push((flags)[error].value);
+		//	result.flgmsg.push((flags)[error].msg);
+		//}	
 		if (!check_allowed_char(sctg, "numeric", "conf1")){
 			error = "S39_1";
 			result.flgname.push((flags)[error].name);
@@ -518,7 +529,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		if (!check_req_char(sctg, "sctg", "conf1")){
+		if (check_req_char(sctg, "sctg", "conf1")){
 			error = "S39_3";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
@@ -542,35 +553,39 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 					result.flgmsg.push((flags)[error].msg);
 				}			
 			}
-			else if (lkup_linear("lkup20", sctg.substr(0,2))){
-					if (lkup_result.data[0].vw_lb > vw_ratio){			
-						error = "S39_36";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-					}	
-					if (lkup_result.data[0].vw_ub < vw_ratio){		
+		}
+		else if (lkup_linear("lkup20", sctg.substr(0,2))){
+				if (lkup_result.data[0].vw_lb > vw_ratio){			
+					error = "S39_36";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);
+				}	
+				if (lkup_result.data[0].vw_ub < vw_ratio){		
 						error = "S39_37";
 						result.flgname.push((flags)[error].name);
 						result.flgs.push((flags)[error].flag);
 						result.flgvalue.push((flags)[error].value);
 						result.flgmsg.push((flags)[error].msg);
-					}
-			}else if (lkup_result.data[0].vw_lb > vw_ratio){	
-						error = "S39_38";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-				} else { (lkup_result.data[0].vw_lb < vw_ratio)
-							error = "S39_39";
-							result.flgname.push((flags)[error].name);
-							result.flgs.push((flags)[error].flag);
-							result.flgvalue.push((flags)[error].value);
-							result.flgmsg.push((flags)[error].msg);
-						}
+				}
 		}
+		else if (!lkup_linear("lkup19", sctg.substr(0,2)) && !lkup_linear("lkup20", sctg.substr(0,2))){
+				if(lkup_result.data[0].vw_lb > vw_ratio){	
+					error = "S39_38";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);442
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);	
+				}
+				if(lkup_result.data[0].vw_lb < vw_ratio){	
+					error = "S39_39";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);	
+				}
+			}
 			if  (lkup_linear("lkup11", sctg.substr(0,2))){ 
 				if (temp_control == "Y"){
 						error = "S12_1";
@@ -1235,5 +1250,5 @@ function test_exportMode(input){
 		}
 			return result;
 }
+}
 
-*/
