@@ -53,9 +53,23 @@ function log(input){
 	html += '<p>Meta <br>';
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
-	
-}	
-
+	//console.log(test_numberOfShip(3));
+	//console.log(test_totShipValue(1));
+	//console.log(test_ship_ID("12as"));
+	//console.log(test_ship_ID("*&^%23s"));
+	//console.log(test_ship_date_month("gf2ha"));
+	//console.log(test_ship_date_month(166));
+	//console.log(test_ship_date_day(31));
+	//console.log(test_ship_value(3 , 1000, "02100"));	
+	//console.log(test_ship_value(200, 1, "02100"));
+	//console.log(test_ship_value(4, 100, "17110"));
+	//console.log(test_ship_value(200, 10, "17110"));
+	//console.log(test_ship_value(3, 1000, "07119"));
+	//console.log(test_ship_value(200, 1, "07119"));
+	//console.log(test_ship_value(0, 1, "07119"));
+	//console.log(test_ship_weight(30000, 40, "02100", 4));
+	//console.log(test_sctg("10010", "Y", 1, 1, "OH", "1", "65451"));
+}
 //configuration object for verification functions
 var conf1= {
 		
@@ -1385,7 +1399,7 @@ function test_numberOfShip(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check (input, "numberOfShip", "conf1")){ 
+		if (!range_val_check(input, "numberOfShip", "conf1")){ 
 			error = "S30_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1491,7 +1505,7 @@ function test_ship_date_month(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		if (!check_allowed_char(input, "numeric", "conf1")){
 			error = "S35_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1528,7 +1542,7 @@ function test_ship_date_day(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		if (!check_allowed_char(input, "numeric", "conf1")){
 			error = "S36_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
