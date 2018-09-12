@@ -39,3 +39,27 @@ var lkup26 = ["7"];
 var lkup27 = ["1"];
 
 var lkup28 = ["8"];
+
+var lkup29 = [
+	{
+	"mode": 1,
+	"minWeight":0,
+	"maxWeight":150
+	}, {
+	"mode": 12,
+	"minWeight":0,
+	"maxWeight":150
+	}, {
+	"mode": 13,
+	"minWeight":0,
+	"maxWeight":150
+	}, {
+	"mode": 13,
+	"minWeight":0,
+	"maxWeight":150
+	},
+			
+		
+	
+
+]:
