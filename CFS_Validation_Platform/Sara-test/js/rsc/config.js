@@ -85,9 +85,9 @@ var conf1= {
 	},	
 	sctg: {
 		//allowed: /[0-9]/g,
-		required: /^\d{5}$/
-		//minlenght:5,
-		//maxlenght:5	
+	//	required: /^\d{5}$/
+		minlenght:5,
+		maxlenght:5	
 	},	
 	 
 		//country: {
