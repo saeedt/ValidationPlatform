@@ -809,7 +809,7 @@ function test_unna(unna, sctg){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(unna,"unna", "conf1")){
+		if (!length_field_check(unna,"unna", "conf1")){
 			error = "S42_3";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
