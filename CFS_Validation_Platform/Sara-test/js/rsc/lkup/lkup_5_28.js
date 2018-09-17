@@ -26,9 +26,9 @@ var lkup20 = ["16", "17", "18"];
 
 var lkup21 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33", "16", "17", "18"];
 
-var lkup22 = ["1", "12", "13", "18", "21", "31", "81"];
+var lkup22 = ["1", "12", "13", "18", "21", "31", "81","2","3","8"];
 
-var lkup23 = ["2", "3"];
+
 
 var lkup24 = ["4", "5", "6"];
 
@@ -45,21 +45,69 @@ var lkup29 = [
 	"mode": 1,
 	"minWeight":0,
 	"maxWeight":150
-	}, {
-	"mode": 12,
+	},
+	{
+	"mode":12,
 	"minWeight":0,
 	"maxWeight":150
-	}, {
-	"mode": 13,
-	"minWeight":0,
-	"maxWeight":150
-	}, {
+	},
+	{
 	"mode": 13,
 	"minWeight":0,
 	"maxWeight":150
 	},
-			
+	{
+	"mode": 18,
+	"minWeight":0,
+	"maxWeight":150
+	},
+	{
+	"mode": 21,
+	"minWeight":0,
+	"maxWeight":150
+	},
+	{
+	"mode": 31,
+	"minWeight":0,
+	"maxWeight":150
+	},
+	{
+	"mode": 81,
+	"minWeight":0,
+	"maxWeight":150
+	},
+	{
+	"mode": 2,
+	"minWeight":0,
+	"maxWeight":80000
+	},
+	{
+	"mode": 3,
+	"minWeight":0,
+	"maxWeight":80000
+	},	
+	{
+	"mode": 8,
+	"minWeight":0,
+	"maxWeight":2000
+	},
+	{
+	"mode": 4,
+	"minWeight":5000,
+	"maxWeight":infinity
+	},	
+	{
+	"mode": 5,
+	"minWeight":5000,
+	"maxWeight":infinity
+	},
+	{
+	"mode": 6,
+	"minWeight":5000,
+	"maxWeight":infinity
+	}
+	
+		
 		
 	
-
-]:
+];
