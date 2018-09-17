@@ -28,8 +28,7 @@ var config = {
 $(document).ready(function(e) {
 	//Empty_not_allowed("input") 	
 	document.getElementById('file').addEventListener('change', readFile, false);
-	});
-
+});
 
 //file reader based on papaparse when the file picker is clicked
 function readFile (evt) {
@@ -53,47 +52,22 @@ function log(input){
 	html += '<p>Meta <br>';
 	html += input.meta+'</p>';
 	$("#log-contect").append(html);
-	//console.log(test_numberOfShip(3));
-	//console.log(test_totShipValue(1));
-	//console.log(test_ship_ID("12as"));
-	//console.log(test_ship_ID("*&^%23s"));
-	//console.log(test_ship_date_month("gf2ha"));
-	//console.log(test_ship_date_month(166));
-	//console.log(test_ship_date_day(31));
-	//console.log(test_ship_value(3 , 1000, "02100"));	
-	//console.log(test_ship_value(200, 1, "02100"));
-	//console.log(test_ship_value(4, 100, "17110"));
-	//console.log(test_ship_value(200, 10, "17110"));
-	//console.log(test_ship_value(3, 1000, "07119"));
-	//console.log(test_ship_value(200, 1, "07119"));
-	//console.log(test_ship_value(0, 1, "07119"));
-	//console.log(test_ship_weight(30000, 40, "02100", 4));
-	//console.log(test_sctg("10010", "Y", 1, 1, "OH", "1", "65451"));
+	
 }
+
 //configuration object for verification functions
 var conf1= {
 		
 	ship_ID: {
-		allowed: /[^a-zA-Z0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/	
-	},		
-	email: {
-		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
-		not_allowed: /[(),:;<>[\]]/g,
-		required: /^.+@{1}.+[.].+$/
-	},	
+		allowed:/[^a-zA-z0-9$]/g
+	},			
 	ship_date_day: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
+		required: /^0[1-9]|[12][0-9]|3[01]$/,
 		minRange: 1,
 		maxRange: 31		
 	},	
 	ship_date_month: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
+		required: /^0[1-9]|1[012]$/,
 		minRange: 1,
 		maxRange: 12	
 	},	
@@ -111,66 +85,44 @@ var conf1= {
 		minRange: 1
 	},
 	unna: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
-		minRange:4,
-		maxRange:4
+		required: /^\d{4}$/,
+		minlength:4,
+		maxlength:4
 	},	
 	sctg: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
 		required: /^\d{5}$/,
-		minRange:5,
-		maxRange:5	
+		minlength:5,
+		maxlength:5	
 	},	
 	zip: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
-		minRange:5,
-		maxRange:10	
+		minlength:5
 	},	
 	city: {
-		allowed: /[A-Za-z]/g,
-		not_allowed: /(APO|FPO|DPO)/g,
-		required: /^.*/
+		not_allowed: /(APO|FPO|DPO)/g
 	},	
 	state: {
-		allowed: /[A-Za-z]/g,
 		not_allowed: /(AA|AE|AP)/g,
-		required: /^.*/,
-		minRange:2,
-		maxRange:2
+		minlength:2,
+		maxlength:2
 	},	
 	country: {
-		allowed: /[A-Za-z]/g,
-		not_allowed: /^.*/,
-		required: /^.*/
+		allowed: /[A-Za-z ]/g
 	},
 	mode: {
-		allowed: /[0-9]/g,
-		not_allowed: /^.*/,
-		required: /^.*/,
-		minRange:1,
-		maxRange:4
+		minlength:1,
+		maxlength:4
 	},
 	numeric:{
-		allowed: /[^0-9+$]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^0-9+$]/g
 	},
 	alphabetic:{
-		allowed: /[^A-Za-z+$ ]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^A-Za-z+$ ]/g
 	},
 	alphanumeric:{
-		allowed: /[^0-9a-zA-Z+$]/g,
-		not_allowed: /^.*/,
-		required:/^.*/
+		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
+		required: /^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
 	}	
-};
+}
 //Variables for lookup tables
 var lkup1 = [
 	{
@@ -306,46 +258,48 @@ var lkup6 = ["13101", "13109", "13200", "13300", "13910"];
 var lkup7 = ["02100", "02200", "02902", "02903", "02904"];
 
 var lkup8 = ["17110", "17120", "17201", "17202", "17500"];
- 	
-var lkup9 = ["41130", "41210", "41220", "41291", "41299"];
+
+var lkup9 = ["10010", "10020", "11010", "11020", "12011"];
+
+var lkup10 = ["02100", "02200", "02902", "02903", "02904"];
+
+var lkup11 = ["01009", "03100", "03211", "03219", "03311"];
+
+var lkup12 = ["08310", "08410", "17110", "17120", "17201"];
+
+var lkup13 = ["20101", "20102", "20221", "20222", "20241"];
+
+var lkup14 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"];
 	
-var lkup10 = ["17110", "17120", "17201", "17202", "17500"];
-	
-var lkup11 = ["10", "11", "12", "13", "14", "15", "25", "26", "27", "28", "29", "30", "32", "33", "35", "36", "37", "41"];
-	
-var lkup12 = ["02", "24", "31", "34", "38", "39", "40"];
+var lkup15 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
 
-var lkup13 = ["01", "03", "04", "05", "06", "07"]; 
-	
-var lkup14 = ["08310", "08410", "17110", "17120", "17201"];
+var lkup16 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
 
-var lkup15 = ["14992", "17500", "17600", "18100", "18200", "18210"];
+var lkup17 = ["10", "11", "12", "13", "14", "15", "25", "26", "27", "28", "29", "30", "32", "33", "35", "36", "37", "41"];
 
-var lkup16 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"];
-	
-var lkup17 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];
+var lkup18 = ["02", "24", "31", "34", "38", "39", "40"];
 
-var lkup18 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
+var lkup19 = ["01", "03", "04", "05", "06", "07"]; 
 
-var lkup19 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33"];
+var lkup20 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33"];
 
-var lkup20 = ["16", "17", "18"];
+var lkup21 = ["16", "17", "18"];
 
-var lkup21 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33", "16", "17", "18"];
+var lkup22 = ["02", "10", "11", "12", "13", "14", "15", "19", "22", "25", "31", "32", "33", "16", "17", "18"];
 
-var lkup22 = ["1", "12", "13", "18", "21", "31", "81"];
+var lkup23 = ["1", "12", "13", "18", "21", "31", "81"];
 
-var lkup23 = ["2", "3"];
+var lkup24 = ["2", "3"];
 
-var lkup24 = ["4", "5", "6"];
+var lkup25 = ["4", "5", "6"];
 
-var lkup25 = ["2", "3", "4"];
+var lkup26 = ["2", "3", "4"];
 
-var lkup26 = ["7"];
+var lkup27 = ["7"];
 
-var lkup27 = ["1"];
+var lkup28 = ["1"];
 
-var lkup28 = ["8"];
+var lkup29 = ["8"];
 
 //Edit flags for shipment attributes
 var flags = {
@@ -353,54 +307,90 @@ var flags = {
 			flag: "S1",
 			value: "1",
 			name: "overseas_military_zip",
-			msg: "Zipcode contains overseas military mail address."
+			msg: "U.S. destination (zip) contains overseas millitary address."
 	},	
 	S1_2: {
 			flag: "S1",
 			value: "2",
 			name: "inv_zip_state",
-			msg: "Zipcode/state combination is invalid."
+			msg: "U.S. destination state/zip combination is invalid."
+	},
+	S2_1: {
+		flag: "S2",
+		value: "1",
+		name: "miss_mode",
+		msg: "Mode of transport is missing."
+	},
+	S2_2: {
+		flag: "S2",
+		value: "2",
+		name: "nonNumeric_mode",
+		msg: "Mode of transport is not numeric."
 	},
 	S2_3: {
-			flag: "S2",
-			value: "3",
-			name: "inv_mode",
-			msg: "Mode of transport is invalid."
+		flag: "S2",
+		value: "3",
+		name: "inv_mode",
+		msg: "Mode of transport contains a numeric entry but is not a valid mode including multi-mode."
 	},
-	S3_3: {
+	S3_1: {
 			flag: "S3",
-			value: "3",
-			name: "sctg_16xxx",
-			msg: "SCTG code is invalid."
+			value: "1",
+			name: "miss_sctg",
+			msg: "SCTG commodity code is missing."
+	},
+	S3_2: {
+		flag: "S3",
+		value: "2",
+		name: "notFound_sctg",
+		msg: "SCTG commodity code is invalid."
+	},	
+	S3_3: {
+		flag: "S3",
+		value: "3",
+		name: "16xxx_sctg",
+		msg: "SCTG commodity code is invalid."
 	},	
 	S4_1: {
 			flag: "S4",
 			value: "1",
 			name: "inv_sctg_mode7",
-			msg: "SCTG code is invalid for mode includes pipeline (7)."
+			msg: "SCTG commodity code is invalid for mode includes pipeline (7)."
 	},
 	S4_2: {
 			flag: "S4",
 			value: "2",
-			name: "inv_sctg_mode1_weight150_orAK",
-			msg: "SCTG code is invalid for mode includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."		
+			name: "inv_sctg_mode1_weight_state",
+			msg: "SCTG commodity code is invalid for mode includes parcel (1), shipment weight and state provided."		
 	},
 	S4_3: {
 			flag: "S4",
 			value: "3",
-			name: "inv_sctg_mode8_weight1000_orAK",
-			msg: "SCTG code is invalid for mode includes air (8), shipment weight ≥ 1000 lbs, or state ≠ AK."
+			name: "inv_sctg_mode8_weight_state",
+			msg: "SCTG commodity code is invalid for mode includes air (8), shipment weight and state provided."
+	},
+	S5_1: {
+		flag: "S5",
+		value: "1",
+		name: "miss_ship_value",
+		msg: "Shipment value is missing."
 	},
 	S5_2: {
 		flag: "S5",
 		value: "2",
-		name: "zero_ship_value",
+		name: "nonPositive_ship_value",
 		msg: "Shipment value is invalid. The value must be greater than zero."
+	},
+	S6_1: {
+		flag: "S6",
+		value: "1",
+		name: "miss_ship_weight",
+		msg: "Shipment weight is missing."
 	},
 	S6_2: {
 		flag: "S6",
 		value: "2",
-		name: "zero_ship_weight",
+		name: "nonPositive_ship_weight",
 		msg: "Shipment weight is invalid. The value must be greater than zero."
 	},
 	S7_1: {
@@ -418,166 +408,183 @@ var flags = {
 	S8_1: {
 		flag: "S8",
 		value: "1",
-		name: "valueW_sctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
+		name: "vw_sctg_lessThanExpected",
+		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
 	},
 	S8_2: {
 		flag: "S8",
 		value: "2",
-		name: "valueW_sctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
+		name: "vw_sctg_greaterThanExpected",
+		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
 	},
 	S8_3: {
 		flag: "S8",
 		value: "3",
-		name: "valueW_sctg16_17_18_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 16, 17 and 18."
+		name: "vw_sctg16_17_18_lessThanExpected",
+		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18."
 	},
 	S8_4: {
 		flag: "S8",
 		value: "4",
-		name: "valueW_sctg16_17_18_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 16, 17 and 18."
+		name: "vw_sctg16_17_18_greaterThanExpected",
+		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18."
 	},		
 	S8_5: {
 		flag: "S8",
 		value: "5",
-		name: "valueW_allSctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for SCTG code provided."
+		name: "vw_allSctg_lessThanExpected",
+		msg: "Shipment value to weight ratio is less than excpected for SCTG commodity code provided."
 	},
 	S8_6: {
 		flag: "S8",
 		value: "6",
-		name: "valueW_allSctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for SCTG code provided."
+		name: "vw_allSctg_greaterThanExpected",
+		msg: "Shipment value to weight ratio is greater than excpected for SCTG commodity code provided."
 	},
 	S9_1: {
 		flag: "S9",
 		value: "1",
-		name: "sctg_balnk_unna",
-		msg: "The 4-digit 'UN' or 'NA' number for commodity code provided is missing."
+		name: "sctg_miss_unna",
+		msg: "The 4-digit 'UN' or 'NA' number for SCTG commodity code provided is missing."
 	},
 	S9_2: {
 		flag: "S9",
 		value: "2",
-		name: "inv_unna",
+		name: "notFound_unna",
 		msg: "The 4-digit 'UN' or 'NA' number is invalid."
 	},
 	S9_3: {
 		flag: "S9",
 		value: "3",
 		name: "notAllowed_sctg_unna",
-		msg: "SCTG code/'UN' or 'NA' number combination is invalid."
+		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid."
 	},
 	S9_4: {
 		flag: "S9",
 		value: "4",
 		name: "inv_sctg_unna",
-		msg: "SCTG code/'UN' or 'NA' number combination is invalid."
+		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid."
 	}, 
 	S10_1: {
 		flag: "S10",
 		value: "1",
 		name: "sctg_naics_provisionalPass",
-		msg: "Provisional pass (NAICS/SCTG)"
-	},//Not sure about the error message
+		msg: "NAICS code/SCTG commodity code combination is invalid."
+	},
 	S10_2: {
 		flag: "S10",
 		value: "2",
 		name: "sctg_naics_provisionalStop",
-		msg: "Provisional stop (NAICS/SCTG)"
-	},//Not sure about the error message
+		msg: "NAICS code/SCTG commodity code combination is invalid."
+	},
 	S10_3: {
 		flag: "S10",
 		value: "3",
 		name: "sctg_naics_automaticStop",
-		msg: "Automatic stop (NAICS/SCTG)"
-	},//Not sure about the error message
-//I excluded the edit flag S11 since its rules are defined by our own validation flags.	
+		msg: "NAICS code/SCTG commodity code combination is invalid."
+	},
+	S11_1: {
+		flag: "S11",
+		value: "1",
+		name: "miss_tempCont",
+		msg: "No selection is made."
+	},
+	S11_2: {
+		flag: "S11",
+		value: "2",
+		name: "inv_tempCont",
+		msg: "Input is invalid."
+	},
 	S12_1: {
 		flag: "S12",
 		value: "1",
 		name: "inv_sctg_tempContY",
-		msg: "SCTG code is invalid with a positive temperature control response."
+		msg: "SCTG commodity code is invalid with a positive temperature control response."
 	},
 	S12_2: {
 		flag: "S12",
 		value: "2",
 		name: "inv_sctg_tempContY",
-		msg: "SCTG code is invalid with a positive temperature control response."
+		msg: "SCTG commodity code is invalid with a positive temperature control response."
 	},
 	S12_3: {
 		flag: "S12",
 		value: "3",
 		name: "inv_sctg_tempContN",
-		msg: "SCTG code is invalid with a negative temperature control response."
+		msg: "SCTG commodity code is invalid with a negative temperature control response."
 	},
 	S13_1: {
 		flag: "S13",
 		value: "1",
 		name: "mode7_tempContY",
-		msg: "Temperature control response is invalid for mode of transport includes pipeline (7)."
+		msg: "Temperature control response is invalid with pipeline (7) as mode of transport."
 	},
 	S14_1: {
 		flag: "S14",
 		value: "1",
-		name: "ship_date_quarter1",
-		msg: "Shipment month is not within the quarter reported."
+		name: "ship_month_quarter1",
+		msg: "Shipment date (month) is not within the quarter reported."
 	},
 	S14_2: {
 		flag: "S14",
 		value: "2",
-		name: "ship_date_quarter2",
-		msg: "Shipment month is not within the quarter reported."
+		name: "ship_month_quarter2",
+		msg: "Shipment date (month) is not within the quarter reported."
 	},
 	S14_3: {
 		flag: "S14",
 		value: "3",
-		name: "ship_date_quarter3",
-		msg: "Shipment month is not within the quarter reported."
+		name: "ship_month_quarter3",
+		msg: "Shipment date (month) is not within the quarter reported."
 	},
 	S14_4: {
 		flag: "S14",
 		value: "4",
-		name: "ship_date_quarter4",
-		msg: "Shipment month is not within the quarter reported."
+		name: "ship_month_quarter4",
+		msg: "Shipment date (month) is not within the quarter reported."
+	},
+	S14_5: {
+		flag: "S14",
+		value: "5",
+		name: "miss_ship_month",
+		msg: "Shipment date (month) is missing."
 	},
 	S15_1: {
 		flag: "S15",
 		value: "1",
 		name: "autoFill_error1",
-		msg: ""
-	},//Edit flag value indicated the number of variables that fail the edit (Not sure about the error message).
+		msg: "Autofill error."
+	},
 	S15_2: {
 		flag: "S15",
 		value: "2",
 		name: "autoFill_error2",
-		msg: ""
-	},//Not sure about the error message
+		msg: "Autofill error."
+	},
 	S15_3: {
 		flag: "S15",
 		value: "3",
 		name: "autoFill_error3",
-		msg: ""
-	},//Not sure about the error message
+		msg: "Autofill error."
+	},
 	S15_4: {
 		flag: "S15",
 		value: "4",
 		name: "autoFill_error4",
-		msg: ""
-	},//Not sure about the error message
+		msg: "Autofill error."
+	},
 	S15_5: {
 		flag: "S15",
 		value: "5",
 		name: "autoFill_error5",
-		msg: ""
-	},//Not sure about the error message
+		msg: "Autofill error."
+	},
 	S15_6: {
 		flag: "S15",
 		value: "6",
 		name: "autoFill_error6",
-		msg: ""
-	},//Not sure about the error message
+		msg: "Autofill error."
+	},
 	S16_1: {
 		flag: "S16",
 		value: "1",
@@ -595,6 +602,228 @@ var flags = {
 		value: "2",
 		name: "inv_exportCountry",
 		msg: "Export country is invalid."
+	},
+	S30_2: {
+		flag: "S30",
+		value: "2",
+		name: "miss_numberOfShip",
+		msg: "Total number of outbound shipments is missing."
+	},
+	S30_20: {
+		flag: "S30",
+		value: "20",
+		name: "outOfRange_numberOfShip",
+		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
+	},
+	S31_2: {
+		flag: "S31",
+		value: "2",
+		name: "miss_totShipValue",
+		msg: "Total value of shipments is missing."
+	},
+	S31_20: {
+		flag: "S31",
+		value: "20",
+		name: "zero_totShipValue",
+		msg: "Total value of shipments is invalid. The value must be greater than zero."
+	},
+	S32_2: {
+		flag: "S32",
+		value: "2",
+		name: "moreThan40ship",
+		msg: "No selection is made."
+	},
+	S33_1: {
+		flag: "S33",
+		value: "1",
+		name: "nonAlphanumeric_ship_ID",
+		msg: "Shipment ID number is not alphanumeric."
+	},
+	S33_2: {
+		flag: "S33",
+		value: "2",
+		name: "miss_ship_ID",
+		msg: "Shipment ID number is missing."
+	},
+	S34_1: {
+		flag: "S34",
+		value: "1",
+		name: "nonNumeric_ship_month",
+		msg: "Shipment date (month) is not numeric."
+	},
+	S34_20: {
+		flag: "S34",
+		value: "20",
+		name: "outOfRange_ship_month",
+		msg: "Shipment date (month) is not in range."
+	},
+	S35_1: {
+		flag: "S35",
+		value: "1",
+		name: "nonNumeric_ship_day",
+		msg: "Shipment date (day) is not numeric."
+	},
+	S35_2: {
+		flag: "S35",
+		value: "2",
+		name: "miss_ship_day",
+		msg: "Shipment date (day) is missing."
+	},
+	S35_20: {
+		flag: "S35",
+		value: "20",
+		name: "outOfRange_ship_day",
+		msg: "Shipment date (day) is not in range."
+	},
+	S36_1: {
+		flag: "S36",
+		value: "1",
+		name: "nonNumeric_sctg",
+		msg: "SCTG commodity code is not numeric."
+	},
+	S36_4: {
+		flag: "S36",
+		value: "4",
+		name: "inv_sctg",
+		msg: "SCTG commodity code not a 5-digit number."
+	},
+	S37_1: {
+		flag: "S37",
+		value: "1",
+		name: "nonAlphanumeric_sctg_descr",
+		msg: "Commodity description is not alphanumeric."
+	},
+	S37_2: {
+		flag: "S37",
+		value: "2",
+		name: "miss_sctg_descr",
+		msg: "Commodity description is missing."
+	},
+	S38_1: {
+		flag: "S38",
+		value: "1",
+		name: "nonNumeric_unna",
+		msg: "'UN' or 'NA' code is not numeric."
+	},
+	S38_4: {
+		flag: "S38",
+		value: "4",
+		name: "inv_unna",
+		msg: "'UN' or 'NA' code is not a 4-digit number."
+	},
+	S39_1: {
+		flag: "S39",
+		value: "1",
+		name: "nonAlphabetic_destinationCity",
+		msg: "U.S. destination (city) is not alphabetic."
+	},
+	S39_2: {
+		flag: "S39",
+		value: "2",
+		name: "miss_destinationCity",
+		msg: "U.S. destination (city) is missing."
+	},
+	S39_5: {
+		flag: "S39",
+		value: "5",
+		name: "invChar_destinationCity",
+		msg: "U.S. destination (city) has invalid character (a value of APO, FPO, and DPO)."
+	},
+	S40_1: {
+		flag: "S40",
+		value: "1",
+		name: "nonAlphabetic_destinationState",
+		msg: "U.S. destination (state) is not alphabetic."
+	},
+	S40_2: {
+		flag: "S40",
+		value: "2",
+		name: "miss_destinationState",
+		msg: "U.S. destination (state) is missing."
+	},
+	S40_4: {
+		flag: "S40",
+		value: "4",
+		name: "inv_destinationState",
+		msg: "U.S. destination (state) is not a two-letter abbreviation."
+	},
+	S40_5: {
+		flag: "S40",
+		value: "5",
+		name: "invChar_destinationState",
+		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
+	},
+	S41_1: {
+		flag: "S41",
+		value: "1",
+		name: "nonNumeric_destinationZip",
+		msg: "U.S. destination (zip) is not numeric."
+	},
+	S41_2: {
+		flag: "S41",
+		value: "2",
+		name: "miss_destinationZip",
+		msg: "U.S. destination (zip) is missing."
+	},
+	S41_4: {
+		flag: "S41",
+		value: "4",
+		name: "inv_destinationZip",
+		msg: "U.S. destination (zip) is not a 5-digit number."
+	},
+	S41_22: {
+		flag: "S41",
+		value: "22",
+		name: "notFound_destinationZip",
+		msg: "U.S. destination (zip) is invalid."
+	},
+	S42_2: {
+		flag: "S42",
+		value: "2",	
+		name: "YN_exportMode",
+		msg: "No selection is made."
+	},
+	S42_5: {
+		flag: "S42",
+		value: "5",	
+		name: "inv_exportMode",
+		msg: "Input is invalid."
+	},
+	S43_1: {
+		flag: "S43",
+		value: "1",
+		name: "nonAlphabetic_exportCity",
+		msg: "Foreign destination (city) is not alphabetic."
+	},
+	S43_2: {
+		flag: "S43",
+		value: "2",
+		name: "miss_exportCity",
+		msg: "Foreign destination (city) is missing."
+	},
+	S44_1: {
+		flag: "S44",
+		value: "1",
+		name: "nonAlphabetic_exportCountry",
+		msg: "Foreign destination (country) is not alphabetic."
+	},
+	S44_2: {
+		flag: "S44",
+		value: "2",
+		name: "miss_exportCountry",
+		msg: "Foreign destination (country) is missing."
+	},
+	S45_1: {
+		flag: "S45",
+		value: "1",
+		name: "nonNumeric_exportMode",
+		msg: "Export mode of transport is not numeric."
+	},
+	S45_2: {
+		flag: "S45",
+		value: "2",
+		name: "miss_exportMode",
+		msg: "Export mode of transport is missing."
 	},
 	E1_1: {
 		flag: "E1",
@@ -630,590 +859,44 @@ var flags = {
 		flag: "E2",
 		value: "1",
 		name: "numOfShip_required_vs_reported_greaterThan10",
-		msg: ""
-	},//Not sure about the error message. Number of shipments required > 10 and (number of shipments required - number of shipments reported) / number of shipments required > 0.2
+		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+	},
 	E2_2: {
 		flag: "E2",
 		value: "2",
 		name: "numOfShip_required_vs_reported_lessThan10",
-		msg: ""
-	},//Not sure about the error message. Number of shipments required ≤  10 and |number of shipments required – number of shipments reported| > 1
+		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+	},
 	E3_1: {
 		flag: "E3",
 		value: "1",
 		name: "mos_vs_atv_1billion",
-		msg: ""
-	},//Not sure about the error message. |ATV - MOS| > $1 billion and (MOS/ATV) is < 0.2 or > 5
+		msg: "The value of ATV derived from the CFS data is not consistent with the value of MOS from derived the CFS frame."
+	},
 	E3_2: {
 		flag: "E3",
 		value: "2",
 		name: "mos_vs_atv_20billion",
-		msg: ""
-	},//Not sure about the error message. [|ATV - MOS| > $20 million or Estab Wgt > 5] and ratio of (MOS/ATV) < 0.1 or > 10
-	S30_2: {
-		flag: "S30",
-		value: "2",
-		name: "miss_numberOfShip",
-		msg: "Total number of outbound shipments is missing."
+		msg: "The value of ATV derived from the CFS data is not consistent with the value of MOS from derived the CFS frame."
 	},
-	S30_20: {
-		flag: "S30",
-		value: "20",
-		name: "outOfRange_numberOfShip",
-		msg: "Total number of outbound shipments is invalid. The total number of outbound shipments must be between 1 and 100,000."
-	},
-	S31_2: {
-		flag: "S31",
-		value: "2",
-		name: "miss_totShipValue",
-		msg: "Total value of shipments is missing."
-	},
-	S31_20: {
-		flag: "S31",
-		value: "20",
-		name: "zero_totShipValue",
-		msg: "Total value of shipments is not in range."
-	},
-	S31_28: {
-		flag: "S31",
-		value: "28",
-		name: "totShipValue_atv_sum",
-		msg: ""
-	},//Not sure about the message for the error: ATV =  SUM ( YEARWGT * QTRWGT * WEEKWGT * SHIP_VALUE )
-	S31_29: {
-		flag: "S31",
-		value: "29",
-		name: "totShipValue_atv_valueWeek_1billion",
-		msg: ""
-	},//Not sure about the message for the error: (ATV*1000)–(TOT_VALUE_WEEK*52))|>$1 Billion and (TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.2 or > 5, reference look up table Total-value-week and ATV
-	S31_30: {
-		flag: "S31",
-		value: "30",
-		name: "totShipValue_atv_valueWeek_20million",
-		msg: ""
-	},//Not sure about the message for the error: |(ATV*1000)–(TOT_VALUE_WEEK*52)|>$20 Million or ESTAB_WEIGHT>5] and |(TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.1 or > 10
-	S32_2: {
-		flag: "S32",
-		value: "2",
-		name: "checkBox_moreThan_40ship",
-		msg: "No selection is made."
-	},
-	S32_40: {
-		flag: "S32",
-		value: "40",
-		name: "checkBox_moreThan_40ship_numberOfShip",
-		msg: "Total number of shipments does not match with information provided in Item D."
-	},
-	S33_1: {
-		flag: "S33",
+	E8_1: {
+		flag: "E8",
 		value: "1",
-		name: "nonAlphanumeric_ship_ID",
-		msg: "Shipment ID is not alphanumeric."
+		name: "numOfShip_100000",
+		msg: "Total number of outbound shipments is greater than 100,000."
 	},
-	S33_2: {
-		flag: "S33",
-		value: "2",
-		name: "miss_ship_ID",
-		msg: "Shipment ID is missing."
-	},
-	S33_5: {
-		flag: "S33",
-		value: "5",
-		name: "invChar_ship_ID",
-		msg: "Shipment ID has invalid character."
-	},
-	S34_2: {
-		flag: "S34",
-		value: "2",
-		name: "miss_numberOfShipReported",
-		msg: "Total number of shipments is missing."
-	},
-	S34_28: {
-		flag: "S34",
-		value: "28",
-		name: "numberOfShipReported_atv_mos_1billion",
-		msg: ""
-	},//Not sure about the message for the error: |ATV - MOS| > $1 billion and (MOS/ATV) is < 0.2 or > 5
-	S34_29: {
-		flag: "S34",
-		value: "29",
-		name: "numberOfShipReported_atv_mos_20million",
-		msg: ""
-	},//Not sure about the message for the error: [|ATV - MOS| > $20 million or Estab Wgt > 5] and ratio of (MOS/ATV) < 0.1 or > 10
-	S35_1: {
-		flag: "S35",
+	E9_1: {
+		flag: "E9",
 		value: "1",
-		name: "nonNumeric_ship_date_month",
-		msg: "Shipment date (month) is not numeric."
+		name: "weeklyValue1_vs_ATV",
+		msg: "The total weekly value of shipments is not consistent with the value of ATV derived from the CFS data."
 	},
-	S35_2: {
-		flag: "S35",
+	E9_2: {
+		flag: "E9",
 		value: "2",
-		name: "miss_ship_date_month",
-		msg: "Shipment date (month) is missing."
-	},
-	S35_20: {
-		flag: "S35",
-		value: "20",
-		name: "inv_ship_date_month",
-		msg: "Shipment date (month) is not within the range."
-	},
-	S36_1: {
-		flag: "S36",
-		value: "1",
-		name: "nonNumeric_ship_date_day",
-		msg: "Shipment date (day) is not numeric."
-	},
-	S36_2: {
-		flag: "S36",
-		value: "2",
-		name: "miss_ship_date_day",
-		msg: "Shipment date (day) is missing."
-	},
-	S36_20: {
-		flag: "S36",
-		value: "20",
-		name: "inv_ship_date_day",
-		msg: "Shipment date (day) is not within the range."
-	},
-	S37_2: {
-		flag: "S37",
-		value: "2",
-		name: "miss_ship_value",
-		msg: "Shipment value is missing."
-	},
-	S37_28: {
-		flag: "S37",
-		value: "28",
-		name: "ship_value_atv_sum",
-		msg: ""
-	},//Not sure about the message for the error: ATV =  SUM ( YEARWGT * QTRWGT * WEEKWGT * SHIP_VALUE )
-	S37_29: {
-		flag: "S37",
-		value: "29",
-		name: "ship_value_atv_valueWeek_1billion",
-		msg: ""
-	},//Not sure about the message for the error: (ATV*1000)–(TOT_VALUE_WEEK*52))|>$1 Billion and (TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.2 or > 5, reference look up table Total-value-week and ATV
-	S37_30: {
-		flag: "S37",
-		value: "30",
-		name: "ship_value_atv_valueWeek_20million",
-		msg: ""
-	},//Not sure about the message for the error: |(ATV*1000)–(TOT_VALUE_WEEK*52)|>$20 Million or ESTAB_WEIGHT>5] and |(TOT_VALUE_WEEK*52) / (ATV*1000)| < 0.1 or > 10
-	S38_2: {
-		flag: "S38",
-		value: "2",
-		name: "miss_ship_weight",
-		msg: "Shipment weight is missing."
-	},
-	S38_34: {
-		flag: "S38",
-		value: "34",
-		name: "vWeight_sctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
-	},
-	S38_35: {
-		flag: "S38",
-		value: "35",
-		name: "vWeight_sctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
-	},		
-	S38_36: {
-		flag: "S38",
-		value: "36",
-		name: "vWeight_sctg16_17_18_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 16, 17 and 18."
-	},
-	S38_37: {
-		flag: "S38",
-		value: "37",
-		name: "vWeight_sctg16_17_18_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 16, 17 and 18."
-	},
-	S38_38: {
-		flag: "S38",
-		value: "38",
-		name: "vWeight_allSctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the SCTG code provided."
-	},
-	S38_39: {
-		flag: "S38",
-		value: "39",
-		name: "vWeight_allSctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the SCTG code provided."
-	},
-	S38_40: {
-		flag: "S38",
-		value: "40",
-		name: "ship_weight_mode0",
-		msg: "Shipment weight is invalid for mode of transport unknown (0)."
-	},//If mode = 0 (Unknown mode), then shipments will be converted to 3 or 4 based on shipment weight.
-	S38_41: {
-		flag: "S38",
-		value: "41",
-		name: "ship_weight_lessThanOrEqualTo_80000_mode0",
-		msg: "Shipment weight (≤ 80,000 lbs) is invalid for mode of transport unknown (0)."
-	},//If weight ≤ 80,000 lbs, then mode 0 will be converted to 3 (for-hire truck).
-	S38_42: {
-		flag: "S38",
-		value: "42",
-		name: "ship_weight_greaterThan_80000_mode0",
-		msg: "Shipment weight (> 80,000 lbs) is invalid for mode of transport unknown (0)."
-	},//If weight > 80,000 lbs, then mode 0 will be coveted to 4 (rail).
-	S38_43: {
-		flag: "S38",
-		value: "43",
-		name: "ship_weight_mode9",
-		msg: "Shipment weight is invalid for other mode of transport (9)."
-	},//If mode = 9 (Other mode), then shipments will likely be converted to 3 or 4 based on shipment weight.
-	S39_1: {
-		flag: "S39",
-		value: "1",
-		name: "nonNumeric_sctg",
-		msg: "SCTG code is not numeric."
-	},
-	S39_2: {
-		flag: "S39",
-		value: "2",
-		name: "miss_sctg",
-		msg: "SCTG code is missing."
-	},
-	S39_3: {
-		flag: "S39",
-		value: "3",
-		name: "invFormat_sctg",
-		msg: "SCTG code is not a 5-digit number."
-	},
-	S39_34: {
-		flag: "S39",
-		value: "34",
-		name: "sctg_vw_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
-	},
-	S39_35: {
-		flag: "S39",
-		value: "35",
-		name: "sctg_vw_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
-	},
-	S39_36: {
-		flag: "S39",
-		value: "36",
-		name: "sctg16_17_18_vw_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG codes of 16, 17 and 18."
-	},
-	S39_37: {
-		flag: "S39",
-		value: "37",
-		name: "sctg16_17_18_vw_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG codes of 16, 17 and 18."
-	},
-	S39_38: {
-		flag: "S39",
-		value: "38",
-		name: "allSctg_vw_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the SCTG code provided."
-	},
-	S39_39: {
-		flag: "S39",
-		value: "39",
-		name: "allSctg_vw_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the SCTG code provided."
-	},
-	S39_40: {
-		flag: "S39",
-		value: "40",
-		name: "inv_sctg_mode",
-		msg: "SCTG code/mode of transport combination is invalid."
-	},
-	S40_1: {
-		flag: "S40",
-		value: "1",
-		name: "nonAlphanumeric_sctg_descr",
-		msg: "Commodity description is not alphanumeric."
-	},
-	S40_2: {
-		flag: "S40",
-		value: "2",
-		name: "miss_sctg_descr",
-		msg: "Commodity description is missing."
-	},
-	S40_5: {
-		flag: "S40",
-		value: "5",
-		name: "inv_sctg_descr",
-		msg: "Commodity discriction has invalid character."
-	},
-	S41_2: {
-		flag: "S41",
-		value: "2",
-		name: "miss_temp_cont",
-		msg: "No selection is made."
-	},
-	S41_34: {
-		flag: "S41",
-		value: "34",
-		name: "inv_tempContY_sctg",
-		msg: "SCTG code is invalid with a positive temperature control response."
-	},
-	S41_35: {
-		flag: "S41",
-		value: "35",
-		name: "inv_tempContY_sctg",
-		msg: "SCTG code is invalid with a positive temperature control response."
-	},
-	S41_36: {
-		flag: "S41",
-		value: "36",
-		name: "inv_tempContN_sctg",
-		msg: "SCTG code is invalid with a negative temperature control response."
-	},
-	S42_1: {
-		flag: "S42",
-		value: "3",
-		name: "invFormat_unna",
-		msg: "'UN' or 'NA' code is nnumeric."
-	},
-	S42_3: {
-		flag: "S42",
-		value: "3",
-		name: "invFormat_unna",
-		msg: "'UN' or 'NA' code is not a 4-digit number."
-	},
-	S42_22: {
-		flag: "S42",
-		value: "22",
-		name: "inv_unna",
-		msg: "'UN' or 'NA' code is invalid."
-	},
-	S42_34: {
-		flag: "S42",
-		value: "34",
-		name: "miss_unna_sctg",
-		msg: "The 4-digit 'UN' or 'NA' number for commodity code is missing."
-	},
-	S42_35: {
-		flag: "S42",
-		value: "35",
-		name: "unna_notAllowed_sctg",
-		msg: "SCTG code/'UN' or 'NA' number combination is invalid."
-	},
-	S42_36: {
-		flag: "S42",
-		value: "36",
-		name: "inv_unna_sctg",
-		msg: "SCTG code/'UN' or 'NA' number combination is invalid."
-	}, 
-	S43_1: {
-		flag: "S43",
-		value: "1",
-		name: "nonAlphabetic_destinationCity",
-		msg: "U.S. destination (city) is not alphabetic."
-	},
-	S43_2: {
-		flag: "S43",
-		value: "2",
-		name: "miss_destinationCity",
-		msg: "U.S. destination (city) is missing."
-	},
-	S43_5: {
-		flag: "S43",
-		value: "5",
-		name: "invChar_destinationCity",
-		msg: "U.S. destination (city) has invalid character."
-	},
-	S43_22: {
-		flag: "S43",
-		value: "22",
-		name: "inv_destinationCity",
-		msg: "U.S. destination (city) is invalid."
-	},
-	S44_1: {
-		flag: "S44",
-		value: "1",
-		name: "nonAlphabetic_destinationState",
-		msg: "U.S. destination (state) is not alphabetic."
-	},
-	S44_2: {
-		flag: "S44",
-		value: "2",
-		name: "miss_destinationState",
-		msg: "U.S. destination (state) is missing."
-	},
-	S44_3: {
-		flag: "S44",
-		value: "3",
-		name: "invFormat_destinationState",
-		msg: "U.S. destination (state) is not two-letter state abbreviation."
-	},
-	S44_5: {
-		flag: "S44",
-		value: "5",
-		name: "invChar_destinationState",
-		msg: "U.S. destination (state) has invalid character."
-	},
-	S44_22: {
-		flag: "S44",
-		value: "22",
-		name: "inv_destinationState",
-		msg: "U.S. destination (state) is invalid."
-	},
-	S44_34: {
-		flag: "S44",
-		value: "34",
-		name: "inv_destinationState_zip",
-		msg: "Zipcode/state combination is invalid."
-	},
-	S45_1: {
-		flag: "S45",
-		value: "1",
-		name: "nonNumeric_destinationZip",
-		msg: "U.S. destination (zip code) is not numeric."
-	},
-	S45_2: {
-		flag: "S45",
-		value: "2",
-		name: "miss_destinationZip",
-		msg: "U.S. destination (zip code) is missing."
-	},
-	S45_3: {
-		flag: "S45",
-		value: "3",
-		name: "invFormat_destinationZip",
-		msg: "U.S. destination (zip code) is not a 5-digit or 10-digit number."
-	},
-	S45_5: {
-		flag: "S45",
-		value: "5",
-		name: "invChar_destinationZip",
-		msg: "U.S. destination (zip code) has invalid character."
-	},
-	S45_22: {
-		flag: "S45",
-		value: "22",
-		name: "inv_destinationZip",
-		msg: "U.S. destination (zip code) is invalid."
-	},
-	S46_1: {
-		flag: "S46",
-		value: "1",
-		name: "nonNumeric_mode",
-		msg: "Mode of transport is not numeric."
-	},
-	S46_2: {
-		flag: "S46",
-		value: "2",
-		name: "miss_mode",
-		msg: "Mode of transport is missing."
-	},
-	S46_5: {
-		flag: "S46",
-		value: "5",
-		name: "invChar_mode",
-		msg: "Mode of transport has invalid character."
-	},
-	S46_28: {
-		flag: "S46",
-		value: "28",
-		name: "mode7_inv_tempCont",
-		msg: "Temperature control response is invalid for mode of transport includes pipeline (7)."
-	},
-	S46_29: {
-		flag: "S46",
-		value: "29",
-		name: "mode_maxWeight_threshold",
-		msg: "Shipment weight exceeds maximum weight for modes of transport 1, 2, 3, 8, 12, 13, 18, 21, 31 and 81."
-	},
-	S46_30: {
-		flag: "S46",
-		value: "30",
-		name: "mode_minWeight_threshold",
-		msg: "Shipment weight is less than minimum weight for modes of transport 4, 5 and 6."
-	},
-	S46_34: {
-		flag: "S46",
-		value: "34",
-		name: "mode7_inv_sctg",
-		msg: "SCTG code is invalid for mode of transport includes pipeline (7)."
-	},
-	S46_35: {
-		flag: "S46",
-		value: "35",
-		name: "mode1_inv_sctg_weight150_orAK",
-		msg: "SCTG code is invalid for mode of transport includes parcel (1), shipment weight ≥ 150 lbs, or state ≠ AK."
-	},
-	S46_36: {
-		flag: "S46",
-		value: "36",
-		name: "mode8_inv_sctg_weight1000_orAK",
-		msg: "SCTG code is invalid for mode of transport includes air (8), shipment weight ≥ 1000 lbs, or state ≠ AK."
-	},
-	S46_40: {
-		flag: "S46",
-		value: "40",
-		name: "inv_mode_sctg",
-		msg: "SCTG code/mode of transport combination is invalid."
-	},
-	S47_2: {
-		flag: "S47",
-		value: "2",	
-		name: "checkbox_exportMode",
-		msg: "No selection is made."
-	},
-	S48_1: {
-		flag: "S48",
-		value: "1",
-		name: "nonAlphabetic_exportCity",
-		msg: "Foreign destination (city) is not alphabetic."
-	},
-	S48_2: {
-		flag: "S48",
-		value: "2",
-		name: "miss_exportCity",
-		msg: "Foreign destination (city) is missing."
-	},
-	S48_5: {
-		flag: "S48",
-		value: "5",
-		name: "invChar_exportCity",
-		msg: "Foreign destination (city) has invalid character."
-	},
-	S49_1: {
-		flag: "S49",
-		value: "1",
-		name: "nonAlphabetic_exportCountry",
-		msg: "Foreign destination (country) is not alphabetic."
-	},
-	S49_2: {
-		flag: "S49",
-		value: "2",
-		name: "miss_exportCountry",
-		msg: "Foreign destination (country) is missing."
-	},
-	S49_5: {
-		flag: "S49",
-		value: "5",
-		name: "invChar_exportCountry",
-		msg: "Foreign destination (country) has invalid character."
-	},
-	S49_28: {
-		flag: "S49",
-		value: "28",
-		name: "inv_exportCountry_mode",
-		msg: "Export mode of transport (truck or rail) is invalid for countries other than Mexico or Canada."
-	},
-	S50_1: {
-		flag: "S50",
-		value: "1",
-		name: "nonNumeric_exportMode",
-		msg: "Export mode of transport is not numeric."
-	},
-	S50_2: {
-		flag: "S50",
-		value: "2",
-		name: "miss_exportMode",
-		msg: "Export mode of transport is missing."
-	}	
+		name: "weeklyValue2_vs_ATV",
+		msg: "The total weekly value of shipments is not consistent with the value of ATV derived from the CFS data."
+	}
 };
 
 //returns true if the string only has the allowed characters
@@ -1290,6 +973,19 @@ function check_char(table, input){
 	return false;
 }
 
+//length field validation function
+function length_field_check(input, type, config){  
+	var lowerbound = eval(config)[type].minlenght;
+	var upperbound =eval(config)[type].maxlenght;
+    if(input.length >= lowerbound && input.length <=upperbound)
+      {  	
+	   return true;
+      }
+    else
+      {  	  		
+       return false;  	
+      }  
+}
 //matches a given object with an array of values
 function matchObj(ref,list,column){
 	for (var i=0; i<list.length; i++){
@@ -2337,7 +2033,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!lkup_linear("lkup6", sctg)){
-			if (!check_char("lkup26", mode)){ 
+			if (check_char("lkup26", mode)){ 
 				error = "S46_34";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -2346,7 +2042,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup7", sctg)){
-			if (!check_char("lkup27", mode)){ 
+			if (check_char("lkup27", mode)){ 
 				if (weight>=150){
 					error = "S46_35";
 					result.flagname.push((flags)[error].name);
@@ -2357,7 +2053,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}	
 		}
 		if (lkup_linear("lkup8", sctg)){ 
-			if (!check_char("lkup27", mode)){
+			if (check_char("lkup27", mode)){
 				if (weight>=150){
 					if (state != "AK"){		
 						error = "S46_35";
@@ -2370,8 +2066,8 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup9",sctg)){  
-			if (!check_char("lkup28", mode)){
-				if	(weight>=1000){
+			if (check_char("lkup28", mode)){
+				if(weight>=1000){
 					error = "S46_36";
 					result.flagname.push((flags)[error].name);
 					result.flags.push((flags)[error].flag);
@@ -2381,7 +2077,7 @@ function test_mode(mode, temp_control, weight, sctg, state){
 			}
 		}
 		if (lkup_linear("lkup10", sctg)){
-			if (!check_char("lkup28", mode)){
+			if (check_char("lkup28", mode)){
 				if (weight>=1000){
 					if (state != "AK"){	
 						error = "S46_36";
