@@ -582,7 +582,7 @@ function mailing_zip4 (input){
 }	
 
 //Date of ceased operations
-function date_Of_Ceased(input){
+function date_Of_Ceased(day, month, year){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -591,21 +591,15 @@ function date_Of_Ceased(input){
 	result.flgmsg   =  [];
 	result.pass = true
 	
-	if (!check_allowed_char(input, "dateOfCeased", "conf1")){
+	if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
 		error = "E36_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	//if (!presence_check(input)){
-	//	error = "E31_2"
-		//result.flgname.push(flags[error].name);
-		//result.flgs.push(flags[error].flag);
-		//result.flgvalue.push(flags[error].value);
-		//result.flgmsg.push(flags[error].msg);
-		//}
-	if (check_req_char(input, "dateOfCeased", "conf1")){
+
+	if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!length_field_check(year, "ship_date_year", "conf1") ){
 		error = "E36_3"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -640,7 +634,7 @@ function check_operating_Status(input1, input2, input3){
 }	
 
 //Operating status and date of ceased operation cross check
-function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
+function CrossCheck_operatingStatus_dateOfCeased (input1,ceasedDate){
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -648,7 +642,7 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if ((presence_check && ! presence_check(input2))||(!presence_check(input1) && presence_check(input2)) ){
+	if ((presence_check && ! presence_check(ceasedDate))||(!presence_check(input1) && presence_check(ceasedDate)) ){
 		error = "E5_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -749,7 +743,7 @@ function contact_phone(input){
 	result.flgmsg   =  [];
 	result.pass = true;
 	
-	if (!check_allowed_char(input, "phone", "conf1")){
+	if (!check_allowed_char(input, "numeric", "conf1")){
 		error = "E41_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -763,13 +757,13 @@ function contact_phone(input){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	//if (!check_required-char(input)){
-		//error = "E41_3"
-		//result.flgname.push(flags[error].name);
-		//result.flgs.push(flags[error].flag);
-		//result.flgvalue.push(flags[error].value);
-		//result.flgmsg.push(flags[error].msg);
-		//}
+	if(!length_field_check(input, "phone", "conf1")){
+		error = "E41_4"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
 	
 	if (result.flgname.length>0){
 		result.pass = false;
@@ -786,15 +780,8 @@ function contact_fax_number(input){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (!check_allowed_char(input, "faxNum", "conf1")){
+	if (!check_allowed_char(input, "numeric", "conf1")){
 		error = "E7_1"
-		result.flgname.push(flags[error].name);
-		result.flgs.push(flags[error].flag);
-		result.flgvalue.push(flags[error].value);
-		result.flgmsg.push(flags[error].msg);
-		}
-	if ( check_req_char(input, "faxNum", "conf1")){
-		error = "E42_3"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
@@ -884,25 +871,24 @@ var object = {
 
 
 //console.log(Verfication_companyName_Shipping_address (input));
-/*console.log(shipping_Company_name_1("sa129715"));
-console.log(shipping_Company_name_2("sa"));
-console.log(shipping_address("2 Andoveer, p.o.box34"));
-console.log(shipping_city("agawama"));
-console.log(shipping_state("DC"));
-console.log(shipping_zip5("agawama", "DC", "01265"));
-console.log(shipping_zip4(""));
-console.log(mailing_company_name_1("apple23"));
-console.log(mailing_company_name_2(""));
-console.log(mailing_attention("ds tryyy777 gg"));
-console.log(mailing_address("Athens, andover,P.O."));
-console.log(mailing_city("sa4445"));
-console.log(mailing_state("sa4445"));
-console.log(mailing_zip5("blandford", "MA","01021"));
-console.log(mailing_zip4("365"));
-console.log(date_Of_Ceased("15/12/2017"));
-console.log(check_operating_Status ("In Operation","Temp", "Ceased"));
-console.log(CrossCheck_operatingStatus_dateOfCeased ("","21/11/2014"));*/
-
+//console.log(shipping_Company_name_1("sa129715"));
+//console.log(shipping_Company_name_2("sa"));
+//console.log(shipping_address("2 Andoveer, p.o.box34"));
+//console.log(shipping_city("agawama"));
+//console.log(shipping_state("DC"));
+//console.log(shipping_zip5("agawama", "DC", "01265"));
+//console.log(shipping_zip4(""));
+//console.log(mailing_company_name_1("apple23"));
+//console.log(mailing_company_name_2(""));
+//console.log(mailing_attention("ds tryyy777 gg"));
+//console.log(mailing_address("Athens, andover,P.O."));
+//console.log(mailing_city("sa4445"));
+//console.log(mailing_state("sa4445"));
+//console.log(mailing_zip5("blandford", "MA","01021"));
+//console.log(mailing_zip4("365"));
+console.log(date_Of_Ceased("12","32","2016"));
+//console.log(check_operating_Status ("In Operation","Temp", "Ceased"));
+console.log(CrossCheck_operatingStatus_dateOfCeased ("22",""));
 var Object2 = { 
 		Mailing_address: "Putnam Sq, no.268",
 		Mailing_attention: "",
