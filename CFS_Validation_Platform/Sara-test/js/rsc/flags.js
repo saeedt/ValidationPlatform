@@ -63,12 +63,6 @@ var flags = {
 				value:"2",
 				msg: "City is blank"
 			},
-			E24_23: {
-				name:"shipCity-state-zip-lukup-Cross",
-				flag: "E24",
-				value:"23",
-				msg: "The combination of zip, state, city is invalid"
-			},
 			
 			E25_1: {
 				name:"shipState_dataType",
@@ -118,6 +112,12 @@ var flags = {
 				flag: "E26",
 				value:"22",
 				msg: "The zip code does not exist"
+				},
+			E26_23: {
+					name:"shipCity-state-zip-lukup-Cross",
+					flag: "E26",
+					value:"23",
+					msg: "The combination of zip, state, city is invalid"
 				},
 										
 				// MAILING ADDRESS ATRRIBUTE
@@ -178,12 +178,6 @@ var flags = {
 				value:"2",
 				msg: "City is blank"
 			},
-			E32_23: {
-				name:"mailCity-state-zip-lukup-Cross",
-				flag: "E32",
-				value:"22",
-				msg: "The combination of city, state, zipe is invalid"
-			},
 			
 			E33_1: {
 				name:"mailState_dataType",
@@ -201,7 +195,7 @@ var flags = {
 				name:"mailState_fieldLenght",
 				flag: "E33",
 				value:"3",
-				msg: "The lenght of the state abbriviation is more than 2 characters"
+				msg: "Mailing state is not two-letter state abbreviation."
 				},
 			
 			E6_1: {
@@ -234,6 +228,12 @@ var flags = {
 				value:"22",
 				msg: "The zip code does not exist"
 				},
+			E34_23: {
+					name:"mailCity-state-zip-lukup-Cross",
+					flag: "E34",
+					value:"22",
+					msg: "The combination of city, state, zipe is invalid"
+				},
 		//OPERATING STATUS ATTRIBUTE
 				
 			E35_2: {
@@ -258,7 +258,7 @@ var flags = {
 			name:"dateOf Ceased_Format",
 				flag: "E36",
 				value:"3",
-				msg: "Date of ceased operation is not entered in  MMDDYYYY format "
+				msg: "Date of ceased operation is not entered in correct date format "
 				},
 			E37_2: {
 			name:"primIndustCheck_blank",
@@ -316,6 +316,12 @@ var flags = {
 				value:"2",
 				msg: "Contact Phone number is blank"
 			},	
+			E41_4: {
+				name:"ContactPhone_fieldlenght",
+					flag: "41",
+					value:"4",
+					msg: "Contact Phone number is less than 10 or greater than 17 "
+				},	
 			E7_1: {
 			name:"contactFax_dataType",
 				flag: "E7",
@@ -334,25 +340,15 @@ var flags = {
 				value:"2",
 				msg: "The lenght of fax number is less than 10 digit "
 				},
-			E42_3 :{
-			name:"contactFaxd_Format",
-				flag: "E42",
-				value:"3",
-				msg: "The format as area code-phone-extenstion is not provided"
-				},
+			
 				//REMARKS ATTRIBUTE
-			E43_41: {
+			E43_40: {
 			name:"Remark_CrossConst_OperatStatusCheck",
 				flag: "E43",
-				value:"41",
+				value:"40",
 				msg: "  Operating status is checked but description of operation change is not entered   "
 				},
-			E43_42: {
-			name:"Remark_CrossConst_ShipWeighttype",
-				flag: "E43",
-				value:"42",
-				msg: "   Net shipment weight is not in pound and the weight unit in not mentioned in Remark    "
-				},
+		
 				// COMPLETION TIME
 			E10_1: {
 				name:"completTime_dataType",
@@ -372,7 +368,7 @@ var flags = {
 				value:"3",
 				msg: "The value of completation time is more than 10 hours "
 				}, 
-				S1_1: {
+			S1_1: {
 					flag: "S1",
 					value: "1",
 					name: "overseas_military_zip",
