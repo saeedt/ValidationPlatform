@@ -4,9 +4,9 @@ var conf1= {
 		not_allowed: /[(),:;<>[\]]/g,
 		required: /^.+@{1}.+[.].+$/
 	},
+	
 	shippingAddress: {
-		allowed: /[^a-zA-Z0-9 _.-$]/g,
-		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g,
+		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g
 	},
 	numeric:{
 		allowed: /[^0-9+$]/g
@@ -28,43 +28,34 @@ var conf1= {
 	zipCode4:{
 		minlenght:4 ,
 		maxlenght:4	
-},
-	dateOfCeased:{
-			allowed:/[^0-9/\ ]/g, 
-			required:/^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
 	},
-	phone:{
-		allowed: /[^0-9-$]/g,
-		//Required:
-	},
+
 	faxNum: {
-		allowed: /[^0-9-$]/g,
-		required:/^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/g,
-		minlenght: 12 ,
-		maxlenght: 12
+		minlenght: 10 ,
+		maxlenght: 10
 	},
-	
+	phone: {
+		minlenght: 10 ,
+		maxlenght: 17
+	},
 	hour:{
 		maxRange: 8,
 	},
-	//ship_ID: {
-		//allowed: /[^a-zA-Z0-9$]/g	
-	//},		
-
+	
 	ship_date_day: {
-		//allowed: /[0-9]/g,
-		//not_allowed: /^.*/,
-		//required: /^0[1-9]|[12][0-9]|3[01]$/,
+		
 		minRange: 1,
 		maxRange: 31		
 	},	
 	ship_date_month: {
-		//allowed: /[0-9]/g,
-		//not_allowed: /^.*/,
-		//required: /^0[1-9]|1[012]$/,
+	
 		minRange: 1,
 		maxRange: 12	
 	},	
+	ship_date_year: {
+		minlenght: 4,
+		maxlenght: 4	
+	},
 	numberOfShip: {
 		minRange:1,
 		maxRange:100000
@@ -79,24 +70,14 @@ var conf1= {
 		minRange: 1
 	},
 	unna: {
-		//allowed: /[0-9]/g,
+		
 		minlenght:4,
 		maxlenght:4
 	},	
 	sctg: {
-		//allowed: /[0-9]/g,
-	//	required: /^\d{5}$/
 		minlenght:5,
 		maxlenght:5	
-	},	
+	}
 	 
-		//country: {
-		//allowed: /[A-Za-z ]/g
-	//},
-	//mode: {
-	//	allowed: /[0-9]/g
-		//minlenght:1,
-		//maxlenght:4
-	//}
 	
 };
