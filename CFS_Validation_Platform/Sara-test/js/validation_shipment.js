@@ -373,12 +373,13 @@ function test_ship_weight(value, weight, sctg, mode){
 	var error;
 	var vw_ratio = value/weight;
 	var lkup_result = lkup_binary_m("lkup1","sctg", sctg);
+	var lkup_result2 = lkup_binary_m("lkup29","mode", sctg)
 	result.flgname = [];
 	result.flgs = [];
 	result.flgvalue = [];
 	result.flgmsg = [];
 		if (!presence_check(weight)){
-			error = "S38_2";
+			error = "S36_1";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
 			result.flgvalue.push((flags)[error].value);
@@ -391,59 +392,9 @@ function test_ship_weight(value, weight, sctg, mode){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}	
-		if (lkup_result.found){
-			if (lkup_linear("lkup19", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_lb > vw_ratio){
-					error = "S38_34";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
-				}	
-				if (lkup_result.data[0].vw_ub < vw_ratio){	
-					error = "S38_35";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
-				}			
-			}
-		}
-		else if (lkup_linear("lkup20", sctg.substr(0,2))){
-				if (lkup_result.data[0].vw_lb > vw_ratio){			
-					error = "S38_36";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
-				}	
-				if (lkup_result.data[0].vw_ub < vw_ratio){		
-					error = "S38_37";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
-				}
-		}
-		else if (!lkup_linear("lkup19", sctg.substr(0,2)) && !lkup_linear("lkup20", sctg.substr(0,2))){
-			if(lkup_result.data[0].vw_lb > vw_ratio){	
-				error = "S38_36";
-				result.flgname.push((flags)[error].name);
-				result.flgs.push((flags)[error].flag);442
-				result.flgvalue.push((flags)[error].value);
-				result.flgmsg.push((flags)[error].msg);	
-			}
-			if(lkup_result.data[0].vw_lb < vw_ratio){	
-				error = "S38_37";
-				result.flgname.push((flags)[error].name);
-				result.flgs.push((flags)[error].flag);
-				result.flgvalue.push((flags)[error].value);
-				result.flgmsg.push((flags)[error].msg);	
-			}
-		}
-			
+					
 		if (lkup_linear("lkup22", mode)){
-			if(weight > 150){
+			if (lukup_result2.data[0]. maxWeight <= weight) {
 				error = "S7_1";
 				result.flgname.push((flags)[error].name);
 				result.flgs.push((flags)[error].flag);
@@ -451,26 +402,9 @@ function test_ship_weight(value, weight, sctg, mode){
 				result.flgmsg.push((flags)[error].msg);
 			}
 		}	
-		if (lkup_linear("lkup23", mode)){ 
-			if(weight > 80000){
-				error = "S7_1";
-				result.flgname.push((flags)[error].name);
-				result.flgs.push((flags)[error].flag);
-				result.flgvalue.push((flags)[error].value);
-				result.flgmsg.push((flags)[error].msg);
-			}
-		}	
-		//if (mode == 8 && weight > 2000){
-		if (lkup_linear("lkup28", mode)){
-			if(weight>2000){
-			error = "S7_1";
-			result.flgname.push((flags)[error].name);
-			result.flgs.push((flags)[error].flag);
-			result.flgvalue.push((flags)[error].value);
-			result.flgmsg.push((flags)[error].msg);
-		}
+	
 		if (lkup_linear("lkup24", mode)){
-			if(weight < 5000){
+			if(lukup_result2.data[0]. minWeight >= weight){
 			error = "S7_2";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
@@ -478,17 +412,15 @@ function test_ship_weight(value, weight, sctg, mode){
 			result.flgmsg.push((flags)[error].msg);
 			}
 		}
-		if (mode == 4 && weight < 100){
 			// it needs to add code for NAICS 33,42,45
-			//if (lkup_linear("lkup29", mode)){
-				//if(weight < 100){
-			//}
-				error = "S7_2";
-				result.flgname.push((flags)[error].name);
-				result.flgs.push((flags)[error].flag);
-				result.flgvalue.push((flags)[error].value);
-				result.flgmsg.push((flags)[error].msg);
-		}
+			
+			//	error = "S7_2";
+			//	result.flgname.push((flags)[error].name);
+			//	result.flgs.push((flags)[error].flag);
+			//	result.flgvalue.push((flags)[error].value);
+			//	result.flgmsg.push((flags)[error].msg);
+		
+		
 		if (result.flgs.length>0){
 				result.pass = false;
 		}
@@ -1250,7 +1182,7 @@ function test_exportMode(input){
 			result.pass = true;
 		}
 		return result;
-		}
 }
+
 
 
