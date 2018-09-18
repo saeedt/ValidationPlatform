@@ -332,16 +332,16 @@ var lkup34 = ["Y", "N"];
 //Edit flags for shipment attributes
 var flags = {
 	S1_1: {
-			flag: "S1",
-			value: "1",
-			name: "overseas_military_zip",
-			msg: "U.S. destination (zip) contains overseas millitary address."
+		flag: "S1",
+		value: "1",
+		name: "overseas_military_zip",
+		msg: "U.S. destination (zip) contains overseas millitary address."
 	},	
 	S1_2: {
-			flag: "S1",
-			value: "2",
-			name: "inv_zip_state",
-			msg: "U.S. destination state/zip combination is invalid."
+		flag: "S1",
+		value: "2",
+		name: "inv_zip_state",
+		msg: "U.S. destination state/zip combination is invalid."
 	},
 	S2_1: {
 		flag: "S2",
@@ -362,10 +362,10 @@ var flags = {
 		msg: "Mode of transport contains a numeric entry but is not a valid mode including multi-mode."
 	},
 	S3_1: {
-			flag: "S3",
-			value: "1",
-			name: "miss_sctg",
-			msg: "SCTG commodity code is missing."
+		flag: "S3",
+		value: "1",
+		name: "miss_sctg",
+		msg: "SCTG commodity code is missing."
 	},
 	S3_2: {
 		flag: "S3",
@@ -380,22 +380,22 @@ var flags = {
 		msg: "SCTG commodity code is invalid."
 	},	
 	S4_1: {
-			flag: "S4",
-			value: "1",
-			name: "inv_sctg_mode7",
-			msg: "SCTG commodity code is invalid for mode includes pipeline (7)."
+		flag: "S4",
+		value: "1",
+		name: "inv_sctg_mode7",
+		msg: "SCTG commodity code is invalid for mode includes pipeline (7)."
 	},
 	S4_2: {
-			flag: "S4",
-			value: "2",
-			name: "inv_sctg_mode1_weight_state",
-			msg: "SCTG commodity code is invalid for mode includes parcel (1), shipment weight and state provided."		
+		flag: "S4",
+		value: "2",
+		name: "inv_sctg_mode1_weight_state",
+		msg: "SCTG commodity code is invalid for mode includes parcel (1), shipment weight and state provided."		
 	},
 	S4_3: {
-			flag: "S4",
-			value: "3",
-			name: "inv_sctg_mode8_weight_state",
-			msg: "SCTG commodity code is invalid for mode includes air (8), shipment weight and state provided."
+		flag: "S4",
+		value: "3",
+		name: "inv_sctg_mode8_weight_state",
+		msg: "SCTG commodity code is invalid for mode includes air (8), shipment weight and state provided."
 	},
 	S5_1: {
 		flag: "S5",
@@ -907,6 +907,48 @@ var flags = {
 		name: "mos_vs_atv_20billion",
 		msg: "The value of ATV derived from the CFS data is not consistent with the value of MOS from derived the CFS frame."
 	},
+	E4_1: {
+		flag: "E4",
+		value: "1",
+		name:"shipAddress_inv_state_zip",
+		msg: "Shipping address state/zip combination is invalid."
+	},
+	E4_2: {
+		flag: "E4",
+		value: "2",
+		name:"shipAddress_inv_state_zip",
+		msg: "Shipping address state has been changed since it was mailed to the database."
+	},
+	E4_3: {	
+		flag: "E4",
+		value: "3",
+		name: "shipAddress_invChar_state",
+		msg: "Shipping address (state) has invalid character (a value of P.O.Box)."
+	},
+	E5_1:{
+		flag: "E5",
+		value: "1",
+		name: "operatingStatus_dateOfCeased",
+		msg: "Ceased operation is selected for the establishment operating status or a date for ceased operation is provided."
+	},
+	E6_1: {
+		flag: "E6",
+		value:"1",
+		name: "mailAddress_inv_state_zip",
+		msg: "Mailing address state/zip combination is invalid."
+	},
+	E7_1: {	
+		flag: "E7",
+		value: "1",
+		name: "nonNumeric_fax",
+		msg: "Fax number in not numeric."
+	},
+	E7_2: {	
+		flag: "E7",
+		value: "2",
+		name: "inv_fax",
+		msg: "Fax number is not a 10 digit number."
+	},
 	E8_1: {
 		flag: "E8",
 		value: "1",
@@ -924,7 +966,314 @@ var flags = {
 		value: "2",
 		name: "weeklyValue2_vs_ATV",
 		msg: "The total weekly value of shipments is not consistent with the value of ATV derived from the CFS data."
-	}
+	},
+	E10_1: {
+		flag: "E10",
+		value: "1",
+		name: "miss_completeTime",
+		msg: "Completion time (hours or minutes) are missing."
+	},
+	E10_2: {	
+		flag: "E10",
+		value: "2",
+		name: "nonNumeric_completeTime",
+		msg: "Completion time (hours or minutes) are not numeric."
+	},
+	E10_3: {		
+		flag: "E10",
+		value: "3",
+		name: "8hours_completeTime",
+		msg: "The value of completation time is more than 8 hours."
+	},
+	E20_2: {		
+		flag: "E20",
+		value: "2",
+		name: "checkBox_companyShipName",
+		msg: "No selection is made."
+	},
+	E21_1: {	
+		flag: "E21",
+		value: "1",
+		name: "nonAlphanumeric_companyShipName1",
+		msg: "Shipping company name is not alphanumeric."
+	},	
+	E21_2: {		
+		flag: "E21",
+		value: "2",
+		name: "miss_companyShipName1",
+		msg: "Shipping company name 1 is missing."
+	},
+	E22_1: {	
+		flag: "E22",
+		value: "1",
+		name: "nonAlphanumeric_companyShipName2",
+		msg: "Shipping company name 2 is not alphanumeric."
+	},
+	E23_1: {	
+		flag: "E23",
+		value: "1",
+		name: "nonAlphanumeric_shipAddress",
+		msg: "Shipping address is not alphanumeric. "
+	},
+	E23_2: {	
+		flag: "E23",
+		value: "2",
+		name: "miss_shipAddress",
+		msg: "Shipping address is missing."
+	},	
+	E23_5: {	
+		flag: "E23",
+		value: "5",
+		name: "invChar_shipAddress",
+		msg: "Shipping address has invalid character (a value of P_O_/P.O_/P..B/P.O_/P.O./PO_B/PO_D/POB_/POST)."
+	},
+	E24_1: {	
+		flag: "E24",
+		value: "1",
+		name: "nonAlphabetic_shipCity",
+		msg: "Shipping address (city) is not alphabetic."
+	},
+	E24_2: {	
+		flag: "E24",
+		value: "2",
+		name: "miss_shipCity",
+		msg: "Shipping address (city) is missing."
+	},
+	E25_1: {	
+		flag: "E25",
+		value: "1",
+		name: "nonAlphabetic_shipState",
+		msg: "Shipping address (state) is not alphabetic."
+	},
+	E25_2: {	
+		flag: "E25",
+		value: "2",
+		name: "miss_shipState",
+		msg: "Shipping address (state) is missing."
+	},
+	E25_4: {		
+		flag: "E25",
+		value: "4",
+		name: "inv_shipState",
+		msg: "Shipping address (state) is not a two-letter abbreviation."
+	},
+	E26_1: {	
+		flag: "E26",
+		value: "1",
+		name: "nonNumeric_shipZip",
+		msg: "Shipping address (zip) is not numeric."
+	},
+	E26_2: {	
+		flag: "E26",
+		value: "2",
+		name: "miss_shipZip",
+		msg: "Shipping address (zip) is missing."
+	},
+	E26_4: {	
+		flag: "E26",
+		value: "4",
+		name: "inv_shipZip",
+		msg: "Shipping address (zip) is not a 5-digit number."
+	},
+	E26_22: {	
+		flag: "E26",
+		value: "22",
+		name: "notFound_shipZip",
+		msg: "Shipping address (zip) is invalid."
+	},
+	E26_23: {	
+		flag: "E24",
+		value: "26",
+		name: "inv_shipCity_state_zip",
+		msg: "City/state/zip combination is invalid."
+	},
+	E27_2: {		
+		flag: "E27",
+		value: "2",
+		name: "CheckBox_companyMailName",
+		msg: "No selection is made."
+	},
+	E28_1: {
+		flag: "E28",
+		value: "1",
+		name: "nonAlphanumeric_companyMailName1",
+		msg: "Mailing company name 1 is not alphanumeric."
+	},	
+	E28_2: {	
+		flag: "E28",
+		value: "2",
+		name: "miss_companyMailName1",
+		msg: "Mailing company name 1 is missing."
+	},
+	E29_1: {
+		flag: "E29",
+		value: "1",
+		name: "nonAlphanumeric_companyMailName2",
+		msg: "Mailing company name 2 is not alphanumeric."
+	},	
+	E30_1: {	
+		flag: "E30",
+		value: "1",
+		name: "nonAlphanumeric_mailAddressAttention",
+		msg: "Mailing address (attention) is not alphanumeric."
+	},
+	E31_1: {
+		flag: "E31",
+		value:"1",
+		name:"nonAlphanumeric_mailAddress_address",
+		msg: "Mailing address (address) is not alphanumeric."
+	},
+	E31_2: {	
+		flag: "E31",
+		value: "2",
+		name: "miss_mailAddress_address",
+		msg: "Mailing address (address) is missing."
+	},
+	E32_1: {	
+		flag: "E32",
+		value: "1",
+		name: "nonAlphabetic_mailCity",
+		msg: "Mailing address (city) is not alphabetic."
+	},
+	E32_2: {	
+		flag: "E32",
+		value: "2",
+		name: "miss_mailCity",
+		msg: "Mailing address (city) is missing."
+	},
+	E32_23: {	
+		flag: "E32",
+		value: "22",
+		name: "inv_mailCity_state_zip",
+		msg: "City/state/zip combination is invalid."
+	},
+	E33_1: {
+		flag: "E33",
+		value: "1",
+		name: "nonAlphabetic_mailState",
+		msg: "Mailing address (state) is not alphabetic."
+	},
+	E33_2: {
+		flag: "E33",
+		value: "2",
+		name: "miss_mailStat",
+		msg: "Mailing address (state) is missing."
+	},
+	E33_4: {	
+		flag: "E33",
+		value: "3",
+		name: "inv_mailState",
+		msg: "Mailing address (state) is not a two-letter abbreviation."
+	},
+	E34_1: {	
+		flag: "E34",
+		value: "1",
+		name: "nonNumeric_mailZip",
+		msg: "Mailing address (zip) is not numeric."
+	},
+	E34_2: {		
+		flag: "E34",
+		value: "2",
+		name: "miss_mailZip",
+		msg: "Mailing address (zip) is missing."
+	},
+	E34_4: {	
+		flag: "E34",
+		value: "4",
+		name: "inv_mailZip",
+		msg: "Mailing address (zip) is not a 10-digit number."
+	},
+	E34_22: {	
+		flag: "E34",
+		value: "22",
+		name: "notFound_mailZip",
+		msg: "Mailing address (zip) is invalid."
+	},
+	E35_2: {	
+		flag: "E35",
+		value: "2",
+		name: "checkBox_operatingStatus",
+		msg: "No selection is made."
+	},
+	E36_1:{
+		flag: "E36",
+		value:"1",
+		name: "nonNumeric_dateOfCeased",
+		msg: "Date for ceased operation is not numeric."
+	},
+	E36_3:{
+		flag: "E36",
+		value: "3",
+		name: "invFormat_dateOfCeased",
+		msg: "Date of ceased operation is not in  MMDDYYYY format."
+	},
+	E37_2: {	
+		flag: "E37",
+		value: "2",
+		name: "checkBox_priIndustryActivity",
+		msg: "No selection is made."
+	},
+	E38_1: {	
+		flag: "E38",
+		value: "1",
+		name: "nonAlphanumeric_priIndustryActivity",
+		msg: "Primary industry activity is not alphanumeric "
+	},
+	E38_40: {
+		flag: "E38",
+		value: "40",
+		name: "primIndustAct_CrossConst",
+		msg: "Checkbox is checked as 'No' but primary industry activity description is not provided."
+	},
+	E39_1: {	
+		flag : "E39",
+		value: "1",
+		name: "nonAlphabetic_contactName",
+		msg: "Contact information (name) is not alphabetic."
+	},
+	E39_2: {
+		flag: "E39",
+		value: "2",
+		name: "miss_contactName",
+		msg: "Contact information (name) is missing."
+	},	
+	E40_1: {	
+		flag: "E40",
+		value: "1",
+		name: "nonAlphabetic_contactTitle",
+		msg: "Contact information (title) is not alphabetic."
+	},
+	E40_2: {
+		flag: "40",
+		value: "2",
+		name: "miss_contactTitle",
+		msg: "Contact information (title) is missing."
+	},		
+	E41_1: {	
+		flag: "E41",
+		value: "1",
+		name: "nonNumeric_contactPhone",
+		msg: "Contact information (phone number) is not numeric."
+	},
+	E41_2: {
+		flag: "41",
+		value: "2",
+		name: "miss_contactPhone",
+		msg: "Contact information (phone number) is missing."
+	},	
+	E42_2: {	
+		flag: "E42",
+		value: "2",
+		name: "miss_contactFax",
+		msg: "Contact information (fax number) is missing."
+	},
+	E43_41: {	
+		flag: "E43",
+		value: "41",
+		name: "Remark_CrossConst_OperatStatusCheck",
+		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
+	},
+	
 };
 
 //returns true if the string only has the allowed characters
