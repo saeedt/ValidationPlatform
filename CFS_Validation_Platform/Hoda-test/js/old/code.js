@@ -1267,9 +1267,9 @@ var flags = {
 		name: "miss_contactFax",
 		msg: "Contact information (fax number) is missing."
 	},
-	E43_41: {	
+	E43_40: {	
 		flag: "E43",
-		value: "41",
+		value: "40",
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
 	},
@@ -2772,4 +2772,58 @@ function test_exportMode(input){
 			result.pass = true;
 		}
 			return result;
+}
+function completionh_time(input1, input2){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	if	(!presence_check(input1) && !presence_check(input2)){
+		error = "E10_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	if (!check_allowed_char(input1, "numeric", "conf1") ||!check_allowed_char(input2, "numeric", "conf1")){
+		error = "E10_2"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	if(!range_val_check(input1, "hour", "conf1")){
+		error = "E10_3"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);	
+	}
+	if (result.flgname.length>0){
+		result.pass = false;
+	}
+	return result;
+}	
+
+function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgflag  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	if (presence_check(input1) || presence_check(input2)){
+		error = "E5_1"
+		result.flgname.push(flags[error].name);
+		result.flgflag.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	console.log(result.flgname.length);
+	if (result.flgname.length>0){
+		result.pass = false;
+	}
+	return result;
 }
