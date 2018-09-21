@@ -7,6 +7,9 @@ The validation platform is compatible with all modern web browsers including Goo
 ## Latest Prototype
 The latest tested prototype is located in the 'Test' folder. The code in individual team members' folders is work in progress and may not run correctly. 
 
+## Demo page
+The demo page is accessible [here](https://saeedt.github.io/ValidationPlatform/). The password to access the page is 'VPtestDemo' (without quotes). Note that the password is case sensitive. Test files can be downloded [here](https://saeedt.github.io/ValidationPlatform/TestFiles.zip). Test files come in a zip archive that needs to be extracted (unzipped) before being used with the validation tool. 
+
 ## How to Run
 Clone or download the repository from the GitHub page or using your favorite Git client. Google Chrome usually runs jQuery (which is the major JavaScript library used in the development of the Data Validation Platform) locally without the need to be hosted on a web server. There is also a Java based portable web server [WebServerLite.jar](http://www.jibble.org/jibblewebserver.php) included in the Test folder that can be used to host the tool. 
 WebServerLite.jar is platform independent and can run on any computer running [Java Run Environment (JRE)](http://www.oracle.com/technetwork/java/javase/jre8-downloads-2133155.html). Run the following command in command line/Terminal to ensure you have JRE installed on your system: 

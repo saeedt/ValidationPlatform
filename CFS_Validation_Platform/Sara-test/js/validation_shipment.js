@@ -392,24 +392,26 @@ function test_ship_weight(value, weight, sctg, mode){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}	
-					
-		if (lkup_linear("lkup22", mode)){
-			if (lukup_result2.data[0]. maxWeight <= weight) {
+		if (lkup_result2.found){			
+			if (lkup_linear("lkup22", mode)){
+				if (lukup_result2.data[0]. maxWeight <= weight) {
 				error = "S7_1";
 				result.flgname.push((flags)[error].name);
 				result.flgs.push((flags)[error].flag);
 				result.flgvalue.push((flags)[error].value);
 				result.flgmsg.push((flags)[error].msg);
-			}
-		}	
-	
-		if (lkup_linear("lkup24", mode)){
-			if(lukup_result2.data[0]. minWeight >= weight){
+				}
+			}	
+		}
+		if (lkup_result2.found){
+			if (lkup_linear("lkup24", mode)){
+				if(lukup_result2.data[0]. minWeight >= weight){
 			error = "S7_2";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
+				}
 			}
 		}
 			// it needs to add code for NAICS 33,42,45
