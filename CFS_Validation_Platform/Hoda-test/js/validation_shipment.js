@@ -93,7 +93,7 @@ function verify_shipment(input){
 	return result;
 }
 //Integration functions for shipment attributes
-function test_numberOfShip(input){
+function test_numberOfShip(numberOfShip, numberOfRowsInF){
 	var result = new Object();;
 	var error;
 	result.flgname = [];
@@ -107,12 +107,56 @@ function test_numberOfShip(input){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check (input, "numberOfShip", "conf1")){ 
+		if (!range_val_check(input, "numberOfShip", "conf1")){ 
 			error = "S30_20";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
+		}
+		if (!presence_check(numberOfShip) && numberOfRowsInF > 0){ 
+			error = "E1_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (numberOfShip == 0 && numberOfRowsInF > 0){ 
+			error = "E1_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (numberOfShip > 0 && numberOfRowsInF == 0){ 
+			error = "E1_3";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (numberOfShip == 0 && numberOfRowsInF == 0){ 
+			if (!presence_check(numberOfShip) && numberOfRowsInF == 0 ){
+				error = "E1_4";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+		}
+		if (numberOfShip > 100000 && numberOfRowsInF > 0){ 
+			error = "E1_5";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (numberOfShip > 100000){ 
+			error = "E8_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
 		}
 		if (result.flgs.length>0){
 			result.pass = false;
@@ -214,25 +258,53 @@ function test_ship_date_month(input){
 	result.flgvalue = [];
 	result.flgmsg = [];
 		if (!check_allowed_char(input, "numeric", "conf1")){
-			error = "S35_1";
+			error = "S34_1";
 			result.flgname.push((flags)[error].name);
 			result.flgs.push((flags)[error].flag);
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(input)){
-			error = "S35_2";
-			result.flgname.push((flags)[error].name);
-			result.flgs.push((flags)[error].flag);
-			result.flgvalue.push((flags)[error].value);
-			result.flgmsg.push((flags)[error].msg);
+		if (!range_val_check(ship_month, "ship_date_month", "conf1")){
+			error = "S34_20";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(input, "ship_date_month", "conf1")){
-			error = "S35_20";
-			result.flgname.push((flags)[error].name);
-			result.flgs.push((flags)[error].flag);
-			result.flgvalue.push((flags)[error].value);
-			result.flgmsg.push((flags)[error].msg);
+		if (ship_month == 1 && !lkup_linear("lkup30", quarter)){
+			error = "S14_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (ship_month == 2 && !lkup_linear("lkup31", quarter)){
+			error = "S14_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (ship_month == 3 && !lkup_linear("lkup32", quarter)){
+			error = "S14_3";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (ship_month == 4 && !lkup_linear("lkup33", quarter)){
+			error = "S14_4";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (!presence_check(ship_month)){
+			error = "S14_5";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
 		}
 		if (result.flgs.length>0){
 			result.pass = false;
