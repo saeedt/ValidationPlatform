@@ -113,7 +113,10 @@ var conf1= {
 	alphanumeric:{
 		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
 		required: /^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
-	}	
+	},
+	hour:{
+		maxRange: 8,
+	}
 }
 //Variables for lookup tables
 var lkup1 = [
@@ -1456,6 +1459,16 @@ function lkup_binary_m(table,column,index){
 	}
 	return result;
 }
+function auto_fill(input,attrib){
+	for (var i = 0; i < input.length-2; i++){
+		if (list[i+1][attrib] - list[i][attrib] == 1){
+			if (list[i+2][attrib]-list[i+1][attrib] == 1){
+				return true;
+				}
+			}  		 	
+	     } 
+	return false;
+}
 
 //Integration functions for shipment attributes
 function test_numberOfShip(numberOfShip, numberOfRowsInF){
@@ -2772,7 +2785,7 @@ function test_exportMode(input){
 			result.pass = true;
 		}
 			return result;
-}
+}/*
 function completionh_time(input1, input2){
 	var result = new Object();
 	var error;
@@ -2806,7 +2819,7 @@ function completionh_time(input1, input2){
 	}
 	return result;
 }	
-
+/*
 function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
 	var result = new Object();
 	var error;
@@ -2826,4 +2839,4 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,input2){
 		result.pass = false;
 	}
 	return result;
-}
+}*/
