@@ -49,3 +49,75 @@ var lkup17 = [
 		"2digit_sctg" : "36"
 	}
 ];//incomplete
+
+var lkup18 = ["02","10","11","12","13","14","15","19","22","25","31","32","33"];
+
+var lkup19 = ["16","17","18"];
+
+var lkup20 = [
+	{
+	"mode": 1,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode":12,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 13,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 18,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 21,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 31,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 81,
+	"minWeight": 0,
+	"maxWeight": 150
+	},
+	{
+	"mode": 2,
+	"minWeight": 0,
+	"maxWeight": 80000
+	},
+	{
+	"mode": 3,
+	"minWeight": 0,
+	"maxWeight": 80000
+	},	
+	{
+	"mode": 8,
+	"minWeight": 0,
+	"maxWeight": 2000
+	},
+	{
+	"mode": 4,
+	"minWeight": 100,
+	"maxWeight": infinity
+	},	
+	{
+	"mode": 5,
+	"minWeight": 5000,
+	"maxWeight": infinity
+	},
+	{
+	"mode": 6,
+	"minWeight": 5000,
+	"maxWeight": infinity
+	}		
+];

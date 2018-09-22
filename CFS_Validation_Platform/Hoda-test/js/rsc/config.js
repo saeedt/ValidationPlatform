@@ -32,7 +32,8 @@ var conf1= {
 		maxlength:5	
 	},	
 	zip: {
-		minlength:5
+		minlength:5,
+		maxlength:5
 	},	
 	city: {
 		not_allowed: /(APO|FPO|DPO)/g
@@ -44,7 +45,7 @@ var conf1= {
 	},	
 	mode: {
 		minlength:1,
-		maxlength:4
+		maxlength:3
 	},
 	numeric:{
 		allowed: /[^0-9+$]/g
