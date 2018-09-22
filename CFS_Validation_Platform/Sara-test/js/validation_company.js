@@ -582,7 +582,7 @@ function mailing_zip4 (input){
 }	
 
 //Date of ceased operations
-function date_Of_Ceased(day, month, year){
+function date_Of_Ceased(month, day, year){
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -620,7 +620,7 @@ function check_operating_Status(input1, input2, input3){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (presence_check(input1) && presence_check(input2) && presence_check(input3)){
+	if (!!presence_check(input1) && !!presence_check(input2) && !! presence_check(input3)){
 		error = "E35_2"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -642,8 +642,16 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,ceasedDate){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if ((presence_check && ! presence_check(ceasedDate))||(!presence_check(input1) && presence_check(ceasedDate)) ){
+	
+	if ((presence_check(input1) || presence_check(ceasedDate)) ){
 		error = "E5_1"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		}
+	if ((presence_check(input1) && ! presence_check(ceasedDate))||(!presence_check(input1) && presence_check(ceasedDate)) ){
+		error = "E36_40"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
