@@ -172,51 +172,52 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			return result;
 }
 */
-function NumberOfship(numberOfShip, numberOfRowsInF){
+console.log(test_NumberOfship("2015","50"));
+function test_NumberOfship(shipNum, numberOfRowsInF){
 	var result = new Object();
 	var error;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	var sampInterval;
+	var interval;
 	var required;
-	if (!presence_check(numberOfShip)){
+	if (!presence_check(shipNum)){
 		error = "S30_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (!range_val_check(numberOfShip, "numberOfShip", "conf1")){ 
+	if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
 		error = "S30_20";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (!presence_check(numberOfShip) && numberOfRowsInF > 0){ 
+	if (!presence_check(shipNum) && numberOfRowsInF > 0){ 
 		error = "E1_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (numberOfShip == 0 && numberOfRowsInF > 0){ 
+	if (shipNum == 0 && numberOfRowsInF > 0){ 
 		error = "E1_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (numberOfShip > 0 && numberOfRowsInF == 0){ 
+	if (shipNum > 0 && numberOfRowsInF == 0){ 
 		error = "E1_3";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if ((numberOfShip == 0 && numberOfRowsInF == 0)||(!presence_check(numberOfShip) && numberOfRowsInF == 0)){
+	if ((shipNum == 0 && numberOfRowsInF == 0)||(!presence_check(shipNum) && numberOfRowsInF == 0)){
 		error = "E1_4";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
@@ -224,46 +225,46 @@ function NumberOfship(numberOfShip, numberOfRowsInF){
 		result.flagmsg.push((flags)[error].msg);
 	}
 				
-	if (numberOfShip > 100000 && numberOfRowsInF > 0){ 
+	if (shipNum > 100000 && numberOfRowsInF > 0){ 
 		error = "E1_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (numberOfShip > 100000){ 
+	if (shipNum > 100000){ 
 		error = "E8_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (numberOfShip != 0){
-		if (range_val_check(numberOfShip, "interval1", "conf1")){
-			sampInterval = math.ceil(numberOfShip/40)
+	if (shipNum != 0){
+		if (range_val_check(shipNum, "interval1", "conf1")){
+			interval = Math.ceil(parseInt(shipNum/40))
 		}
-		else if (range_val_check(numberOfShip, "interval2", "conf1")){
-			sampInterval = 5 * math.ceil(numberOfShip/200)
+		else if (range_val_check(shipNum, "interval2", "conf1")){
+			interval = 5 * Math.ceil(parseInt(shipNum/200))
 		}
-		else if (range_val_check(numberOfShip, "interval3", "conf1")){
-			sampInterval = 10 * math.ceil(numberOfShip/600)
+		else if (range_val_check(shipNum, "interval3", "conf1")){
+			interval = 10 * Math.ceil(parseInt(shipNum/600))
 		}
-		else if (range_val_check(numberOfShip, "interval4", "conf1")){
-			sampInterval = 10 * math.ceil(numberOfShip/600)
+		else if (range_val_check(shipNum, "interval4", "conf1")){
+			interval = 10 * Math.ceil(parseInt(shipNum/600))
 		}
-		else if (range_val_check(numberOfShip, "interval5", "conf1")){
-			sampInterval = 20 * math.ceil(numberOfShip/1600)
+		else if (range_val_check(shipNum, "interval5", "conf1")){
+			interval = 20 * Math.ceil(parseInt(shipNum/1600))
 		}
-		else if (range_val_check(numberOfShip, "interval6", "conf1")){
-			sampInterval = 20 * math.ceil(numberOfShip/1600)
+		else if (range_val_check(shipNum, "interval6", "conf1")){
+			interval = 20 * Math.ceil(parseInt(shipNum/1600))
 		}
-		else if (range_val_check(numberOfShip, "interval7", "conf1")){
-			sampInterval = 50 * math.ceil(numberOfShip/4000)
+		else if (range_val_check(shipNum, "interval7", "conf1")){
+			interval = 50 * Math.ceil(parseInt(shipNum/4000))
 		}
-		else if (range_val_check(numberOfShip, "interval8", "conf1")){
-			sampInterval = 100 * math.ceil(numberOfShip/8000)
+		else if (range_val_check(shipNum, "interval8", "conf1")){
+			interval = 100 * Math.ceil(parseInt(shipNum/8000))
 		}
-		required = math.floor(numberOfShip/sampInterval)
+		required = Math.floor(shipNum/interval)
 		if (required > 10 && (required- numberOfRowsInF)/required > 0.2 ){
 			error = "E2_1";
 			result.flagname.push((flags)[error].name);
@@ -271,7 +272,7 @@ function NumberOfship(numberOfShip, numberOfRowsInF){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		else if (required <= 10 && math.abs(required- numberOfRowsInF) > 1 ){
+		else if (required <= 10 && Math.abs(required- numberOfRowsInF) > 1 ){
 			error = "E2_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -288,7 +289,7 @@ function NumberOfship(numberOfShip, numberOfRowsInF){
 	return result;
 }
 
-
+//console.log(test_totShipValue("200000"));
 function test_totShipValue(input){
 	var result = new Object();
 	var error;
@@ -371,7 +372,7 @@ function test_ship_ID(input){
 		}
 			return result;
 }
-
+//console.log(test_ship_date_month("2", "3"));
 function test_ship_date_month(ship_month, quarter){
 	var result = new Object();
 	var error;
@@ -505,7 +506,9 @@ function test_ship_value(value, weight, sctg){
 			return result;
 }
 
-
+//console.log(test_ship_weight("55", "4", "33"));
+//console.log(test_ship_weight("200", "1", ""));
+//console.log(test_ship_weight("1500", "5", "22"));  /// dont get faklse with S7_2
 function test_ship_weight(weight, mode, naics){
 	var result = new Object();
 	var error;
@@ -527,7 +530,8 @@ function test_ship_weight(weight, mode, naics){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
+		}	
+		
 		if (lkup_result.found){			
 			if (lkup_result.data[0].maxWeight <= weight) {
 				error = "S7_1";
@@ -536,10 +540,7 @@ function test_ship_weight(weight, mode, naics){
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}	
-		}
-		// missing mode 4 (100 lbs and NAICS 33, 42, 45) is added but we don't have naics code, I hypothesize we have them as input . This constraint needs to be completed.
-		if ((lkup_linear("lkup30",naics) && mode==4)){
-			if (weight <= 100){
+			if (lkup_result.data[0].minWeight >= weight){
 				error = "S7_2";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -547,15 +548,21 @@ function test_ship_weight(weight, mode, naics){
 				result.flagmsg.push((flags)[error].msg);
 			}
 		}
-		else if (lkup_result.found){
-				if (lkup_result.data[0].minWeight >= weight){
-					error = "S7_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
+		else 
+		{
+			if ((lkup_linear("lkup30",naics) && mode==4)){
+				if (weight <= 100){
+				error = "S7_2";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
 				}
 			}	
+			
+		}
+		// missing mode 4 (100 lbs and NAICS 33, 42, 45) is added but we don't have naics code, I hypothesize we have them as input . This constraint needs to be completed.
+			
 		if (result.flags.length>0){
 			result.pass = false;
 		}
