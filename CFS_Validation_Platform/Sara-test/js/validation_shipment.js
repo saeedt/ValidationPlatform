@@ -470,16 +470,16 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 			result.flgmsg.push((flags)[error].msg);
 		}
 		if (lkup_result.found){
-			if (lkup_linear("lkup19", sctg.substr(0,2))){
+			if (lkup_linear("lkup18", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){
-					error = "S39_34";
+					error = "S8_1";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
 					result.flgmsg.push((flags)[error].msg);
 				}	
 				if (lkup_result.data[0].vw_ub < vw_ratio){	
-					error = "S39_35";
+					error = "S8_2";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
@@ -487,16 +487,16 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}			
 			}
 		
-		else if (lkup_linear("lkup20", sctg.substr(0,2))){
+		else if (lkup_linear("lkup19", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){			
-					error = "S39_36";
+					error = "S8_3";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
 					result.flgmsg.push((flags)[error].msg);
 				}	
 				if (lkup_result.data[0].vw_ub < vw_ratio){		
-						error = "S39_37";
+						error = "S8_4";
 						result.flgname.push((flags)[error].name);
 						result.flgs.push((flags)[error].flag);
 						result.flgvalue.push((flags)[error].value);
@@ -505,14 +505,14 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 		}
 		else{
 				if(lkup_result.data[0].vw_lb > vw_ratio){	
-					error = "S39_38";
+					error = "S8_5";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);442
 					result.flgvalue.push((flags)[error].value);
 					result.flgmsg.push((flags)[error].msg);	
 				}
 				if(lkup_result.data[0].vw_lb < vw_ratio){	
-					error = "S39_39";
+					error = "S8_6";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
 					result.flgvalue.push((flags)[error].value);
@@ -1187,4 +1187,4 @@ function test_exportMode(input){
 }
 
 
-
+console.log(test_exportMode("2"));
