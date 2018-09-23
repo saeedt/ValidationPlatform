@@ -557,13 +557,13 @@ var flags = {
 		flag: "E2",
 		value: "1",
 		name: "numOfShip_required_vs_reported_greaterThan10",
-		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+		msg: " Reported shipments in item D and the total number of shipments reported in Item F are not consistent when the number of shipments required is more than 10. "
 	},
 	E2_2: {
 		flag: "E2",
 		value: "2",
 		name: "numOfShip_required_vs_reported_lessThan10",
-		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+		msg: " Reported shipments in item D and the total number of shipments reported in Item F are not consistent when the number of shipments required is less than 9. "
 	},
 	E3_1: {
 		flag: "E3",
