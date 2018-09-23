@@ -613,8 +613,7 @@ function test_sctg(sctg, value, weight, mode, naics){
 					result.flgmsg.push((flags)[error].msg);
 				}			
 			}
-		
-		else if (lkup_linear("lkup19", sctg.substr(0,2))){
+			else if (lkup_linear("lkup19", sctg.substr(0,2))){
 				if (lkup_result1.data[0].vw_lb > vw_ratio){			
 					error = "S8_3";
 					result.flgname.push((flags)[error].name);
@@ -629,7 +628,7 @@ function test_sctg(sctg, value, weight, mode, naics){
 						result.flgvalue.push((flags)[error].value);
 						result.flgmsg.push((flags)[error].msg);
 				}
-		}
+			}
 		else{
 				if(lkup_result1.data[0].vw_lb > vw_ratio){	
 					error = "S8_5";
@@ -762,9 +761,10 @@ function test_temp_control(temp_control, sctg){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (lkup_result.found){
+		
+		if (lkup_result.found){    
 			if (temp_control == "Y"){
-				if (lkup_linear("lkup9", sctg.substr(0,2))){ 
+			if (lkup_linear("lkup9", sctg.substr(0,2))){ 
 					error = "S12_1";
 					result.flgname.push((flags)[error].name);
 					result.flgs.push((flags)[error].flag);
@@ -791,13 +791,7 @@ function test_temp_control(temp_control, sctg){
 				}
 			}
 		}
-		if (temp_control == "Y" && mode == "7"){	
-			error = "S13_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
+		
 		if (result.flags.length>0){
 			result.pass = false;
 		}
@@ -828,6 +822,7 @@ function test_unna(unna, sctg){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
+		/*
 		if (lkup_linear("lkup12", sctg)){
 			if (!presence_check(unna)){
 				error = "S9_1";
@@ -837,6 +832,7 @@ function test_unna(unna, sctg){
 				result.flagmsg.push((flags)[error].msg);
 			}
 		}
+		
 		if (!lkup_binary_m("lkup2", "unna_code", unna).found){
 				error = "S9_2";
 				result.flagname.push((flags)[error].name);
@@ -853,6 +849,44 @@ function test_unna(unna, sctg){
 				result.flagmsg.push((flags)[error].msg);
 			}
 		}
+		*/
+		// I used the previouse code we have revised with Dr. Tehrani because it needs presence check of unna
+		if (presence_check(unna)){
+			if (lkup_linear("lkup14", sctg)){
+				//need to get SCTG-HAZMAT Table 
+				/*if (!lkup_binary_m("lkup??", "unna_code", unna).found){
+					error = "S9_4";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);
+				}*/					
+			} else if (!lkup_linear("lkup13", sctg)){					
+				error = "S9_3";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);				
+			} else {
+				if (!lkup_binary_m("lkup2", "unna_code", unna).found){
+					error = "S9_2";
+					result.flgname.push((flags)[error].name);
+					result.flgs.push((flags)[error].flag);
+					result.flgvalue.push((flags)[error].value);
+					result.flgmsg.push((flags)[error].msg);
+				}
+			}				 				
+		} else {
+			if (lkup_linear("lkup12", sctg)){					
+				error = "S9_1";
+				result.flgname.push((flags)[error].name);
+				result.flgs.push((flags)[error].flag);
+				result.flgvalue.push((flags)[error].value);
+				result.flgmsg.push((flags)[error].msg);
+				
+			}
+		}
+		
 		if (result.flags.length>0){
 			result.pass = false;
 		}
@@ -861,6 +895,7 @@ function test_unna(unna, sctg){
 		}
 			return result;
 }
+// I checked up to here
 
 function test_destinationCity(input){
 	var result = new Object();
