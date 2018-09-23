@@ -487,7 +487,7 @@ function test_sctg(sctg, temp_control, value, weight, state, mode, unna){
 				}			
 			}
 		
-		else if (lkup_linear("lkup19", sctg.substr(0,2))){
+			else if (lkup_linear("lkup19", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){			
 					error = "S8_3";
 					result.flgname.push((flags)[error].name);
