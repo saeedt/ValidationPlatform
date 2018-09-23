@@ -77,7 +77,38 @@ var conf1= {
 	sctg: {
 		minlenght:5,
 		maxlenght:5	
-	}
-	 
-	
+	},
+	interval1:{
+		minRange:1,
+		maxRange:400
+	},
+	interval2:{
+		minRange:401,
+		maxRange:800
+	},	
+
+	interval3:{
+		minRange:801,
+		maxRange:1200
+	},
+	interval4:{
+		minRange:1201,
+		maxRange:3600
+	},	
+	interval5:{
+		minRange:3601,
+		maxRange:4800
+	},	
+	interval6:{
+		minRange:4801,
+		maxRange:8000
+	},	
+	interval7:{
+		minRange:8001,
+		maxRange:80000
+	},	
+	interval8:{
+		minRange:80000,
+		maxRange:Infinity
+	}	
 };
