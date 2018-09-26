@@ -108,17 +108,17 @@ var lkup20 = [
 	{
 	"mode": 4,
 	"minWeight": 5000,
-	"maxWeight": infinity
+	"maxWeight": Infinity
 	},	
 	{
 	"mode": 5,
 	"minWeight": 5000,
-	"maxWeight": infinity
+	"maxWeight": Infinity
 	},
 	{
 	"mode": 6,
 	"minWeight": 5000,
-	"maxWeight": infinity
+	"maxWeight": Infinity
 	}		
 ];
 
