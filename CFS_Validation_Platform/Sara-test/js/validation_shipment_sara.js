@@ -173,6 +173,7 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 }
 */
 console.log(test_NumberOfship("2015","50"));
+console.log(test_NumberOfship("39","20"));
 function test_NumberOfship(shipNum, numberOfRowsInF){
 	var result = new Object();
 	var error;
@@ -239,7 +240,7 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (shipNum != 0){
+	if (shipNum > 40 ){
 		if (range_val_check(shipNum, "interval1", "conf1")){
 			interval = Math.ceil(parseInt(shipNum/40))
 		}
@@ -280,6 +281,15 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 			result.flagmsg.push((flags)[error].msg);
 		}
 	}
+	else {
+		if (numberOfRowsInF != shipNum){
+		error = "E44_40";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		}	
+	}
 	if (result.flags.length > 0){
 		result.pass = false;
 	}
@@ -289,6 +299,30 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 	return result;
 }
 
+// Where to get ATV , MOS and Estab-weight calculation or data !!!!
+function MOS_vs_ATV (ATV, MOS, EstabWeight){
+	if (Math.abs(ATV-MOS)> 1000000000 && (ATV==0 ||(MOS/ATV) < 0.2 || (MOS/ATV) > 5)){
+		error = "E3_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if ((Math.abs(ATV-MOS)> 20000000 || EstabWeight >5 ) && (ATV==0 || (MOS/ATV) < 0.1 ||(MOS/ATV) > 10)){
+		error = "E3_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (result.flags.length > 0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}
 //console.log(test_totShipValue("200000"));
 function test_totShipValue(input){
 	var result = new Object();
@@ -857,7 +891,7 @@ function test_unna(unna, sctg){
 			}
 		}
 		*/
-		// I used the previouse code we have revised with Dr. Tehrani because it needs presence check of unna
+		// I used the previous code we have revised with Dr. Tehrani because it needs presence check of unna
 		if (presence_check(unna)){
 			if (lkup_linear("lkup14", sctg)){
 				//need to get SCTG-HAZMAT Table 
