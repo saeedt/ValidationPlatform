@@ -542,7 +542,7 @@ function test_ship_value(value, weight, sctg){
 
 //console.log(test_ship_weight("55", "4", "33"));
 //console.log(test_ship_weight("200", "1", ""));
-//console.log(test_ship_weight("1500", "5", "22"));  /// dont get faklse with S7_2
+console.log(test_ship_weight("1500", "5", "22"));  /// dont get false with S7_2
 function test_ship_weight(weight, mode, naics){
 	var result = new Object();
 	var error;
