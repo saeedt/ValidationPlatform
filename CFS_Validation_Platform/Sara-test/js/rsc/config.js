@@ -79,7 +79,7 @@ var conf1= {
 		maxlenght:5	
 	},
 	interval1:{
-		minRange:1,
+		minRange:41,
 		maxRange:400
 	},
 	interval2:{
