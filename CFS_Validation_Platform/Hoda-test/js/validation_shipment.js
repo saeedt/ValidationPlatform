@@ -161,10 +161,10 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			return result;
 }
 
-function test_totShipValue(input){
+function test_totShipValue(totShipVal, totValWeek, ATV, esbWeight){
 	var result = new Object();
+	var tvw = (totValWeek/1000)*52;
 	var error;
-	var ATV = 
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -183,7 +183,20 @@ function test_totShipValue(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		
+		if ((Math.abs(ATV-tvw) > 1000000000) && (ATV == 0  || tvw/ATV < 0.2 || tvw/ATV > 5)){
+			error = "E9_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if ((Math.abs(ATV-tvw) > 20000000 || esbWeight> 5) && (ATV == 0 || tvw/ATV < 0.1 || tvw/ATV > 10)){
+			error = "E9_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (result.flags.length>0){
 			result.pass = false;
 		}
