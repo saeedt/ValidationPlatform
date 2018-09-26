@@ -1,12 +1,10 @@
 var conf1= {
 					
-	ship_date_day: {
-		required: /^0[1-9]|[12][0-9]|3[01]$/,
+	ship_day: {
 		minRange: 1,
 		maxRange: 31		
 	},	
-	ship_date_month: {
-		required: /^0[1-9]|1[012]$/,
+	ship_month: {
 		minRange: 1,
 		maxRange: 12	
 	},	
@@ -14,7 +12,7 @@ var conf1= {
 		minRange:1,
 		maxRange:100000
 	},	
-	totShipValue: {
+	totShipVal: {
 		minRange: 1
 	},	
 	ship_value: {

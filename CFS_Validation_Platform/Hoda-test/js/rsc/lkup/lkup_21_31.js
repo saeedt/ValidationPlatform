@@ -15,3 +15,7 @@ var lkup27 = ["1"];
 var lkup28 = ["8"];
 
 var lkup29 = ["2","3","4"];
+
+var lkup30 = ["33","42","45"];
+
+var lkup31 = [];
