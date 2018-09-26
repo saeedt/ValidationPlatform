@@ -574,6 +574,7 @@ function test_ship_weight(weight, mode, naics){
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}	
+			
 			if (lkup_result.data[0].minWeight >= weight){
 				error = "S7_2";
 				result.flagname.push((flags)[error].name);
