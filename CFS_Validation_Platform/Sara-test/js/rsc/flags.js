@@ -953,6 +953,6 @@ var flags = {
 		flag: "E44",
 		value: "40",
 		name: "Remark_CrossConst_shipNumVsReportedNumCheck",
-		msg: "Total number of outbound shipment is less than 40, but all outbound shipment are not reported ."
+		msg: "Total number of outbound shipment is less than 40, but all outbound shipment are not reported."
 	}
 };	
