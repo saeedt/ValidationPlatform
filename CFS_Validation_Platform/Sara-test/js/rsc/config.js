@@ -98,7 +98,7 @@ var conf1= {
 	interval5:{
 		minRange:3601,
 		maxRange:4800
-	},	
+	},
 	interval6:{
 		minRange:4801,
 		maxRange:8000
