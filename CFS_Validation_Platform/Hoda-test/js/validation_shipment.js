@@ -164,6 +164,7 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 function test_totShipValue(input){
 	var result = new Object();
 	var error;
+	var ATV = 
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -182,6 +183,7 @@ function test_totShipValue(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
+		
 		if (result.flags.length>0){
 			result.pass = false;
 		}
