@@ -88,9 +88,9 @@ function verify_shipment(input){
 	return result;
 }
 //Integration functions for shipment attributes
-// numberOfRowsInF should be the result of a function which counts the rows of shipment values. Now we dont't have it.
+// input.lenght should be the result of a function which counts the rows of shipment values. Now we dont't have it.
 /*
-function test_numberOfShip(numberOfShip, numberOfRowsInF){
+function test_numberOfShip(numberOfShip, input.lenght){
 	var result = new Object();
 	var error;
 	result.flagname = [];
@@ -111,29 +111,29 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(numberOfShip) && numberOfRowsInF > 0){ 
+		if (!presence_check(numberOfShip) && input.lenght > 0){ 
 			error = "E1_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (numberOfShip == 0 && numberOfRowsInF > 0){ 
+		if (numberOfShip == 0 && input.lenght > 0){ 
 			error = "E1_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (numberOfShip > 0 && numberOfRowsInF == 0){ 
+		if (numberOfShip > 0 && input.lenght == 0){ 
 			error = "E1_3";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		//if ((numberOfShip == 0 && numberOfRowsInF == 0)){ 
-		//} else {(!presence_check(numberOfShip) && numberOfRowsInF == 0 )
+		//if ((numberOfShip == 0 && input.lenght == 0)){ 
+		//} else {(!presence_check(numberOfShip) && input.lenght == 0 )
 			//	error = "E1_4";
 			//	result.flagname.push((flags)[error].name);
 			//	result.flags.push((flags)[error].flag);
@@ -141,7 +141,7 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			//	result.flagmsg.push((flags)[error].msg);
 			//}
 		// Revised upper code for E4-1
-		if ((numberOfShip == 0 && numberOfRowsInF == 0)||(!presence_check(numberOfShip) && numberOfRowsInF == 0)){
+		if ((numberOfShip == 0 && input.lenght == 0)||(!presence_check(numberOfShip) && input.lenght == 0)){
 			error = "E1_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -149,7 +149,7 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			result.flagmsg.push((flags)[error].msg);
 		}
 					
-		if (numberOfShip > 100000 && numberOfRowsInF > 0){ 
+		if (numberOfShip > 100000 && input.lenght > 0){ 
 			error = "E1_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -172,9 +172,10 @@ function test_numberOfShip(numberOfShip, numberOfRowsInF){
 			return result;
 }
 */
-console.log(test_NumberOfship("2015","50"));
-console.log(test_NumberOfship("39","20"));
-function test_NumberOfship(shipNum, numberOfRowsInF){
+//console.log(test_NumberOfship("2015","50"));
+//console.log(test_NumberOfship("39","20"));
+
+function test_NumberOfship(shipNum){   //input is taken from verify_shipment(input)to use as input.lenght ==numberOfRowsInF
 	var result = new Object();
 	var error;
 	result.flagname = [];
@@ -197,28 +198,28 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (!presence_check(shipNum) && numberOfRowsInF > 0){ 
+	if (!presence_check(shipNum) && input.lenght > 0){ 
 		error = "E1_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (shipNum == 0 && numberOfRowsInF > 0){ 
+	if (shipNum == 0 && input.lenght > 0){ 
 		error = "E1_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (shipNum > 0 && numberOfRowsInF == 0){ 
+	if (shipNum > 0 && input.lenght == 0){ 
 		error = "E1_3";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if ((shipNum == 0 && numberOfRowsInF == 0)||(!presence_check(shipNum) && numberOfRowsInF == 0)){
+	if ((shipNum == 0 && input.lenght == 0)||(!presence_check(shipNum) && input.lenght == 0)){
 		error = "E1_4";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
@@ -226,7 +227,7 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 		result.flagmsg.push((flags)[error].msg);
 	}
 				
-	if (shipNum > 100000 && numberOfRowsInF > 0){ 
+	if (shipNum > 100000 && input.lenght > 0){ 
 		error = "E1_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
@@ -240,7 +241,7 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (shipNum > 40 ){
+	if (shipNum != 0 ){
 		if (range_val_check(shipNum, "interval1", "conf1")){
 			interval = Math.ceil(parseInt(shipNum/40))
 		}
@@ -266,14 +267,14 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 			interval = 100 * Math.ceil(parseInt(shipNum/8000))
 		}
 		required = Math.floor(shipNum/interval)
-		if (required > 10 && (required- numberOfRowsInF)/required > 0.2 ){
+		if (required > 10 && (required- input.lenght)/required > 0.2 ){
 			error = "E2_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		else if (required <= 10 && Math.abs(required- numberOfRowsInF) > 1 ){
+		else if (required <= 10 && Math.abs(required- input.lenght) > 1 ){
 			error = "E2_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -281,15 +282,7 @@ function test_NumberOfship(shipNum, numberOfRowsInF){
 			result.flagmsg.push((flags)[error].msg);
 		}
 	}
-	else {
-		if (numberOfRowsInF != shipNum){
-		error = "E44_40";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-		}	
-	}
+	
 	if (result.flags.length > 0){
 		result.pass = false;
 	}
@@ -631,13 +624,7 @@ function test_sctg(sctg, value, weight, mode, naics){
 			result.flgvalue.push((flags)[error].value);
 			result.flgmsg.push((flags)[error].msg);
 		}
-		//if (!range_val_check(weight, "ship_weight", "conf1")){
-			//error = "S6_2";
-			//result.flagname.push((flags)[error].name);
-			//result.flags.push((flags)[error].flag);
-			//result.flagval.push((flags)[error].value);
-			//result.flagmsg.push((flags)[error].msg);
-		//}	
+		
 		if (lkup_result1.found){
 			if (lkup_linear("lkup18", sctg.substr(0,2))){
 				if (lkup_result.data[0].vw_lb > vw_ratio){
