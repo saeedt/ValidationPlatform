@@ -21,9 +21,16 @@ function verify_company(input){
 	merge_objs(result,mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5));
 	merge_objs(result,mailing_zip4(input.Mailing_zip4));
 	var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
-	merge_objs(result,date_Of_Ceased(ceased_op_date));
+	merge_objs(result,date_Of_Ceased(status_ceased_month,status_ceased_day, status_ceased_year));
 	merge_objs(result,check_operating_Status(input.status_inoperation,'',''));
 	merge_objs(result,CrossCheck_operatingStatus_dateOfCeased ('',ceased_op_date));
+	merge_objs(result,contact_name(input.contact_name));
+	merge_objs(result,contact_title(input.contact_title));
+	merge_objs(result,contact_phone(input.contact_phone));
+	merge_objs(result,contact_fax_number(input.contact_fax_number));
+	merge_objs(result,completion_time(input.time_hours, input.time_minutes));
+	
+	
 	if (result.flgs.length>0)
 		result.pass = false;
 	return result;
@@ -634,7 +641,7 @@ function check_operating_Status(input1, input2, input3){
 }	
 
 //Operating status and date of ceased operation cross check
-function CrossCheck_operatingStatus_dateOfCeased (input1,ceasedDate){
+function CrossCheck_operatingStatus_dateOfCeased (input1,ceased_op_date){
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -643,14 +650,14 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,ceasedDate){
 	result.flgmsg   =  [];
 	result.pass = true;
 	
-	if ((presence_check(input1) || presence_check(ceasedDate)) ){
+	if ((presence_check(input1) || presence_check(ceased_op_date)) ){
 		error = "E5_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	if ((presence_check(input1) && ! presence_check(ceasedDate))||(!presence_check(input1) && presence_check(ceasedDate)) ){
+	if ((presence_check(input1) && ! presence_check(ceased_op_date))||(!presence_check(input1) && presence_check(ceased_op_date)) ){
 		error = "E36_40"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -918,5 +925,11 @@ var Object2 = {
 		status_ceased_day: "15",
 		status_ceased_month: "12",
 		status_ceased_year: "2017",
-		status_inoperation: "Inactive"
+		status_inoperation: "Inactive",
+		contact_name: "Sara236",
+		contact_title: "Senior Manger",
+		contact_phone: " 85642368",
+		contact_fax_number: "111236859",
+		time_hours: "24",
+		time_minutes: "25"
 }
