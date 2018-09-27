@@ -949,10 +949,5 @@ var flags = {
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
 	},
-	E44_40: {	
-		flag: "E44",
-		value: "40",
-		name: "Remark_CrossConst_shipNumVsReportedNumCheck",
-		msg: "Total number of outbound shipment is less than 40, but all outbound shipment are not reported."
-	}
+	
 };	
