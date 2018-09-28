@@ -83,7 +83,7 @@ function verify_shipment(input){
 			tmpResult.line = i+1;
 			result.push(tmpResult);
 		}
-		tmpResult = auto_fill(input[i].list,input[i].attrib);
+		tmpResult = auto_fill(input[i],input[i].attrib);
 		if (!tmpResult.pass) {
 			tmpResult.line = i+1;
 			result.push(tmpResult);
