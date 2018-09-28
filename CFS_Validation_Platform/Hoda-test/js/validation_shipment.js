@@ -343,6 +343,7 @@ function test_ship_ID(input){
 //console.log(test_ship_month("8","2"));
 //console.log(test_ship_month("5","4"));
 //console.log(test_ship_month("","1"));
+//console.log(test_ship_month("102","1"));
 function test_ship_month(ship_month, quarter){
 	var result = new Object();
 	var error;
@@ -407,7 +408,9 @@ function test_ship_month(ship_month, quarter){
 		}
 			return result;
 }
-
+//console.log(test_ship_day("9*"));
+//console.log(test_ship_day(""));
+//console.log(test_ship_day("89"));
 function test_ship_day(input){
 	var result = new Object();
 	var error;
@@ -429,7 +432,7 @@ function test_ship_day(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(input, "ship_day", "conf1")){
+		if (!range_val_check(input, "ship_date_day", "conf1")){
 			error = "S35_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
