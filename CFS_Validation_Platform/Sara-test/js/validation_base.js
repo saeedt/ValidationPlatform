@@ -187,3 +187,14 @@ function merge_objs(obj1,obj2){
 	}
 	return obj1;
 }
+
+function auto_fill(list,attrib){
+	for (var i = 0; i < list.length-2; i++){
+		if (list[i+1][attrib] - list[i][attrib] == 1){
+			if (list[i+2][attrib]-list[i+1][attrib] == 1){
+				return true;
+				}
+			}  		 	
+	     } 
+	return false;
+}
