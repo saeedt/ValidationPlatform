@@ -447,7 +447,7 @@ function test_ship_day(input){
 		}
 			return result;
 }
-
+//console.log(test_ship_value("jj4g"));
 function test_ship_value(input){
 	var result = new Object();
 	var error;
@@ -468,7 +468,14 @@ function test_ship_value(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
+		}
+		if (!check_allowed_char(input, "numeric", "conf1")){
+			error = "S36_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (result.flags.length>0){
 			result.pass = false;
 		}else {
@@ -476,7 +483,17 @@ function test_ship_value(input){
 		}
 			return result;
 }
-
+//console.log(test_ship_weight("hj4",2,"546"));
+//console.log(test_ship_weight("0",2,"546"));
+//console.log(test_ship_weight("200",1,"546"));
+//console.log(test_ship_weight("1000000",2,"546"));
+//console.log(test_ship_weight("60000000",3,"546"));
+//console.log(test_ship_weight("600",4,"546"));
+//console.log(test_ship_weight("40",6,"546"));
+//console.log(test_ship_weight("500",81,"546"));
+//console.log(test_ship_weight("45",4,"33"));
+//console.log(test_ship_weight("490000",4,"33"));
+//console.log(test_ship_weight("4900",4,"33"));
 function test_ship_weight(weight, mode, naics){
 	var result = new Object();
 	var error;
@@ -485,6 +502,13 @@ function test_ship_weight(weight, mode, naics){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+		if (!check_allowed_char(weight, "numeric", "conf1")){
+			error = "S37_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
 		if (!presence_check(weight)){
 			error = "S6_1";
 			result.flagname.push((flags)[error].name);
@@ -545,14 +569,14 @@ function test_sctg(sctg, value, weight, naics){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(sctg, "numeric", "conf1")){
-			error = "S36_1";
+			error = "S38_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!length_field_check(sctg, "sctg", "conf1")){
-			error = "S36_4";
+			error = "S38_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -678,14 +702,14 @@ function test_sctg_descr(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(input, "alphanumeric", "conf1")){
-			error = "S37_1";
+			error = "S39_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(input)){
-			error = "S37_2";
+			error = "S39_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -775,14 +799,14 @@ function test_unna(unna, sctg){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(unna, "numeric", "conf1")){
-			error = "S38_1";
+			error = "S40_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!length_field_check(unna, "unna", "conf1")){
-			error = "S38_4";
+			error = "S40_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -842,21 +866,21 @@ function test_destinationCity(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S39_1";
+			error = "S41_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(input)){
-			error = "S39_2";
+			error = "S41_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (check_invalid_char(input, "city", "conf1")){
-			error = "S39_5";
+			error = "S41_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -879,28 +903,28 @@ function test_destinationState(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S40_1";
+			error = "S42_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(input)){
-			error = "S40_2";
+			error = "S42_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!length_field_check(input, "state", "conf1")){
-			error = "S40_4";
+			error = "S42_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}	
 		if (check_invalid_char(input, "state", "conf1")){
-			error = "S40_5";
+			error = "S42_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -929,21 +953,21 @@ function test_destinationZip(city, state, zip){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(zip, "numeric", "conf1")){
-			error = "S41_1";
+			error = "S43_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(zip)){
-			error = "S41_2";
+			error = "S43_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!length_field_check(zip, "zip", "conf1")){
-			error = "S41_4";
+			error = "S43_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -966,7 +990,7 @@ function test_destinationZip(city, state, zip){
 			}
 		}
 		else {
-			error = "S41_22";
+			error = "S43_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1055,14 +1079,14 @@ function test_export(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!presence_check(input)){
-			error = "S42_2";
+			error = "S44_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!lkup_linear("lkup25", input)){
-			error = "S42_5";
+			error = "S44_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1085,14 +1109,14 @@ function test_exportCity(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S43_1";
+			error = "S45_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(input)){
-			error = "S43_2";
+			error = "S45_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1122,14 +1146,14 @@ function test_exportCountry(input){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S44_1";
+			error = "S46_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(input)){
-			error = "S44_2";
+			error = "S46_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -1159,14 +1183,14 @@ function test_exportMode(exp_mode, country){
 	result.flagval = [];
 	result.flagmsg = [];
 		if (!check_allowed_char(exp_mode, "numeric", "conf1")){
-			error = "S45_1";
+			error = "S47_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (!presence_check(exp_mode)){
-			error = "S45_2";
+			error = "S47_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);

@@ -375,149 +375,161 @@ var flags = {
 	S36_1: {
 		flag: "S36",
 		value: "1",
-		name: "nonNumeric_sctg",
-		msg: "SCTG commodity code is not numeric."
-	},
-	S36_4: {
-		flag: "S36",
-		value: "4",
-		name: "inv_sctg",
-		msg: "SCTG commodity code not a 5-digit number."
+		name: "nonNumeric_shipValue",
+		msg: "Shipment value is not numeric."
 	},
 	S37_1: {
 		flag: "S37",
 		value: "1",
-		name: "nonAlphanumeric_sctg_descr",
-		msg: "Commodity description is not alphanumeric."
-	},
-	S37_2: {
-		flag: "S37",
-		value: "2",
-		name: "miss_sctg_descr",
-		msg: "Commodity description is missing."
+		name: "nonNumeric_shipWeight",
+		msg: "Shipment weight is not numeric."
 	},
 	S38_1: {
 		flag: "S38",
 		value: "1",
-		name: "nonNumeric_unna",
-		msg: "'UN' or 'NA' code is not numeric."
+		name: "nonNumeric_sctg",
+		msg: "SCTG commodity code is not numeric."
 	},
 	S38_4: {
 		flag: "S38",
 		value: "4",
-		name: "inv_unna",
-		msg: "'UN' or 'NA' code is not a 4-digit number."
+		name: "inv_sctg",
+		msg: "SCTG commodity code not a 5-digit number."
 	},
 	S39_1: {
 		flag: "S39",
 		value: "1",
-		name: "nonAlphabetic_destinationCity",
-		msg: "U.S. destination (city) is not alphabetic."
+		name: "nonAlphanumeric_sctg_descr",
+		msg: "Commodity description is not alphanumeric."
 	},
 	S39_2: {
 		flag: "S39",
 		value: "2",
-		name: "miss_destinationCity",
-		msg: "U.S. destination (city) is missing."
-	},
-	S39_5: {
-		flag: "S39",
-		value: "5",
-		name: "invChar_destinationCity",
-		msg: "U.S. destination (city) has invalid character (a value of APO, FPO, and DPO)."
+		name: "miss_sctg_descr",
+		msg: "Commodity description is missing."
 	},
 	S40_1: {
 		flag: "S40",
 		value: "1",
-		name: "nonAlphabetic_destinationState",
-		msg: "U.S. destination (state) is not alphabetic."
-	},
-	S40_2: {
-		flag: "S40",
-		value: "2",
-		name: "miss_destinationState",
-		msg: "U.S. destination (state) is missing."
+		name: "nonNumeric_unna",
+		msg: "'UN' or 'NA' code is not numeric."
 	},
 	S40_4: {
 		flag: "S40",
 		value: "4",
-		name: "inv_destinationState",
-		msg: "U.S. destination (state) is not a two-letter abbreviation."
-	},
-	S40_5: {
-		flag: "S40",
-		value: "5",
-		name: "invChar_destinationState",
-		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
+		name: "inv_unna",
+		msg: "'UN' or 'NA' code is not a 4-digit number."
 	},
 	S41_1: {
 		flag: "S41",
 		value: "1",
-		name: "nonNumeric_destinationZip",
-		msg: "U.S. destination (zip) is not numeric."
+		name: "nonAlphabetic_destinationCity",
+		msg: "U.S. destination (city) is not alphabetic."
 	},
 	S41_2: {
 		flag: "S41",
 		value: "2",
-		name: "miss_destinationZip",
-		msg: "U.S. destination (zip) is missing."
+		name: "miss_destinationCity",
+		msg: "U.S. destination (city) is missing."
 	},
-	S41_4: {
+	S41_5: {
 		flag: "S41",
-		value: "4",
-		name: "inv_destinationZip",
-		msg: "U.S. destination (zip) is not a 5-digit number."
+		value: "5",
+		name: "invChar_destinationCity",
+		msg: "U.S. destination (city) has invalid character (a value of APO, FPO, and DPO)."
 	},
-	S41_22: {
-		flag: "S41",
-		value: "22",
-		name: "notFound_destinationZip",
-		msg: "U.S. destination (zip) is invalid."
+	S42_1: {
+		flag: "S42",
+		value: "1",
+		name: "nonAlphabetic_destinationState",
+		msg: "U.S. destination (state) is not alphabetic."
 	},
 	S42_2: {
 		flag: "S42",
-		value: "2",	
-		name: "YN_exportMode",
-		msg: "No selection is made."
+		value: "2",
+		name: "miss_destinationState",
+		msg: "U.S. destination (state) is missing."
+	},
+	S42_4: {
+		flag: "S42",
+		value: "4",
+		name: "inv_destinationState",
+		msg: "U.S. destination (state) is not a two-letter abbreviation."
 	},
 	S42_5: {
 		flag: "S42",
-		value: "5",	
-		name: "inv_exportMode",
-		msg: "Input is invalid."
+		value: "5",
+		name: "invChar_destinationState",
+		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
 	},
 	S43_1: {
 		flag: "S43",
 		value: "1",
-		name: "nonAlphabetic_exportCity",
-		msg: "Foreign destination (city) is not alphabetic."
+		name: "nonNumeric_destinationZip",
+		msg: "U.S. destination (zip) is not numeric."
 	},
 	S43_2: {
 		flag: "S43",
 		value: "2",
-		name: "miss_exportCity",
-		msg: "Foreign destination (city) is missing."
+		name: "miss_destinationZip",
+		msg: "U.S. destination (zip) is missing."
 	},
-	S44_1: {
-		flag: "S44",
-		value: "1",
-		name: "nonAlphabetic_exportCountry",
-		msg: "Foreign destination (country) is not alphabetic."
+	S43_4: {
+		flag: "S43",
+		value: "4",
+		name: "inv_destinationZip",
+		msg: "U.S. destination (zip) is not a 5-digit number."
+	},
+	S43_22: {
+		flag: "S43",
+		value: "22",
+		name: "notFound_destinationZip",
+		msg: "U.S. destination (zip) is invalid."
 	},
 	S44_2: {
 		flag: "S44",
-		value: "2",
-		name: "miss_exportCountry",
-		msg: "Foreign destination (country) is missing."
+		value: "2",	
+		name: "YN_export",
+		msg: "No selection is made."
+	},
+	S44_5: {
+		flag: "S44",
+		value: "5",	
+		name: "inv_export",
+		msg: "Input is invalid."
 	},
 	S45_1: {
 		flag: "S45",
 		value: "1",
-		name: "nonNumeric_exportMode",
-		msg: "Export mode of transport is not numeric."
+		name: "nonAlphabetic_exportCity",
+		msg: "Foreign destination (city) is not alphabetic."
 	},
 	S45_2: {
 		flag: "S45",
+		value: "2",
+		name: "miss_exportCity",
+		msg: "Foreign destination (city) is missing."
+	},
+	S46_1: {
+		flag: "S46",
+		value: "1",
+		name: "nonAlphabetic_exportCountry",
+		msg: "Foreign destination (country) is not alphabetic."
+	},
+	S46_2: {
+		flag: "S46",
+		value: "2",
+		name: "miss_exportCountry",
+		msg: "Foreign destination (country) is missing."
+	},
+	S47_1: {
+		flag: "S47",
+		value: "1",
+		name: "nonNumeric_exportMode",
+		msg: "Export mode of transport is not numeric."
+	},
+	S47_2: {
+		flag: "S47",
 		value: "2",
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
