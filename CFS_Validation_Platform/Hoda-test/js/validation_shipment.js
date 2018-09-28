@@ -8,12 +8,12 @@ function verify_shipment(input){
 			tmpResult.line = i+1;
 			result.push(tmpResult);
 		}
-		tmpResult = test_ship_month(input[i].SHIPMENT_MONTH);
+		tmpResult = test_ship_date_month(input[i].SHIPMENT_MONTH);
 		if (!tmpResult.pass) {
 			tmpResult.line = i+1;
 			result.push(tmpResult);
 		}
-		tmpResult = test_ship_day(input[i].SHIPMT_DAY);
+		tmpResult = test_ship_date_day(input[i].SHIPMT_DAY);
 		if (!tmpResult.pass) {
 			tmpResult.line = i+1;
 			result.push(tmpResult);
@@ -87,120 +87,114 @@ function verify_shipment(input){
 	}	
 	return result;
 }
-//Integration functions for shipment attributes
-function test_numberOfShip(shipNum, numberOfRowsInF){
+
+function test_numberOfShip(shipNum, input){
 	var result = new Object();;
 	var error;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!presence_check(shipNum)){
-			error = "S30_2";
+	var interval;
+	var required;
+	if (!presence_check(shipNum)){
+		error = "S30_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
+		error = "S30_20";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (!presence_check(shipNum) && input.lenght > 0){ 
+		error = "E1_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (shipNum == 0 && input.lenght > 0){ 
+		error = "E1_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (shipNum > 0 && input.lenght == 0){ 
+		error = "E1_3";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if ((shipNum == 0 && input.lenght == 0)||(!presence_check(shipNum) && input.lenght == 0)){
+		error = "E1_4";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+				
+	if (shipNum > 100000 && input.lenght > 0){ 
+		error = "E1_5";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (shipNum > 100000){ 
+		error = "E8_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (shipNum != 0 ){
+		if (range_val_check(shipNum, "interval1", "conf1")){
+			interval = Math.ceil(parseInt(shipNum/40))
+		}
+		else if (range_val_check(shipNum, "interval2", "conf1")){
+			interval = 5 * Math.ceil(parseInt(shipNum/200))
+		}
+		else if (range_val_check(shipNum, "interval3", "conf1")){
+			interval = 10 * Math.ceil(parseInt(shipNum/600))
+		}
+		else if (range_val_check(shipNum, "interval4", "conf1")){
+			interval = 10 * Math.ceil(parseInt(shipNum/600))
+		}
+		else if (range_val_check(shipNum, "interval5", "conf1")){
+			interval = 20 * Math.ceil(parseInt(shipNum/1600))
+		}
+		else if (range_val_check(shipNum, "interval6", "conf1")){
+			interval = 20 * Math.ceil(parseInt(shipNum/1600))
+		}
+		else if (range_val_check(shipNum, "interval7", "conf1")){
+			interval = 50 * Math.ceil(parseInt(shipNum/4000))
+		}
+		else if (range_val_check(shipNum, "interval8", "conf1")){
+			interval = 100 * Math.ceil(parseInt(shipNum/8000))
+		}
+		required = Math.floor(shipNum/interval)
+		if (required > 10 && (required- input.lenght)/required > 0.2 ){
+			error = "E2_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
-			error = "S30_20";
+		else if (required <= 10 && Math.abs(required- input.lenght) > 1 ){
+			error = "E2_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(shipNum) && numberOfRowsInF > 0){ 
-			error = "E1_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum == 0 && numberOfRowsInF > 0){ 
-			error = "E1_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum > 0 && numberOfRowsInF == 0){ 
-			error = "E1_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if ((shipNum == 0 && numberOfRowsInF == 0)||(!presence_check(shipNum) && numberOfRowsInF == 0)){
-				error = "E1_4";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum > 100000 && numberOfRowsInF > 0){ 
-			error = "E1_5";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum > 100000){ 
-			error = "E8_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum > 40 ){
-			if (range_val_check(shipNum, "interval1", "conf1")){
-				interval = Math.ceil(parseInt(shipNum/40))
-			}
-			else if (range_val_check(shipNum, "interval2", "conf1")){
-				interval = 5 * Math.ceil(parseInt(shipNum/200))
-			}
-			else if (range_val_check(shipNum, "interval3", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/600))
-			}
-			else if (range_val_check(shipNum, "interval4", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/600))
-			}
-			else if (range_val_check(shipNum, "interval5", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/1600))
-			}
-			else if (range_val_check(shipNum, "interval6", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/1600))
-			}
-			else if (range_val_check(shipNum, "interval7", "conf1")){
-				interval = 50 * Math.ceil(parseInt(shipNum/4000))
-			}
-			else if (range_val_check(shipNum, "interval8", "conf1")){
-				interval = 100 * Math.ceil(parseInt(shipNum/8000))
-			}
-			required = Math.floor(shipNum/interval)
-			if (required > 10 && (required- numberOfRowsInF)/required > 0.2 ){
-				error = "E2_1";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-			else if (required <= 10 && Math.abs(required- numberOfRowsInF) > 1 ){
-				error = "E2_2";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-		}
-		else {
-			if (numberOfRowsInF != shipNum){
-			error = "E44_40";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-			}	
-		}
+	}
 		if (result.flags.length>0){
 			result.pass = false;
 		}
@@ -209,22 +203,23 @@ function test_numberOfShip(shipNum, numberOfRowsInF){
 		}
 			return result;
 }
-
-function MOS_vs_ATV (ATV, MOS, estbWeight){
+//console.log(MOS_vs_ATV("4000000000", "20000000", "80"));
+//console.log(MOS_vs_ATV("10", "1", "801"));
+function MOS_vs_ATV(ATV, MOS, estbWeight){
 	var result = new Object();;
 	var error;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (Math.abs(ATV-MOS)> 1000000000 && (ATV==0 ||(MOS/ATV) < 0.2 || (MOS/ATV) > 5)){
+		if ((Math.abs(ATV-MOS) > 1000000000) && (ATV==0 ||(MOS/ATV) < 0.2 || (MOS/ATV) > 5)){
 			error = "E3_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((Math.abs(ATV-MOS)> 20000000 || estbWeight >5 ) && (ATV==0 || (MOS/ATV) < 0.1 ||(MOS/ATV) > 10)){
+		if (((Math.abs(ATV-MOS)> 20000000) || estbWeight >5 ) && (ATV==0 || (MOS/ATV) < 0.1 ||(MOS/ATV) > 10)){
 			error = "E3_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -239,6 +234,10 @@ function MOS_vs_ATV (ATV, MOS, estbWeight){
 		}
 			return result;
 }
+//console.log(test_totShipValue("50","10000","40000000","10"));
+//console.log(test_totShipValue("50","10000","4000000000","10"));
+//console.log(test_totShipValue("","10000","0","10"));
+
 function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){
 	var result = new Object();
 	var tvw = (totValWeek/1000)*52;
@@ -254,7 +253,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(totShipVal, "totShipVal", "conf1")){
+		if (!range_val_check(totShipVal, "totShipValue", "conf1")){
 			error = "S31_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -283,7 +282,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){
 		}
 			return result;
 }
-
+//console.log(test_moreThan40Ship(""));
 function test_moreThan40Ship(input){
 	var result = new Object();
 	var error;
@@ -306,7 +305,9 @@ function test_moreThan40Ship(input){
 		}
 			return result;
 }
-
+//console.log(test_ship_ID("jh5"));
+//console.log(test_ship_ID(""));
+//console.log(test_ship_ID("5hh5><"));
 function test_ship_ID(input){
 	var result = new Object();
 	var error;
@@ -336,7 +337,12 @@ function test_ship_ID(input){
 		}
 			return result;
 }
-
+//console.log(test_ship_month("11","2"));
+//console.log(test_ship_month("11s","2"));
+//console.log(test_ship_month("9","1"));
+//console.log(test_ship_month("8","2"));
+//console.log(test_ship_month("5","4"));
+//console.log(test_ship_month("","1"));
 function test_ship_month(ship_month, quarter){
 	var result = new Object();
 	var error;
@@ -351,7 +357,7 @@ function test_ship_month(ship_month, quarter){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!range_val_check(ship_month, "ship_month", "conf1")){
+		if (!range_val_check(ship_month, "ship_date_month", "conf1")){
 			error = "S34_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);

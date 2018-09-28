@@ -1,10 +1,10 @@
 var conf1= {
 					
-	ship_day: {
+	ship_date_day: {
 		minRange: 1,
 		maxRange: 31		
 	},	
-	ship_month: {
+	ship_date_month: {
 		minRange: 1,
 		maxRange: 12	
 	},	
@@ -12,7 +12,7 @@ var conf1= {
 		minRange:1,
 		maxRange:100000
 	},	
-	totShipVal: {
+	totShipValue: {
 		minRange: 1
 	},	
 	ship_value: {
@@ -29,7 +29,7 @@ var conf1= {
 		minlength:5,
 		maxlength:5	
 	},	
-	zip: {
+	zipCode5: {
 		minlength:5,
 		maxlength:5
 	},	
@@ -47,12 +47,43 @@ var conf1= {
 	},
 	numeric:{
 		allowed: /[^0-9+$]/g
-	},
+	}, 
 	alphabetic:{
-		allowed: /[^A-Za-z+$ ]/g
+		allowed: /[^A-Za-z+$]/g
 	},
 	alphanumeric:{
-		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g,
-		required: /^(0[1-9]|1[012])[\/](0[1-9]|[12][0-9]|3[01])[\/][0-9]{4}$/g
-	}
-}
+		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g
+	},
+	interval1:{
+		minRange:1,
+		maxRange:400
+	},
+	interval2:{
+		minRange:401,
+		maxRange:800
+	},	
+	interval3:{
+		minRange:801,
+		maxRange:1200
+	},
+	interval4:{
+		minRange:1201,
+		maxRange:3600
+	},	
+	interval5:{
+		minRange:3601,
+		maxRange:4800
+	},
+	interval6:{
+		minRange:4801,
+		maxRange:8000
+	},	
+	interval7:{
+		minRange:8001,
+		maxRange:80000
+	},	
+	interval8:{
+		minRange:80000,
+		maxRange:Infinity
+	}	
+};
