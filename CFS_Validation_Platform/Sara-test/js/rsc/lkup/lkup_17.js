@@ -1,1 +1,0 @@
-var lkup17 = ["Aconchi", "Acteopan", "Acuamanala", "Acuitlapan", "Acula"];

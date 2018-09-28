@@ -1,1 +1,0 @@
-var lkup16 = ["Abbey", "Abbotsford", "Abercorn", "Aberdeen", "Abernethy"];
