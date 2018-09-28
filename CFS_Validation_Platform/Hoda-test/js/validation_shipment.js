@@ -557,6 +557,10 @@ function test_ship_weight(weight, mode, naics){
 		}
 			return result;
 }
+//console.log(test_sctg("564","5","6","33"));
+//console.log(test_sctg("564jk","5","6","33"));
+//console.log(test_sctg("02902","3","1000","33"));
+console.log(test_sctg("22902","8","1000","33"));
 
 function test_sctg(sctg, value, weight, naics){
 	var result = new Object();
@@ -581,7 +585,7 @@ function test_sctg(sctg, value, weight, naics){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}	
+		}
 		if (lkup_result1.found){
 			if (lkup_linear("lkup18", sctg.substr(0,2))){
 				if (lkup_result1.data[0].vw_lb > vw_ratio){
@@ -639,7 +643,7 @@ function test_sctg(sctg, value, weight, naics){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (lkup.result1.found == false){
+		if (lkup_result1.found == false){
 			error = "S3_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
