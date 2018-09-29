@@ -83,7 +83,7 @@ function verify_shipment(input){
 			tmpResult.line = i+1;
 			result.push(tmpResult);
 		}
-		tmpResult = auto_fill(input[i].list,input[i].attrib);
+		tmpResult = test_auto_fill_m(input[i].list,input[i].attrib);
 		if (!tmpResult.pass) {
 			tmpResult.line = i+1;
 			result.push(tmpResult);
@@ -1243,3 +1243,68 @@ function test_exportMode(exp_mode, country){
 		}
 			return result;
 }
+
+function test_auto_fill_m(input, attrib){
+	var result = new Object();
+	var error;
+	result.flagname = [];
+	result.flags = [];
+	result.flagval = [];
+	result.flagmsg = [];
+	let count = 0;
+	for (var attrib in input){
+		if (!auto_fill(input, attrib)){
+			count = count + 1;
+		}
+		if (count = 1){
+			error = "S15_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (count = 2){
+			error = "S15_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (count = 3){
+			error = "S15_3";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (count = 4){
+			error = "S15_4";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (count = 5){
+			error = "S15_5";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (count = 6){
+			error = "S15_6";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}else {
+		result.pass = true;
+	}
+		return result;
+}
+		
+	
