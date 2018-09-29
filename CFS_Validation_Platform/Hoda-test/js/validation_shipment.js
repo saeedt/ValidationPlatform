@@ -83,12 +83,17 @@ function verify_shipment(input){
 			tmpResult.line = i+1;
 			result.push(tmpResult);
 		}
+		tmpResult = auto_fill(input[i].list,input[i].attrib);
+		if (!tmpResult.pass) {
+			tmpResult.line = i+1;
+			result.push(tmpResult);
+		}
 		return result;
 	}	
 	return result;
 }
 
-function test_numberOfShip(shipNum, input){
+function test_numberOfShip(shipNum){
 	var result = new Object();;
 	var error;
 	result.flagname = [];
@@ -203,7 +208,7 @@ function test_numberOfShip(shipNum, input){
 		}
 			return result;
 }
-//console.log(MOS_vs_ATV("4000000000", "20000000", "80"));
+//console.log(MOS_vs_ATV("4000000000", "400000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
 function MOS_vs_ATV(ATV, MOS, estbWeight){
 	var result = new Object();;
@@ -307,7 +312,7 @@ function test_moreThan40Ship(input){
 }
 //console.log(test_ship_ID("jh5"));
 //console.log(test_ship_ID(""));
-//console.log(test_ship_ID("5hh5><"));
+//console.log(test_ship_ID("5hh5###"));
 function test_ship_ID(input){
 	var result = new Object();
 	var error;
@@ -560,14 +565,18 @@ function test_ship_weight(weight, mode, naics){
 //console.log(test_sctg("564","5","6","33"));
 //console.log(test_sctg("564jk","5","6","33"));
 //console.log(test_sctg("02902","3","1000","33"));
-console.log(test_sctg("22902","8","1000","33"));
-
+//console.log(test_sctg("02100","80","10","33"));
+//console.log(test_sctg("17110", "9","1000","33"));
+//console.log(test_sctg("41110","2","10000","33"));
+//console.log(test_sctg("41110","100","1","33"));
+//console.log(test_sctg("16009","2","10000","33"));
+//console.log(test_sctg("30400","100","1000","315"));
 function test_sctg(sctg, value, weight, naics){
 	var result = new Object();
 	var error;
 	var vw_ratio = value/weight;
 	var lkup_result1 = lkup_binary_m("lkup1","sctg", sctg);
-	var lkup_result2 = lkup_binary_m("lkup17","2digit_sctg", sctg.substr(0,2));
+	var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -658,7 +667,7 @@ function test_sctg(sctg, value, weight, naics){
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if (lkup_result2.found){
-			if (lkup_result2.data[0].partial_naics == naics){
+			if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){
 				if(lkup_result2.data[0].flag_value == "0"){
 					error = "S10_0";
 					result.flagname.push((flags)[error].name);
@@ -697,7 +706,8 @@ function test_sctg(sctg, value, weight, naics){
 		}
 			return result;
 }
-
+//console.log(test_sctg_descr("ahb564@#"));
+//console.log(test_sctg_descr());
 function test_sctg_descr(input){
 	var result = new Object();
 	var error;
@@ -727,7 +737,11 @@ function test_sctg_descr(input){
 		}
 			return result;
 }
-
+//console.log(test_temp_control("D","02100","4"));
+//console.log(test_temp_control("Y","10010","4"));
+//console.log(test_temp_control("Y","02903","4"));
+//console.log(test_temp_control("N","03100", "7"));
+//console.log(test_temp_control("Y","03100","7"));
 function test_temp_control(temp_control, sctg, mode){
 	var result = new Object();
 	var error;
@@ -754,31 +768,27 @@ function test_temp_control(temp_control, sctg, mode){
 			if (temp_control == "Y"){
 				if (lkup_linear("lkup9", sctg.substr(0,2))){ 
 					error = "S12_1";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
 				}	
 				else if (lkup_linear("lkup10", sctg.substr(0,2))){ 			
 					error = "S12_2";
-					result.flgname.push((flags)[error].name);
-					result.flgs.push((flags)[error].flag);
-					result.flgvalue.push((flags)[error].value);
-					result.flgmsg.push((flags)[error].msg);
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
 				}
 			}
-			else {
-				if (temp_control == "N"){	
-					if (lkup_linear("lkup11", sctg.substr(0,2))){ 
-						error = "S12_3";
-						result.flgname.push((flags)[error].name);
-						result.flgs.push((flags)[error].flag);
-						result.flgvalue.push((flags)[error].value);
-						result.flgmsg.push((flags)[error].msg);
-					}
-				}
-			}
-		}
+		}	
+		if (temp_control == "N" && lkup_linear("lkup11", sctg)){	
+			error = "S12_3";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}	
 		if (temp_control == "Y" && mode == "7"){	
 			error = "S13_1";
 			result.flagname.push((flags)[error].name);

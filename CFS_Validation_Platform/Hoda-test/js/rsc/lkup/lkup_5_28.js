@@ -24,29 +24,29 @@ var lkup16 = ["Afganistan", "Albania", "Algeria", "Andorra", "Angola", "Argentin
 
 var lkup17 = [
 	{
-		"flag_value" : "0",
+		"partial_naics" : "314",
+		"sctg_2digit" : "35",
+		"flag_value" : "1"
+	},
+	{
+		"partial_naics" : "314",
+		"sctg_2digit" : "34",
+		"flag_value" : "2"
+	},
+	{
 		"partial_naics" : "315",
-		"2digit_sctg" : "30"
+		"sctg_2digit" : "10",
+		"flag_value" : "3"
 	},
 	{
-		"flag_value" : "1",
-		"partial_naics" : "314",
-		"2digit_sctg" : "35"
+		"partial_naics" : "315",
+		"sctg_2digit" : "30",
+		"flag_value" : "0"
 	},
 	{
-		"flag_value" : "2",
-		"partial_naics" : "314",
-		"2digit_sctg" : "34"
-	},
-	{
-		"flag_value" : "2",
 		"partial_naics" : "316",
-		"2digit_sctg" : "36"
-	},
-	{
-		"flag_value" : "3",
-		"partial_naics" : "315",
-		"2digit_sctg" : "10"
+		"sctg_2digit" : "36",
+		"flag_value" : "2"
 	}	
 ];//incomplete
 
