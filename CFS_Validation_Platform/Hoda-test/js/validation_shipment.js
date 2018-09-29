@@ -958,7 +958,10 @@ function test_destinationState(input){
 		}
 			return result;
 }
-console.log(test_destinationZip("Amherst", "MA", "657"));
+//console.log(test_destinationZip("Amherst", "MA", "657"));
+//console.log(test_destinationZip("Amherst", "MA","01001"));
+//console.log(test_destinationZip("Amherst", "MA","09001"));
+//console.log(test_destinationZip("Amherst", "MA","01005"));
 function test_destinationZip(city, state, zip){
 	var result = new Object();
 	var error;	
@@ -986,7 +989,7 @@ function test_destinationZip(city, state, zip){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!length_field_check(zip, "zip", "conf1")){
+		if (!length_field_check(zip, "zipCode5", "conf1")){
 			error = "S43_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1024,6 +1027,10 @@ function test_destinationZip(city, state, zip){
 		}
 			return result;
 }
+//console.log(test_mode("jjll","Y","100","10010","AL"));
+//console.log(test_mode("7","Y","100","10010","AL"));
+//console.log(test_mode("12","Y","200","10010","AK"));
+//console.log(test_mode("18","Y","2100","10010","AK"));
 
 function test_mode(mode, temp_control, weight, sctg, state){
 	var result = new Object();
@@ -1090,7 +1097,8 @@ function test_mode(mode, temp_control, weight, sctg, state){
 	}
 		return result;
 }		
-
+//console.log(test_export("B"));
+//console.log(test_export(""));
 function test_export(input){
 	var result = new Object();
 	var error;
@@ -1120,7 +1128,8 @@ function test_export(input){
 		}
 			return result;
 }
-
+//console.log(test_exportCity("B12"));
+//console.log(test_exportCity("Mshhd"));
 function test_exportCity(input){
 	var result = new Object();
 	var error;
@@ -1157,7 +1166,8 @@ function test_exportCity(input){
 		}
 			return result;
 }
-
+//console.log(test_exportCountry("1766"));
+//console.log(test_exportCountry("lkjh"));
 function test_exportCountry(input){
 	var result = new Object();
 	var error;
@@ -1194,7 +1204,8 @@ function test_exportCountry(input){
 		}
 			return result;
 }
-
+//console.log(test_exportMode("wty","Albania"));
+//console.log(test_exportMode("2","Albania"));
 function test_exportMode(exp_mode, country){
 	var result = new Object();
 	var error;
