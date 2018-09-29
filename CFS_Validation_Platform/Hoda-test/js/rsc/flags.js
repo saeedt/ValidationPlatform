@@ -534,7 +534,7 @@ var flags = {
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
 	},
-//Edit flags for establishment attributes
+	//Edit flags for establishment attributes
 	E1_1: {
 		flag: "E1",
 		value: "1",
@@ -569,13 +569,13 @@ var flags = {
 		flag: "E2",
 		value: "1",
 		name: "numOfShip_required_vs_reported_greaterThan10",
-		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+		msg: " Reported shipments in item D and the total number of shipments reported in Item F are not consistent when the number of shipments required is more than 10. "
 	},
 	E2_2: {
 		flag: "E2",
 		value: "2",
 		name: "numOfShip_required_vs_reported_lessThan10",
-		msg: "The number of reported shipments provided in item D and the total number of shipments reported in Item F are not consistent."
+		msg: " Reported shipments in item D and the total number of shipments reported in Item F are not consistent when the number of shipments required is less than 9. "
 	},
 	E3_1: {
 		flag: "E3",
@@ -887,7 +887,13 @@ var flags = {
 		flag: "E36",
 		value: "3",
 		name: "invFormat_dateOfCeased",
-		msg: "Date of ceased operation is not in  MMDDYYYY format."
+		msg: "Date of ceased operation is not in correct format."
+	},
+	E36_40:{
+		flag: "E36",
+		value: "40",
+		name: "dateOfCeased_CrossConst",
+		msg: "Ceased operation is selected but the date of ceases is missing or date of ceased is provided but ceased operation check box is not selected. ."
 	},
 	E37_2: {	
 		flag: "E37",
@@ -954,5 +960,6 @@ var flags = {
 		value: "40",
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
-	}	
+	},
+	
 };	
