@@ -31,6 +31,7 @@ function length_field_check(input, type, config){
        return false;  	
       }  
 }
+
 //Range value check function
 function range_val_check(input, type, config){  
 	var min_pass=true;

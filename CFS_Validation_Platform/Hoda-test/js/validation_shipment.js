@@ -804,7 +804,9 @@ function test_temp_control(temp_control, sctg, mode){
 		}
 			return result;
 }
-
+//console.log(test_unna("ghk", "02100"));
+//console.log(test_unna("1088", "02100"));
+//console.log(test_unna("","08310"));
 function test_unna(unna, sctg){
 	var result = new Object();
 	var error;
@@ -871,7 +873,9 @@ function test_unna(unna, sctg){
 		}
 			return result;
 }
-
+//console.log(test_destinationCity("67858"));
+//console.log(test_destinationCity("67858APO"));
+//console.log(test_destinationCity(""));
 function test_destinationCity(input){
 	var result = new Object();
 	var error;
@@ -908,7 +912,9 @@ function test_destinationCity(input){
 		}
 			return result;
 }
-
+//console.log(test_destinationState("67858"));
+//console.log(test_destinationState("PO"));
+//console.log(test_destinationState("AA"));
 function test_destinationState(input){
 	var result = new Object();
 	var error;
@@ -952,7 +958,7 @@ function test_destinationState(input){
 		}
 			return result;
 }
-
+console.log(test_destinationZip("Amherst", "MA", "657"));
 function test_destinationZip(city, state, zip){
 	var result = new Object();
 	var error;	
