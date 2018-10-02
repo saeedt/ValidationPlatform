@@ -20,8 +20,8 @@ function check_req_char(input, type, config){
 
 // length field validation function
 function length_field_check(input, type, config){  
-	var lowerbound = parseInt(eval(config)[type].minlength);
-	var upperbound = parseInt(eval(config)[type].maxlength);
+	var lowerbound = eval(config)[type].minlenght;
+	var upperbound =eval(config)[type].maxlenght;
     if(input.length >= lowerbound && input.length <=upperbound)
       {  	
 	   return true;
@@ -31,6 +31,7 @@ function length_field_check(input, type, config){
        return false;  	
       }  
 }
+
 //Range value check function
 function range_val_check(input, type, config){  
 	var min_pass=true;
@@ -186,15 +187,4 @@ function merge_objs(obj1,obj2){
 		}
 	}
 	return obj1;
-}
-
-function auto_fill(list,attrib){
-	for (var i = 0; i < list.length-2; i++){
-		if (list[i+1][attrib] - list[i][attrib] == 1){
-			if (list[i+2][attrib]-list[i+1][attrib] == 1){
-				return true;
-				}
-			}  		 	
-	     } 
-	return false;
 }
