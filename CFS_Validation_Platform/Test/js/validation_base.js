@@ -18,8 +18,8 @@ function check_req_char(input, type, config){
 	return(!filter.test(input));
 }
 
-// length field validation function
-function length_field_check(input, type, config){  
+// field length validation function
+function field_length_check(input, type, config){  
 	var lowerbound = parseInt(eval(config)[type].minlength);
 	var upperbound = parseInt(eval(config)[type].maxlength);
     if(input.length >= lowerbound && input.length <=upperbound)

@@ -3,93 +3,26 @@ function verify_shipment(input){
 	var result =  [];
 	var tmpResult;		
 	for (var i=0; i<input.length; i++){
-		tmpResult = test_ship_ID(input[i].SHIP_NUM);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_month(input[i].SHIPMENT_MONTH);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_day(input[i].SHIPMT_DAY);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_value(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_weight(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_TRANSPORT_MODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_TRANSPORT_MODE,input[i].HAZMAT_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_sctg_descr(input[i].COMMODITY_DESCRIPTION);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_temp_control(input[i].TEMPERATURE_CONTROL_YN,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationState(input[i].DOMESTIC_STATE_ABBREV);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_mode(input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_STATE_ABBREV);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCity(input[i].EXPORT_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCity(input[i].EXPORT_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_auto_fill_m(input[i].list,input[i].attrib);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		return result;
-	}	
+		tmpResult = new Object();
+		tmpResult.SHIP_NUM = test_ship_ID(input[i].SHIP_NUM);
+		tmpResult.SHIPMENT_MONTH = test_ship_month(input[i].SHIPMENT_MONTH);		
+		tmpResult.SHIPMT_DAY = test_ship_day(input[i].SHIPMT_DAY);
+		tmpResult.SHIPMENT_VALUE = test_ship_value(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE);		
+		tmpResult.SHIPMENT_WEIGHT = test_ship_weight(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_TRANSPORT_MODE);
+		tmpResultSCTG_COMMODITY_CODE = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_TRANSPORT_MODE,input[i].HAZMAT_CODE);
+		tmpResult.COMMODITY_DESCRIPTION = test_sctg_descr(input[i].COMMODITY_DESCRIPTION);
+		tmpResult.TEMPERATURE_CONTROL_YN = test_temp_control(input[i].TEMPERATURE_CONTROL_YN,input[i].SCTG_COMMODITY_CODE);
+		tmpResult.HAZMAT_CODE = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE);
+		tmpResult.DOMESTIC_CITY_NAME = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
+		tmpResult.DOMESTIC_STATE_ABBREV = test_destinationState(input[i].DOMESTIC_STATE_ABBREV);
+		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
+		tmpResult.DOMESTIC_TRANSPORT_MODE = test_mode(input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_STATE_ABBREV);
+		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
+		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
+		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);		
+		result.push(tmpResult);
+	}
+	result.push(test_auto_fill_m(input[i].list,input[i].attrib));	
 	return result;
 }
 
@@ -399,9 +332,7 @@ function test_ship_month(ship_month, quarter){
 	}
 	return result;
 }
-//console.log(test_ship_day("9*"));
-//console.log(test_ship_day(""));
-//console.log(test_ship_day("89"));
+
 function test_ship_day(input){
 	var result = new Object();
 	var error;
@@ -439,7 +370,7 @@ function test_ship_day(input){
 	}
 	return result;
 }
-//console.log(test_ship_value("jj4g"));
+
 function test_ship_value(input){
 	var result = new Object();
 	var error;
@@ -476,6 +407,7 @@ function test_ship_value(input){
 	}
 	return result;
 }
+
 function test_ship_weight(weight, mode, naics){
 	var result = new Object();
 	var error;
@@ -500,8 +432,6 @@ function test_ship_weight(weight, mode, naics){
 		}
 		
 	}
-
-
 		if (!range_val_check(weight, "ship_weight", "conf1")){
 			error = "S6_2";
 			result.flagname.push((flags)[error].name);
@@ -545,14 +475,18 @@ function test_ship_weight(weight, mode, naics){
 }
 function test_sctg(sctg, value, weight, naics){
 	var result = new Object();
-	var error;
-	var vw_ratio = value/weight;
-	var lkup_result1 = lkup_binary_m("lkup1","sctg", sctg);
-	var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	var error;
+	if (!presence_check(sctg)){
+		error = "S3_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(sctg, "numeric", "conf1")){
 			error = "S38_1";
 			result.flagname.push((flags)[error].name);
@@ -560,13 +494,18 @@ function test_sctg(sctg, value, weight, naics){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!length_field_check(sctg, "sctg", "conf1")){
+		if (!field_length_check(sctg, "sctg", "conf1")){
 			error = "S38_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
+	}
+	if (!result.flags.length>0){
+		var vw_ratio = value/weight;
+		var lkup_result1 = lkup_binary_m("lkup1","sctg", sctg);
+		var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);
 		if (lkup_result1.found){
 			if (lkup_linear("lkup18", sctg.substr(0,2))){
 				if (lkup_result1.data[0].vw_lb > vw_ratio){
@@ -616,60 +555,55 @@ function test_sctg(sctg, value, weight, naics){
 					result.flagmsg.push((flags)[error].msg);	
 				}
 			}
-		}
-		if (!presence_check(sctg)){
-			error = "S3_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (lkup_result1.found == false){
+			if (sctg.substr(0,2) == "16"){
+				error = "S3_3";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+			if (lkup_result2.found){
+				if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){
+					if(lkup_result2.data[0].flag_value == "0"){
+						error = "S10_0";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+					if (lkup_result2.data[0].flag_value == "1"){
+						error = "S10_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+					if (lkup_result2.data[0].flag_value == "2"){
+						error = "S10_2";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+					if (lkup_result2.data[0].flag_value == "3"){
+						error = "S10_3";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}
+			}
+		} else {//lkup_result1.found == false
 			error = "S3_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (sctg.substr(0,2) == "16" && sctg != "16000"){
-			error = "S3_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (lkup_result2.found){
-			if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){
-				if(lkup_result2.data[0].flag_value == "0"){
-					error = "S10_0";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "1"){
-					error = "S10_1";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "2"){
-					error = "S10_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "3"){
-					error = "S10_3";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
+		}		
+	}		
+
+		
 		if (result.flags.length>0){
 			result.pass = false;
 		}
@@ -783,7 +717,7 @@ function test_unna(unna, sctg){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!length_field_check(unna, "unna", "conf1")){
+		if (!field_length_check(unna, "unna", "conf1")){
 			error = "S40_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -892,7 +826,7 @@ function test_destinationState(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!length_field_check(input, "state", "conf1")){
+		if (!field_length_check(input, "state", "conf1")){
 			error = "S42_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -941,7 +875,7 @@ function test_destinationZip(city, state, zip){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!length_field_check(zip, "zipCode5", "conf1")){
+		if (!field_length_check(zip, "zipCode5", "conf1")){
 			error = "S43_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);

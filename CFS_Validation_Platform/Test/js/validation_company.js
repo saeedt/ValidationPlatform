@@ -195,7 +195,7 @@ function shipping_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}	
-			if(!length_field_check(input, "state", "conf1")){
+			if(!field_length_check(input, "state", "conf1")){
 				error = "E25_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -232,7 +232,7 @@ function shipping_zip5(input1, input2, input3){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!length_field_check(input3, "zipCode5", "conf1")){
+		if(!field_length_check(input3, "zipCode5", "conf1")){
 			error = "E26_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -285,7 +285,7 @@ function shipping_zip4 (input){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!length_field_check(input, "zipCode4", "conf1")){
+		if(!field_length_check(input, "zipCode4", "conf1")){
 			error = "E26_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -480,7 +480,7 @@ function mailing_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}			
-			if(!length_field_check(input, "state", "conf1")){
+			if(!field_length_check(input, "state", "conf1")){
 				error = "E33_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -526,7 +526,7 @@ function mailing_zip5(input1, input2, input3){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!length_field_check(input3, "zipCode5", "conf1")){
+		if(!field_length_check(input3, "zipCode5", "conf1")){
 			error = "E34_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -572,7 +572,7 @@ function mailing_zip4 (input){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!length_field_check(input, "zipCode4", "conf1")){
+		if(!field_length_check(input, "zipCode4", "conf1")){
 			error = "E34_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -608,7 +608,7 @@ function date_Of_Ceased(month, day, year){ //needs presence check
 		result.flgmsg.push(flags[error].msg);
 		}
 
-	if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!length_field_check(year, "ship_date_year", "conf1") ){
+	if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
 		error = "E36_3"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -772,7 +772,7 @@ function contact_phone(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			if(!length_field_check(input, "phone", "conf1")){
+			if(!field_length_check(input, "phone", "conf1")){
 				error = "E41_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -809,7 +809,7 @@ function contact_fax_number(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			if(!length_field_check(input, "faxNum", "conf1")){
+			if(!field_length_check(input, "faxNum", "conf1")){
 				error = "E7_2"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
