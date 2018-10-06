@@ -37,12 +37,12 @@ function range_val_check(input, type, config){
 	var max_pass=true;
 	var cfg=eval(config)[type];
 	if (typeof(cfg.minRange)!= "undefined"){
-		if (input < cfg.minRange) {
+		if (parseFloat(input) < cfg.minRange) {
 			min_pass=false;
 		}
 	}
 	if (typeof(cfg.maxRange)!= "undefined"){
-		if (input > cfg.maxRange) {
+		if (parseFloat(input) > cfg.maxRange) {
 			max_pass=false;
 		}
 	}
