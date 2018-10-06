@@ -34,9 +34,13 @@ var conf1= {
 		minlenght: 10 ,
 		maxlenght: 10
 	},
-	phone: {
+	phone_main: {
 		minlenght: 10 ,
-		maxlenght: 17
+		maxlenght: 10
+	},
+	phone_extent: {
+		minlenght: 1 ,
+		maxlenght: 7
 	},
 	hour:{
 		maxRange: 8,
