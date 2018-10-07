@@ -143,3 +143,5 @@ var lkup29 = ["2","3","4"];
 var lkup30 = ["33","42","45"];
 
 var lkup31 = [];
+
+var lkup32 = ["CANADA", "MEXICO"];

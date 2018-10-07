@@ -1204,38 +1204,40 @@ function test_exportCountry(input){
 		}
 			return result;
 }
+//console.log(test_exportMode("","Sweden"));
+//console.log(test_exportMode("3","Sweden"));
+//console.log(test_exportMode("2","Mexico"));
+//console.log(test_exportMode("4","Canada"));
 //console.log(test_exportMode("wty","Albania"));
-//console.log(test_exportMode("2","Albania"));
+//console.log(test_exportMode("4","canada"));
+//console.log(test_exportMode("4","mExiCo"));
 function test_exportMode(exp_mode, country){
 	var result = new Object();
 	var error;
+	var country = country.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(exp_mode, "numeric", "conf1")){
-			error = "S47_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(exp_mode)){
-			error = "S47_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (lkup_linear("lkup29", exp_mode)){
-			if (country != "Canada" || country != "Mexico"){
+	if (!presence_check(exp_mode)){
+		error = "S47_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!check_allowed_char(exp_mode, "numeric", "conf1")){
+		error = "S47_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup32", country))){
 				error = "S16_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
-			}
-		}			
+			}		
 		if (result.flags.length>0){
 			result.pass = false;
 		}else {
@@ -1243,61 +1245,42 @@ function test_exportMode(exp_mode, country){
 		}
 			return result;
 }
-
+/*
 function test_auto_fill_m(input, attrib){
 	var result = new Object();
 	var error;
+	var count = 0;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	let count = 0;
-	for (var attrib in input){
-		if (!auto_fill(input, attrib)){
-			count = count + 1;
+	for (i== 0 ; i < attrib.length; i++){
+		if (!auto_fill(input, "SHIPMENT_VALUE")){
+			count ++;
 		}
-		if (count = 1){
-			error = "S15_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!auto_fill(input, "SHIPMENT_WEIGHT")){
+			count ++;
 		}
-		if (count = 2){
-			error = "S15_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!auto_fill(input, "SCTG_COMMODITY_CODE")){
+			count ++;
 		}
-		if (count = 3){
-			error = "S15_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!auto_fill(input, "DOMESTIC_TRANSPORT_MODE")){
+			count ++;
 		}
-		if (count = 4){
-			error = "S15_4";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!auto_fill(input, "HAZMAT_CODE")){
+			count ++;
 		}
-		if (count = 5){
-			error = "S15_5";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		if (!auto_fill(input, "DOMESTIC_ZIP_CODE")){
+			count ++;
 		}
-		if (count = 6){
-			error = "S15_6";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
+	}	
+	if (count > 0){
+		count = result.flagval
+		error = "S15_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
 	}
 	if (result.flags.length>0){
 		result.pass = false;
@@ -1305,6 +1288,6 @@ function test_auto_fill_m(input, attrib){
 		result.pass = true;
 	}
 		return result;
-}
+}*/
 		
 	
