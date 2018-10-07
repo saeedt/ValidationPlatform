@@ -25,52 +25,52 @@ var conf1= {
 	},	
 	state: {
 		not_allowed: /(AA|AE|AP)/g,
-		minlength:2 ,
+		minlength:2,
 		maxlength:2
 	},
 	zipCode5: {
-		minlength:5 ,
-		maxlength:5	
+		minlength:5,
+		maxlength:5		
 	},
 	zipCode4:{
-		minlength:4 ,
+		minlength:4,
 		maxlength:4	
 	},
 	faxNum: {
-		minlength: 10 ,
-		maxlength: 10
+		minlength:10,
+		maxlength:10
 	},
 	phone: {
-		minlength: 10 ,
-		maxlength: 17
+		minlength:10,
+		maxlength:17
 	},
 	hour:{
-		maxRange: 8,
+		maxRange:8,
 	},
 	ship_date_day: {	
-		minRange: 1,
-		maxRange: 31		
+		minRange:1,
+		maxRange:31		
 	},	
 	ship_date_month: {	
-		minRange: 1,
-		maxRange: 12	
+		minRange:1,
+		maxRange:12	
 	},	
 	ship_date_year: {
-		minlength: 4,
-		maxlength: 4	
+		minlength:4,
+		maxlength:4	
 	},
 	numberOfShip: {
 		minRange:1,
 		maxRange:100000
 	},	
 	totShipValue: {
-		minRange: 1
+		minRange:1
 	},	
 	ship_value: {
-		minRange: 1
+		minRange:1
 	},
 	ship_weight: {
-		minRange: 1
+		minRange:1
 	},
 	unna: {			
 		minlength:4,

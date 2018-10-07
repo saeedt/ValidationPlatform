@@ -462,6 +462,12 @@ var flags = {
 		name: "invChar_destinationState",
 		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
 	},
+	S42_22: {
+		flag: "S42",
+		value: "22",
+		name: "notFound_destinationState",
+		msg: "U.S. destination (state) is invalid."
+	},
 	S43_1: {
 		flag: "S43",
 		value: "1",

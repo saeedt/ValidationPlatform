@@ -912,31 +912,35 @@ function test_destinationCity(input){
 		}
 			return result;
 }
-//console.log(test_destinationState("67858"));
-//console.log(test_destinationState("PO"));
+//console.log(test_destinationState(""));
+//console.log(test_destinationState("6as7858"));
+//console.log(test_destinationState("Oh"));
+//console.log(test_destinationState("oS"));
 //console.log(test_destinationState("AA"));
 function test_destinationState(input){
 	var result = new Object();
 	var error;
+	var input = input.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	result.valid = true;
+	if (!presence_check(input)){
+		error = "S42_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);		
+	} else {
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
 			error = "S42_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+			result.flagmsg.push((flags)[error].msg);			
 		}
-		if (!presence_check(input)){
-			error = "S42_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!length_field_check(input, "state", "conf1")){
+		if (!field_length_check(input, "state", "conf1")){
 			error = "S42_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -949,32 +953,44 @@ function test_destinationState(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}			
-		if (result.flags.length>0){
-			result.pass = false;
 		}
-		else {
-			result.pass = true;
-		}
-			return result;
+		if (!lkup_linear("lkup31",input)){
+			error = "S42_22";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}		
+	}					
+	if (result.flags.length>0){
+		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
-//console.log(test_destinationZip("Amherst", "MA", "657"));
-//console.log(test_destinationZip("Amherst", "MA","01001"));
+//console.log(test_destinationZip("Amherst", "MA", "", "B"));
+//console.log(test_destinationZip("Amherst", "MA", "ad657", "B"));
+//console.log(test_destinationZip("Amherst", "MA", "657", "B"));
+//console.log(test_destinationZip("Amsterdam", "OH","45701", ""));
 //console.log(test_destinationZip("Amherst", "MA","09001"));
 //console.log(test_destinationZip("Amherst", "MA","01005"));
-function test_destinationZip(city, state, zip){
+function test_destinationZip(city, state, zip, evalres){
 	var result = new Object();
 	var error;	
-	var test1 = {
-			"city" : city,
-			"state" : state,
-			"zip" : zip
-				};
-	var test2 = lkup_binary_m("lkup4", "zip", zip).data;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	if (!presence_check(zip)){
+		error = "S43_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(zip, "numeric", "conf1")){
 			error = "S43_1";
 			result.flagname.push((flags)[error].name);
@@ -982,20 +998,16 @@ function test_destinationZip(city, state, zip){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(zip)){
-			error = "S43_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!length_field_check(zip, "zipCode5", "conf1")){
+		if (!field_length_check(zip, "zipCode5", "conf1")){
 			error = "S43_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
+		}
+	}
+	if (!result.flags.length >0){
+		var test2 = lkup_binary_m("lkup4", "zip", zip).data;
 		if (lkup_linear("lkup5", zip.substr(0,3))){
 			error = "S1_1";
 			result.flagname.push((flags)[error].name);
@@ -1004,98 +1016,75 @@ function test_destinationZip(city, state, zip){
 			result.flagmsg.push((flags)[error].msg);
 		}
 		if ((lkup_binary_m("lkup4", "zip", zip).found)){
-			if (!matchObj(test1, test2, "zip")){
-				error = "S1_2";
-				result.flagname.push(flags[error].name);
-				result.flags.push(flags[error].flag);
-				result.flagval.push(flags[error].value);
-				result.flagmsg.push(flags[error].msg);
-			}
-		}
-		else {
+			if (evalres.DOMESTIC_STATE_ABBREV.valid && evalres.DOMESTIC_CITY_NAME.valid){
+				var test1 = {"city" : city, "state" : state, "zip" : zip };
+				if (!matchObj(test1, test2, "zip")){
+					error = "S1_2";
+					result.flagname.push(flags[error].name);
+					result.flags.push(flags[error].flag);
+					result.flagval.push(flags[error].value);
+					result.flagmsg.push(flags[error].msg);
+				}
+			} 			
+		} else {
 			error = "S43_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}	
-		if (result.flags.length>0){
-			result.pass = false;
 		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	}	
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
-//console.log(test_mode("jjll","Y","100","10010","AL"));
-//console.log(test_mode("7","Y","100","10010","AL"));
-//console.log(test_mode("12","Y","200","10010","AK"));
-//console.log(test_mode("18","Y","2100","10010","AK"));
-
-function test_mode(mode, temp_control, weight, sctg, state){
+//console.log(test_mode(""));
+//console.log(test_mode("b56gj*"));
+//console.log(test_mode("23"));
+//console.log(test_mode("0897"));
+function test_mode(input){
 	var result = new Object();
 	var error;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	if (!presence_check(mode)){
+	result.valid = true;
+	if (!presence_check(input)){
 		error = "S2_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!check_allowed_char(mode, "numeric", "conf1")){
+		result.valid = false;
+	} else if (!check_allowed_char(input, "numeric", "conf1")){
 		error = "S2_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!lkup_linear("lkup3", mode)){
-		error = "S2_3";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!lkup_linear("lkup6", sctg.substr(0,2))){
-		if (check_char("lkup26", mode)){ 
-			error = "S4_1";
+		result.valid = false;
+	} else {
+		if (!lkup_linear("lkup3", input)){
+			error = "S2_3";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-	}
-	if (lkup_linear("lkup7", sctg.substr(0,2))){
-		if (check_char("lkup27", mode)){ 
-			if (weight >= 150 || (weight >= 150 && state != "AK")){
-				error = "S4_2";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-		}	
-		if (check_char("lkup28", mode)){
-			if (weight >= 1000  || (weight >= 1000 && state != "AK")){
-				error = "S4_3";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-		}
+		}				
 	}
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
-			result.pass = true;
+		result.pass = true;
 	}
-		return result;
+	return result;
 }		
 //console.log(test_export("B"));
 //console.log(test_export(""));
