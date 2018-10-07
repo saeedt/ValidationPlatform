@@ -1128,8 +1128,11 @@ function test_export(input){
 		}
 			return result;
 }
+//console.log(test_exportCity(""));
 //console.log(test_exportCity("B12"));
-//console.log(test_exportCity("Mshhd"));
+//console.log(test_exportCity("Amacuzac"));
+//console.log(test_exportCity("Morse"));
+//console.log(test_exportCity("Bologna"));
 function test_exportCity(input){
 	var result = new Object();
 	var error;
@@ -1137,37 +1140,37 @@ function test_exportCity(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S45_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S45_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!lkup_linear("lkup14", input) || !lkup_linear("lkup15", input)){
-			error = "S17_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}	
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (!presence_check(input)){
+		error = "S45_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
+		error = "S45_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if ((!lkup_linear("lkup14", input)) && (!lkup_linear("lkup15", input))){
+		error = "S17_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}	
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_exportCountry("1766"));
+//console.log(test_exportCountry(""));
 //console.log(test_exportCountry("lkjh"));
+//console.log(test_exportCountry("Algeria"));
 function test_exportCountry(input){
 	var result = new Object();
 	var error;
@@ -1175,34 +1178,32 @@ function test_exportCountry(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(input, "alphabetic", "conf1")){
-			error = "S46_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S46_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!lkup_linear("lkup16", input)){
-			error = "S17_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (!presence_check(input)){
+		error = "S46_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
+		error = "S46_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!lkup_linear("lkup16", input)){
+		error = "S17_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_exportMode("","Sweden"));
 //console.log(test_exportMode("3","Sweden"));
@@ -1237,13 +1238,13 @@ function test_exportMode(exp_mode, country){
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
-			}		
-		if (result.flags.length>0){
-			result.pass = false;
-		}else {
-			result.pass = true;
-		}
-			return result;
+	}		
+	if (result.flags.length>0){
+		result.pass = false;
+	}else {
+		result.pass = true;
+	}
+	return result;
 }
 /*
 function test_auto_fill_m(input, attrib){
