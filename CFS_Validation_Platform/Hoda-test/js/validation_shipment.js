@@ -1099,34 +1099,38 @@ function test_mode(mode, temp_control, weight, sctg, state){
 }		
 //console.log(test_export("B"));
 //console.log(test_export(""));
+//console.log(test_export("y"));
+//console.log(test_export("n"));
+//console.log(test_export("Y"));
+//console.log(test_export("N"));
 function test_export(input){
 	var result = new Object();
 	var error;
+	var input = input.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!presence_check(input)){
-			error = "S44_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!lkup_linear("lkup25", input)){
-			error = "S44_5";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}	
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (!presence_check(input)){
+		error = "S44_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!lkup_linear("lkup25", input)){
+		error = "S44_5";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_exportCity(""));
 //console.log(test_exportCity("B12"));
