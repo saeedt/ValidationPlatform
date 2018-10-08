@@ -69,8 +69,11 @@ var conf1= {
 	ship_value: {
 		minRange:1
 	},
-	ship_weight: {
-		minRange:1
+	ship_weight_c1: {
+		minRange:0
+	},
+	ship_weight_c2: {
+		minRange:100
 	},
 	sctg_m1_weight: {
 		maxRange:150

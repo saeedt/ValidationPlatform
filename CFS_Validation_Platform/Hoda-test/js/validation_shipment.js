@@ -488,80 +488,82 @@ function test_ship_value(input){
 		}
 			return result;
 }
-//console.log(test_ship_weight("hj4",2,"546"));
-//console.log(test_ship_weight("0",2,"546"));
-//console.log(test_ship_weight("200",1,"546"));
-//console.log(test_ship_weight("1000000",2,"546"));
-//console.log(test_ship_weight("60000000",3,"546"));
-//console.log(test_ship_weight("600",4,"546"));
-//console.log(test_ship_weight("40",6,"546"));
-//console.log(test_ship_weight("500",81,"546"));
-//console.log(test_ship_weight("45",4,"33"));
-//console.log(test_ship_weight("490000",4,"33"));
-//console.log(test_ship_weight("4900",4,"33"));
-function test_ship_weight(weight, mode, naics){
+//console.log(test_ship_weight("0","4","33","a"));
+function test_ship_weight(weight, mode, naics, evalres){
 	var result = new Object();
-	var error;
-	var lkup_result = lkup_binary_m("lkup20","mode", mode);
+	var error;	
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
-	result.flagmsg = [];
+	result.flagmsg = [];	
+	if (!presence_check(weight)){
+		error = "S6_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else {
 		if (!check_allowed_char(weight, "numeric", "conf1")){
 			error = "S37_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (!presence_check(weight)){
-			error = "S6_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!range_val_check(weight, "ship_weight", "conf1")){
+		if (!range_val_check(weight, "ship_weight_c1", "conf1")){
 			error = "S6_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
-		if (lkup_result.found){			
-			if (lkup_result.data[0].maxWeight <= weight) {
-				error = "S7_1";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}	
-			if (lkup_result.data[0].minWeight >= weight){
-				error = "S7_2";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-		} else {
-				if ((lkup_linear("lkup30",naics) && mode == "4")){
-					if (weight <= 100){
-						error = "S7_2";
-						result.flagname.push((flags)[error].name);
-						result.flags.push((flags)[error].flag);
-						result.flagval.push((flags)[error].value);
-						result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
+		}
+		// FIXME add range cheack for weight: weights must be >0
+	}
+	if (!result.flags.length>0){
+		if (evalres.DOMESTIC_TRANSPORT_MODE.valid){ //cross consistency checks are performed if all participating variables are valid
+			var lkup_result = lkup_binary_m("lkup20","mode", mode);
+			if (lkup_result.found){ // all numeric inputs must be casted to a numeric types before any numeric operation like division, multiplication, summation, subtraction or comparison is performed 			
+				if (lkup_result.data[0].maxWeight <= parseFloat(weight)) {
+					error = "S7_1";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}	
+				if (lkup_result.data[0].minWeight >= parseFlaot(weight)){
+					error = "S7_2";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}
+				if (evalres.NAICS.valid){
+					if ((lkup_linear("lkup30",naics) && mode == "4")){
+						if (range_val_check(weight, "ship_weight_c2", "conf1")){//Removed the hard-coded number
+							error = "S7_2";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+							}
+						}
 					}
-				}				
-			}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+			} 
+		}			
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
+
 //console.log(test_sctg("298","1","100","3","n","3340","A"));
 //console.log(test_sctg("00012","1","100","3","n","3340","A"));
 //console.log(test_sctg("50001","1","100","3","n","3340","A"));
