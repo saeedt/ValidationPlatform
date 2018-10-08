@@ -203,7 +203,7 @@ function shipping_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}	
-			if(!field_length_check(input, "state", "conf1")){
+			else if(!field_length_check(input, "state", "conf1")){
 				error = "E25_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -217,7 +217,8 @@ function shipping_state(input){
 	return result;
 }	
 
-//5 digit zip code
+//5 digit zip code 
+//console.log(shipping_zip5("agawam", "MA", "mnh5"));
 function shipping_zip5(input1, input2, input3){
 	var result = new Object();
 	var error;
@@ -226,50 +227,53 @@ function shipping_zip5(input1, input2, input3){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (!presence_check(input3)){
-		error = "E26_2"
-		result.flgname.push(flags[error].name);
-		result.flgs.push(flags[error].flag);
-		result.flgvalue.push(flags[error].value);
-		result.flgmsg.push(flags[error].msg);
-	} else {
-		if (!check_allowed_char(input3, "numeric", "conf1")){
-			error = "E26_1"
+	if (presence_check(input1) && presence_check(input2)){ // means that without presence of input1 , input2 function cannot work
+		if (!presence_check(input3)){
+			error = "E26_2"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
-		}
-		if(!field_length_check(input3, "zipCode5", "conf1")){
-			error = "E26_4"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
-		}
-		
-		var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
-		var test1 = {
-				"city" : input1 ,
-				"state" : input2,
-				"zipCode" : input3
-		};
-		if((lkup_binary_m("lkup4","zipCode",input3).found )){
-			if(!matchObj(test1, test2, "zipCode")){
-				error = "E24_23"
+		} else {
+			if (!check_allowed_char(input3, "numeric", "conf1")){
+				error = "E26_1"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 			}
-		}else{
-			error = "E26_22"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
+			else if(!field_length_check(input3, "zipCode5", "conf1")){ // means that if input3 is not numeric filed-length is not needed to be checked
+				error = "E26_4"
+				result.flgname.push(flags[error].name);
+				result.flgs.push(flags[error].flag);
+				result.flgvalue.push(flags[error].value);
+				result.flgmsg.push(flags[error].msg);
+			}
+			if (result.flgname.length==0){ // if there is no flags, function continue with lukupbinary-m
+				var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
+				var test1 = {
+						"city" : input1 ,
+						"state" : input2,
+						"zipCode" : input3
+				};
+				if((lkup_binary_m("lkup4","zipCode",input3).found )){
+					if(!matchObj(test1, test2, "zipCode")){
+						error = "E26_23"
+						result.flgname.push(flags[error].name);
+						result.flgs.push(flags[error].flag);
+						result.flgvalue.push(flags[error].value);
+						result.flgmsg.push(flags[error].msg);
+					}
+				} else {
+					error = "E26_22"
+					result.flgname.push(flags[error].name);
+					result.flgs.push(flags[error].flag);
+					result.flgvalue.push(flags[error].value);
+					result.flgmsg.push(flags[error].msg);
+				}
+			}
 		}
-	}
+	} 
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
@@ -299,7 +303,7 @@ function shipping_zip4 (input){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!field_length_check(input, "zipCode4", "conf1")){
+		else if(!field_length_check(input, "zipCode4", "conf1")){
 			error = "E27_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -505,7 +509,7 @@ function mailing_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}			
-			if(!field_length_check(input, "state", "conf1")){
+			else if(!field_length_check(input, "state", "conf1")){
 				error = "E34_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -580,6 +584,66 @@ function mailing_zip5(input1, input2, input3){
 	}
 	return result;
 }	
+function mailing_zip5(input1, input2, input3){
+	var result = new Object();
+	var error;
+	result.flgname  =  [];
+	result.flgs  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true;
+	if (presence_check(input1) && presence_check(input2)){ 
+		if (!presence_check(input3)){
+			error = "E35_2"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+		} else {
+			if (!check_allowed_char(input3, "numeric", "conf1")){
+				error = "E35_1"
+				result.flgname.push(flags[error].name);
+				result.flgs.push(flags[error].flag);
+				result.flgvalue.push(flags[error].value);
+				result.flgmsg.push(flags[error].msg);
+			}
+			else if(!field_length_check(input3, "zipCode5", "conf1")){ 
+				error = "E35_4"
+				result.flgname.push(flags[error].name);
+				result.flgs.push(flags[error].flag);
+				result.flgvalue.push(flags[error].value);
+				result.flgmsg.push(flags[error].msg);
+			}
+			if (result.flgname.length==0){ 
+				var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
+				var test1 = {
+						"city" : input1 ,
+						"state" : input2,
+						"zipCode" : input3
+				};
+				if((lkup_binary_m("lkup4","zipCode",input3).found )){
+					if(!matchObj(test1, test2, "zipCode")){
+						error = "E35_23"
+						result.flgname.push(flags[error].name);
+						result.flgs.push(flags[error].flag);
+						result.flgvalue.push(flags[error].value);
+						result.flgmsg.push(flags[error].msg);
+					}
+				} else {
+					error = "E35_22"
+					result.flgname.push(flags[error].name);
+					result.flgs.push(flags[error].flag);
+					result.flgvalue.push(flags[error].value);
+					result.flgmsg.push(flags[error].msg);
+				}
+			}
+		}
+	} 
+	if (result.flgname.length>0){
+		result.pass = false;
+	}
+	return result;
+}
 // 4 digit mailing zip code extension
 function mailing_zip4 (input){
 	var result = new Object();
@@ -603,7 +667,7 @@ function mailing_zip4 (input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 			}
-			if(!field_length_check(input, "zipCode4", "conf1")){
+			else if(!field_length_check(input, "zipCode4", "conf1")){
 				error = "E36_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -619,7 +683,8 @@ function mailing_zip4 (input){
 }	
 
 //Date of ceased operations
-function date_Of_Ceased(month, day, year){ //needs presence check
+//console.log(date_Of_Ceased("23","mn","2016"));
+function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
@@ -635,7 +700,7 @@ function date_Of_Ceased(month, day, year){ //needs presence check
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 				}
-			if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
+			else if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
 			error = "E38_3"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -812,7 +877,7 @@ function contact_phone(input1, exten){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			if(!field_length_check(input1, "phone_main", "conf1")){
+			else if(!field_length_check(input1, "phone_main", "conf1")){
 				error = "E43_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -864,7 +929,7 @@ function contact_fax_number(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			if(!field_length_check(input, "faxNum", "conf1")){
+			else if(!field_length_check(input, "faxNum", "conf1")){
 				error = "E7_2"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -901,7 +966,7 @@ function completion_time(input1, input2){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			if(!range_val_check(input1, "hour", "conf1")){
+			else if(!range_val_check(input1, "hour", "conf1")){
 				error = "E10_3"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
