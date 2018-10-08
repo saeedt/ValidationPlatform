@@ -770,8 +770,8 @@ var flags = {
 		msg: "Shipping address (zip) is invalid."
 	},
 	E26_23: {	
-		flag: "E24",
-		value: "26",
+		flag: "E26",
+		value: "23",
 		name: "inv_shipCity_state_zip",
 		msg: "City/state/zip combination is invalid."
 	},
@@ -794,7 +794,7 @@ var flags = {
 		msg: "Shipping address (zip extra part) is not a 4-digit number."
 	},
 	E28_2: {		
-		flag: "E27",
+		flag: "E28",
 		value: "2",
 		name: "CheckBox_companyMailName",
 		msg: "No selection is made."
@@ -859,12 +859,7 @@ var flags = {
 		name: "miss_mailCity",
 		msg: "Mailing address (city) is missing."
 	},
-	E35_23: {	
-		flag: "E35",
-		value: "22",
-		name: "inv_mailCity_state_zip",
-		msg: "City/state/zip combination is invalid."
-	},
+	
 	E34_1: {
 		flag: "E34",
 		value: "1",
@@ -879,7 +874,7 @@ var flags = {
 	},
 	E34_4: {	
 		flag: "E34",
-		value: "3",
+		value: "4",
 		name: "inv_mailState",
 		msg: "Mailing address (state) is not a two-letter abbreviation."
 	},
@@ -907,7 +902,12 @@ var flags = {
 		name: "notFound_mailZip",
 		msg: "Mailing address (zip) is invalid."
 	},
-	
+	E35_23: {	
+		flag: "E35",
+		value: "23",
+		name: "inv_mailCity_state_zip",
+		msg: "City/state/zip combination is invalid."
+	},
 	E36_1: {	
 		flag: "E36",
 		value: "1",
@@ -943,7 +943,7 @@ var flags = {
 		flag: "E38",
 		value: "3",
 		name: "invFormat_dateOfCeased",
-		msg: "Date of ceased operation is not in correct format."
+		msg: "Date of ceased is not in corrent range and format of MM/DD/ YYYY ."
 	},
 	E38_40:{
 		flag: "E38",
@@ -958,7 +958,7 @@ var flags = {
 		msg: "No selection is made."
 	},
 	E40_1: {	
-		flag: "E38",
+		flag: "E40",
 		value: "1",
 		name: "nonAlphanumeric_priIndustryActivity",
 		msg: "Primary industry activity is not alphanumeric "
