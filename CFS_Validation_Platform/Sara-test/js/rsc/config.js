@@ -18,29 +18,29 @@ var conf1= {
 		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g
 	},	
 	state: {
-		minlenght:2 ,
-		maxlenght:2
+		minlength:2 ,
+		maxlength:2
 	},
 	zipCode5: {
-			minlenght:5 ,
-			maxlenght:5	
+			minlength:5 ,
+			maxlength:5	
 	},
 	zipCode4:{
-		minlenght:4 ,
-		maxlenght:4	
+		minlength:4 ,
+		maxlength:4	
 	},
 
 	faxNum: {
-		minlenght: 10 ,
-		maxlenght: 10
+		minlength: 10 ,
+		maxlength: 10
 	},
 	phone_main: {
-		minlenght: 10 ,
-		maxlenght: 10
+		minlength: 10 ,
+		maxlength: 10
 	},
 	phone_extent: {
-		minlenght: 1 ,
-		maxlenght: 7
+		minlength: 1 ,
+		maxlength: 7
 	},
 	hour:{
 		maxRange: 8,
@@ -57,8 +57,8 @@ var conf1= {
 		maxRange: 12	
 	},	
 	ship_date_year: {
-		minlenght: 4,
-		maxlenght: 4	
+		minlength: 4,
+		maxlength: 4	
 	},
 	numberOfShip: {
 		minRange:1,
@@ -75,12 +75,12 @@ var conf1= {
 	},
 	unna: {
 		
-		minlenght:4,
-		maxlenght:4
+		minlength:4,
+		maxlength:4
 	},	
 	sctg: {
-		minlenght:5,
-		maxlenght:5	
+		minlength:5,
+		maxlength:5	
 	},
 	
 	interval1:{
