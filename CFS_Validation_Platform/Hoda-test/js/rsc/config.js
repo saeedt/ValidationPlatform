@@ -1,5 +1,5 @@
 var conf1= {
-		mode: {
+	mode: {
 		minlength:1,
 		maxlength:3
 	},
@@ -25,60 +25,90 @@ var conf1= {
 	},	
 	state: {
 		not_allowed: /(AA|AE|AP)/g,
-		minlenght:2 ,
-		maxlenght:2
+		minlength:2,
+		maxlength:2
 	},
 	zipCode5: {
-			minlenght:5 ,
-			maxlenght:5	
+		minlength:5,
+		maxlength:5		
 	},
 	zipCode4:{
-		minlenght:4 ,
-		maxlenght:4	
+		minlength:4,
+		maxlength:4	
 	},
 	faxNum: {
-		minlenght: 10 ,
-		maxlenght: 10
+		minlength:10,
+		maxlength:10
 	},
 	phone: {
-		minlenght: 10 ,
-		maxlenght: 17
+		minlength:10,
+		maxlength:17
 	},
 	hour:{
-		maxRange: 8,
+		maxRange:8,
 	},
 	ship_date_day: {	
-		minRange: 1,
-		maxRange: 31		
+		minRange:1,
+		maxRange:31		
 	},	
 	ship_date_month: {	
-		minRange: 1,
-		maxRange: 12	
+		minRange:1,
+		maxRange:12	
 	},	
 	ship_date_year: {
-		minlenght: 4,
-		maxlenght: 4	
+		minlength:4,
+		maxlength:4	
 	},
 	numberOfShip: {
 		minRange:1,
 		maxRange:100000
 	},	
 	totShipValue: {
-		minRange: 1
+		minRange:1
 	},	
 	ship_value: {
-		minRange: 1
+		minRange:1
 	},
-	ship_weight: {
-		minRange: 1
+	ship_weight_c1: {
+		minRange:0
+	},
+	ship_weight_c2: {
+		minRange:100
+	},
+	sctg_m1_weight: {
+		maxRange:150
+	},
+	sctg_m8_weight: {
+		maxRange:1000
 	},
 	unna: {			
-		minlenght:4,
-		maxlenght:4
+		minlength:4,
+		maxlength:4,
+		minRange:0004,
+		maxRange:9269
 	},	
 	sctg: {
-		minlenght:5,
-		maxlenght:5	
+		minlength:5,
+		maxlength:5,
+		minRange:01001,
+		maxRange:43999
+	},
+	ATV_c1: { 
+		minRange:1000000000
+	},
+	ATV_c2: {
+		minRange:0.2,
+		maxRange:5
+	},
+	ATV_c3: { 
+		minRange:20000000
+	},
+	ATV_c4: {
+		minRange:0.1,
+		maxRange:10
+	},
+	estbWeight: {
+		maxRange:5
 	},
 	interval1:{
 		minRange:1,

@@ -142,4 +142,8 @@ var lkup29 = ["2","3","4"];
 
 var lkup30 = ["33","42","45"];
 
-var lkup31 = [];
+var lkup31 = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+
+var lkup32 = ["CANADA", "MEXICO"];
+
+var lkup33 = [];

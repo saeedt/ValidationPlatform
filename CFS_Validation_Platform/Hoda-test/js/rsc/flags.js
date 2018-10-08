@@ -327,8 +327,14 @@ var flags = {
 	S32_2: {
 		flag: "S32",
 		value: "2",
-		name: "moreThan40ship",
+		name: "miss_moreThan40ship",
 		msg: "No selection is made."
+	},
+	S32_5: {
+		flag: "S32",
+		value: "5",
+		name: "inv_moreThan40ship",
+		msg: "Input is invalid."
 	},
 	S33_1: {
 		flag: "S33",
@@ -394,7 +400,13 @@ var flags = {
 		flag: "S38",
 		value: "4",
 		name: "inv_sctg",
-		msg: "SCTG commodity code not a 5-digit number."
+		msg: "SCTG commodity code is not a 5-digit number."
+	},
+	S38_20: {
+		flag: "S38",
+		value: "20",
+		name: "outOfRange_sctg",
+		msg: "SCTG commodity code is not in range."
 	},
 	S39_1: {
 		flag: "S39",
@@ -419,6 +431,12 @@ var flags = {
 		value: "4",
 		name: "inv_unna",
 		msg: "'UN' or 'NA' code is not a 4-digit number."
+	},
+	S40_20: {
+		flag: "S40",
+		value: "20",
+		name: "outOfRange_unna",
+		msg: "'UN' or 'NA' code is not in range."
 	},
 	S41_1: {
 		flag: "S41",
@@ -461,6 +479,12 @@ var flags = {
 		value: "5",
 		name: "invChar_destinationState",
 		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
+	},
+	S42_22: {
+		flag: "S42",
+		value: "22",
+		name: "notFound_destinationState",
+		msg: "U.S. destination (state) is invalid."
 	},
 	S43_1: {
 		flag: "S43",
