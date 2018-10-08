@@ -327,8 +327,14 @@ var flags = {
 	S32_2: {
 		flag: "S32",
 		value: "2",
-		name: "moreThan40ship",
+		name: "miss_moreThan40ship",
 		msg: "No selection is made."
+	},
+	S32_5: {
+		flag: "S32",
+		value: "5",
+		name: "inv_moreThan40ship",
+		msg: "Input is invalid."
 	},
 	S33_1: {
 		flag: "S33",

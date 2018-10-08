@@ -288,27 +288,39 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){
 			return result;
 }
 //console.log(test_moreThan40Ship(""));
+//console.log(test_moreThan40Ship("y"));
+//console.log(test_moreThan40Ship("j"));
 function test_moreThan40Ship(input){
 	var result = new Object();
 	var error;
+	var input = input.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!presence_check(input)){
-			error = "S32_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (!presence_check(input)){
+		error = "S32_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (!lkup_linear("lkup25", input)){
+		error = "S32_5";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	//TODO check valid inputs Y and N similar to temp control field
+	//Added the flag S32-5 and updated flags.js 
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_ship_ID("jh5"));
 //console.log(test_ship_ID(""));
@@ -320,29 +332,30 @@ function test_ship_ID(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S33_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(input, "alphanumeric", "conf1")){
 			error = "S33_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S33_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+		}		
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
-//console.log(test_ship_month("11","2"));
+//console.log(test_ship_month("","2"));
 //console.log(test_ship_month("11s","2"));
 //console.log(test_ship_month("9","1"));
 //console.log(test_ship_month("8","2"));
@@ -356,6 +369,13 @@ function test_ship_month(ship_month, quarter){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	if (!presence_check(ship_month)){
+		error = "S14_5";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(ship_month, "numeric", "conf1")){
 			error = "S34_1";
 			result.flagname.push((flags)[error].name);
@@ -398,24 +418,20 @@ function test_ship_month(ship_month, quarter){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(ship_month)){
-			error = "S14_5";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
+
 //console.log(test_ship_day("9*"));
 //console.log(test_ship_day(""));
-//console.log(test_ship_day("89"));
+//console.log(test_ship_day("91"));
+//console.log(test_ship_day("0"));
 function test_ship_day(input){
 	var result = new Object();
 	var error;
@@ -423,15 +439,15 @@ function test_ship_day(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S35_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(input, "numeric", "conf1")){
 			error = "S35_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S35_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -443,30 +459,35 @@ function test_ship_day(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+		}		
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
+
 //console.log(test_ship_value("jj4g"));
+//console.log(test_ship_value(""));
+//console.log(test_ship_value("0"));
 function test_ship_value(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!presence_check(input)){
-			error = "S5_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
+	if (!presence_check(input)){
+		error = "S5_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!range_val_check(input, "ship_value", "conf1")){
 			error = "S5_2";
 			result.flagname.push((flags)[error].name);
@@ -480,14 +501,17 @@ function test_ship_value(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}else {
-			result.pass = true;
-		}
-			return result;
+		}			
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+		result.valid = false;
+	}else {
+		result.pass = true;
+	}
+	return result;
 }
+
 //console.log(test_ship_weight("0","4","33","a"));
 function test_ship_weight(weight, mode, naics, evalres){
 	var result = new Object();
@@ -522,6 +546,7 @@ function test_ship_weight(weight, mode, naics, evalres){
 			result.valid = false;
 		}
 		// FIXME add range cheack for weight: weights must be >0
+	//Updated the config
 	}
 	if (!result.flags.length>0){
 		if (evalres.DOMESTIC_TRANSPORT_MODE.valid){ //cross consistency checks are performed if all participating variables are valid
@@ -557,6 +582,7 @@ function test_ship_weight(weight, mode, naics, evalres){
 	}
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -794,6 +820,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, evalres){
 	}		
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -864,6 +891,7 @@ function test_temp_control(input){
 		}		
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -945,6 +973,7 @@ function test_unna(unna, sctg, evalres){
 	}		
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
