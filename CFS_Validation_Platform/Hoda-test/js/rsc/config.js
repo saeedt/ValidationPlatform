@@ -72,6 +72,12 @@ var conf1= {
 	ship_weight: {
 		minRange:1
 	},
+	sctg_m1_weight: {
+		maxRange:150
+	},
+	sctg_m8_weight: {
+		maxRange:1000
+	},
 	unna: {			
 		minlength:4,
 		maxlength:4,

@@ -394,7 +394,13 @@ var flags = {
 		flag: "S38",
 		value: "4",
 		name: "inv_sctg",
-		msg: "SCTG commodity code not a 5-digit number."
+		msg: "SCTG commodity code is not a 5-digit number."
+	},
+	S38_20: {
+		flag: "S38",
+		value: "20",
+		name: "outOfRange_sctg",
+		msg: "SCTG commodity code is not in range."
 	},
 	S39_1: {
 		flag: "S39",

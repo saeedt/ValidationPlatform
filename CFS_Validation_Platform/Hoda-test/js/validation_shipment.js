@@ -562,149 +562,241 @@ function test_ship_weight(weight, mode, naics){
 		}
 			return result;
 }
-//console.log(test_sctg("564","5","6","33"));
-//console.log(test_sctg("564jk","5","6","33"));
-//console.log(test_sctg("02902","3","1000","33"));
-//console.log(test_sctg("02100","80","10","33"));
-//console.log(test_sctg("17110", "9","1000","33"));
-//console.log(test_sctg("41110","2","10000","33"));
-//console.log(test_sctg("41110","100","1","33"));
-//console.log(test_sctg("16009","2","10000","33"));
-//console.log(test_sctg("30400","100","1000","315"));
-function test_sctg(sctg, value, weight, naics){
+//console.log(test_sctg("298","1","100","3","n","3340","A"));
+//console.log(test_sctg("00012","1","100","3","n","3340","A"));
+//console.log(test_sctg("50001","1","100","3","n","3340","A"));
+//console.log(test_sctg("298bv","1","100","3","n","3340","A"));
+//console.log(test_sctg("02200","1","100","3","n","3340","A"));
+//console.log(test_sctg("","1","100","3","n","3340","A"));
+//console.log(test_sctg("16001","1","100","3","n","3340","A"));
+//console.log(test_sctg("16000","1","100","3","n","3340","A"));
+function test_sctg(sctg, value, weight, mode, temp, naics, evalres){
 	var result = new Object();
-	var error;
-	var vw_ratio = value/weight;
-	var lkup_result1 = lkup_binary_m("lkup1","sctg", sctg);
-	var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);
+	result.valid = true;
+	var temp = temp.toUpperCase();//case-insensitivity
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(sctg, "numeric", "conf1")){
+	var error;
+	if (!presence_check(sctg)){ //presence check is always performed first
+		error = "S3_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else {
+		if (!check_allowed_char(sctg, "numeric", "conf1")){ // the other field validation checks are performed if the presence check returns true
 			error = "S38_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (!length_field_check(sctg, "sctg", "conf1")){
+		if (!field_length_check(sctg, "sctg", "conf1")){
 			error = "S38_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (lkup_result1.found){
-			if (lkup_linear("lkup18", sctg.substr(0,2))){
-				if (lkup_result1.data[0].vw_lb > vw_ratio){
-					error = "S8_1";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}	
-				if (lkup_result1.data[0].vw_ub < vw_ratio){	
-					error = "S8_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				} 
-			 } 
-			else if (lkup_linear("lkup19", sctg.substr(0,2))){
-				if (lkup_result1.data[0].vw_lb > vw_ratio){			
-					error = "S8_3";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}	
-				if (lkup_result1.data[0].vw_ub < vw_ratio){		
-					error = "S8_4";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-			else {
-				if(lkup_result1.data[0].vw_lb > vw_ratio){	
-					error = "S8_5";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);	
-				}
-				if(lkup_result1.data[0].vw_lb < vw_ratio){	
-					error = "S8_6";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);	
-				}
-			}
-		}
-		if (!presence_check(sctg)){
-			error = "S3_1";
+		if (!range_val_check(sctg, "sctg", "conf1")){//Added for checking the range of sctg 
+			error = "S38_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (lkup_result1.found == false){
+	}
+	if (!result.flags.length>0){ //lookups and cross checks can only be performed if the presence and field validation checks return true
+		//SCTG, value, weight
+		var lkup_result1 = lkup_binary_m("lkup1","sctg", sctg);		
+		if (lkup_result1.found){ // vw ratio tests and sctg substring checks are performed if sctg is valid 
+			// value to weight ratio tests are only performed if value and weight have passed presence and filed validation tests, otherwise the division is not possible
+			if (evalres.SHIPMENT_VALUE.valid && evalres.SHIPMENT_WEIGHT.valid) {
+				var vw_ratio = parseFloat(value)*1.0/parseFloat(weight);
+				if (lkup_linear("lkup18", sctg.substr(0,2))){					
+					if (lkup_result1.data[0].vw_lb > vw_ratio){
+						error = "S8_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					if (lkup_result1.data[0].vw_ub < vw_ratio){	
+						error = "S8_2";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					} 
+				 } 
+				else if (lkup_linear("lkup19", sctg.substr(0,2))){
+					if (lkup_result1.data[0].vw_lb > vw_ratio){			
+						error = "S8_3";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					if (lkup_result1.data[0].vw_ub < vw_ratio){		
+						error = "S8_4";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				} else {
+					if (lkup_result1.data[0].vw_lb > vw_ratio){	
+						error = "S8_5";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);	
+					}
+					if (lkup_result1.data[0].vw_lb < vw_ratio){	
+						error = "S8_6";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);	
+					}
+				}
+			}			
+			if (sctg.substr(0,2) == "16"){ // updated this according to the spec sheet - this test does not check the validity of the sctg, it just checks if it starts with 16
+				error = "S3_3";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+			// SCTG & NAICS
+			if (eavlres.NAICS.valid) {
+				var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);			
+				if (lkup_result2.found){
+					if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){
+						if(lkup_result2.data[0].flag_value == "0"){
+							error = "S10_0";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+						if (lkup_result2.data[0].flag_value == "1"){
+							error = "S10_1";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+						if (lkup_result2.data[0].flag_value == "2"){
+							error = "S10_2";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+						if (lkup_result2.data[0].flag_value == "3"){
+							error = "S10_3";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+					}
+				}
+			}
+			//SCTG & Mode
+			if (evalres.DOMESTIC_TRANSPORT_MODE.valid){
+				if (!lkup_linear("lkup6", sctg.substr(0,2))){
+					if (check_char("lkup26", mode)){ 
+						error = "S4_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}
+			}
+			//SCTG, mode, weight
+			if (evalres.DOMESTIC_TRANSPORT_MODE.valid && evalres.SHIPMENT_WEIGHT.valid){
+				if (lkup_linear("lkup7", sctg.substr(0,2)) || lkup_linear("lkup8", sctg.substr(0,2))){ //FIXME hard-coded numbers must be moved to config
+					//Added lkup 8 to check sctg codes starts with 17, 18
+					if (check_char("lkup27", mode)){ 
+						if ((!range_val_check(weight, "sctg_m1_weight", "conf1")) || (!range_val_check(weight, "sctg_m1_weight", "conf1")  && state != "AK")){//Removed the numbers and updated the config
+							error = "S4_2";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+					}	
+					if (check_char("lkup28", mode)){ //FIXME hard-coded numbers must be moved to config
+						if ((!range_val_check(weight, "sctg_m2_weight", "conf1")) || (!range_val_check(weight, "sctg_m2_weight", "conf1")  && state != "AK")){//Removed the numbers and updated the config
+							error = "S4_3";
+							result.flagname.push((flags)[error].name);
+							result.flags.push((flags)[error].flag);
+							result.flagval.push((flags)[error].value);
+							result.flagmsg.push((flags)[error].msg);
+						}
+					}
+				}
+			}
+			// SCTG & Temp
+			if (evalres.TEMPERATURE_CONTROL_YN.valid){
+				if (temp == "Y"){
+					if (lkup_linear("lkup9", sctg.substr(0,2))){ 
+						error = "S12_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}	
+					else if (lkup_linear("lkup10", sctg.substr(0,2))){ 			
+						error = "S12_2";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}
+				if (temp == "N" && lkup_linear("lkup11", sctg)){	
+					error = "S12_3";
+					result.flagname.push((flags)[error].name);
+					result.flags.push((flags)[error].flag);
+					result.flagval.push((flags)[error].value);
+					result.flagmsg.push((flags)[error].msg);
+				}
+				if (evalres.DOMESTIC_TRANSPORT_MODE.valid){
+					if (temp == "Y" && mode == "7"){	
+						error = "S13_1";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
+				}				
+			}			
+		} else {// if the SCTG code is not found in the lookup table
 			error = "S3_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (sctg.substr(0,2) == "16" && sctg != "16000"){
-			error = "S3_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (lkup_result2.found){
-			if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){
-				if(lkup_result2.data[0].flag_value == "0"){
-					error = "S10_0";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "1"){
-					error = "S10_1";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "2"){
-					error = "S10_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-				if (lkup_result2.data[0].flag_value == "3"){
-					error = "S10_3";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+			result.valid = false;
+		}		
+	}		
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_sctg_descr("ahb564@#"));
 //console.log(test_sctg_descr());
@@ -715,28 +807,28 @@ function test_sctg_descr(input){
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!check_allowed_char(input, "alphanumeric", "conf1")){
-			error = "S39_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S39_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (!presence_check(input)){
+		error = "S39_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "S39_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
+
 //console.log(test_temp_control(""));
 //console.log(test_temp_control("Y"));
 //console.log(test_temp_control("y"));
