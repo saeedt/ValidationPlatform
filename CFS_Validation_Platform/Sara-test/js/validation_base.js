@@ -18,10 +18,10 @@ function check_req_char(input, type, config){
 	return(!filter.test(input));
 }
 
-// length field validation function
-function length_field_check(input, type, config){  
-	var lowerbound = eval(config)[type].minlenght;
-	var upperbound =eval(config)[type].maxlenght;
+// field length validation function
+function field_length_check(input, type, config){  
+	var lowerbound = parseInt(eval(config)[type].minlength);
+	var upperbound = parseInt(eval(config)[type].maxlength);
     if(input.length >= lowerbound && input.length <=upperbound)
       {  	
 	   return true;
@@ -37,12 +37,12 @@ function range_val_check(input, type, config){
 	var max_pass=true;
 	var cfg=eval(config)[type];
 	if (typeof(cfg.minRange)!= "undefined"){
-		if (input < cfg.minRange) {
+		if (parseFloat(input) < cfg.minRange) {
 			min_pass=false;
 		}
 	}
 	if (typeof(cfg.maxRange)!= "undefined"){
-		if (input > cfg.maxRange) {
+		if (parseFloat(input) > cfg.maxRange) {
 			max_pass=false;
 		}
 	}
@@ -160,7 +160,7 @@ function lkup_linear(table,input){
 	for (var i=0; i<tbl.length; i++){
 		if (tbl[i]==input){
 			return true;
-	    }
+	}
 	}	
 	return false;	
 }
