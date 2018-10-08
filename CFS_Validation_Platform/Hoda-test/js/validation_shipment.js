@@ -804,40 +804,50 @@ function test_temp_control(temp_control, sctg, mode){
 		}
 			return result;
 }
-//console.log(test_unna("ghk", "02100"));
-//console.log(test_unna("1088", "02100"));
-//console.log(test_unna("","08310"));
-function test_unna(unna, sctg){
+
+function test_unna(unna, sctg, evalres){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
-	result.flagmsg = [];
+	result.flagmsg = [];	
 		if (!check_allowed_char(unna, "numeric", "conf1")){
 			error = "S40_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (!length_field_check(unna, "unna", "conf1")){
+		if (!field_length_check(unna, "unna", "conf1")){
 			error = "S40_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
 		}
-		if (presence_check(unna)){
-			if (lkup_linear("lkup31", sctg)){
-//lookup 31 is reserved for the UNNA/SCTG combination list			
-					error = "S9_4";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-			}				
-			else if (lkup_binary_m("lkup2", "unna_code", unna).found){
+		if (!range_val_check(unna, "unna", "conf1")){//Added for checking the range of Hazmat code.
+			error = "S40_20";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+			result.valid = false;
+		}
+	if (presence_check(unna)){
+		if (evalres.SCTG_COMMODITY_CODE.valid){
+			if (lkup_linear("lkup33", sctg)){
+				//TODO lookup 33 is reserved for the UNNA/SCTG combination list			
+				error = "S9_4";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			} else if (result.valid){
+				if (lkup_binary_m("lkup2", "unna_code", unna).found){
 				 	if (!lkup_linear("lkup13", sctg)){	
 				 		error = "S9_3";
 				 		result.flagname.push((flags)[error].name);
@@ -845,18 +855,19 @@ function test_unna(unna, sctg){
 				 		result.flagval.push((flags)[error].value);
 				 		result.flagmsg.push((flags)[error].msg);				
 				 	} 
-			}	 	
-			else {
-				if (!lkup_binary_m("lkup2", "unna_code", unna).found){
-					error = "S9_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);			 				
-				} 
+				} else {
+					if (!lkup_binary_m("lkup2", "unna_code", unna).found){
+						error = "S9_2";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);			 				
+					} 
+				}
 			}
-		}	
-		else {
+		}			
+	} else {
+		if (evalres.SCTG_COMMODITY_CODE.valid){
 			if (lkup_linear("lkup12", sctg)){					
 				error = "S9_1";
 				result.flagname.push((flags)[error].name);
@@ -864,34 +875,39 @@ function test_unna(unna, sctg){
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);			
 			}
-		}		
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+		}			
+	}		
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
+
+
+//console.log(test_destinationCity(""));
 //console.log(test_destinationCity("67858"));
 //console.log(test_destinationCity("67858APO"));
-//console.log(test_destinationCity(""));
+//console.log(test_destinationCity("APOCity"));
 function test_destinationCity(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S41_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	} else {
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
 			error = "S41_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(input)){
-			error = "S41_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -903,14 +919,16 @@ function test_destinationCity(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
-		if (result.flags.length>0){
-			result.pass = false;
 		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_destinationState(""));
 //console.log(test_destinationState("6as7858"));
@@ -920,12 +938,12 @@ function test_destinationCity(input){
 function test_destinationState(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	var input = input.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	result.valid = true;
 	if (!presence_check(input)){
 		error = "S42_2";
 		result.flagname.push((flags)[error].name);
@@ -960,7 +978,7 @@ function test_destinationState(input){
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}		
+		}// TODO: add a flag for invalid state and update 		
 	}					
 	if (result.flags.length>0){
 		result.pass = false;
@@ -1018,7 +1036,7 @@ function test_destinationZip(city, state, zip, evalres){
 		if ((lkup_binary_m("lkup4", "zip", zip).found)){
 			if (evalres.DOMESTIC_STATE_ABBREV.valid && evalres.DOMESTIC_CITY_NAME.valid){
 				var test1 = {"city" : city, "state" : state, "zip" : zip };
-				if (!matchObj(test1, test2, "zip")){
+				if (!matchObj(test1, test2, "zip")){// perfromed only if zip and state are valid
 					error = "S1_2";
 					result.flagname.push(flags[error].name);
 					result.flags.push(flags[error].flag);
@@ -1049,11 +1067,11 @@ function test_destinationZip(city, state, zip, evalres){
 function test_mode(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	result.valid = true;
 	if (!presence_check(input)){
 		error = "S2_1";
 		result.flagname.push((flags)[error].name);
@@ -1240,7 +1258,7 @@ function test_exportMode(exp_mode, country){
 	return result;
 }
 /*
-function test_auto_fill_m(input, attrib){
+function test_auto_fill_m(input, attrib){ //FIXME fix this according to our discussion last week
 	var result = new Object();
 	var error;
 	var count = 0;

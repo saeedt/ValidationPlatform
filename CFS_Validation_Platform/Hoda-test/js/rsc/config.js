@@ -74,11 +74,15 @@ var conf1= {
 	},
 	unna: {			
 		minlength:4,
-		maxlength:4
+		maxlength:4,
+		minRange:0004,
+		maxRange:9269
 	},	
 	sctg: {
 		minlength:5,
-		maxlength:5	
+		maxlength:5,
+		minRange:01001,
+		maxRange:43999
 	},
 	interval1:{
 		minRange:1,

@@ -420,6 +420,12 @@ var flags = {
 		name: "inv_unna",
 		msg: "'UN' or 'NA' code is not a 4-digit number."
 	},
+	S40_20: {
+		flag: "S40",
+		value: "20",
+		name: "outOfRange_unna",
+		msg: "'UN' or 'NA' code is not in range."
+	},
 	S41_1: {
 		flag: "S41",
 		value: "1",
