@@ -737,72 +737,44 @@ function test_sctg_descr(input){
 		}
 			return result;
 }
-//console.log(test_temp_control("D","02100","4"));
-//console.log(test_temp_control("Y","10010","4"));
-//console.log(test_temp_control("Y","02903","4"));
-//console.log(test_temp_control("N","03100", "7"));
-//console.log(test_temp_control("Y","03100","7"));
-function test_temp_control(temp_control, sctg, mode){
+//console.log(test_temp_control(""));
+//console.log(test_temp_control("Y"));
+//console.log(test_temp_control("y"));
+//console.log(test_temp_control("N"));
+//console.log(test_temp_control("n"));
+//console.log(test_temp_control("b"));
+//console.log(test_temp_control("101"));
+function test_temp_control(input){
 	var result = new Object();
 	var error;
-	var lkup_result = lkup_binary_m("lkup1","sctg", sctg);
+	var input = input.toUpperCase();
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-		if (!presence_check(temp_control)){
+	if (!presence_check(input)){
 			error = "S11_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!lkup_linear("lkup25", temp_control)){
+			result.valid = false;
+	} else if (!lkup_linear("lkup25", input)){
 			error = "S11_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (lkup_result.found){
-			if (temp_control == "Y"){
-				if (lkup_linear("lkup9", sctg.substr(0,2))){ 
-					error = "S12_1";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}	
-				else if (lkup_linear("lkup10", sctg.substr(0,2))){ 			
-					error = "S12_2";
-					result.flagname.push((flags)[error].name);
-					result.flags.push((flags)[error].flag);
-					result.flagval.push((flags)[error].value);
-					result.flagmsg.push((flags)[error].msg);
-				}
-			}
-		}	
-		if (temp_control == "N" && lkup_linear("lkup11", sctg)){	
-			error = "S12_3";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}	
-		if (temp_control == "Y" && mode == "7"){	
-			error = "S13_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+			result.valid = false;
+		}		
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 
 function test_unna(unna, sctg, evalres){
