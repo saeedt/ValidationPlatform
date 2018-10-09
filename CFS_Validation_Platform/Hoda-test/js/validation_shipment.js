@@ -93,7 +93,7 @@ function verify_shipment(input){
 	return result;
 }
 
-function test_numberOfShip(shipNum){
+function test_numberOfShip(shipNum, nos){
 	var result = new Object();;
 	var error;
 	result.flagname = [];
@@ -102,6 +102,8 @@ function test_numberOfShip(shipNum){
 	result.flagmsg = [];
 	var interval;
 	var required;
+ 	var reqRatio = (required-nos)/required;
+ 	var difReNos = Math.abs(required- nos);
 	if (!presence_check(shipNum)){
 		error = "S30_2";
 		result.flagname.push((flags)[error].name);
@@ -109,49 +111,49 @@ function test_numberOfShip(shipNum){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else {
-		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
-			error = "S30_20";
+		if (!check_allowed_char(shipNum, "numeric", "conf1")){ 
+			error = "S30_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!presence_check(shipNum) && input.lenght > 0){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead
+		}//Added the edit flag for checking the data type of numberOfShip also I deleted the S30_20 flag since the range is checked in E8_1
+		if (!presence_check(shipNum) && range_val_check(nos, "ship_reported", "conf1")){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead
 			error = "E1_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (shipNum == 0 && input.lenght > 0){ 
+		if (shipNum == 0 && range_val_check(nos, "ship_reported", "conf1")){ 
 			error = "E1_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (shipNum > 0 && input.lenght == 0){ 
+		if (shipNum > 0 && nos == 0){ 
 			error = "E1_3";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((shipNum == 0 && input.lenght == 0)||(!presence_check(shipNum) && input.lenght == 0)){
+		if ((shipNum == 0 && nos == 0)||(!presence_check(shipNum) && nos == 0)){
 			error = "E1_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (shipNum > 100000 && input.lenght > 0){ 
+		if (!range_val_check(shipNum, "numberOfShip", "conf1") && range_val_check(nos, "ship_reported", "conf1")){ 
 			error = "E1_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (shipNum > 100000){ 
+		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
 			error = "E8_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -160,38 +162,38 @@ function test_numberOfShip(shipNum){
 		}
 		if (shipNum != 0 ){
 			if (range_val_check(shipNum, "interval1", "conf1")){
-				interval = Math.ceil(parseInt(shipNum/40))
+				interval = Math.ceil(parseInt(shipNum/conf1.interval1.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval2", "conf1")){
-				interval = 5 * Math.ceil(parseInt(shipNum/200))
+				interval = 5 * Math.ceil(parseInt(shipNum/conf1.interval2.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval3", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/600))
+				interval = 10 * Math.ceil(parseInt(shipNum/conf1.interval3.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval4", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/600))
+				interval = 10 * Math.ceil(parseInt(shipNum/conf1.interval4.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval5", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/1600))
+				interval = 20 * Math.ceil(parseInt(shipNum/conf1.interval5.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval6", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/1600))
+				interval = 20 * Math.ceil(parseInt(shipNum/conf1.interval6.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval7", "conf1")){
-				interval = 50 * Math.ceil(parseInt(shipNum/4000))
+				interval = 50 * Math.ceil(parseInt(shipNum/conf1.interval7.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval8", "conf1")){
-				interval = 100 * Math.ceil(parseInt(shipNum/8000))
+				interval = 100 * Math.ceil(parseInt(shipNum/conf1.interval8.sample_rate))
 			}
 			required = Math.floor(shipNum/interval)
-			if (required > 10 && (required- input.lenght)/required > 0.2 ){
+			if (range_val_check(required, "requiredCase1", "conf1") && range_val_check(reqRatio, "requiredRatio", "conf1")){
 				error = "E2_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-			else if (required <= 10 && Math.abs(required- input.lenght) > 1 ){
+			else if (range_val_check(required, "requiredCase2", "conf1") && range_val_check(difReNos, "difReNos", "conf1")){
 				error = "E2_2";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -200,15 +202,15 @@ function test_numberOfShip(shipNum){
 			}
 		}
 	}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
-//console.log(MOS_vs_ATV("4000000000", "400000000", "80"));
+//console.log(MOS_vs_ATV("0", "400000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
 function MOS_vs_ATV(ATV, MOS, estbWeight){
 	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)
@@ -217,31 +219,32 @@ function MOS_vs_ATV(ATV, MOS, estbWeight){
 	var result = new Object();;
 	var error;
 	var ATV_MOS = Math.abs(ATV-MOS);
+	var ratio = MOS/ATV;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
-	result.flagmsg = [];
-		if ((!range_val_check(ATV_MOS, "ATV_c1", "conf1"))  && (ATV==0 ||(!range_val_check(ATV_MOS, "ATV_c2", "conf1")))){
-			error = "E3_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (((!range_val_check(ATV_MOS, "ATV_c3", "conf1")) || (!range_val_check(estbWeight, "estbWeight", "conf1"))) && (ATV==0 || (!range_val_check(ATV_tvw, "ATV_c4", "conf1")))){
-			error = "E3_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
+	result.flagmsg = []; 
+	if ((!range_val_check(ATV_MOS, "ATV_c1", "conf1")) && (!range_val_check(ATV, "ATV", "conf1")) ||((!range_val_check(ratio, "ATV_c2", "conf1")))){
+				error = "E3_1";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+	}
+	if ((!range_val_check(ATV_MOS, "ATV_c3", "conf1")) || (!range_val_check(estbWeight, "estbWeight", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ratio, "ATV_c4", "conf1")))){
+				error = "E3_2";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }
 //console.log(test_totShipValue("50","10000","40000000","10"));
 //console.log(test_totShipValue("50","10000","4000000000","10"));
@@ -263,6 +266,13 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){//Removed th
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else {
+		if (!check_allowed_char(totShipVal, "numric", "conf1")){
+			error = "S31_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}//Added the edit flag for checking the data type
 		if (!range_val_check(totShipVal, "totShipValue", "conf1")){
 			error = "S31_20";
 			result.flagname.push((flags)[error].name);
@@ -270,14 +280,14 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){//Removed th
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((!range_val_check(ATV_tvw, "ATV_c1", "conf1")) && (ATV == 0 || (!range_val_check(ATV_tvw, "ATV_c2", "conf1")))){
+		if ((!range_val_check(ATV_tvw, "ATV_c1", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ATV_tvw, "ATV_c2", "conf1")))){
 			error = "E9_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((!range_val_check(ATV_tvw, "ATV_c3", "conf1")) && (ATV == 0 || (!range_val_check(ATV_tvw, "ATV_c4", "conf1")))){
+		if ((!range_val_check(ATV_tvw, "ATV_c3", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ATV_tvw, "ATV_c4", "conf1")))){
 			error = "E9_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -479,6 +489,7 @@ function test_ship_day(input){
 //console.log(test_ship_value("jj4g"));
 //console.log(test_ship_value(""));
 //console.log(test_ship_value("0"));
+//console.log(test_ship_value("1"));
 function test_ship_value(input){
 	var result = new Object();
 	var error;
@@ -770,7 +781,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, evalres){
 						}
 					}	
 					if (check_char("lkup28", mode)){ //FIXME hard-coded numbers must be moved to config
-						if ((!range_val_check(weight, "sctg_m2_weight", "conf1")) || (!range_val_check(weight, "sctg_m2_weight", "conf1")  && state != "AK")){//Removed the numbers and updated the config
+						if ((!range_val_check(weight, "sctg_m8_weight", "conf1")) || (!range_val_check(weight, "sctg_m8_weight", "conf1")  && state != "AK")){//Removed the numbers and updated the config
 							error = "S4_3";
 							result.flagname.push((flags)[error].name);
 							result.flags.push((flags)[error].flag);
@@ -1094,8 +1105,8 @@ function test_destinationState(input){
 //console.log(test_destinationZip("Amherst", "MA", "ad657", "B"));
 //console.log(test_destinationZip("Amherst", "MA", "657", "B"));
 //console.log(test_destinationZip("Amsterdam", "OH","45701", ""));
-//console.log(test_destinationZip("Amherst", "MA","09001"));
-//console.log(test_destinationZip("Amherst", "MA","01005"));
+//console.log(test_destinationZip("Amherst", "MA","09001", "acB"));
+//console.log(test_destinationZip("Amherst", "MA","01005","acvg"));
 function test_destinationZip(city, state, zip, evalres){
 	var result = new Object();
 	var error;	
@@ -1137,7 +1148,7 @@ function test_destinationZip(city, state, zip, evalres){
 		if ((lkup_binary_m("lkup4", "zip", zip).found)){
 			if (evalres.DOMESTIC_STATE_ABBREV.valid && evalres.DOMESTIC_CITY_NAME.valid){
 				var test1 = {"city" : city, "state" : state, "zip" : zip };
-				if (!matchObj(test1, test2, "zip")){// perfromed only if zip and state are valid
+				if (!matchObj(test1, test2, "zip")){// performed only if zip and state are valid
 					error = "S1_2";
 					result.flagname.push(flags[error].name);
 					result.flags.push(flags[error].flag);

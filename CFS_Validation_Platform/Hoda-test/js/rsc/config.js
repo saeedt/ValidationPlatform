@@ -93,6 +93,9 @@ var conf1= {
 		minRange:01001,
 		maxRange:43999
 	},
+	ATV: {
+		minRange:0
+	},
 	ATV_c1: { 
 		maxRange:1000000000
 	},
@@ -112,34 +115,62 @@ var conf1= {
 	},
 	interval1:{
 		minRange:1,
-		maxRange:400
+		maxRange:400,
+		sample_rate:40
 	},
 	interval2:{
 		minRange:401,
-		maxRange:800
+		maxRange:800,
+		sample_rate:200
 	},	
 	interval3:{
 		minRange:801,
-		maxRange:1200
+		maxRange:1200,
+		sample_rate:600
 	},
 	interval4:{
 		minRange:1201,
-		maxRange:3600
+		maxRange:3600,
+		sample_rate:600
 	},	
 	interval5:{
 		minRange:3601,
-		maxRange:4800
+		maxRange:4800,
+		sample_rate:1600
 	},
 	interval6:{
 		minRange:4801,
-		maxRange:8000
+		maxRange:8000,
+		sample_rate:1600
 	},	
 	interval7:{
 		minRange:8001,
-		maxRange:80000
+		maxRange:80000,
+		sample_rate:4000
 	},	
 	interval8:{
 		minRange:80000,
-		maxRange:Infinity
-	}	
+		maxRange:Infinity,
+		sample_rate:8000
+	},
+	requiredCase1:{
+ 		minRange:10,
+ 		maxRange:Infinity
+ 	},
+ 	requiredRatio:{
+ 		minRange:0.2,
+ 		maxRange:1
+ 	},
+ 	requiredCase2:{
+ 		minRange:0,
+ 		maxRange:11
+ 	},
+ 	difReNos:{
+ 		minRange:1,
+ 		maxRange:Infinity
+ 	},
+ 	ship_reported:{
+ 		minRange:1,
+ 		maxRange:Infinity
+ 	}
 };

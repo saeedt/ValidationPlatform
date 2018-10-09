@@ -281,6 +281,12 @@ var flags = {
 		name: "outOfRange_numberOfShip",
 		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
 	},
+	S31_1: {
+		flag: "S31",
+		value: "1",
+		name: "nonNumeric_totShipValue",
+		msg: "Total value of shipments is not numeric."
+	},
 	S31_2: {
 		flag: "S31",
 		value: "2",
