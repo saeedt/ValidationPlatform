@@ -1165,6 +1165,7 @@ function test_destinationZip(city, state, zip, evalres){
 //console.log(test_mode("b56gj*"));
 //console.log(test_mode("23"));
 //console.log(test_mode("0897"));
+//console.log(test_mode("001"));
 function test_mode(input){
 	var result = new Object();
 	var error;
@@ -1182,6 +1183,13 @@ function test_mode(input){
 		result.valid = false;
 	} else if (!check_allowed_char(input, "numeric", "conf1")){
 		error = "S2_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!field_length_check(input, "mode", "conf1")){
+		error = "S44_4";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
@@ -1220,13 +1228,13 @@ function test_export(input){
 	result.flagval = [];
 	result.flagmsg = [];
 	if (!presence_check(input)){
-		error = "S44_2";
+		error = "S45_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else if (!lkup_linear("lkup25", input)){
-		error = "S44_5";
+		error = "S45_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
@@ -1253,13 +1261,13 @@ function test_exportCity(input){
 	result.flagval = [];
 	result.flagmsg = [];
 	if (!presence_check(input)){
-		error = "S45_2";
+		error = "S46_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
-		error = "S45_1";
+		error = "S46_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
@@ -1291,13 +1299,13 @@ function test_exportCountry(input){
 	result.flagval = [];
 	result.flagmsg = [];
 	if (!presence_check(input)){
-		error = "S46_2";
+		error = "S47_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
-		error = "S46_1";
+		error = "S47_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
@@ -1333,18 +1341,18 @@ function test_exportMode(exp_mode, country){
 	result.flagval = [];
 	result.flagmsg = [];
 	if (!presence_check(exp_mode)){
-		error = "S47_2";
+		error = "S48_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else if (!check_allowed_char(exp_mode, "numeric", "conf1")){
-		error = "S47_1";
+		error = "S48_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup32", country))){
+	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup32", country))){//Used lookup table instead of name of countries also logical operator AND is used.
 				error = "S16_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);

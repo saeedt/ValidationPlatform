@@ -479,50 +479,56 @@ var flags = {
 		name: "notFound_destinationZip",
 		msg: "U.S. destination (zip) is invalid."
 	},
-	S44_2: {
+	S44_4: {
 		flag: "S44",
+		value: "4",
+		name: "outOfRange_mode",
+		msg: "Mode of transport is not in range."
+	},
+	S45_2: {
+		flag: "S45",
 		value: "2",	
 		name: "YN_export",
 		msg: "No selection is made."
 	},
-	S44_5: {
-		flag: "S44",
+	S45_5: {
+		flag: "S45",
 		value: "5",	
 		name: "inv_export",
 		msg: "Input is invalid."
 	},
-	S45_1: {
-		flag: "S45",
+	S46_1: {
+		flag: "S46",
 		value: "1",
 		name: "nonAlphabetic_exportCity",
 		msg: "Foreign destination (city) is not alphabetic."
 	},
-	S45_2: {
-		flag: "S45",
+	S46_2: {
+		flag: "S46",
 		value: "2",
 		name: "miss_exportCity",
 		msg: "Foreign destination (city) is missing."
 	},
-	S46_1: {
-		flag: "S46",
+	S47_1: {
+		flag: "S47",
 		value: "1",
 		name: "nonAlphabetic_exportCountry",
 		msg: "Foreign destination (country) is not alphabetic."
 	},
-	S46_2: {
-		flag: "S46",
+	S47_2: {
+		flag: "S47",
 		value: "2",
 		name: "miss_exportCountry",
 		msg: "Foreign destination (country) is missing."
 	},
-	S47_1: {
-		flag: "S47",
+	S48_1: {
+		flag: "S48",
 		value: "1",
 		name: "nonNumeric_exportMode",
 		msg: "Export mode of transport is not numeric."
 	},
-	S47_2: {
-		flag: "S47",
+	S48_2: {
+		flag: "S48",
 		value: "2",
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
