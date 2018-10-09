@@ -94,14 +94,14 @@ var conf1= {
 		maxRange:43999
 	},
 	ATV_c1: { 
-		minRange:1000000000
+		maxRange:1000000000
 	},
 	ATV_c2: {
 		minRange:0.2,
 		maxRange:5
 	},
 	ATV_c3: { 
-		minRange:20000000
+		maxRange:20000000
 	},
 	ATV_c4: {
 		minRange:0.1,

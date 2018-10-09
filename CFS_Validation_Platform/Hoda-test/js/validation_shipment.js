@@ -108,96 +108,96 @@ function test_numberOfShip(shipNum){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
-		error = "S30_20";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!presence_check(shipNum) && input.lenght > 0){ 
-		error = "E1_1";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (shipNum == 0 && input.lenght > 0){ 
-		error = "E1_2";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (shipNum > 0 && input.lenght == 0){ 
-		error = "E1_3";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if ((shipNum == 0 && input.lenght == 0)||(!presence_check(shipNum) && input.lenght == 0)){
-		error = "E1_4";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-				
-	if (shipNum > 100000 && input.lenght > 0){ 
-		error = "E1_5";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (shipNum > 100000){ 
-		error = "E8_1";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (shipNum != 0 ){
-		if (range_val_check(shipNum, "interval1", "conf1")){
-			interval = Math.ceil(parseInt(shipNum/40))
-		}
-		else if (range_val_check(shipNum, "interval2", "conf1")){
-			interval = 5 * Math.ceil(parseInt(shipNum/200))
-		}
-		else if (range_val_check(shipNum, "interval3", "conf1")){
-			interval = 10 * Math.ceil(parseInt(shipNum/600))
-		}
-		else if (range_val_check(shipNum, "interval4", "conf1")){
-			interval = 10 * Math.ceil(parseInt(shipNum/600))
-		}
-		else if (range_val_check(shipNum, "interval5", "conf1")){
-			interval = 20 * Math.ceil(parseInt(shipNum/1600))
-		}
-		else if (range_val_check(shipNum, "interval6", "conf1")){
-			interval = 20 * Math.ceil(parseInt(shipNum/1600))
-		}
-		else if (range_val_check(shipNum, "interval7", "conf1")){
-			interval = 50 * Math.ceil(parseInt(shipNum/4000))
-		}
-		else if (range_val_check(shipNum, "interval8", "conf1")){
-			interval = 100 * Math.ceil(parseInt(shipNum/8000))
-		}
-		required = Math.floor(shipNum/interval)
-		if (required > 10 && (required- input.lenght)/required > 0.2 ){
-			error = "E2_1";
+	} else {
+		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
+			error = "S30_20";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		else if (required <= 10 && Math.abs(required- input.lenght) > 1 ){
-			error = "E2_2";
+		if (!presence_check(shipNum) && input.lenght > 0){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead
+			error = "E1_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
+		}
+		if (shipNum == 0 && input.lenght > 0){ 
+			error = "E1_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (shipNum > 0 && input.lenght == 0){ 
+			error = "E1_3";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if ((shipNum == 0 && input.lenght == 0)||(!presence_check(shipNum) && input.lenght == 0)){
+			error = "E1_4";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (shipNum > 100000 && input.lenght > 0){ 
+			error = "E1_5";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (shipNum > 100000){ 
+			error = "E8_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (shipNum != 0 ){
+			if (range_val_check(shipNum, "interval1", "conf1")){
+				interval = Math.ceil(parseInt(shipNum/40))
+			}
+			else if (range_val_check(shipNum, "interval2", "conf1")){
+				interval = 5 * Math.ceil(parseInt(shipNum/200))
+			}
+			else if (range_val_check(shipNum, "interval3", "conf1")){
+				interval = 10 * Math.ceil(parseInt(shipNum/600))
+			}
+			else if (range_val_check(shipNum, "interval4", "conf1")){
+				interval = 10 * Math.ceil(parseInt(shipNum/600))
+			}
+			else if (range_val_check(shipNum, "interval5", "conf1")){
+				interval = 20 * Math.ceil(parseInt(shipNum/1600))
+			}
+			else if (range_val_check(shipNum, "interval6", "conf1")){
+				interval = 20 * Math.ceil(parseInt(shipNum/1600))
+			}
+			else if (range_val_check(shipNum, "interval7", "conf1")){
+				interval = 50 * Math.ceil(parseInt(shipNum/4000))
+			}
+			else if (range_val_check(shipNum, "interval8", "conf1")){
+				interval = 100 * Math.ceil(parseInt(shipNum/8000))
+			}
+			required = Math.floor(shipNum/interval)
+			if (required > 10 && (required- input.lenght)/required > 0.2 ){
+				error = "E2_1";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+			else if (required <= 10 && Math.abs(required- input.lenght) > 1 ){
+				error = "E2_2";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
 		}
 	}
 		if (result.flags.length>0){
@@ -1358,7 +1358,7 @@ function test_exportMode(exp_mode, country){
 	}
 	return result;
 }
-/*
+
 function test_auto_fill_m(input, attrib){ //FIXME fix this according to our discussion last week
 	var result = new Object();
 	var error;
@@ -1367,7 +1367,7 @@ function test_auto_fill_m(input, attrib){ //FIXME fix this according to our disc
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	for (i== 0 ; i < attrib.length; i++){
+	for (i= 0 ; i < attrib.length; i++){
 		if (!auto_fill(input, "SHIPMENT_VALUE")){
 			count ++;
 		}
@@ -1388,12 +1388,11 @@ function test_auto_fill_m(input, attrib){ //FIXME fix this according to our disc
 		}
 	}	
 	if (count > 0){
-		count = result.flagval
-		error = "S15_1";
+		error = "S15";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
+		result.flagval.push(count);
 	}
 	if (result.flags.length>0){
 		result.pass = false;
@@ -1401,6 +1400,4 @@ function test_auto_fill_m(input, attrib){ //FIXME fix this according to our disc
 		result.pass = true;
 	}
 		return result;
-}*/
-		
-	
+}

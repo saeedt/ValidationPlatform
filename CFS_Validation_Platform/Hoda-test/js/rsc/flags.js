@@ -246,40 +246,9 @@ var flags = {
 		name: "miss_ship_month",
 		msg: "Shipment date (month) is missing."
 	},
-	S15_1: {
+	S15: {
 		flag: "S15",
-		value: "1",
-		name: "autoFill_error1",
-		msg: "Autofill error."
-	},
-	S15_2: {
-		flag: "S15",
-		value: "2",
-		name: "autoFill_error2",
-		msg: "Autofill error."
-	},
-	S15_3: {
-		flag: "S15",
-		value: "3",
-		name: "autoFill_error3",
-		msg: "Autofill error."
-	},
-	S15_4: {
-		flag: "S15",
-		value: "4",
-		name: "autoFill_error4",
-		msg: "Autofill error."
-	},
-	S15_5: {
-		flag: "S15",
-		value: "5",
-		name: "autoFill_error5",
-		msg: "Autofill error."
-	},
-	S15_6: {
-		flag: "S15",
-		value: "6",
-		name: "autoFill_error6",
+		name: "autoFill_error",
 		msg: "Autofill error."
 	},
 	S16_1: {
