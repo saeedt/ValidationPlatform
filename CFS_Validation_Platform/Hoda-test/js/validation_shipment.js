@@ -212,7 +212,7 @@ function test_numberOfShip(shipNum, nos){
 }
 //console.log(MOS_vs_ATV("0", "400000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
-function MOS_vs_ATV(ATV, MOS, estbWeight){
+function test_MOS_vs_ATV(ATV, MOS, estbWeight){
 	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)
 	//FIXME hard coded numbers must be moved to config
 	//Removed the hard-coded numbers
