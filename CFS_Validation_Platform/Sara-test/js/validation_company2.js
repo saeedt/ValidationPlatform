@@ -203,14 +203,17 @@ function shipping_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}	
-			else if(!field_length_check(input, "state", "conf1")){
+			if(!field_length_check(input, "state", "conf1")){
 				error = "E25_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 					}
-		}	
+		}
+	if (!result.flgname.length>0){
+		//lookuplinear32
+	}
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
@@ -219,7 +222,7 @@ function shipping_state(input){
 
 //5 digit zip code 
 //console.log(shipping_zip5("agawam", "MA", "mnh5"));
-function shipping_zip5(input1, input2, input3){
+function shipping_zip5(input1, input2, input3){ // need to change based on shipment-crsooscheck zip
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
