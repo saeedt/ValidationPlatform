@@ -173,7 +173,7 @@ var conf1= {
  		minRange:1,
  		maxRange:Infinity
  	},
- 	NAICS: {
+ 	naics: {
  		minlength:2,
  		maxlength:6,
  		minRange:11,

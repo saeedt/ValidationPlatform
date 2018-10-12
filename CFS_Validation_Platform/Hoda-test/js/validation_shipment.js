@@ -1422,3 +1422,53 @@ function test_auto_fill_m(input, attrib){ //FIXME fix this according to our disc
 	}
 		return result;
 }
+//console.log(test_naics("bns"));
+//console.log(test_naics("5"));
+//console.log(test_naics("76897668"));
+//console.log(test_naics("09"));
+//console.log(test_naics("934000"));
+function test_naics(input){
+	var result = new Object();
+	var error;
+	result.valid = true;
+	result.flagname = [];
+	result.flags = [];
+	result.flagval = [];
+	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S49_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!check_allowed_char(input, "numeric", "conf1")){
+		error = "S49_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!field_length_check(input, "naics", "conf1")){
+		error = "S49_4";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!range_val_check(input, "naics", "conf1")){
+		error = "S49_20";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;	
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}		
