@@ -539,6 +539,54 @@ var flags = {
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
 	},
+	S49_1: {
+		flag: "S49",
+		value: "1",
+		name: "nonNumeric_NAICS",
+		msg: "NAICS code is not numeric."
+	},
+	S49_2: {
+		flag: "S49",
+		value: "2",
+		name: "miss_NAICS",
+		msg: "NAICS code is missing."
+	},
+	S49_4: {
+		flag: "S49",
+		value: "4",
+		name: "inv_NAICS",
+		msg: "Number of NAICS code's digit is invalid."
+	},
+	S49_20: {
+		flag: "S49",
+		value: "20",
+		name: "outOfRange_NAICS",
+		msg: "NAICS code is not in range."
+	},
+	S50_1: {
+		flag: "S50",
+		value: "1",
+		name: "nonNumeric_MOS",
+		msg: "MOS is not numeric."
+	},
+	S50_2: {
+		flag: "S50",
+		value: "2",
+		name: "miss_MOS",
+		msg: "MOS is missing."
+	},
+	S51_1: {
+		flag: "S51",
+		value: "1",
+		name: "nonNumeric_ATV",
+		msg: "ATV is not numeric."
+	},
+	S51_2: {
+		flag: "S51",
+		value: "2",
+		name: "miss_ATV",
+		msg: "ATV is missing."
+	},
 	//Edit flags for establishment attributes
 	E1_1: {
 		flag: "E1",
