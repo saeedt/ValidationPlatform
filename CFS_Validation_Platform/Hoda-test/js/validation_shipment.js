@@ -1471,4 +1471,68 @@ function test_naics(input){
 		result.pass = true;
 	}
 	return result;
+}	
+
+function test_mos(input){
+	var result = new Object();
+	var error;
+	result.valid = true;
+	result.flagname = [];
+	result.flags = [];
+	result.flagval = [];
+	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S50_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!check_allowed_char(input, "numeric", "conf1")){
+		error = "S50_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}
+
+function test_atv(input){
+	var result = new Object();
+	var error;
+	result.valid = true;
+	result.flagname = [];
+	result.flags = [];
+	result.flagval = [];
+	result.flagmsg = [];
+	if (!presence_check(input)){
+		error = "S51_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	} else if (!check_allowed_char(input, "numeric", "conf1")){
+		error = "S51_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
 }		
