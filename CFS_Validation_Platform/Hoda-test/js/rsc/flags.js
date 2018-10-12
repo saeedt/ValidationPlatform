@@ -249,7 +249,7 @@ var flags = {
 	S15: {
 		flag: "S15",
 		name: "autoFill_error",
-		msg: "Autofill error."
+		msg: "Autofill error on : "
 	},
 	S16_1: {
 		flag: "S16",

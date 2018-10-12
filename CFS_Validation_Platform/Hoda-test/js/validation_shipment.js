@@ -236,7 +236,7 @@ function test_MOS_vs_ATV(ATV, MOS, estbWeight){
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
+	 			result.flagmsg.push((flags)[error].msg);
 	}
 	if (result.flags.length>0){
 		result.pass = false;
@@ -599,7 +599,6 @@ function test_ship_weight(weight, mode, naics, evalres){
 	}
 	if (result.flags.length>0){
 		result.pass = false;
-		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -837,7 +836,6 @@ function test_sctg(sctg, value, weight, mode, temp, naics, evalres){
 	}		
 	if (result.flags.length>0){
 		result.pass = false;
-		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -908,7 +906,6 @@ function test_temp_control(input){
 		}		
 	if (result.flags.length>0){
 		result.pass = false;
-		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -990,7 +987,6 @@ function test_unna(unna, sctg, evalres){
 	}		
 	if (result.flags.length>0){
 		result.pass = false;
-		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -1084,7 +1080,7 @@ function test_destinationState(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!lkup_linear("lkup31",input)){
+		if (!lkup_linear("lkup32",input)){
 			error = "S42_22";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -1217,7 +1213,6 @@ function test_mode(input){
 	}
 	if (result.flags.length>0){
 		result.pass = false;
-		result.valid = false;
 	}
 	else {
 		result.pass = true;
@@ -1363,7 +1358,7 @@ function test_exportMode(exp_mode, country){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup32", country))){//Used lookup table instead of name of countries also logical operator AND is used.
+	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup31", country))){//Used lookup table instead of name of countries also logical operator AND is used.
 				error = "S16_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -1386,31 +1381,38 @@ function test_auto_fill_m(input, attrib){ //FIXME fix this according to our disc
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
+	var failed_attribs = '';
 	for (i= 0 ; i < attrib.length; i++){
 		if (!auto_fill(input, "SHIPMENT_VALUE")){
 			count ++;
+			failed_attribs+= "SHIPMENT_VALUE;";
 		}
 		if (!auto_fill(input, "SHIPMENT_WEIGHT")){
 			count ++;
+			failed_attribs+="SHIPMENT_WEIGHT;";
 		}
 		if (!auto_fill(input, "SCTG_COMMODITY_CODE")){
 			count ++;
+			failed_attribs+="SCTG_COMMODITY_CODE;";
 		}
 		if (!auto_fill(input, "DOMESTIC_TRANSPORT_MODE")){
 			count ++;
+			failed_attribs+="DOMESTIC_TRANSPORT_MODE;";
 		}
 		if (!auto_fill(input, "HAZMAT_CODE")){
 			count ++;
+			failed_attribs+="HAZMAT_CODE;";
 		}
 		if (!auto_fill(input, "DOMESTIC_ZIP_CODE")){
 			count ++;
+			failed_attribs+= "DOMESTIC_ZIP_CODE;";
 		}
 	}	
 	if (count > 0){
 		error = "S15";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
-		result.flagmsg.push((flags)[error].msg);
+		result.flagmsg.push((flags)[error].msg+failed_attribs);
 		result.flagval.push(count);
 	}
 	if (result.flags.length>0){
