@@ -947,8 +947,8 @@ function test_unna(unna, sctg, evalres){
 		}
 	if (presence_check(unna)){
 		if (evalres.SCTG_COMMODITY_CODE.valid){
-			if (lkup_linear("lkup33", sctg)){
-				//TODO lookup 33 is reserved for the UNNA/SCTG combination list			
+			if (lkup_linear("lkup31", sctg)){
+				//TODO lookup 31 is reserved for the UNNA/SCTG combination list			
 				error = "S9_4";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -1278,13 +1278,7 @@ function test_exportCity(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if ((!lkup_linear("lkup14", input)) && (!lkup_linear("lkup15", input))){
-		error = "S17_1";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}	
+	} 
 	if (result.flags.length>0){
 		result.pass = false;
 	}
@@ -1293,36 +1287,62 @@ function test_exportCity(input){
 	}
 	return result;
 }
-//console.log(test_exportCountry("1766"));
-//console.log(test_exportCountry(""));
-//console.log(test_exportCountry("lkjh"));
-//console.log(test_exportCountry("Algeria"));
-function test_exportCountry(input){
+
+//console.log(test_exportCountry("1766", "mhd"));
+//console.log(test_exportCountry("", "mhd"));
+//console.log(test_exportCountry("cAnaDA", "mhd"));
+//console.log(test_exportCountry("mexICO", "MOrell"));
+//console.log(test_exportCountry("cAnADA", "ACTOPAn"));
+//console.log(test_exportCountry("cAnADA", "moreLL"));
+//console.log(test_exportCountry("caanaada", "ACTOPAn"));
+function test_exportCountry(country, city){
 	var result = new Object();
 	var error;
+	var country = country.toUpperCase();
+	var city = city.toUpperCase();
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	if (!presence_check(input)){
+	if (!presence_check(country)){
 		error = "S47_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
+	} else if (!check_allowed_char(country, "alphabetic", "conf1")){
 		error = "S47_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup16", input)){
-		error = "S17_2";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
+	} else {
+		if (country == "CANADA"){
+			if (!lkup_linear("lkup14", city)){
+				error = "S17_1";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+		}	
+		if (country == "MEXICO"){
+			if (!lkup_linear("lkup15", city)){
+				error = "S17_1";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+		}	
+		if (!lkup_linear("lkup16", country)){
+			error = "S17_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+			}
+		}	
 	if (result.flags.length>0){
 		result.pass = false;
 	}

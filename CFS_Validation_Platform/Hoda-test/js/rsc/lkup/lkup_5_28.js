@@ -16,11 +16,11 @@ var lkup12 = ["08310","08410","17110","17120","17201","17202","17500","17600","1
 
 var lkup13 = ["03930","07429","07432","07731","07732","08310","08320","08410","08420","13910","13993","14992","14994","14995","14999","16000","17110","17120","17201","17202","17500","17600","18100","18200","18210","18220","19100","19209","19310","19321","19322","19329","19330","19920","19930","19990","20101","20102","20210","20221","20222","20229","20241","20242","20251","20259","20263","20264","20269","20291","20293","20299","20300","20410","20420","20430","20501","20502","20504","20509","21000","22020","22039","22049","22090","23110","23121","23122","23201","23202","23300","23400","23500","23901","23902","23904","23906","23909","24101","24102","25091","26909","27120","31991","31993","32491","34320","35911","35912","35920","36409","38499","40120","41110","41120","41130","41299"];
 	
-var lkup14 = ["Mississauga", "Mistatim", "Morell", "Morden", "Morse"];//incomplete
+var lkup14 = ["MISSISSAUGA", "MISTATIM", "MORELL", "MORDEN", "MORSE"];//incomplete
 
-var lkup15 = ["Aconchi", "Actopan", "Agostitlan", "Amacuzac", "Amatepec", "Amazcala"];//incomplete
+var lkup15 = ["ACONCHI", "ACTOPAN", "AGOSTITLAN", "AMACUZAC", "AMATEPEC", "AMAZCALA"];//incomplete
 
-var lkup16 = ["Afganistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina"];//incomplete
+var lkup16 = ["CANADA", "MEXICO","AFGANISTAN", "ALBANIA", "ALGERIA", "ANDORRA", "ANGOLA", "ARGENTINA"];//incomplete
 
 var lkup17 = [
 	{
@@ -142,8 +142,8 @@ var lkup29 = ["2","3","4"];
 
 var lkup30 = ["33","42","45"];
 
-var lkup31 = ["CANADA", "MEXICO"];
+var lkup31 = [];
 
 var lkup32 = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
 
-var lkup33 = [];
+var lkup33 = ["CANADA", "MEXICO"];
