@@ -22,8 +22,9 @@ function verify_shipment(input){
 		tmpResult.DOMESTIC_CITY_NAME = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
 		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
 		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
-		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
-		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);		
+		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
+		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE,tmpResult);
+				
 		result.push(tmpResult);
 	}
 	result.push(test_auto_fill_m(input[i].list,input[i].attrib));	
@@ -923,7 +924,7 @@ function test_destinationState(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!lkup_linear('lkup31',input)){
+		if (!lkup_linear('lkup32',input)){
 			// TODO: add a flag for invalid state and update 
 		}		
 	}					
@@ -1073,6 +1074,7 @@ function test_export(input){
 function test_exportCity(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1089,24 +1091,26 @@ function test_exportCity(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup14", input) || !lkup_linear("lkup15", input)){
+	} /*else if (!lkup_linear("lkup14", input) || !lkup_linear("lkup15", input)){
 		error = "S17_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	}	
+	}*/	
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
 	}
 	return result;
 }
-function test_exportCountry(input){
+function test_exportCountry(input,city,evalres){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1117,19 +1121,31 @@ function test_exportCountry(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
 	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
 		error = "S46_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup16", input)){
+		result.valid = false;
+	} else if (!lkup_linear("lkup16", input.toUpperCase())){
 		error = "S17_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
 	}
+	if (result.valid && eval_res.EXPORT_CITY_NAME.valid){
+		/*if (input.toLowerCase() =='mexico' ){
+			check for mexico cities
+		} else if (country.toLowerCase() == 'Canada'){
+			check for canada cities
+		}*/
+		//TODO: add the lkup for canada and mexico citites
+	}
+	
 	if (result.flags.length>0){
 		result.pass = false;
 	}
