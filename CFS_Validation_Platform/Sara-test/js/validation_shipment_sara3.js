@@ -38,6 +38,7 @@ function test_numberOfShip(shipNum,nos){
 	var required;
 	var reqRatio = (required-nos)/required
 	var difReNos =Math.abs(required- nos)
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -49,22 +50,31 @@ function test_numberOfShip(shipNum,nos){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else {
-		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
-			error = "S30_20";
+		if ( nos == 0){	
+			error = "E1_4";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		} 
+		if (nos > 0){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead 
+		error = "E1_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		}
+	}
+	else {
+		if (!range_val_check(shipNum, "Tot_num_ship", "conf1")){ 
+			error = "E8_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!presence_check(shipNum) && range_val_check(nos, "ship_reported", "conf1")){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead 
-			error = "E1_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (shipNum == 0 && range_val_check(nos, "ship_reported", "conf1")){ 
+		
+		if (shipNum == 0 && nos > 0){ 
 			error = "E1_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -78,21 +88,21 @@ function test_numberOfShip(shipNum,nos){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((shipNum == 0 && nos == 0)||(!presence_check(shipNum) && nos == 0)){
+		if ((shipNum == 0 && nos == 0)){
 			error = "E1_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (range_val_check(nos, "tot_ship_week", "conf1") && range_val_check(nos, "ship_reported", "conf1")){ 
+		if (!range_val_check(shipnum, "tot_ship_week", "conf1") && nos > 0){ 
 			error = "E1_5";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (range_val_check(shipNum, "Tot_num_ship", "conf1")){ 
+		if (!range_val_check(shipNum, "tot_ship_week", "conf1")){ 
 			error = "E8_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -125,14 +135,14 @@ function test_numberOfShip(shipNum,nos){
 				interval = 100 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval8.sample_rate))
 			}
 			required = Math.floor(shipNum/interval)
-			if (range_val_check(required, "requiredCase1", "conf1") && range_val_check(reqRatio,"requiredRatio", "conf1")){
+			if (!range_val_check(required, "requiredCase1", "conf1") && !range_val_check(reqRatio,"requiredRatio", "conf1")){
 				error = "E2_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-			else if (range_val_check(required, "requiredCase2", "conf1") && range_val_check(difReNos, "difReNos", "conf1") ){
+			else if (!range_val_check(required, "requiredCase2", "conf1", "10", "") && !range_val_check(difReNos, "difReNos", "conf1") ){
 				error = "E2_2";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -141,14 +151,16 @@ function test_numberOfShip(shipNum,nos){
 			}
 		}
 	}
-		if (result.flags.length>0){
-			result.pass = false;
-		}
-		else {
-			result.pass = true;
-		}
-			return result;
-}
+		
+			if (result.flags.length>0){
+				result.pass = false;
+			}
+			else {
+				result.pass = true;
+			}
+				return result;
+	}
+console.log(MOS_vs_ATV("1000000000"," 200000000", "5"));
 function MOS_vs_ATV(ATV, MOS, estbWeight){
 	var result = new Object();;
 	var error;
@@ -161,22 +173,50 @@ function MOS_vs_ATV(ATV, MOS, estbWeight){
 	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)// added presence and allowed functions
 	//FIXME hard coded numbers must be moved to config // removed hard codes and added in config
 	
-	if (presence_check(MOS) && presence_check(ATV)){
-		if (check_allowed_char(MOS, "numeric", "conf1") && check_allowed_char(ATV, "numeric", "conf1")){ 
-			if (range_val_check(dif, "dif", "ATV_MOS_case1") && (range_val_check(dif, "ATV", "ATV_MOS_case1") ||range_val_check(dif, "ratio1", "ATV_MOS_case1") ||  range_val_check(dif, "ratio2", "ATV_MOS_case1"))){
-				error = "E3_1";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
-			if ((range_val_check(dif, "dif", "ATV_MOS_case2") || range_val_check(estbWeight, "ATV", "ATV_MOS_case2")) && (range_val_check(dif, "ATV", "ATV_MOS_case2") ||range_val_check(dif, "ratio1", "ATV_MOS_case2") ||  range_val_check(dif, "ratio2", "ATV_MOS_case2"))){
-				error = "E3_2";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
-			}
+	if (!presence_check(MOS)){
+		error = "S50_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+	}
+	if (!presence_check(ATV)){
+		error = "S51_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
+		
+	}
+	if(!result.flags.length>0){
+		if (check_allowed_char(MOS, "numeric", "conf1")){
+			error = "S50_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if (check_allowed_char(ATV, "numeric", "conf1")){ 
+			error = "S51_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+	if(!result.flags.length>0){
+		if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(dif, "ratio1", "ATV_MOS_case1"))){
+			error = "E3_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(dif, "ratio1", "ATV_MOS_case2"))){
+			error = "E3_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
 		}
 	}
 	if (result.flags.length>0){
@@ -186,7 +226,9 @@ function MOS_vs_ATV(ATV, MOS, estbWeight){
 		result.pass = true;
 	}
 	return result;
+	}
 }
+	
 
 function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){
 	var result = new Object();
@@ -934,7 +976,7 @@ function test_destinationState(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if (!lkup_linear('lkup31',input)){
+		if (!lkup_linear('lkup32',input)){
 			// TODO: add a flag for invalid state and update 
 		}		
 	}					
@@ -1084,6 +1126,7 @@ function test_export(input){
 function test_exportCity(input){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1100,24 +1143,26 @@ function test_exportCity(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup14", input) || !lkup_linear("lkup15", input)){
+	} /*else if (!lkup_linear("lkup14", input) || !lkup_linear("lkup15", input)){
 		error = "S17_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	}	
+	}*/	
 	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
 	}
 	else {
 		result.pass = true;
 	}
 	return result;
 }
-function test_exportCountry(input){
+function test_exportCountry(input,city,evalres){
 	var result = new Object();
 	var error;
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1128,19 +1173,31 @@ function test_exportCountry(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
 	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
 		error = "S46_1";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup16", input)){
+		result.valid = false;
+	} else if (!lkup_linear("lkup16", input.toUpperCase())){
 		error = "S17_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
+		result.valid = false;
 	}
+	if (result.valid && eval_res.EXPORT_CITY_NAME.valid){
+		/*if (input.toLowerCase() =='mexico' ){
+			check for mexico cities
+		} else if (country.toLowerCase() == 'Canada'){
+			check for canada cities
+		}*/
+		//TODO: add the lkup for canada and mexico citites
+	}
+	
 	if (result.flags.length>0){
 		result.pass = false;
 	}
