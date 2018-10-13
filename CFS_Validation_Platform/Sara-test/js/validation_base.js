@@ -32,25 +32,39 @@ function field_length_check(input, type, config){
       }  
 }
 //Range value check function
-function range_val_check(input, type, config){  
+function range_val_check(input, type, config, lbeq=false, ubeq=false){  
 	var min_pass=true;
 	var max_pass=true;
 	var cfg=eval(config)[type];
 	if (typeof(cfg.minRange)!= "undefined"){
-		if (parseFloat(input) < cfg.minRange) {
-			min_pass=false;
-		}
+		if (lbeq){
+			if (parseFloat(input) <= cfg.minRange) {
+				min_pass=false;
+			}
+		} else {
+			if (parseFloat(input) < cfg.minRange) {
+				min_pass=false;
+			}
+		}		
 	}
 	if (typeof(cfg.maxRange)!= "undefined"){
-		if (parseFloat(input) > cfg.maxRange) {
-			max_pass=false;
-		}
+		if (ubeq){
+			if (parseFloat(input) >= cfg.maxRange) {
+				max_pass=false;
+			}
+		} else {
+			if (parseFloat(input) > cfg.maxRange) {
+				max_pass=false;
+			}
+		}		
 	}
 	if (min_pass && max_pass){
 		return true;
+	} else{
+		return false;
 	}
-	return false;
 }
+
 //Presence check
 function presence_check(input){	
 	if ( typeof(input) == 'undefined') { 
