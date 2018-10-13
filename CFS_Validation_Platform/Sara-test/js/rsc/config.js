@@ -61,9 +61,8 @@ var conf1= {
 		maxlength: 4	
 	},
 	numberOfShip: {
-		minRange:1,
-		maxRange:100000
-	},	
+		minRange:100000
+	},
 	totShipValue: {
 		minRange: 1
 	},	
@@ -125,76 +124,45 @@ var conf1= {
 		sample_rate:8000
 	},	
 	requiredCase1:{
-		minRange:10,
-		maxRange:Infinity
+		maxRange:10,
 	},
 	requiredRatio:{
-		minRange:0.2,
-		maxRange:1
+		maxRange:0.2,
 	},
 	
 	requiredCase2:{
-		minRange:0,
-		maxRange:11
+		minRange:10,
 	},
 	difReNos:{
-		minRange:1,
-		maxRange:Infinity
+		maxRange:1,	
 	},
 	tot_ship_week:{
-		minRange:100000,
-		maxRange:Infinity
-	},
-	ship_reported:{
-		minRange:1,
-		maxRange:Infinity
-	},
-	Tot_num_ship:{
-		minRange:100000,
-		maxRange:Infinity
+		maxRange:100000,
 	}
-	
+
 };
 
 var ATV_MOS_case1={
 	dif:{
-		minRange:1000000000,
-		maxRange: Infinity
+		maxRange:1000000000
 		},
-	ATV:{
-		minRange:0,
-		maxRange: Infinity
-			},
+	
 	ratio1:{
-		minRange: 5,
-		MaxRange: Infinity
-			},
-	ratio2:{
-		minRange:0,
-		MaxRange: 0.2
+		minRange: 0.2,
+		MaxRange: 5
 			}
+			
 	
 };
 var ATV_MOS_case2={
 		dif:{
-			minRange:20000000,
-			maxRange: Infinity
+			maxRange:20000000,
 			},
-			estabWeight:{
-			minRange:5,
-			maxRange: Infinity	
+		estabWeight:{
+			maxRange:5,
 			},
-		ATV:{
-			minRange:0,
-			maxRange: Infinity
-				},
 		ratio1:{
-			minRange: 10,
-			maxRange: Infinity
-				},
-		ratio2:{
-			minRange:0,
-			maxRange: 0.1
-				}
-		
+			minRange: 0.1,
+			maxRange: 10
+				}	
 	};
