@@ -1094,12 +1094,18 @@ var flags = {
 		name: "miss_contactFax",
 		msg: "Contact information (fax number) is missing."
 	},
+	E46_2: {	
+		flag: "E46",
+		value: "2",
+		name: "miss_reamrk",
+		msg: "remark is missing."
+	},
 	E46_40: {	
 		flag: "E46",
 		value: "40",
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
-	},
+	}
 };
 	
 
