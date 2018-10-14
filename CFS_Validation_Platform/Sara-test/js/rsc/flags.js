@@ -246,41 +246,10 @@ var flags = {
 		name: "miss_ship_month",
 		msg: "Shipment date (month) is missing."
 	},
-	S15_1: {
+	S15: {
 		flag: "S15",
-		value: "1",
-		name: "autoFill_error1",
-		msg: "Autofill error."
-	},
-	S15_2: {
-		flag: "S15",
-		value: "2",
-		name: "autoFill_error2",
-		msg: "Autofill error."
-	},
-	S15_3: {
-		flag: "S15",
-		value: "3",
-		name: "autoFill_error3",
-		msg: "Autofill error."
-	},
-	S15_4: {
-		flag: "S15",
-		value: "4",
-		name: "autoFill_error4",
-		msg: "Autofill error."
-	},
-	S15_5: {
-		flag: "S15",
-		value: "5",
-		name: "autoFill_error5",
-		msg: "Autofill error."
-	},
-	S15_6: {
-		flag: "S15",
-		value: "6",
-		name: "autoFill_error6",
-		msg: "Autofill error."
+		name: "autoFill_error",
+		msg: "Autofill error on : "
 	},
 	S16_1: {
 		flag: "S16",
@@ -312,6 +281,12 @@ var flags = {
 		name: "outOfRange_numberOfShip",
 		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
 	},
+	S31_1: {
+		flag: "S31",
+		value: "1",
+		name: "nonNumeric_totShipValue",
+		msg: "Total value of shipments is not numeric."
+	},
 	S31_2: {
 		flag: "S31",
 		value: "2",
@@ -327,8 +302,14 @@ var flags = {
 	S32_2: {
 		flag: "S32",
 		value: "2",
-		name: "moreThan40ship",
+		name: "miss_moreThan40ship",
 		msg: "No selection is made."
+	},
+	S32_5: {
+		flag: "S32",
+		value: "5",
+		name: "inv_moreThan40ship",
+		msg: "Input is invalid."
 	},
 	S33_1: {
 		flag: "S33",
@@ -394,7 +375,13 @@ var flags = {
 		flag: "S38",
 		value: "4",
 		name: "inv_sctg",
-		msg: "SCTG commodity code not a 5-digit number."
+		msg: "SCTG commodity code is not a 5-digit number."
+	},
+	S38_20: {
+		flag: "S38",
+		value: "20",
+		name: "outOfRange_sctg",
+		msg: "SCTG commodity code is not in range."
 	},
 	S39_1: {
 		flag: "S39",
@@ -419,6 +406,12 @@ var flags = {
 		value: "4",
 		name: "inv_unna",
 		msg: "'UN' or 'NA' code is not a 4-digit number."
+	},
+	S40_20: {
+		flag: "S40",
+		value: "20",
+		name: "outOfRange_unna",
+		msg: "'UN' or 'NA' code is not in range."
 	},
 	S41_1: {
 		flag: "S41",
@@ -462,6 +455,12 @@ var flags = {
 		name: "invChar_destinationState",
 		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
 	},
+	S42_22: {
+		flag: "S42",
+		value: "22",
+		name: "notFound_destinationState",
+		msg: "U.S. destination (state) is invalid."
+	},
 	S43_1: {
 		flag: "S43",
 		value: "1",
@@ -486,53 +485,107 @@ var flags = {
 		name: "notFound_destinationZip",
 		msg: "U.S. destination (zip) is invalid."
 	},
-	S44_2: {
+	S44_4: {
 		flag: "S44",
+		value: "4",
+		name: "outOfRange_mode",
+		msg: "Mode of transport is not in range."
+	},
+	S45_2: {
+		flag: "S45",
 		value: "2",	
 		name: "YN_export",
 		msg: "No selection is made."
 	},
-	S44_5: {
-		flag: "S44",
+	S45_5: {
+		flag: "S45",
 		value: "5",	
 		name: "inv_export",
 		msg: "Input is invalid."
 	},
-	S45_1: {
-		flag: "S45",
+	S46_1: {
+		flag: "S46",
 		value: "1",
 		name: "nonAlphabetic_exportCity",
 		msg: "Foreign destination (city) is not alphabetic."
 	},
-	S45_2: {
-		flag: "S45",
+	S46_2: {
+		flag: "S46",
 		value: "2",
 		name: "miss_exportCity",
 		msg: "Foreign destination (city) is missing."
 	},
-	S46_1: {
-		flag: "S46",
+	S47_1: {
+		flag: "S47",
 		value: "1",
 		name: "nonAlphabetic_exportCountry",
 		msg: "Foreign destination (country) is not alphabetic."
 	},
-	S46_2: {
-		flag: "S46",
+	S47_2: {
+		flag: "S47",
 		value: "2",
 		name: "miss_exportCountry",
 		msg: "Foreign destination (country) is missing."
 	},
-	S47_1: {
-		flag: "S47",
+	S48_1: {
+		flag: "S48",
 		value: "1",
 		name: "nonNumeric_exportMode",
 		msg: "Export mode of transport is not numeric."
 	},
-	S47_2: {
-		flag: "S47",
+	S48_2: {
+		flag: "S48",
 		value: "2",
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
+	},
+	S49_1: {
+		flag: "S49",
+		value: "1",
+		name: "nonNumeric_NAICS",
+		msg: "NAICS code is not numeric."
+	},
+	S49_2: {
+		flag: "S49",
+		value: "2",
+		name: "miss_NAICS",
+		msg: "NAICS code is missing."
+	},
+	S49_4: {
+		flag: "S49",
+		value: "4",
+		name: "inv_NAICS",
+		msg: "Number of NAICS code's digit is invalid."
+	},
+	S49_20: {
+		flag: "S49",
+		value: "20",
+		name: "outOfRange_NAICS",
+		msg: "NAICS code is not in range."
+	},
+	S50_1: {
+		flag: "S50",
+		value: "1",
+		name: "nonNumeric_MOS",
+		msg: "MOS is not numeric."
+	},
+	S50_2: {
+		flag: "S50",
+		value: "2",
+		name: "miss_MOS",
+		msg: "MOS is missing."
+	},
+	S51_1: {
+		flag: "S51",
+		value: "1",
+		name: "nonNumeric_ATV",
+		msg: "ATV is not numeric."
+	},
+	S51_2: {
+		flag: "S51",
+		value: "2",
+		name: "miss_ATV",
+		msg: "ATV is missing."
 	},
 	//Edit flags for establishment attributes
 	E1_1: {
@@ -745,6 +798,12 @@ var flags = {
 		name: "inv_shipState",
 		msg: "Shipping address (state) is not a two-letter abbreviation."
 	},
+	E25_22: {		
+		flag: "E25",
+		value: "22",
+		name: "notFound-state",
+		msg: "Shipping address (state) is not found."
+	},
 	E26_1: {	
 		flag: "E26",
 		value: "1",
@@ -877,6 +936,12 @@ var flags = {
 		value: "4",
 		name: "inv_mailState",
 		msg: "Mailing address (state) is not a two-letter abbreviation."
+	},
+	E34_22: {	
+		flag: "E34",
+		value: "22",
+		name: "notFound_mailState",
+		msg: "Mailing address (state) is not found."
 	},
 	E35_1: {	
 		flag: "E35",
@@ -1035,5 +1100,7 @@ var flags = {
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
 	},
+};
 	
-};	
+
+
