@@ -101,15 +101,16 @@ function shipping_Company_name_2(input){ //need presence check
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		} else {
-			if (!check_allowed_char(input, "alphanumeric", "conf1")){
-				error = "E21_1"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-				}
+	} 
+	else { 
+		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		error = "E22_1"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		}
+	}
 	if (result.flgname.lenght>0){
 		result.pass = false;
 	}
@@ -130,22 +131,23 @@ function shipping_address(input){
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		} else {
-			if (!check_allowed_char(input, "alphanumeric", "conf1")){
+		}
+	else{
+		if (!check_allowed_char(input, "alphanumeric", "conf1")){
 				error = "E23_1"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
-				}	
-			if (check_invalid_char(input, "shippingAddress", "conf1")){
+		}	
+		if (check_invalid_char(input, "shippingAddress", "conf1")){
 				error = "E23_5"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
-				}
-		}	
+		}
+	}
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
@@ -159,27 +161,31 @@ function shipping_city(input){
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true;
+	result.valid = true;
 	if (!presence_check(input)){
-		error = "E23_2"
+		error = "E24_2"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E23_1"
+				error = "E24_1"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
 		}	
-	if (result.flgname.length>0){
+	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
-}	
+}
 //state
 function shipping_state(input){
 	var result = new Object();
@@ -188,7 +194,7 @@ function shipping_state(input){
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true;	
+	result.valid = true;	
 	if (!presence_check(input)){
 		error = "E25_2"
 		result.flgname.push(flags[error].name);
@@ -212,54 +218,61 @@ function shipping_state(input){
 					}
 		}
 	if (!result.flgname.length>0){
-		//lookuplinear32
+		if (lkup_linear('lkup32',input)){
+			error = "E25_22"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);	
+		}
 	}
-	if (result.flgname.length>0){
+	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
-}	
+}
 
 //5 digit zip code 
 //console.log(shipping_zip5("agawam", "MA", "mnh5"));
-function shipping_zip5(input1, input2, input3){ // need to change based on shipment-crsooscheck zip
+function shipping_zip5(city, state, zip, evalres){ // need to change based on shipment-crsooscheck zip
 	var result = new Object();
 	var error;
 	result.flgname  =  [];
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true;
-	if (presence_check(input1) && presence_check(input2)){ // means that without presence of input1 , input2 function cannot work
-		if (!presence_check(input3)){
-			error = "E26_2"
+	result.pass = true; 
+	if (!presence_check(zip)){
+		error = "E26_2"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	} 
+	else {
+		if (!check_allowed_char(zip, "numeric", "conf1")){
+			error = "E26_1"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
-		} else {
-			if (!check_allowed_char(input3, "numeric", "conf1")){
-				error = "E26_1"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-			}
-			else if(!field_length_check(input3, "zipCode5", "conf1")){ // means that if input3 is not numeric filed-length is not needed to be checked
-				error = "E26_4"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-			}
-			if (result.flgname.length==0){ // if there is no flags, function continue with lukupbinary-m
-				var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
-				var test1 = {
-						"city" : input1 ,
-						"state" : input2,
-						"zipCode" : input3
-				};
-				if((lkup_binary_m("lkup4","zipCode",input3).found )){
+		}
+		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
+			error = "E26_4"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+		}
+		if (!result.flags.length >0){ 
+			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
+			var test1 = {"city" : city, "state" : state, "zip" : zip };
+			if((lkup_binary_m("lkup4","zipCode",zip).found )){
+				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
 					if(!matchObj(test1, test2, "zipCode")){
 						error = "E26_23"
 						result.flgname.push(flags[error].name);
@@ -267,22 +280,27 @@ function shipping_zip5(input1, input2, input3){ // need to change based on shipm
 						result.flgvalue.push(flags[error].value);
 						result.flgmsg.push(flags[error].msg);
 					}
-				} else {
-					error = "E26_22"
-					result.flgname.push(flags[error].name);
-					result.flgs.push(flags[error].flag);
-					result.flgvalue.push(flags[error].value);
-					result.flgmsg.push(flags[error].msg);
 				}
+			} 
+			else {
+				error = "E26_22"
+				result.flgname.push(flags[error].name);
+				result.flgs.push(flags[error].flag);
+				result.flgvalue.push(flags[error].value);
+				result.flgmsg.push(flags[error].msg);
 			}
 		}
-	} 
-	if (result.flgname.length>0){
+	}
+	if (result.flags.length>0){
 		result.pass = false;
 	}
+	else {
+		result.pass = true;
+	}
 	return result;
-}	
+}
 
+		
 //4 digit zip code extension
 function shipping_zip4 (input){
 	var result = new Object();
@@ -468,7 +486,8 @@ function mailing_city(input){
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true
+	result.valid = true
+
 	if (!presence_check(input)){
 		error = "E33_2"
 		result.flgname.push(flags[error].name);
@@ -484,11 +503,16 @@ function mailing_city(input){
 				result.flgmsg.push(flags[error].msg);
 				}
 		}
-	if (result.flgname.length>0){
+	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
-}	
+}
+	
 //Mailing state
 function mailing_state(input){
 	var result = new Object();
@@ -497,7 +521,7 @@ function mailing_state(input){
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true
+	result.valid = true
 	if (!presence_check(input)){
 		error = "E34_2"
 		result.flgname.push(flags[error].name);
@@ -512,119 +536,70 @@ function mailing_state(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}			
-			else if(!field_length_check(input, "state", "conf1")){
+			if(!field_length_check(input, "state", "conf1")){
 				error = "E34_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
+			if (!result.flgname.length>0){
+				if (lkup_linear('lkup32',input)){
+					error = "E34_22"
+					result.flgname.push(flags[error].name);
+					result.flgs.push(flags[error].flag);
+					result.flgvalue.push(flags[error].value);
+					result.flgmsg.push(flags[error].msg);	
+				}
+			}
 		}
-	if (result.flgname.length>0){
+	if (result.flags.length>0){
 		result.pass = false;
+		result.valid = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
 }
 
 //5 digit mailing zip code
-function mailing_zip5(input1, input2, input3){
+		
+function mailing_zip5(city, state, zip,evalres){
 	var result = new Object();
+	var error;
 	result.flgname  =  [];
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	var error;
-	var input1;
-	var input2;
-	var input3;
-	result.pass = true;
-	if (!presence_check(input3)){
+	result.pass = true; 
+	if (!presence_check(zip)){
 		error = "E35_2"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-	} else {
-		var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
-		var test1 = {
-				"city" : input1 ,
-				"state" : input2,
-				"zipCode" : input3
-		};
-		if (!check_allowed_char(input3, "numeric", "conf1")){
+	} 
+	else {
+		if (!check_allowed_char(zip, "numeric", "conf1")){
 			error = "E35_1"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if(!field_length_check(input3, "zipCode5", "conf1")){
+		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
 			error = "E35_4"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
-		}		
-		if((lkup_binary_m("lkup4","zipCode",input3).found )){
-			if(!matchObj(test1, test2, "zipCode")){
-				error = "E35_23"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-			}
 		}
-		else{
-			error = "E35_22"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
-		}
-	}
-	if (result.flgname.length>0){
-		result.pass = false;
-	}
-	return result;
-}	
-function mailing_zip5(input1, input2, input3){
-	var result = new Object();
-	var error;
-	result.flgname  =  [];
-	result.flgs  =  [];
-	result.flgvalue =  [];
-	result.flgmsg   =  [];
-	result.pass = true;
-	if (presence_check(input1) && presence_check(input2)){ 
-		if (!presence_check(input3)){
-			error = "E35_2"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
-		} else {
-			if (!check_allowed_char(input3, "numeric", "conf1")){
-				error = "E35_1"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-			}
-			else if(!field_length_check(input3, "zipCode5", "conf1")){ 
-				error = "E35_4"
-				result.flgname.push(flags[error].name);
-				result.flgs.push(flags[error].flag);
-				result.flgvalue.push(flags[error].value);
-				result.flgmsg.push(flags[error].msg);
-			}
-			if (result.flgname.length==0){ 
-				var test2 = lkup_binary_m("lkup4","zipCode", input3).data;
-				var test1 = {
-						"city" : input1 ,
-						"state" : input2,
-						"zipCode" : input3
-				};
-				if((lkup_binary_m("lkup4","zipCode",input3).found )){
+		if (!result.flags.length >0){ 
+			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
+			var test1 = {"city" : city, "state" : state, "zip" : zip };
+			if((lkup_binary_m("lkup4","zipCode",zip).found )){
+				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
 					if(!matchObj(test1, test2, "zipCode")){
 						error = "E35_23"
 						result.flgname.push(flags[error].name);
@@ -632,21 +607,26 @@ function mailing_zip5(input1, input2, input3){
 						result.flgvalue.push(flags[error].value);
 						result.flgmsg.push(flags[error].msg);
 					}
-				} else {
-					error = "E35_22"
-					result.flgname.push(flags[error].name);
-					result.flgs.push(flags[error].flag);
-					result.flgvalue.push(flags[error].value);
-					result.flgmsg.push(flags[error].msg);
 				}
+			} 
+			else {
+				error = "35_22"
+				result.flgname.push(flags[error].name);
+				result.flgs.push(flags[error].flag);
+				result.flgvalue.push(flags[error].value);
+				result.flgmsg.push(flags[error].msg);
 			}
 		}
-	} 
-	if (result.flgname.length>0){
+	}
+	if (result.flags.length>0){
 		result.pass = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
 }
+
 // 4 digit mailing zip code extension
 function mailing_zip4 (input){
 	var result = new Object();
@@ -656,7 +636,7 @@ function mailing_zip4 (input){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (!presence_check(input3)){
+	if (!presence_check(input)){
 		error = "E36_2"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
@@ -683,8 +663,7 @@ function mailing_zip4 (input){
 		}
 		return result;
 	
-}	
-
+}
 //Date of ceased operations
 //console.log(date_Of_Ceased("23","mn","2016"));
 function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
@@ -694,33 +673,35 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 	result.flgs  =  [];
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
-	result.pass = true
+	result.valid = true
 	if (presence_check(month) && presence_check(day) && presence_check(day)) {
-			if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
-			error = "E38_1"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
-				}
-			else if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
+		result.valid= false
+		if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
+		error = "E38_1"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+		
+		}
+		else if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
 			error = "E38_3"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
-				}
-	if (result.flgname.length>0){
+		}
+	}
+	if (result.flags.length>0){
 		result.pass = false;
+	}
+	else {
+		result.pass = true;
 	}
 	return result;
 }
-   else{
-	return true
-   }	
- }
 // Operating Status check and missing remarks cross check 
-function check_operating_Status(input1, input2, input3, remarks){
+function check_operating_Status(inOperat, temp, ceasedOp, evalres1,evalres2){// evalres1 ,evalres2 are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -728,15 +709,15 @@ function check_operating_Status(input1, input2, input3, remarks){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;
-	if (!presence_check(input1) && !presence_check(input2) && ! presence_check(input3)){
+	if (!presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
 		error = "E37_2"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		}
-	if ( presence_check(input1) && !presence_check(input2) && ! presence_check(input3)){
-		if(!presence_check(remarks)){
+	if ( presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
+		if(evalres1.remarks.valid){// in remarks result.valid is added
 			error = "E46_40"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -744,14 +725,37 @@ function check_operating_Status(input1, input2, input3, remarks){
 			result.flgmsg.push(flags[error].msg);	
 		}
 	}
+	if (evalres2.date_Of_Ceased.valid){ // if (day, month , year)from date-of-Ceased function pass presence check evalres2=true
+		if (presence_check(ceasedOp)){
+			error = "E5_1"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+		if (!presence_check(ceasedOp)){
+			error = "E38_40"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+	}
+	else if (presence_check(ceasedOp)){// if evalres2=false presence check of ceasedOp is checked
+		error = "E38_40"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+			}
+	
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
 	return result;
-}	
-
+}
 //Operating status and date of ceased operation cross check
-function CrossCheck_operatingStatus_dateOfCeased (input1,ceased_op_date){
+/*function CrossCheck_operatingStatus_dateOfCeased (ceasedOp,ceased_op_date){
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -759,25 +763,69 @@ function CrossCheck_operatingStatus_dateOfCeased (input1,ceased_op_date){
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.pass = true;	
-	if ((presence_check(input1) || presence_check(ceased_op_date)) ){
-		error = "E5_1"
-		result.flgname.push(flags[error].name);
-		result.flgs.push(flags[error].flag);
-		result.flgvalue.push(flags[error].value);
-		result.flgmsg.push(flags[error].msg);
-		}
-	if ((presence_check(input1) && ! presence_check(ceased_op_date))||(!presence_check(input1) && presence_check(ceased_op_date)) ){
-		error = "E38_40"
-		result.flgname.push(flags[error].name);
-		result.flgs.push(flags[error].flag);
-		result.flgvalue.push(flags[error].value);
-		result.flgmsg.push(flags[error].msg);
-		}
+
+		if ((presence_check(ceasedOp) || presence_check(ceased_op_date)) ){
+			error = "E5_1"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+		if ((presence_check(ceasedOp) && ! presence_check(ceased_op_date))||(!presence_check(ceasedOp) && presence_check(ceased_op_date)) ){
+			error = "E38_40"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
 	return result;
 }
+
+// new cross-check function for op-status and date-of ceased
+
+function CrossCheck_operatingStatus_dateOfCeased (ceasedOp, evalres){
+	var result = new Object();
+	var error;	
+	result.flgname  =  [];
+	result.flgs  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.pass = true;	
+	if (evalres.date_Of_Ceased.valid){ // if (day, month , year)from date-of-Ceased function pass presence check 
+		if (presence_check(ceasedOp)){
+			error = "E5_1"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+		if (!presence_check(ceasedOp)){
+			error = "E38_40"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+	}
+		else if (presence_check(ceasedOp)){
+			error = "E38_40"
+			result.flgname.push(flags[error].name);
+			result.flgs.push(flags[error].flag);
+			result.flgvalue.push(flags[error].value);
+			result.flgmsg.push(flags[error].msg);
+			}
+	//}
+
+	if (result.flgname.length>0){
+		result.pass = false;
+	}
+	return result;
+}
+*/
 //  Integration functions for verification of Primary Industry Activities
 function Verfication_priamaryIndustry_checkBox (input){
 	var result = new Object();
@@ -827,7 +875,7 @@ function contact_name(input){
 		result.pass = false;
 	}
 	return result;
-}	
+}
 //Integration function for title of contact information
 function contact_title(input){
 	var result = new Object();
@@ -856,7 +904,7 @@ function contact_title(input){
 		result.pass = false;
 	}
 	return result;
-}	
+}
 //Integration function for phone number of contact information
 function contact_phone(input1, exten){
 	var result = new Object();
@@ -880,7 +928,7 @@ function contact_phone(input1, exten){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			else if(!field_length_check(input1, "phone_main", "conf1")){
+			if(!field_length_check(input1, "phone_main", "conf1")){
 				error = "E43_4"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -907,8 +955,7 @@ function contact_phone(input1, exten){
 		result.pass = false;
 	}
 	return result;
-}	
-
+}
 //Integration function for fax number of contact information
 function contact_fax_number(input){
 	var result = new Object();
@@ -932,7 +979,7 @@ function contact_fax_number(input){
 				result.flgvalue.push(flags[error].value);
 				result.flgmsg.push(flags[error].msg);
 				}
-			else if(!field_length_check(input, "faxNum", "conf1")){
+			if(!field_length_check(input, "faxNum", "conf1")){
 				error = "E7_2"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -945,7 +992,7 @@ function contact_fax_number(input){
 		result.pass = false;
 	}
 	return result;
-}	
+}
 //Survey completion time
 function completion_time(input1, input2){
 	var result = new Object();
@@ -983,4 +1030,28 @@ function completion_time(input1, input2){
 	return result;
 }
 
-
+function reamarks(input){
+	var result = new Object();
+	var error;	
+	result.flgname  =  [];
+	result.flgs  =  [];
+	result.flgvalue =  [];
+	result.flgmsg   =  [];
+	result.valid = true;
+	
+	if (!presence_check(input)){
+		error = "E46_2"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
+	}
+	if (result.flags.length>0){
+		result.pass = false;
+		result.valid=false;
+	}
+	else {
+		result.pass = true;
+	}
+	return result;
+}
