@@ -33,7 +33,7 @@ function verify_shipment(input){
 //console.log(test_numberOfShip("", "1"));
 //console.log(test_numberOfShip("", "0"));
 //console.log(test_numberOfShip("200000", "1"));
-//console.log(test_numberOfShip("300", "200"));
+//console.log(test_numberOfShip("d300", "200"));
 function test_numberOfShip(shipNum,nos){
 	var result = new Object();
 	var error;
@@ -41,7 +41,6 @@ function test_numberOfShip(shipNum,nos){
 	var required;
 	var reqRatio = (required-nos)/required;
 	var difReNos =Math.abs(required- nos);
-	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -68,6 +67,13 @@ function test_numberOfShip(shipNum,nos){
 		}
 	}
 	else {
+		if (!check_allowed_char(shipNum, "numeric", "conf1")){ 
+			error = "S30_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}		
 		if (!range_val_check(shipNum, "tot_ship_week", "conf1")){ 
 			error = "E8_1";
 			result.flagname.push((flags)[error].name);

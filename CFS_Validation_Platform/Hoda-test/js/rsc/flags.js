@@ -269,17 +269,17 @@ var flags = {
 		name: "inv_exportCountry",
 		msg: "Export country is invalid."
 	},
+	S30_1: {
+		flag: "S30",
+		value: "1",
+		name: "nonNumeric_numberOfShip",
+		msg: "Total number of outbound shipments is not numeric."
+	},
 	S30_2: {
 		flag: "S30",
 		value: "2",
 		name: "miss_numberOfShip",
 		msg: "Total number of outbound shipments is missing."
-	},
-	S30_20: {
-		flag: "S30",
-		value: "20",
-		name: "outOfRange_numberOfShip",
-		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
 	},
 	S31_1: {
 		flag: "S31",
