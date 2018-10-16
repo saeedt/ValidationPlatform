@@ -40,9 +40,13 @@ var conf1= {
 		minlength:10,
 		maxlength:10
 	},
-	phone:{
+	phone_main:{
 		minlength:10,
-		maxlength:17
+		maxlength:10
+	},
+	phone_extent:{
+		minlength:1,
+		maxlength:7
 	},
 	hour:{
 		maxRange:8,
@@ -54,6 +58,10 @@ var conf1= {
 	ship_date_month:{	
 		minRange:1,
 		maxRange:12	
+	},
+	ship_date_quarter:{	
+		minRange:1,
+		maxRange:4	
 	},	
 	ship_date_year:{
 		minlength:4,
@@ -90,7 +98,7 @@ var conf1= {
 		maxRange:43999
 	},
 	tot_ship_week:{
-		maxRange:100000,
+		maxRange:100000
 	},
 	requiredCase1:{
 		maxRange:10
@@ -149,6 +157,10 @@ var conf1= {
  		maxlength:6,
  		minRange:11,
  		maxRange:928120
+ 	},
+ 	atv:{
+ 		minRange:0,
+ 		maxRange:Infinity
  	}
 };
 
