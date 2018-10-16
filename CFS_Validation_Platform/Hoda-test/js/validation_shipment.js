@@ -225,6 +225,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
+	}
 		if (evalres.ATV.valid){
 			if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(ratio, "ratio", "ATV_MOS_case1"))){
 				error = "E9_1";
@@ -267,7 +268,7 @@ function test_moreThan40Ship(input){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	if (!lkup_linear("lkup25", input)){
+	else if (!lkup_linear("lkup25", input)){
 		error = "S32_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
