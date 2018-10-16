@@ -156,7 +156,7 @@ var ATV_MOS_case1={
 	dif:{
 		maxRange:1000000000
 	},		
-	ratio1:{
+	ratio:{
 		minRange:0.2,
 		MaxRange:5
 	}		
@@ -169,7 +169,7 @@ var ATV_MOS_case2={
 	estabWeight:{
 		maxRange:5,
 	},
-	ratio1:{
+	ratio:{
 		minRange:0.1,
 		maxRange:10
 	}	

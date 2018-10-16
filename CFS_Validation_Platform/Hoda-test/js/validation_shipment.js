@@ -155,7 +155,7 @@ function test_numberOfShip(shipNum,nos){
 //console.log(MOS_vs_ATV("", "", "80"));
 //console.log(MOS_vs_ATV("0", "2000000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
-function MOS_vs_ATV(ATV, MOS, estbWeight){
+function MOS_vs_ATV(ATV, MOS, estbWeight, evalres){
 	var result = new Object();;
 	var error;
 	var dif= Math.abs(ATV-MOS);
@@ -166,43 +166,15 @@ function MOS_vs_ATV(ATV, MOS, estbWeight){
 	result.flagmsg = [];
 	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)// added presence and allowed functions
 	//FIXME hard coded numbers must be moved to config // removed hard codes and added in config
-	if (!presence_check(MOS)){
-		error = "S50_2";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	else if (!check_allowed_char(MOS, "numeric", "conf1")){
-		error = "S50_1";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);
-	}
-	if (!presence_check(ATV)){
-		error = "S51_2";
-		result.flagname.push((flags)[error].name);
-		result.flags.push((flags)[error].flag);
-		result.flagval.push((flags)[error].value);
-		result.flagmsg.push((flags)[error].msg);		
-	}
-	else if (!check_allowed_char(ATV, "numeric", "conf1")){ 
-			error = "S51_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-	}
-	if (!result.flags.length>0){
-		if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(dif, "ratio1", "ATV_MOS_case1"))){
+	if (evalres.ATV.valid && evalres.MOS.valid){
+		if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(ratio, "ratio", "ATV_MOS_case1"))){
 			error = "E3_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(dif, "ratio1", "ATV_MOS_case2"))){
+		if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(ratio, "ratio", "ATV_MOS_case2"))){
 			error = "E3_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -222,10 +194,11 @@ function MOS_vs_ATV(ATV, MOS, estbWeight){
 //console.log(test_totShipValue("50","10000","4000000000","10"));
 //console.log(test_totShipValue("","10000","0","10"));
 
-function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){//Removed the hard coded numbers
+function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres){
 	var result = new Object();
 	var tvw = (totValWeek/1000)*52;
-	var ATV_tvw = Math.abs(ATV-tvw);
+	var dif= Math.abs(ATV-tvw);
+	var ratio = tvw/ATV;
 	var error;
 	result.flagname = [];
 	result.flags = [];
@@ -238,13 +211,13 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){//Removed th
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	} else {
-		if (!check_allowed_char(totShipVal, "numric", "conf1")){
+		if (!check_allowed_char(totShipVal, "numeric", "conf1")){
 			error = "S31_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}//Added the edit flag for checking the data type
+		}
 		if (!range_val_check(totShipVal, "totShipValue", "conf1")){
 			error = "S31_20";
 			result.flagname.push((flags)[error].name);
@@ -252,21 +225,22 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight){//Removed th
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((!range_val_check(ATV_tvw, "ATV_c1", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ATV_tvw, "ATV_c2", "conf1")))){
-			error = "E9_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if ((!range_val_check(ATV_tvw, "ATV_c3", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ATV_tvw, "ATV_c4", "conf1")))){
-			error = "E9_2";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-	}		
+		if (evalres.ATV.valid){
+			if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(ratio, "ratio", "ATV_MOS_case1"))){
+				error = "E9_1";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+			if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(ratio, "ratio", "ATV_MOS_case2"))){
+				error = "E9_2";
+				result.flagname.push((flags)[error].name);
+				result.flags.push((flags)[error].flag);
+				result.flagval.push((flags)[error].value);
+				result.flagmsg.push((flags)[error].msg);
+			}
+		}		
 	if (result.flags.length>0){
 		result.pass = false;
 	}
@@ -1463,7 +1437,7 @@ function test_naics(input){
 	return result;
 }	
 
-function test_mos(input){
+function test_MOS(input){
 	var result = new Object();
 	var error;
 	result.valid = true;
@@ -1495,7 +1469,7 @@ function test_mos(input){
 	return result;
 }
 
-function test_atv(input){
+function test_ATV(input){
 	var result = new Object();
 	var error;
 	result.valid = true;
