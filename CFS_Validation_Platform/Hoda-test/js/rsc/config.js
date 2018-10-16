@@ -1,14 +1,14 @@
 var conf1= {
-	mode: {
+	mode:{
 		minlength:1,
 		maxlength:3
 	},
-	email: {
+	email:{
 		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
 		not_allowed: /[(),:;<>[\]]/g,
 		required: /^.+@{1}.+[.].+$/
 	},		
-	shippingAddress: {
+	shippingAddress:{
 		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g
 	},
 	numeric:{
@@ -20,15 +20,15 @@ var conf1= {
 	alphanumeric:{
 		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g
 	},	
-	city: {
+	city:{
 		not_allowed: /(APO|FPO|DPO)/g
 	},	
-	state: {
+	state:{
 		not_allowed: /(AA|AE|AP)/g,
 		minlength:2,
 		maxlength:2
 	},
-	zipCode5: {
+	zipCode5:{
 		minlength:5,
 		maxlength:5		
 	},
@@ -36,144 +36,135 @@ var conf1= {
 		minlength:4,
 		maxlength:4	
 	},
-	faxNum: {
+	faxNum:{
 		minlength:10,
 		maxlength:10
 	},
-	phone: {
+	phone:{
 		minlength:10,
 		maxlength:17
 	},
 	hour:{
 		maxRange:8,
 	},
-	ship_date_day: {	
+	ship_date_day:{	
 		minRange:1,
 		maxRange:31		
 	},	
-	ship_date_month: {	
+	ship_date_month:{	
 		minRange:1,
 		maxRange:12	
 	},	
-	ship_date_year: {
+	ship_date_year:{
 		minlength:4,
 		maxlength:4	
 	},
-	numberOfShip: {
-		minRange:1,
-		maxRange:100000
-	},	
-	totShipValue: {
+	totShipValue:{
 		minRange:1
 	},	
-	ship_value: {
+	ship_value:{
 		minRange:1
 	},
-	ship_weight_c1: {
+	ship_weight_c1:{
 		minRange:0
 	},
-	ship_weight_c2: {
+	ship_weight_c2:{
 		minRange:100
 	},
-	sctg_m1_weight: {
+	sctg_m1_weight:{
 		maxRange:150
 	},
-	sctg_m8_weight: {
+	sctg_m8_weight:{
 		maxRange:1000
 	},
-	unna: {			
+	unna:{			
 		minlength:4,
 		maxlength:4,
 		minRange:0004,
 		maxRange:9269
 	},	
-	sctg: {
+	sctg:{
 		minlength:5,
 		maxlength:5,
 		minRange:01001,
 		maxRange:43999
 	},
-	ATV: {
+	tot_ship_week:{
+		maxRange:100000,
+	},
+	requiredCase1:{
+		maxRange:10
+	},
+	requiredRatio:{
+		maxRange:0.2
+	},
+	requiredCase2:{
+		minRange:10
+	},
+	difReNos:{
+		maxRange:1,
+	},
+	ATV:{
 		minRange:0
 	},
-	ATV_c1: { 
+	ATV_c1:{ 
 		maxRange:1000000000
 	},
-	ATV_c2: {
+	ATV_c2:{
 		minRange:0.2,
 		maxRange:5
 	},
-	ATV_c3: { 
+	ATV_c3:{ 
 		maxRange:20000000
 	},
-	ATV_c4: {
+	ATV_c4:{
 		minRange:0.1,
 		maxRange:10
 	},
-	estbWeight: {
+	estbWeight:{
 		maxRange:5
 	},
-	interval1: {
+	interval1:{
 		minRange:1,
 		maxRange:400,
 		sample_rate:40
 	},
-	interval2: {
+	interval2:{
 		minRange:401,
 		maxRange:800,
 		sample_rate:200
 	},	
-	interval3: {
+	interval3:{
 		minRange:801,
 		maxRange:1200,
 		sample_rate:600
 	},
-	interval4: {
+	interval4:{
 		minRange:1201,
 		maxRange:3600,
 		sample_rate:600
 	},	
-	interval5: {
+	interval5:{
 		minRange:3601,
 		maxRange:4800,
 		sample_rate:1600
 	},
-	interval6: {
+	interval6:{
 		minRange:4801,
 		maxRange:8000,
 		sample_rate:1600
 	},	
-	interval7: {
+	interval7:{
 		minRange:8001,
 		maxRange:80000,
 		sample_rate:4000
 	},	
-	interval8: {
+	interval8:{
 		minRange:80000,
 		maxRange:Infinity,
 		sample_rate:8000
-	},
-	requiredCase1: {
- 		minRange:10,
- 		maxRange:Infinity
- 	},
- 	requiredRatio: {
- 		minRange:0.2,
- 		maxRange:1
- 	},
- 	requiredCase2: {
- 		minRange:0,
- 		maxRange:11
- 	},
- 	difReNos: {
- 		minRange:1,
- 		maxRange:Infinity
- 	},
- 	ship_reported: {
- 		minRange:1,
- 		maxRange:Infinity
- 	},
- 	naics: {
+	},	
+ 	naics:{
  		minlength:2,
  		maxlength:6,
  		minRange:11,

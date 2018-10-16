@@ -1,131 +1,81 @@
 //main function
 function verify_shipment(input){
 	var result =  [];
-	var tmpResult;		
+	var tmpResult;
+	//TODO implement test_naic function : presence check and field validation
+	//tmpResult.NAICS = test_naics(NAICS);
 	for (var i=0; i<input.length; i++){
-		tmpResult = test_ship_ID(input[i].SHIP_NUM);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_date_month(input[i].SHIPMENT_MONTH);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_date_day(input[i].SHIPMT_DAY);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_value(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_ship_weight(input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_TRANSPORT_MODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_TRANSPORT_MODE,input[i].HAZMAT_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_sctg_descr(input[i].COMMODITY_DESCRIPTION);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_temp_control(input[i].TEMPERATURE_CONTROL_YN,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationState(input[i].DOMESTIC_STATE_ABBREV);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_mode(input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].SHIPMENT_WEIGHT,input[i].SCTG_COMMODITY_CODE,input[i].DOMESTIC_STATE_ABBREV);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCity(input[i].EXPORT_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_exportCity(input[i].EXPORT_CITY_NAME);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		tmpResult = test_auto_fill_m(input[i].list,input[i].attrib);
-		if (!tmpResult.pass) {
-			tmpResult.line = i+1;
-			result.push(tmpResult);
-		}
-		return result;
-	}	
+		tmpResult = new Object();
+		tmpResult.SHIP_NUM = test_numberOfShip(input[i].SHIP_NUM);
+		tmpResult.SHIP_ID = test_ship_ID(input[i].SHIP_ID);
+		tmpResult.SHIPMENT_MONTH = test_ship_month(input[i].SHIPMENT_MONTH);		
+		tmpResult.SHIPMT_DAY = test_ship_day(input[i].SHIPMT_DAY);		
+		
+		tmpResult.TEMPERATURE_CONTROL_YN = test_temp_control(input[i].TEMPERATURE_CONTROL_YN);
+		tmpResult.DOMESTIC_TRANSPORT_MODE = test_mode(input[i].DOMESTIC_TRANSPORT_MODE);
+		tmpResult.DOMESTIC_STATE_ABBREV = test_destinationState(input[i].DOMESTIC_STATE_ABBREV);
+		tmpResult.SHIPMENT_WEIGHT = test_ship_weight(input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,'',tmpResult);
+		tmpResult.SHIPMENT_VALUE = test_ship_value(input[i].SHIPMENT_VALUE);
+		tmpResult.SCTG_COMMODITY_CODE = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].NAICS,tmpResult);
+				
+		tmpResult.COMMODITY_DESCRIPTION = test_sctg_descr(input[i].COMMODITY_DESCRIPTION);
+		tmpResult.HAZMAT_CODE = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE);
+		tmpResult.DOMESTIC_CITY_NAME = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
+		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
+		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
+		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
+		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);		
+		result.push(tmpResult);
+	}
+	result.push(test_auto_fill_m(input[i].list,input[i].attrib));	
 	return result;
 }
-
-function test_numberOfShip(shipNum, nos){
-	var result = new Object();;
+//console.log(test_numberOfShip("", "1"));
+//console.log(test_numberOfShip("", "0"));
+//console.log(test_numberOfShip("200000", "1"));
+//console.log(test_numberOfShip("300", "200"));
+function test_numberOfShip(shipNum,nos){
+	var result = new Object();
 	var error;
+	var interval;
+	var required;
+	var reqRatio = (required-nos)/required;
+	var difReNos =Math.abs(required- nos);
+	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
 	result.flagmsg = [];
-	var interval;
-	var required;
- 	var reqRatio = (required-nos)/required;
- 	var difReNos = Math.abs(required- nos);
 	if (!presence_check(shipNum)){
 		error = "S30_2";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else {
-		if (!check_allowed_char(shipNum, "numeric", "conf1")){ 
-			error = "S30_1";
+		if (nos == 0){	
+			error = "E1_4";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
-		}//Added the edit flag for checking the data type of numberOfShip also I deleted the S30_20 flag since the range is checked in E8_1
-		if (!presence_check(shipNum) && range_val_check(nos, "ship_reported", "conf1")){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead
-			error = "E1_1";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
+		} 
+		if (nos > 0){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead 
+		error = "E1_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
 		}
-		if (shipNum == 0 && range_val_check(nos, "ship_reported", "conf1")){ 
+	}
+	else {
+		if (!range_val_check(shipNum, "tot_ship_week", "conf1")){ 
+			error = "E8_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}		
+		if (shipNum == 0 && nos > 0){ 
 			error = "E1_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -139,22 +89,8 @@ function test_numberOfShip(shipNum, nos){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 		}
-		if ((shipNum == 0 && nos == 0)||(!presence_check(shipNum) && nos == 0)){
-			error = "E1_4";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!range_val_check(shipNum, "numberOfShip", "conf1") && range_val_check(nos, "ship_reported", "conf1")){ 
+		if (!range_val_check(shipNum, "tot_ship_week", "conf1") && nos > 0){ 
 			error = "E1_5";
-			result.flagname.push((flags)[error].name);
-			result.flags.push((flags)[error].flag);
-			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}
-		if (!range_val_check(shipNum, "numberOfShip", "conf1")){ 
-			error = "E8_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
@@ -165,35 +101,35 @@ function test_numberOfShip(shipNum, nos){
 				interval = Math.ceil(parseInt(shipNum/conf1.interval1.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval2", "conf1")){
-				interval = 5 * Math.ceil(parseInt(shipNum/conf1.interval2.sample_rate))
+				interval = 5 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval2.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval3", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/conf1.interval3.sample_rate))
+				interval = 10 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval3.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval4", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/conf1.interval4.sample_rate))
+				interval = 10 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval4.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval5", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/conf1.interval5.sample_rate))
+				interval = 20 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval5.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval6", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/conf1.interval6.sample_rate))
+				interval = 20 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval6.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval7", "conf1")){
-				interval = 50 * Math.ceil(parseInt(shipNum/conf1.interval7.sample_rate))
+				interval = 50 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval7.sample_rate))
 			}
 			else if (range_val_check(shipNum, "interval8", "conf1")){
-				interval = 100 * Math.ceil(parseInt(shipNum/conf1.interval8.sample_rate))
+				interval = 100 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval8.sample_rate))
 			}
-			required = Math.floor(shipNum/interval)
-			if (range_val_check(required, "requiredCase1", "conf1") && range_val_check(reqRatio, "requiredRatio", "conf1")){
+			required = Math.floor(shipNum/interval);
+			if (!range_val_check(required, "requiredCase1", "conf1") && !range_val_check(reqRatio,"requiredRatio", "conf1")){
 				error = "E2_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
 				result.flagval.push((flags)[error].value);
 				result.flagmsg.push((flags)[error].msg);
 			}
-			else if (range_val_check(required, "requiredCase2", "conf1") && range_val_check(difReNos, "difReNos", "conf1")){
+			else if (!range_val_check(required, "requiredCase2", "conf1") && !range_val_check(difReNos, "difReNos", "conf1")){
 				error = "E2_2";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
@@ -208,8 +144,8 @@ function test_numberOfShip(shipNum, nos){
 	else {
 		result.pass = true;
 	}
-	return result;
-}
+		return result;
+	}
 //console.log(MOS_vs_ATV("0", "400000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
 function test_MOS_vs_ATV(ATV, MOS, estbWeight){
@@ -1378,7 +1314,7 @@ function test_exportMode(exp_mode, country){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if ((lkup_linear("lkup29", exp_mode)) && (!lkup_linear("lkup31", country))){//Used lookup table instead of name of countries also logical operator AND is used.
+	} else if ((!lkup_linear("lkup32", country)) && (lkup_linear("lkup29", exp_mode))){//Used lookup table instead of name of countries also logical operator AND is used.
 				error = "S16_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);
