@@ -151,35 +151,65 @@ function test_numberOfShip(shipNum,nos){
 		result.pass = true;
 	}
 		return result;
-	}
-//console.log(MOS_vs_ATV("0", "400000000", "80"));
+}
+//console.log(MOS_vs_ATV("", "", "80"));
+//console.log(MOS_vs_ATV("0", "2000000000", "80"));
 //console.log(MOS_vs_ATV("10", "1", "801"));
-function test_MOS_vs_ATV(ATV, MOS, estbWeight){
-	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)
-	//FIXME hard coded numbers must be moved to config
-	//Removed the hard-coded numbers
+function MOS_vs_ATV(ATV, MOS, estbWeight){
 	var result = new Object();;
 	var error;
-	var ATV_MOS = Math.abs(ATV-MOS);
+	var dif= Math.abs(ATV-MOS);
 	var ratio = MOS/ATV;
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
-	result.flagmsg = []; 
-	if ((!range_val_check(ATV_MOS, "ATV_c1", "conf1")) && (!range_val_check(ATV, "ATV", "conf1")) ||((!range_val_check(ratio, "ATV_c2", "conf1")))){
-				error = "E3_1";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
+	result.flagmsg = [];
+	//TODO ATV and MOS must be coverted to numbers, and checked if they are valid (presence, numeric, range, etc.)// added presence and allowed functions
+	//FIXME hard coded numbers must be moved to config // removed hard codes and added in config
+	if (!presence_check(MOS)){
+		error = "S50_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
 	}
-	if ((!range_val_check(ATV_MOS, "ATV_c3", "conf1")) || (!range_val_check(estbWeight, "estbWeight", "conf1")) && ((!range_val_check(ATV, "ATV", "conf1")) || (!range_val_check(ratio, "ATV_c4", "conf1")))){
-				error = "E3_2";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-	 			result.flagmsg.push((flags)[error].msg);
+	else if (!check_allowed_char(MOS, "numeric", "conf1")){
+		error = "S50_1";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);
 	}
+	if (!presence_check(ATV)){
+		error = "S51_2";
+		result.flagname.push((flags)[error].name);
+		result.flags.push((flags)[error].flag);
+		result.flagval.push((flags)[error].value);
+		result.flagmsg.push((flags)[error].msg);		
+	}
+	else if (!check_allowed_char(ATV, "numeric", "conf1")){ 
+			error = "S51_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+	}
+	if (!result.flags.length>0){
+		if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(dif, "ratio1", "ATV_MOS_case1"))){
+			error = "E3_1";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+		}
+		if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(dif, "ratio1", "ATV_MOS_case2"))){
+			error = "E3_2";
+			result.flagname.push((flags)[error].name);
+			result.flags.push((flags)[error].flag);
+			result.flagval.push((flags)[error].value);
+			result.flagmsg.push((flags)[error].msg);
+	}
+	}	
 	if (result.flags.length>0){
 		result.pass = false;
 	}
@@ -296,14 +326,12 @@ function test_ship_ID(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else {
-		if (!check_allowed_char(input, "alphanumeric", "conf1")){
+	} else if (!check_allowed_char(input, "alphanumeric", "conf1")){
 			error = "S33_1";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
 			result.flagval.push((flags)[error].value);
-			result.flagmsg.push((flags)[error].msg);
-		}		
+			result.flagmsg.push((flags)[error].msg);	
 	}
 	if (result.flags.length>0){
 		result.pass = false;

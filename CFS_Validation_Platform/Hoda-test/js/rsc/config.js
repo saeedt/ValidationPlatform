@@ -104,26 +104,6 @@ var conf1= {
 	difReNos:{
 		maxRange:1,
 	},
-	ATV:{
-		minRange:0
-	},
-	ATV_c1:{ 
-		maxRange:1000000000
-	},
-	ATV_c2:{
-		minRange:0.2,
-		maxRange:5
-	},
-	ATV_c3:{ 
-		maxRange:20000000
-	},
-	ATV_c4:{
-		minRange:0.1,
-		maxRange:10
-	},
-	estbWeight:{
-		maxRange:5
-	},
 	interval1:{
 		minRange:1,
 		maxRange:400,
@@ -170,4 +150,27 @@ var conf1= {
  		minRange:11,
  		maxRange:928120
  	}
+};
+
+var ATV_MOS_case1={
+	dif:{
+		maxRange:1000000000
+	},		
+	ratio1:{
+		minRange:0.2,
+		MaxRange:5
+	}		
+};
+
+var ATV_MOS_case2={
+	dif:{
+		maxRange:20000000,
+	},
+	estabWeight:{
+		maxRange:5,
+	},
+	ratio1:{
+		minRange:0.1,
+		maxRange:10
+	}	
 };
