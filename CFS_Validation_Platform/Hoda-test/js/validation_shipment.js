@@ -9,21 +9,23 @@ function verify_shipment(input){
 		tmpResult.SHIP_NUM = test_numberOfShip(input[i].SHIP_NUM);
 		tmpResult.SHIP_ID = test_ship_ID(input[i].SHIP_ID);
 		tmpResult.SHIPMENT_MONTH = test_ship_month(input[i].SHIPMENT_MONTH);		
-		tmpResult.SHIPMT_DAY = test_ship_day(input[i].SHIPMT_DAY);		
+		tmpResult.SHIPMT_DAY = test_ship_day(input[i].SHIPMT_DAY);
+		tmpResult.NAICS = test_naics(input[i].NAICS);
 		
 		tmpResult.TEMPERATURE_CONTROL_YN = test_temp_control(input[i].TEMPERATURE_CONTROL_YN);
 		tmpResult.DOMESTIC_TRANSPORT_MODE = test_mode(input[i].DOMESTIC_TRANSPORT_MODE);
 		tmpResult.DOMESTIC_STATE_ABBREV = test_destinationState(input[i].DOMESTIC_STATE_ABBREV);
-		tmpResult.SHIPMENT_WEIGHT = test_ship_weight(input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,'',tmpResult);
+		tmpResult.SHIPMENT_WEIGHT = test_ship_weight(input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].NAICS,tmpResult);
 		tmpResult.SHIPMENT_VALUE = test_ship_value(input[i].SHIPMENT_VALUE);
-		tmpResult.SCTG_COMMODITY_CODE = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].NAICS,tmpResult);
+		tmpResult.SCTG_COMMODITY_CODE = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].NAICS,input[i].DOMESTIC_STATE_ABBREV,tmpResult);
 				
 		tmpResult.COMMODITY_DESCRIPTION = test_sctg_descr(input[i].COMMODITY_DESCRIPTION);
 		tmpResult.HAZMAT_CODE = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE);
 		tmpResult.DOMESTIC_CITY_NAME = test_destinationCity(input[i].DOMESTIC_CITY_NAME);
-		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE);
+		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_CITY_NAME,tmpResult);
 		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
-		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,input[i].EXPORT_TRANSPORT_MODE);
+		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,tmpResult);
+		tmpResult.EXPORT_TRANSPORT_MODE = test_exportMode(input[i].EXPORT_COUNTRY_NAME,tmpResult);
 		result.push(tmpResult);
 	}
 	result.push(test_auto_fill_m(input[i].list,input[i].attrib));	
@@ -39,7 +41,7 @@ function test_numberOfShip(shipNum,nos){
 	var interval;
 	var required;
 	var reqRatio = (required-nos)/required;
-	var difReNos =Math.abs(required- nos);
+	var difReNos = Math.abs(required- nos);
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -225,11 +227,11 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres){
 		}
 	}
 	if (evalres.ATV.valid){
-		var tvw = (totValWeek/1000)*52;
+		var eav = (totValWeek/1000)*52;//eav stands for Estimated Annual Value
 		var dif= Math.abs(ATV-tvw);
 		var ratio = 0;
 		if (ATV > 0){
-			ratio = tvw/ATV;
+			ratio = eav/ATV;
 		}
 		if (!range_val_check(dif, "dif", "ATV_MOS_case1") && (ATV==0 ||!range_val_check(ratio, "ratio", "ATV_MOS_case1"))){
 			error = "E9_1";
@@ -1336,7 +1338,7 @@ function test_exportCountry(country, city, evalres){
 					result.flagmsg.push((flags)[error].msg);
 				}
 			}	
-			if (country == "MEXICO"){
+			else if (country == "MEXICO"){
 				if (!lkup_linear("lkup15", city)){
 					error = "S17_1";
 					result.flagname.push((flags)[error].name);
@@ -1392,7 +1394,7 @@ function test_exportMode(exp_mode, country, evalres){
 		result.flagmsg.push((flags)[error].msg);
 	} else {
 		if (evalres.EXPORT_COUNTRY_NAME.valid){
-			if ((!lkup_linear("lkup32", country)) && (lkup_linear("lkup29", exp_mode))){//Used lookup table instead of name of countries also logical operator AND is used.
+			if ((!lkup_linear("lkup33", country)) && (lkup_linear("lkup29", exp_mode))){//Used lookup table instead of name of countries also logical operator AND is used.
 				error = "S16_1";
 				result.flagname.push((flags)[error].name);
 				result.flags.push((flags)[error].flag);

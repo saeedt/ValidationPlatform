@@ -166,7 +166,7 @@ var conf1= {
 
 var ATV_MOS_case1={
 	dif:{
-		maxRange:1000000000
+		maxRange:1000000
 	},		
 	ratio:{
 		minRange:0.2,
@@ -176,7 +176,7 @@ var ATV_MOS_case1={
 
 var ATV_MOS_case2={
 	dif:{
-		maxRange:20000000,
+		maxRange:20000,
 	},
 	estabWeight:{
 		maxRange:5,
