@@ -269,17 +269,17 @@ var flags = {
 		name: "inv_exportCountry",
 		msg: "Export country is invalid."
 	},
+	S30_1: {
+		flag: "S30",
+		value: "1",
+		name: "nonNumeric_numberOfShip",
+		msg: "Total number of outbound shipments is not numeric."
+	},
 	S30_2: {
 		flag: "S30",
 		value: "2",
 		name: "miss_numberOfShip",
 		msg: "Total number of outbound shipments is missing."
-	},
-	S30_20: {
-		flag: "S30",
-		value: "20",
-		name: "outOfRange_numberOfShip",
-		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
 	},
 	S31_1: {
 		flag: "S31",
@@ -586,6 +586,30 @@ var flags = {
 		value: "2",
 		name: "miss_ATV",
 		msg: "ATV is missing."
+	},
+	S51_20: {
+		flag: "S51",
+		value: "20",
+		name: "outOfRange_ATV",
+		msg: "ATV is not in range."
+	},
+	S52_1: {
+		flag: "S52",
+		value: "1",
+		name: "nonNumeric_ship_date_quarter",
+		msg: "Shipment date (quarter) is not numeric."
+	},
+	S52_2: {
+		flag: "S52",
+		value: "2",
+		name: "miss_ship_date_quarter",
+		msg: "Shipment date (quarter) is missing."
+	},
+	S52_20: {
+		flag: "S52",
+		value: "20",
+		name: "outOfRange_ship_date_quarter",
+		msg: "Shipment date (quarter) is not in range."
 	},
 	//Edit flags for establishment attributes
 	E1_1: {
