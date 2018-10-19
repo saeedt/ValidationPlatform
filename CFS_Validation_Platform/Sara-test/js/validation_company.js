@@ -18,7 +18,7 @@ function verify_company(input){
 	merge_objs(Result,mailing_address(input.Mailing_address));
 	merge_objs(Result,mailing_city(input.Mailing_city));
 	merge_objs(Result,mailing_state(input.Mailing_state));
-	merge_objs(Result,mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5,result));
+	merge_objs(Result,mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5,Result));
 	merge_objs(resResultult,mailing_zip4(input.Mailing_zip4));
 	//var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
 	merge_objs(Result,date_Of_Ceased(input.status_ceased_month,input.status_ceased_day, input.status_ceased_year));
