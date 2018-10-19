@@ -223,7 +223,7 @@ function shipping_state(input){
 					}
 		}
 	if (!result.flgname.length>0){
-		if (lkup_linear('lkup23',input)){
+		if (lkup_linear('lkup32',input)){
 			error = "E25_22"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -549,7 +549,7 @@ function mailing_state(input){
 				result.flgmsg.push(flags[error].msg);
 				}
 			if (!result.flgname.length>0){
-				if (lkup_linear('lkup23',input)){
+				if (lkup_linear('lkup32',input)){
 					error = "E34_22"
 					result.flgname.push(flags[error].name);
 					result.flgs.push(flags[error].flag);
