@@ -670,7 +670,7 @@ function mailing_zip4 (input){
 	
 }
 //Date of ceased operations
-console.log(date_Of_Ceased("","",""));
+console.log(date_Of_Ceased("","32","12"));
 function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
 	var result = new Object();
 	var error;
@@ -680,33 +680,36 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 	result.flgmsg   =  [];
 	result.valid = true
 	if (!presence_check(month) || !presence_check(day) || !presence_check(year)) {
-		result.valid= false; 
+		error = "E38_2"
+	result.flgname.push(flags[error].name);
+	result.flgs.push(flags[error].flag);
+	result.flgvalue.push(flags[error].value);
+	result.flgmsg.push(flags[error].msg);
+	result.valid= false; 
 	} 
-	else if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
+	if (presence_check(month) && presence_check(day) && presence_check(year)) {
+		if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
 		error = "E38_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
+		}
+		if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
+		error = "E38_3"
+		result.flgname.push(flags[error].name);
+		result.flgs.push(flags[error].flag);
+		result.flgvalue.push(flags[error].value);
+		result.flgmsg.push(flags[error].msg);
 		
-	} 
-	else {
-			if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
-			error = "E38_3"
-			result.flgname.push(flags[error].name);
-			result.flgs.push(flags[error].flag);
-			result.flgvalue.push(flags[error].value);
-			result.flgmsg.push(flags[error].msg);
+		} 
 			
-			}
 	}
 	if (result.flgname.length>0){
 		result.pass = false;
 	}
-	else {
-		result.pass = true;
-	}
 	return result;
+
 }
 
 
@@ -1069,7 +1072,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 	}
 	return result;
 }
-/*
+
 console.log(shipping_Company_name_1("sa129715"));
 console.log(shipping_Company_name_2("sa"));
 console.log(shipping_address("54sara stereet45 , camden, #23"));
@@ -1087,8 +1090,8 @@ console.log(mailing_zip5("blandford", "MA","01021"));
 console.log(mailing_zip4("365"));
 console.log(date_Of_Ceased("12","32","2016"));
 console.log(remarks("sarfm4455"));
-console.log(check_operating_Status ("In Operation","Temp", "Ceased",""));
-
+console.log(check_operating_Status ("In Operation","Temp", "Ceased"));
+/*
 var Object2 = { 
 		Mailing_address: "Putnam Sq, no.268",
 		Mailing_attention: "",

@@ -1028,6 +1028,13 @@ var flags = {
 		name: "nonNumeric_dateOfCeased",
 		msg: "Date for ceased operation is not numeric."
 	},
+	E38_2:{
+		flag: "E38",
+		value:"2",
+		name: "miss_dateOfCeased",
+		msg: "month or day or year is missing ."
+	},
+	
 	E38_3:{
 		flag: "E38",
 		value: "3",
