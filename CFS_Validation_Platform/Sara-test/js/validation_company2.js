@@ -10,7 +10,7 @@ function verify_company(input){
 	merge_objs(result,shipping_address(input.shipping_address));
 	merge_objs(result,shipping_city(input.shipping_city));
 	merge_objs(result,shipping_state(input.shipping_state));
-	merge_objs(result,shipping_zip5(input.shipping_city,input.shipping_state,input.shipping_zip5));
+	merge_objs(result,shipping_zip5(input.shipping_city,input.shipping_state,input.shipping_zip5,result));
 	merge_objs(result,shipping_zip4(input.shipping_zip4));
 	merge_objs(result,mailing_company_name_1(input.Mailing_comapny_name_1));
 	merge_objs(result,mailing_company_name_2(input.Mailing_comapny_name_2));
@@ -18,18 +18,18 @@ function verify_company(input){
 	merge_objs(result,mailing_address(input.Mailing_address));
 	merge_objs(result,mailing_city(input.Mailing_city));
 	merge_objs(result,mailing_state(input.Mailing_state));
-	merge_objs(result,mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5));
+	merge_objs(result,mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5,result));
 	merge_objs(result,mailing_zip4(input.Mailing_zip4));
-	var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
+	//var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
 	merge_objs(result,date_Of_Ceased(input.status_ceased_month,input.status_ceased_day, input.status_ceased_year));
-	merge_objs(result,check_operating_Status(input.status_inoperation,'','', input.remarks));
-	merge_objs(result,CrossCheck_operatingStatus_dateOfCeased ('',ceased_op_date));
 	merge_objs(result,contact_name(input.contact_name));
 	merge_objs(result,contact_title(input.contact_title));
 	merge_objs(result,contact_phone(input.contact_phone));
 	merge_objs(result,contact_fax_number(input.contact_fax_number));
 	merge_objs(result,completion_time(input.time_hours, input.time_minutes));
-	
+	merge_objs(result,remarks(input.remarks));
+	merge_objs(result,check_operating_Status(input.status_inoperation,'','', input.remarks,result));
+
 	
 	if (result.flgs.length>0)
 		result.pass = false;
@@ -177,7 +177,7 @@ function shipping_city(input){
 				result.flgmsg.push(flags[error].msg);
 				}
 		}	
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 		result.valid = false;
 	}
@@ -218,7 +218,7 @@ function shipping_state(input){
 					}
 		}
 	if (!result.flgname.length>0){
-		if (lkup_linear('lkup32',input)){
+		if (lkup_linear('lkup23',input)){
 			error = "E25_22"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -226,7 +226,7 @@ function shipping_state(input){
 			result.flgmsg.push(flags[error].msg);	
 		}
 	}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 		result.valid = false;
 	}
@@ -268,7 +268,7 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if (!result.flags.length >0){ 
+		if (!result.flgname.length >0){ 
 			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
 			var test1 = {"city" : city, "state" : state, "zip" : zip };
 			if((lkup_binary_m("lkup4","zipCode",zip).found )){
@@ -291,7 +291,7 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 			}
 		}
 	}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 	}
 	else {
@@ -503,7 +503,7 @@ function mailing_city(input){
 				result.flgmsg.push(flags[error].msg);
 				}
 		}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 		result.valid = false;
 	}
@@ -544,7 +544,7 @@ function mailing_state(input){
 				result.flgmsg.push(flags[error].msg);
 				}
 			if (!result.flgname.length>0){
-				if (lkup_linear('lkup32',input)){
+				if (lkup_linear('lkup23',input)){
 					error = "E34_22"
 					result.flgname.push(flags[error].name);
 					result.flgs.push(flags[error].flag);
@@ -553,7 +553,7 @@ function mailing_state(input){
 				}
 			}
 		}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 		result.valid = false;
 	}
@@ -595,7 +595,7 @@ function mailing_zip5(city, state, zip,evalres){
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
 		}
-		if (!result.flags.length >0){ 
+		if (!result.flgname.length >0){ 
 			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
 			var test1 = {"city" : city, "state" : state, "zip" : zip };
 			if((lkup_binary_m("lkup4","zipCode",zip).found )){
@@ -610,7 +610,7 @@ function mailing_zip5(city, state, zip,evalres){
 				}
 			} 
 			else {
-				error = "35_22"
+				error = "E35_22"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
 				result.flgvalue.push(flags[error].value);
@@ -618,7 +618,7 @@ function mailing_zip5(city, state, zip,evalres){
 			}
 		}
 	}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 	}
 	else {
@@ -665,7 +665,7 @@ function mailing_zip4 (input){
 	
 }
 //Date of ceased operations
-//console.log(date_Of_Ceased("23","mn","2016"));
+console.log(date_Of_Ceased("","",""));
 function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
 	var result = new Object();
 	var error;
@@ -674,34 +674,37 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 	result.flgvalue =  [];
 	result.flgmsg   =  [];
 	result.valid = true
-	if (presence_check(month) && presence_check(day) && presence_check(day)) {
-		result.valid= false
-		if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
+	if (!presence_check(month) && !presence_check(day) && !presence_check(year)) {
+		result.valid= false; 
+	} else if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
 		error = "E38_1"
 		result.flgname.push(flags[error].name);
 		result.flgs.push(flags[error].flag);
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
-		
-		}
-		else if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
+		result.valid= true
+	} else {
+			if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
 			error = "E38_3"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
 			result.flgvalue.push(flags[error].value);
 			result.flgmsg.push(flags[error].msg);
+			result.valid =true
+			}
 		}
-	}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
+		
 	}
 	else {
 		result.pass = true;
 	}
 	return result;
 }
+
 // Operating Status check and missing remarks cross check 
-function check_operating_Status(inOperat, temp, ceasedOp, evalres1,evalres2){// evalres1 ,evalres2 are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
+function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -717,7 +720,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres1,evalres2){// 
 		result.flgmsg.push(flags[error].msg);
 		}
 	if ( presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
-		if(evalres1.remarks.valid){// in remarks result.valid is added
+		if(evalres.remarks.valid){// in remarks result.valid is added
 			error = "E46_40"
 			result.flgname.push(flags[error].name);
 			result.flgs.push(flags[error].flag);
@@ -725,7 +728,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres1,evalres2){// 
 			result.flgmsg.push(flags[error].msg);	
 		}
 	}
-	if (evalres2.date_Of_Ceased.valid){ // if (day, month , year)from date-of-Ceased function pass presence check evalres2=true
+	if (evalres.date_Of_Ceased.valid){ // if (day, month , year)from date-of-Ceased function pass presence check evalres2=true
 		if (presence_check(ceasedOp)){
 			error = "E5_1"
 			result.flgname.push(flags[error].name);
@@ -826,6 +829,7 @@ function CrossCheck_operatingStatus_dateOfCeased (ceasedOp, evalres){
 	return result;
 }
 */
+
 //  Integration functions for verification of Primary Industry Activities
 function Verfication_priamaryIndustry_checkBox (input){
 	var result = new Object();
@@ -1030,7 +1034,7 @@ function completion_time(input1, input2){
 	return result;
 }
 
-function reamarks(input){
+function remarks(input){
 	var result = new Object();
 	var error;	
 	result.flgname  =  [];
@@ -1046,7 +1050,7 @@ function reamarks(input){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 	}
-	if (result.flags.length>0){
+	if (result.flgname.length>0){
 		result.pass = false;
 		result.valid=false;
 	}
@@ -1055,3 +1059,53 @@ function reamarks(input){
 	}
 	return result;
 }
+
+console.log(shipping_Company_name_1("sa129715"));
+console.log(shipping_Company_name_2("sa"));
+console.log(shipping_address("2 Andoveer, p.o.box34"));
+console.log(shipping_city("agawama"));
+console.log(shipping_state("DC"));
+console.log(shipping_zip5("agawama", "DC", "01265"));
+console.log(shipping_zip4(""));
+console.log(mailing_company_name_1("apple23"));
+console.log(mailing_company_name_2(""));
+console.log(mailing_attention("ds tryyy777 gg"));
+console.log(mailing_address("Athens, andover,P.O."));
+console.log(mailing_city("sa4445"));
+console.log(mailing_state("sa4445"));
+console.log(mailing_zip5("blandford", "MA","01021"));
+console.log(mailing_zip4("365"));
+console.log(date_Of_Ceased("12","32","2016"));
+console.log(remarks("sarfm4455"));
+console.log(check_operating_Status ("In Operation","Temp", "Ceased", remarks.valid, date_Of_Ceased.valid));
+/*
+var Object2 = { 
+		Mailing_address: "Putnam Sq, no.268",
+		Mailing_attention: "",
+		Mailing_city: "Amherest",
+		Mailing_comapny_name_1: "apple34/kj",
+		Mailing_comapny_name_2: "",
+		Mailing_state: "MA",
+		Mailing_zip4: "",
+		Mailing_zip5: "01001",
+		shipment_number: "126899",
+		shipment_value: "66333",
+		shipping_address: "Mill street ave, po_b 25668, num 23.",
+		shipping_city: "agawama",
+		shipping_comapny_name_1: "Oil gass 567",
+		shipping_comapny_name_2: "Patburg",
+		shipping_state: "DC",
+		shipping_zip4: "",
+		shipping_zip5: "01005",
+		status_ceased_day: "15",
+		status_ceased_month: "12",
+		status_ceased_year: "2017",
+		status_inoperation: "Inactive",
+		contact_name: "Sara236",
+		contact_title: "Senior Manger",
+		contact_phone: " 85642368",
+		contact_fax_number: "111236859",
+		time_hours: "24",
+		time_minutes: "25"
+}
+*/
