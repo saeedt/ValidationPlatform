@@ -6,17 +6,19 @@ var conf1= {
 	},
 	
 	shippingAddress: {
-		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g
+		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g,
+		allowed: /[a-zA-Z0-9\s\,\""\ \''\-\.[\ ]]/g
 	},
 	numeric:{
-		allowed: /[^0-9+$]/g
+		allowed: /[0-9]/g
 	}, 
 	alphabetic:{
-		allowed: /[^A-Za-z+$]/g
+		allowed: /[A-Za-z]/g
 	},
 	alphanumeric:{
-		allowed: /[^0-9a-zA-Z+$,():;<>[\ ]]/g
+		allowed: /[0-9a-zA-Z,():;<>[\ ]]/g
 	},	
+	
 	state: {
 		minlength:2 ,
 		maxlength:2
