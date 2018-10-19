@@ -843,6 +843,7 @@ function test_unna(unna, sctg, evalres){
 			result.flagmsg.push((flags)[error].msg);
 			result.valid = false;
 		}
+		
 		if (!field_length_check(unna, "unna", "conf1")){
 			error = "S40_4";
 			result.flagname.push((flags)[error].name);
