@@ -19,71 +19,98 @@ var conf1= {
 		allowed: /[0-9a-zA-Z,():;<>[\ ]]/g
 	},	
 	
-	state: {
-		minlength:2 ,
+	city:{
+		not_allowed: /(APO|FPO|DPO)/g
+	},	
+	state:{
+		not_allowed: /(AA|AE|AP)/g,
+		minlength:2,
 		maxlength:2
 	},
-	zipCode5: {
-			minlength:5 ,
-			maxlength:5	
+	zipCode5:{
+		minlength:5,
+		maxlength:5		
 	},
 	zipCode4:{
-		minlength:4 ,
+		minlength:4,
 		maxlength:4	
 	},
-
-	faxNum: {
-		minlength: 10 ,
-		maxlength: 10
+	faxNum:{
+		minlength:10,
+		maxlength:10
 	},
-	phone_main: {
-		minlength: 10 ,
-		maxlength: 10
+	phone_main:{
+		minlength:10,
+		maxlength:10
 	},
-	phone_extent: {
-		minlength: 1 ,
-		maxlength: 7
+	phone_extent:{
+		minlength:1,
+		maxlength:7
 	},
 	hour:{
-		maxRange: 8,
+		maxRange:8,
 	},
-	
-	ship_date_day: {
-		
-		minRange: 1,
-		maxRange: 31		
+	ship_date_day:{	
+		minRange:1,
+		maxRange:31		
 	},	
-	ship_date_month: {
-	
-		minRange: 1,
-		maxRange: 12	
+	ship_date_month:{	
+		minRange:1,
+		maxRange:12	
+	},
+	ship_date_quarter:{	
+		minRange:1,
+		maxRange:4	
 	},	
-	ship_date_year: {
-		minlength: 4,
-		maxlength: 4	
-	},
-	numberOfShip: {
-		minRange:100000
-	},
-	totShipValue: {
-		minRange: 1
-	},	
-	ship_value: {
-		minRange: 1
-	},
-	ship_weight: {
-		minRange: 1
-	},
-	unna: {
-		
+	ship_date_year:{
 		minlength:4,
-		maxlength:4
-	},	
-	sctg: {
-		minlength:5,
-		maxlength:5	
+		maxlength:4	
 	},
-	
+	totShipValue:{
+		minRange:1
+	},	
+	ship_value:{
+		minRange:1
+	},
+	ship_weight_c1:{
+		minRange:0
+	},
+	ship_weight_c2:{
+		minRange:100
+	},
+	sctg_m1_weight:{
+		maxRange:150
+	},
+	sctg_m8_weight:{
+		maxRange:1000
+	},
+	unna:{			
+		minlength:4,
+		maxlength:4,
+		minRange:0004,
+		maxRange:9269
+	},	
+	sctg:{
+		minlength:5,
+		maxlength:5,
+		minRange:01001,
+		maxRange:43999
+	},
+	tot_ship_week:{
+		maxRange:100000
+	},
+	requiredCase1:{
+		maxRange:10
+	},
+	requiredRatio:{
+		maxRange:0.2
+	},
+	requiredCase2:{
+		minRange:10
+	},
+	difReNos:{
+		maxRange:1,
+	},
 	interval1:{
 		minRange:1,
 		maxRange:400,
@@ -94,7 +121,6 @@ var conf1= {
 		maxRange:800,
 		sample_rate:200
 	},	
-
 	interval3:{
 		minRange:801,
 		maxRange:1200,
@@ -125,46 +151,37 @@ var conf1= {
 		maxRange:Infinity,
 		sample_rate:8000
 	},	
-	requiredCase1:{
-		maxRange:10,
-	},
-	requiredRatio:{
-		maxRange:0.2,
-	},
-	
-	requiredCase2:{
-		minRange:10,
-	},
-	difReNos:{
-		maxRange:1,	
-	},
-	tot_ship_week:{
-		maxRange:100000,
-	}
-
+ 	naics:{
+ 		minlength:2,
+ 		maxlength:6,
+ 		minRange:11,
+ 		maxRange:928120
+ 	},
+ 	atv:{
+ 		minRange:0,
+ 		maxRange:Infinity
+ 	}
 };
 
 var ATV_MOS_case1={
 	dif:{
-		maxRange:1000000000
-		},
-	
-	ratio1:{
-		minRange: 0.2,
-		MaxRange: 5
-			}
-			
-	
+		maxRange:1000000
+	},		
+	ratio:{
+		minRange:0.2,
+		MaxRange:5
+	}		
 };
+
 var ATV_MOS_case2={
-		dif:{
-			maxRange:20000000,
-			},
-		estabWeight:{
-			maxRange:5,
-			},
-		ratio1:{
-			minRange: 0.1,
-			maxRange: 10
-				}	
-	};
+	dif:{
+		maxRange:20000,
+	},
+	estabWeight:{
+		maxRange:5,
+	},
+	ratio:{
+		minRange:0.1,
+		maxRange:10
+	}	
+};
