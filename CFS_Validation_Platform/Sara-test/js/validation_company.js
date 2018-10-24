@@ -670,7 +670,7 @@ function mailing_zip4 (input){
 	
 }
 //Date of ceased operations
-console.log(date_Of_Ceased("","32","12"));
+console.log(date_Of_Ceased("mn","32","12"));
 function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
 	var result = new Object();
 	var error;
@@ -680,7 +680,7 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 	result.flgmsg   =  [];
 	result.valid = true
 	if (!presence_check(month) || !presence_check(day) || !presence_check(year)) {
-		error = "E38_2"
+	error = "E38_2"
 	result.flgname.push(flags[error].name);
 	result.flgs.push(flags[error].flag);
 	result.flgvalue.push(flags[error].value);
@@ -1090,7 +1090,10 @@ console.log(mailing_zip5("blandford", "MA","01021"));
 console.log(mailing_zip4("365"));
 console.log(date_Of_Ceased("12","32","2016"));
 console.log(remarks("sarfm4455"));
-console.log(check_operating_Status ("In Operation","Temp", "Ceased"));
+var test_eval_res = new object();
+test_eval_res.remarks.valid = true;
+test_eval_res.date_Of_Ceased.valid = true;
+console.log(check_operating_Status ("In Operation","Temp", "Ceased",test_eval_res));
 /*
 var Object2 = { 
 		Mailing_address: "Putnam Sq, no.268",
