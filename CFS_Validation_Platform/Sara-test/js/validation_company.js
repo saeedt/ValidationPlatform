@@ -57,7 +57,9 @@ function verify_company(input){
 		return result;
 }	
 //company name 1
-console.log(shipping_Company_name_1("s%a12@*%"));
+//console.log(shipping_Company_name_1("s.f/ a12@*%"));
+//console.log(shipping_Company_name_1("sa@12@"));
+
 function shipping_Company_name_1 (input){
 		var result = new Object();
 		var error;
@@ -121,7 +123,7 @@ function shipping_Company_name_2(input){ //need presence check
 
 
 
-console.log(shipping_address("street23,-p$56,f@"));
+//console.log(shipping_address("street23,'jkm'"));
 function shipping_address(input){
 	var result = new Object();
 	var error;
