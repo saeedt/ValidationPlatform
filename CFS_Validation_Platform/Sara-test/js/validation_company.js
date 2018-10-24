@@ -57,7 +57,7 @@ function verify_company(input){
 		return result;
 }	
 //company name 1
-
+console.log(shipping_Company_name_1("@sa3@$7890()_-sdf"));
 function shipping_Company_name_1 (input){
 		var result = new Object();
 		var error;
@@ -121,7 +121,7 @@ function shipping_Company_name_2(input){ //need presence check
 
 
 
-
+console.log(shipping_address("street23,-p$56,f@"));
 function shipping_address(input){
 	var result = new Object();
 	var error;
@@ -470,7 +470,7 @@ function mailing_address(input){
 		result.flgvalue.push(flags[error].value);
 		result.flgmsg.push(flags[error].msg);
 		} else {
-			if (!check_allowed_char(input, "alphanumeric", "conf1")){
+			if (!check_allowed_char(input, "shippingAddress", "conf1")){
 				error = "E32_1"
 				result.flgname.push(flags[error].name);
 				result.flgs.push(flags[error].flag);
@@ -1093,7 +1093,7 @@ console.log(remarks("sarfm4455"));
 var test_eval_res = new object();
 test_eval_res.remarks.valid = true;
 test_eval_res.date_Of_Ceased.valid = true;
-console.log(check_operating_Status ("In Operation","Temp", "Ceased",test_eval_res));
+console.log(check_operating_Status ("In-op","", "",test_eval_res));
 /*
 var Object2 = { 
 		Mailing_address: "Putnam Sq, no.268",
