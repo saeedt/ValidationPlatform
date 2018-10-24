@@ -16,11 +16,9 @@ var conf1= {
 		allowed: /[A-Za-z]/g
 	},
 	alphanumeric:{
-		allowed: /[0-9a-zA-Z,[()][:][;][<>][\ ][s]]/g
+		allowed: /[0-9a-zA-Z,/,[@]^%* ]/g
 	},	
-	 alphanumeric2:{
-		 allowed : /^[-@./#&+\w\s]*$/g
-	 },
+	
 	city:{
 		not_allowed: /(APO|FPO|DPO)/g
 	},	

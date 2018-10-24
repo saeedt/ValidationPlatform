@@ -57,7 +57,7 @@ function verify_company(input){
 		return result;
 }	
 //company name 1
-console.log(shipping_Company_name_1("@sa3@$7890()_-sdf"));
+console.log(shipping_Company_name_1("s%a12@*%"));
 function shipping_Company_name_1 (input){
 		var result = new Object();
 		var error;
@@ -1072,7 +1072,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 	}
 	return result;
 }
-
+/*
 console.log(shipping_Company_name_1("sa129715"));
 console.log(shipping_Company_name_2("sa"));
 console.log(shipping_address("54sara stereet45 , camden, #23"));
