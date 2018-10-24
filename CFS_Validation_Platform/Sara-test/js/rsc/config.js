@@ -6,7 +6,7 @@ var conf1= {
 	},
 	
 	shippingAddress: {
-		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|POST)/g,
+		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|[POST])/g,
 		allowed: /[a-zA-Z0-9\s\,\""\ \''\-\.[\ ]]/g
 	},
 	numeric:{
@@ -16,9 +16,11 @@ var conf1= {
 		allowed: /[A-Za-z]/g
 	},
 	alphanumeric:{
-		allowed: /[0-9a-zA-Z,():;<>[\ ]]/g
+		allowed: /[0-9a-zA-Z,[()][:][;][<>][\ ][s]]/g
 	},	
-	
+	 alphanumeric2:{
+		 allowed : /^[-@./#&+\w\s]*$/g
+	 },
 	city:{
 		not_allowed: /(APO|FPO|DPO)/g
 	},	
