@@ -30,7 +30,8 @@ function readFile_s (evt) {
     		complete: function(result) {
 	    		shipment = result.data;
 	    		sfile_ok = false;
-	    		var html = '<p>Shipment data file<br>' ;
+	    		var html = [];
+	    		html.push('<p>Shipment data file<br>');
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -38,16 +39,16 @@ function readFile_s (evt) {
 	    				' index:'+result.errors[i].index+' '+result.errors[i].type+
 	    				':'+result.errors[i].message);
 	    			}
-	    			html += 'Errors: <br>'+ errors.join("<br />")+'<br>';	
+	    			html.push('Errors: <br>'+ errors.join("<br />")+'<br>');	
 	    		} else {
 	    			sfile_ok = true;
-	    			html += result.data.length+' rows of data, '+result.meta.cursor+' characters <br>';
-	    			html += 'List of columns <br>'+ result.meta.fields.join("<br />")+ '<br>';
+	    			html.push(result.data.length+' rows of data, '+result.meta.cursor+' characters <br>');
+	    			html.push('List of columns <br>'+ result.meta.fields.join("<br />")+ '<br>');
 	    			if (sfile_ok && cfile_ok){
 	    				document.getElementById("submit").disabled = false;
 	    			}
 	    		}
-	    		$('#sfiledetails').append(html+'</p>');    		
+	    		$('#sfiledetails').append(html.join('')+'</p>');    		
     		},
     		error: undefined,
     		download: false,
@@ -66,7 +67,8 @@ function readFile_c (evt) {
     fr.onload = function () {
     	var result;
     	cfile_ok = false;
-    	var html = '<p>Company data file<br>' ;
+    	var html = [];
+    	html.push('<p>Company data file<br>') ;
     	$('#cfiledetails').empty();
     	try {
     		result = JSON.parse(fr.result);
@@ -75,16 +77,17 @@ function readFile_c (evt) {
     		for (var i in result){
     			keys.push(i);
     		}
-    		html+= keys.length +' attributes in the JSON object<br>'+keys.join("<br />");+'<br>';
+    		html.push(keys.length +' attributes in the JSON object<br>'+keys.join("<br />")+'<br>');
     		cfile_ok = true;
     	} catch(e) {
-    		html+= 'Errors: '+e+'<br>';
+    		html.push('Errors: '+e+'<br>');
     		cfile_ok = false;
     	}
     	if (sfile_ok && cfile_ok){
 			document.getElementById("submit").disabled = false;
 		}
-    	$('#cfiledetails').append(html+'</p>');
+    	html.push('</p>');
+    	$('#cfiledetails').append(html.join(''));
 	};
     fr.readAsText(file);        
  }
@@ -93,18 +96,19 @@ function process(){
 	var cresult = verify_company(company);
 	var sresult = verify_shipment(shipment);
 	$("#log-content").empty();
-	var html = '<p> Company data file validation '+ (cresult.pass ? "Passed" : "Failed")+'<br>'
+	var html = [];
+	html.push('<p> Company data file validation '+ (cresult.pass ? "Passed" : "Failed")+'<br>');
 	for (var i=0; i<cresult.flgs.length; i++){
-		html+= cresult.flgs[i]+'='+cresult.flgvalue[i]+' '+cresult.flgname[i]+' '+cresult.flgmsg[i]+'<br>';
+		html.push(cresult.flgs[i]+'='+cresult.flgvalue[i]+' '+cresult.flgname[i]+' '+cresult.flgmsg[i]+'<br>');
 	}
-	html+='</p><hr>';
-	html += '<p> Shipment data file validation '+ (sresult.length>0 ? "Failed" : "Passed")+'<br>'
+	html.push('</p><hr>');
+	html.push('<p> Shipment data file validation '+ (sresult.length>0 ? "Failed" : "Passed")+'<br>');
 	for (var i=0; i<sresult.length; i++){
 		for (var j=0; j<sresult[i].flgs.length;j++){
-			html+= '(Line '+sresult[i].line+') '+sresult[i].flgs[j]+'='+sresult[i].flgvalue[j]+' '+sresult[i].flgname[j]+' '+sresult[i].flgmsg[j]+'<br>';
+			html.push('(Line '+sresult[i].line+') '+sresult[i].flgs[j]+'='+sresult[i].flgvalue[j]+' '+sresult[i].flgname[j]+' '+sresult[i].flgmsg[j]+'<br>');
 		}
 	}
-	html+='</p>';
-	$("#log-content").append(html);
+	html.push('</p>');
+	$("#log-content").append(html.join(''));
 	
 }

@@ -246,41 +246,10 @@ var flags = {
 		name: "miss_ship_month",
 		msg: "Shipment date (month) is missing."
 	},
-	S15_1: {
+	S15: {
 		flag: "S15",
-		value: "1",
-		name: "autoFill_error1",
-		msg: "Autofill error."
-	},
-	S15_2: {
-		flag: "S15",
-		value: "2",
-		name: "autoFill_error2",
-		msg: "Autofill error."
-	},
-	S15_3: {
-		flag: "S15",
-		value: "3",
-		name: "autoFill_error3",
-		msg: "Autofill error."
-	},
-	S15_4: {
-		flag: "S15",
-		value: "4",
-		name: "autoFill_error4",
-		msg: "Autofill error."
-	},
-	S15_5: {
-		flag: "S15",
-		value: "5",
-		name: "autoFill_error5",
-		msg: "Autofill error."
-	},
-	S15_6: {
-		flag: "S15",
-		value: "6",
-		name: "autoFill_error6",
-		msg: "Autofill error."
+		name: "autoFill_error",
+		msg: "Autofill error on : "
 	},
 	S16_1: {
 		flag: "S16",
@@ -300,17 +269,23 @@ var flags = {
 		name: "inv_exportCountry",
 		msg: "Export country is invalid."
 	},
+	S30_1: {
+		flag: "S30",
+		value: "1",
+		name: "nonNumeric_numberOfShip",
+		msg: "Total number of outbound shipments is not numeric."
+	},
 	S30_2: {
 		flag: "S30",
 		value: "2",
 		name: "miss_numberOfShip",
 		msg: "Total number of outbound shipments is missing."
 	},
-	S30_20: {
-		flag: "S30",
-		value: "20",
-		name: "outOfRange_numberOfShip",
-		msg: "Total number of outbound shipments is invalid. The value must be greater than zero."
+	S31_1: {
+		flag: "S31",
+		value: "1",
+		name: "nonNumeric_totShipValue",
+		msg: "Total value of shipments is not numeric."
 	},
 	S31_2: {
 		flag: "S31",
@@ -327,8 +302,14 @@ var flags = {
 	S32_2: {
 		flag: "S32",
 		value: "2",
-		name: "moreThan40ship",
+		name: "miss_moreThan40ship",
 		msg: "No selection is made."
+	},
+	S32_5: {
+		flag: "S32",
+		value: "5",
+		name: "inv_moreThan40ship",
+		msg: "Input is invalid."
 	},
 	S33_1: {
 		flag: "S33",
@@ -394,7 +375,13 @@ var flags = {
 		flag: "S38",
 		value: "4",
 		name: "inv_sctg",
-		msg: "SCTG commodity code not a 5-digit number."
+		msg: "SCTG commodity code is not a 5-digit number."
+	},
+	S38_20: {
+		flag: "S38",
+		value: "20",
+		name: "outOfRange_sctg",
+		msg: "SCTG commodity code is not in range."
 	},
 	S39_1: {
 		flag: "S39",
@@ -419,6 +406,12 @@ var flags = {
 		value: "4",
 		name: "inv_unna",
 		msg: "'UN' or 'NA' code is not a 4-digit number."
+	},
+	S40_20: {
+		flag: "S40",
+		value: "20",
+		name: "outOfRange_unna",
+		msg: "'UN' or 'NA' code is not in range."
 	},
 	S41_1: {
 		flag: "S41",
@@ -462,6 +455,12 @@ var flags = {
 		name: "invChar_destinationState",
 		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
 	},
+	S42_22: {
+		flag: "S42",
+		value: "22",
+		name: "notFound_destinationState",
+		msg: "U.S. destination (state) is invalid."
+	},
 	S43_1: {
 		flag: "S43",
 		value: "1",
@@ -486,53 +485,131 @@ var flags = {
 		name: "notFound_destinationZip",
 		msg: "U.S. destination (zip) is invalid."
 	},
-	S44_2: {
+	S44_4: {
 		flag: "S44",
+		value: "4",
+		name: "outOfRange_mode",
+		msg: "Mode of transport is not in range."
+	},
+	S45_2: {
+		flag: "S45",
 		value: "2",	
 		name: "YN_export",
 		msg: "No selection is made."
 	},
-	S44_5: {
-		flag: "S44",
+	S45_5: {
+		flag: "S45",
 		value: "5",	
 		name: "inv_export",
 		msg: "Input is invalid."
 	},
-	S45_1: {
-		flag: "S45",
+	S46_1: {
+		flag: "S46",
 		value: "1",
 		name: "nonAlphabetic_exportCity",
 		msg: "Foreign destination (city) is not alphabetic."
 	},
-	S45_2: {
-		flag: "S45",
+	S46_2: {
+		flag: "S46",
 		value: "2",
 		name: "miss_exportCity",
 		msg: "Foreign destination (city) is missing."
 	},
-	S46_1: {
-		flag: "S46",
+	S47_1: {
+		flag: "S47",
 		value: "1",
 		name: "nonAlphabetic_exportCountry",
 		msg: "Foreign destination (country) is not alphabetic."
 	},
-	S46_2: {
-		flag: "S46",
+	S47_2: {
+		flag: "S47",
 		value: "2",
 		name: "miss_exportCountry",
 		msg: "Foreign destination (country) is missing."
 	},
-	S47_1: {
-		flag: "S47",
+	S48_1: {
+		flag: "S48",
 		value: "1",
 		name: "nonNumeric_exportMode",
 		msg: "Export mode of transport is not numeric."
 	},
-	S47_2: {
-		flag: "S47",
+	S48_2: {
+		flag: "S48",
 		value: "2",
 		name: "miss_exportMode",
 		msg: "Export mode of transport is missing."
+	},
+	S49_1: {
+		flag: "S49",
+		value: "1",
+		name: "nonNumeric_NAICS",
+		msg: "NAICS code is not numeric."
+	},
+	S49_2: {
+		flag: "S49",
+		value: "2",
+		name: "miss_NAICS",
+		msg: "NAICS code is missing."
+	},
+	S49_4: {
+		flag: "S49",
+		value: "4",
+		name: "inv_NAICS",
+		msg: "Number of NAICS code's digit is invalid."
+	},
+	S49_20: {
+		flag: "S49",
+		value: "20",
+		name: "outOfRange_NAICS",
+		msg: "NAICS code is not in range."
+	},
+	S50_1: {
+		flag: "S50",
+		value: "1",
+		name: "nonNumeric_MOS",
+		msg: "MOS is not numeric."
+	},
+	S50_2: {
+		flag: "S50",
+		value: "2",
+		name: "miss_MOS",
+		msg: "MOS is missing."
+	},
+	S51_1: {
+		flag: "S51",
+		value: "1",
+		name: "nonNumeric_ATV",
+		msg: "ATV is not numeric."
+	},
+	S51_2: {
+		flag: "S51",
+		value: "2",
+		name: "miss_ATV",
+		msg: "ATV is missing."
+	},
+	S51_20: {
+		flag: "S51",
+		value: "20",
+		name: "outOfRange_ATV",
+		msg: "ATV is not in range."
+	},
+	S52_1: {
+		flag: "S52",
+		value: "1",
+		name: "nonNumeric_ship_date_quarter",
+		msg: "Shipment date (quarter) is not numeric."
+	},
+	S52_2: {
+		flag: "S52",
+		value: "2",
+		name: "miss_ship_date_quarter",
+		msg: "Shipment date (quarter) is missing."
+	},
+	S52_20: {
+		flag: "S52",
+		value: "20",
+		name: "outOfRange_ship_date_quarter",
+		msg: "Shipment date (quarter) is not in range."
 	},
 	//Edit flags for establishment attributes
 	E1_1: {
@@ -691,6 +768,12 @@ var flags = {
 		name: "nonAlphanumeric_companyShipName2",
 		msg: "Shipping company name 2 is not alphanumeric."
 	},
+	E22_2: {		
+		flag: "E22",
+		value: "2",
+		name: "miss_companyShipName1",
+		msg: "Shipping company name 2 is missing."
+	},
 	E23_1: {	
 		flag: "E23",
 		value: "1",
@@ -739,23 +822,29 @@ var flags = {
 		name: "inv_shipState",
 		msg: "Shipping address (state) is not a two-letter abbreviation."
 	},
+	E25_22: {		
+		flag: "E25",
+		value: "22",
+		name: "notFound-state",
+		msg: "Shipping address (state) is not found."
+	},
 	E26_1: {	
 		flag: "E26",
 		value: "1",
 		name: "nonNumeric_shipZip",
-		msg: "Shipping address (zip) is not numeric."
+		msg: "Shipping address (zip basic part) is not numeric."
 	},
 	E26_2: {	
 		flag: "E26",
 		value: "2",
 		name: "miss_shipZip",
-		msg: "Shipping address (zip) is missing."
+		msg: "Shipping address (zip basic part) is missing."
 	},
 	E26_4: {	
 		flag: "E26",
 		value: "4",
 		name: "inv_shipZip",
-		msg: "Shipping address (zip) is not a 5-digit number."
+		msg: "Shipping address (zip basic part) is not a 5-digit number."
 	},
 	E26_22: {	
 		flag: "E26",
@@ -764,202 +853,291 @@ var flags = {
 		msg: "Shipping address (zip) is invalid."
 	},
 	E26_23: {	
-		flag: "E24",
-		value: "26",
+		flag: "E26",
+		value: "23",
 		name: "inv_shipCity_state_zip",
 		msg: "City/state/zip combination is invalid."
 	},
-	E27_2: {		
+	E27_1: {	
 		flag: "E27",
+		value: "1",
+		name: "nonNumeric_shipZip",
+		msg: "Shipping address (zip extra part) is not numeric."
+	},
+	E27_2: {	
+		flag: "E27",
+		value: "2",
+		name: "miss_shipZip",
+		msg: "Shipping address (zip extra part) is missing ."
+	},
+	E27_4: {	
+		flag: "E27",
+		value: "4",
+		name: "inv_shipZip",
+		msg: "Shipping address (zip extra part) is not a 4-digit number."
+	},
+	E28_2: {		
+		flag: "E28",
 		value: "2",
 		name: "CheckBox_companyMailName",
 		msg: "No selection is made."
 	},
-	E28_1: {
-		flag: "E28",
+	E29_1: {
+		flag: "E29",
 		value: "1",
 		name: "nonAlphanumeric_companyMailName1",
 		msg: "Mailing company name 1 is not alphanumeric."
 	},	
-	E28_2: {	
-		flag: "E28",
+	E29_2: {	
+		flag: "E29",
 		value: "2",
 		name: "miss_companyMailName1",
 		msg: "Mailing company name 1 is missing."
 	},
-	E29_1: {
-		flag: "E29",
+	E30_1: {
+		flag: "E30",
 		value: "1",
 		name: "nonAlphanumeric_companyMailName2",
 		msg: "Mailing company name 2 is not alphanumeric."
 	},	
-	E30_1: {	
+	E30_2: {
 		flag: "E30",
+		value: "2",
+		name: "miss_companyMailName2",
+		msg: "Mailing company name 2 is missing."
+	},
+	E31_1: {	
+		flag: "E31",
 		value: "1",
 		name: "nonAlphanumeric_mailAddressAttention",
 		msg: "Mailing address (attention) is not alphanumeric."
 	},
-	E31_1: {
+	E31_2: {	
 		flag: "E31",
+		value: "2",
+		name: "miss_mailAddressAttention",
+		msg: "Mailing address (attention) is missing."
+	},
+	E32_1: {
+		flag: "E32",
 		value:"1",
 		name:"nonAlphanumeric_mailAddress_address",
 		msg: "Mailing address (address) is not alphanumeric."
 	},
-	E31_2: {	
-		flag: "E31",
+	E32_2: {	
+		flag: "E32",
 		value: "2",
 		name: "miss_mailAddress_address",
 		msg: "Mailing address (address) is missing."
 	},
-	E32_1: {	
-		flag: "E32",
+	E33_1: {	
+		flag: "E33",
 		value: "1",
 		name: "nonAlphabetic_mailCity",
 		msg: "Mailing address (city) is not alphabetic."
 	},
-	E32_2: {	
-		flag: "E32",
+	E33_2: {	
+		flag: "E33",
 		value: "2",
 		name: "miss_mailCity",
 		msg: "Mailing address (city) is missing."
 	},
-	E32_23: {	
-		flag: "E32",
-		value: "22",
-		name: "inv_mailCity_state_zip",
-		msg: "City/state/zip combination is invalid."
-	},
-	E33_1: {
-		flag: "E33",
+	
+	E34_1: {
+		flag: "E34",
 		value: "1",
 		name: "nonAlphabetic_mailState",
 		msg: "Mailing address (state) is not alphabetic."
 	},
-	E33_2: {
-		flag: "E33",
+	E34_2: {
+		flag: "E34",
 		value: "2",
 		name: "miss_mailStat",
 		msg: "Mailing address (state) is missing."
 	},
-	E33_4: {	
-		flag: "E33",
-		value: "3",
-		name: "inv_mailState",
-		msg: "Mailing address (state) is not a two-letter abbreviation."
-	},
-	E34_1: {	
-		flag: "E34",
-		value: "1",
-		name: "nonNumeric_mailZip",
-		msg: "Mailing address (zip) is not numeric."
-	},
-	E34_2: {		
-		flag: "E34",
-		value: "2",
-		name: "miss_mailZip",
-		msg: "Mailing address (zip) is missing."
-	},
 	E34_4: {	
 		flag: "E34",
 		value: "4",
-		name: "inv_mailZip",
-		msg: "Mailing address (zip) is not a 10-digit number."
+		name: "inv_mailState",
+		msg: "Mailing address (state) is not a two-letter abbreviation."
 	},
 	E34_22: {	
 		flag: "E34",
 		value: "22",
+		name: "notFound_mailState",
+		msg: "Mailing address (state) is not found."
+	},
+	E35_1: {	
+		flag: "E35",
+		value: "1",
+		name: "nonNumeric_mailZip",
+		msg: "Mailing address (zip basic part) is not numeric."
+	},
+	E35_2: {		
+		flag: "E35",
+		value: "2",
+		name: "miss_mailZip",
+		msg: "Mailing address (zip basic part) is missing."
+	},
+	E35_4: {	
+		flag: "E35",
+		value: "4",
+		name: "inv_mailZip",
+		msg: "Mailing address (zip basic part) is not a 5-digit number."
+	},
+	E35_22: {	
+		flag: "E35",
+		value: "22",
 		name: "notFound_mailZip",
 		msg: "Mailing address (zip) is invalid."
 	},
-	E35_2: {	
+	E35_23: {	
 		flag: "E35",
+		value: "23",
+		name: "inv_mailCity_state_zip",
+		msg: "City/state/zip combination is invalid."
+	},
+	E36_1: {	
+		flag: "E36",
+		value: "1",
+		name: "nonNumeric_mailZip",
+		msg: "Mailing address (zip extra part) is not numeric."
+	},
+	E36_2: {		
+		flag: "E36",
+		value: "2",
+		name: "miss_mailZip",
+		msg: "Mailing address (zip extra part) is missing."
+	},
+	E36_4: {	
+		flag: "E36",
+		value: "4",
+		name: "inv_mailZip",
+		msg: "Mailing address (zip extra part) is not a 5-digit number."
+	},
+	
+	E37_2: {	
+		flag: "E37",
 		value: "2",
 		name: "checkBox_operatingStatus",
 		msg: "No selection is made."
 	},
-	E36_1:{
-		flag: "E36",
+	E38_1:{
+		flag: "E38",
 		value:"1",
 		name: "nonNumeric_dateOfCeased",
 		msg: "Date for ceased operation is not numeric."
 	},
-	E36_3:{
-		flag: "E36",
+	E38_2:{
+		flag: "E38",
+		value:"2",
+		name: "miss_dateOfCeased",
+		msg: "month or day or year is missing ."
+	},
+	
+	E38_3:{
+		flag: "E38",
 		value: "3",
 		name: "invFormat_dateOfCeased",
-		msg: "Date of ceased operation is not in correct format."
+		msg: "Date of ceased is not in corrent range and format of MM/DD/ YYYY ."
 	},
-	E36_40:{
-		flag: "E36",
+	E38_40:{
+		flag: "E38",
 		value: "40",
 		name: "dateOfCeased_CrossConst",
 		msg: "Ceased operation is selected but the date of ceases is missing or date of ceased is provided but ceased operation check box is not selected. ."
 	},
-	E37_2: {	
-		flag: "E37",
+	E39_2: {	
+		flag: "E39",
 		value: "2",
 		name: "checkBox_priIndustryActivity",
 		msg: "No selection is made."
 	},
-	E38_1: {	
-		flag: "E38",
+	E40_1: {	
+		flag: "E40",
 		value: "1",
 		name: "nonAlphanumeric_priIndustryActivity",
 		msg: "Primary industry activity is not alphanumeric "
 	},
-	E38_40: {
-		flag: "E38",
+	E40_2: {	
+		flag: "E40",
+		value: "2",
+		name: "miss_priIndustryActivity",
+		msg: "Primary industry activity is missing "
+	},
+	E40_40: {
+		flag: "E40",
 		value: "40",
 		name: "primIndustAct_CrossConst",
 		msg: "Checkbox is checked as 'No' but primary industry activity description is not provided."
 	},
-	E39_1: {	
-		flag : "E39",
+	E41_1: {	
+		flag : "E41",
 		value: "1",
 		name: "nonAlphabetic_contactName",
 		msg: "Contact information (name) is not alphabetic."
 	},
-	E39_2: {
-		flag: "E39",
+	E41_2: {
+		flag: "E41",
 		value: "2",
 		name: "miss_contactName",
 		msg: "Contact information (name) is missing."
 	},	
-	E40_1: {	
-		flag: "E40",
+	E42_1: {	
+		flag: "E42",
 		value: "1",
 		name: "nonAlphabetic_contactTitle",
 		msg: "Contact information (title) is not alphabetic."
 	},
-	E40_2: {
-		flag: "40",
+	E42_2: {
+		flag: "42",
 		value: "2",
 		name: "miss_contactTitle",
 		msg: "Contact information (title) is missing."
 	},		
-	E41_1: {	
-		flag: "E41",
+	E43_1: {	
+		flag: "E43",
 		value: "1",
 		name: "nonNumeric_contactPhone",
 		msg: "Contact information (phone number) is not numeric."
 	},
-	E41_2: {
-		flag: "41",
+	E43_2: {
+		flag: "43",
 		value: "2",
 		name: "miss_contactPhone",
 		msg: "Contact information (phone number) is missing."
 	},	
-	E42_2: {	
-		flag: "E42",
+	E43_4: {
+		flag: "43",
+		value: "4",
+		name: "inv_contactPhone",
+		msg: "Contact information (phone number) is not a 10 digit number."
+	},
+	E44_2: {
+		flag: "44",
+		value: "2",
+		name: "miss_contactPhone_extention",
+		msg: "Contact information (phone number extention) is missing."
+	},
+	E45_2: {	
+		flag: "E45",
 		value: "2",
 		name: "miss_contactFax",
 		msg: "Contact information (fax number) is missing."
 	},
-	E43_40: {	
-		flag: "E43",
+	E46_2: {	
+		flag: "E46",
+		value: "2",
+		name: "miss_reamrk",
+		msg: "remark is missing."
+	},
+	E46_40: {	
+		flag: "E46",
 		value: "40",
 		name: "Remark_CrossConst_OperatStatusCheck",
 		msg: "Operating status is checked as 'in operation' but description of operation change is not provided."
-	},
+	}
+};
 	
-};	
+
+
