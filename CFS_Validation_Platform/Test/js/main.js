@@ -96,18 +96,40 @@ function process(){
 	var cresult = verify_company(company);
 	var sresult = verify_shipment(shipment);
 	$("#log-content").empty();
+	var pass = true;
 	var html = [];
-	html.push('<p> Company data file validation '+ (cresult.pass ? "Passed" : "Failed")+'<br>');
-	for (var i=0; i<cresult.flgs.length; i++){
-		html.push(cresult.flgs[i]+'='+cresult.flgvalue[i]+' '+cresult.flgname[i]+' '+cresult.flgmsg[i]+'<br>');
-	}
+	html.push('<p> Establishment data file validation<br>');
+	Object.keys(cresult).forEach(function(key,index) {
+		if (cresult[key].flags.length>0) {
+			pass = false;
+			html.push(key+'<br>');
+			for (var i=0; i<cresult[key].flags.length; i++){
+				html.push(cresult[key].flags[i]+'='+cresult[key].flagval[i]+' '+cresult[key].flagname[i]+' '+cresult[key].flagmsg[i]+'<br>');
+			}
+		}		
+	});
+	if (pass)
+		html.push('No errors<br>');
+	pass = true;
 	html.push('</p><hr>');
-	html.push('<p> Shipment data file validation '+ (sresult.length>0 ? "Failed" : "Passed")+'<br>');
-	for (var i=0; i<sresult.length; i++){
-		for (var j=0; j<sresult[i].flgs.length;j++){
-			html.push('(Line '+sresult[i].line+') '+sresult[i].flgs[j]+'='+sresult[i].flgvalue[j]+' '+sresult[i].flgname[j]+' '+sresult[i].flgmsg[j]+'<br>');
-		}
+	html.push('<p> Shipment data file validation<br>');
+	for (var i=0; i<sresult.length-1; i++){
+		Object.keys(sresult[i]).forEach(function(key,index) {
+			if (sresult[i][key].flags.length>0) {
+				html.push(key+'<br>');
+				pass = false;
+				for (var j=0; j<sresult[i][key].flags.length;j++){
+					html.push('(Line '+ String(i+1)+') '+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'<br>');
+				}
+			}
+		});				
 	}
+	if (sresult[sresult.length-1].flags.length >0){
+		pass = false;
+		html.push(sresult[sresult.length-1].flags[0]+'='+sresult[sresult.length-1].flagval[0]+' '+sresult[sresult.length-1].flagname[0]+' '+sresult[sresult.length-1].flagmsg[0]+'<br>');
+	}
+	if (pass)
+		html.push('No errors<br>');
 	html.push('</p>');
 	$("#log-content").append(html.join(''));
 	
