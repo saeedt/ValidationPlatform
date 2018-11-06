@@ -46,6 +46,12 @@ div#csvcontents{
     width: 49.8%;
    
 }
+
+.ctrl {
+    float: right;
+    margin-right: 2px;   
+}
+
 #analyzer {
 	width: 500px;
     float: left;                
