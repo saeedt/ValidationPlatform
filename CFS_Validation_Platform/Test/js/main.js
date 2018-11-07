@@ -124,22 +124,31 @@ function process_shp(){
 	var sresult = verify_shipment(shipment);
 	$("#log-shp").empty();
 	var pass = true;
+	var pass_i;
 	var html = [];
 	log_s = [];
 	html.push('<p> Shipment data file validation<br>');
 	log_s.push('Shipment data file validation\n');
 	for (var i=0; i<sresult.length-1; i++){
-		Object.keys(sresult[i]).forEach(function(key,index) {
-			if (sresult[i][key].flags.length>0) {
-				html.push(key+'<br>');
-				log_s.push(key+'\n');
+		html.push('Line '+ String(i+1)+'<br>');
+		log_s.push('Line '+ String(i+1)+'\n');
+		pass_i = true;
+		Object.keys(sresult[i]).forEach(function(key,index) {			
+			if (sresult[i][key].flags.length>0) {				
+				html.push('&nbsp'+key+'<br>');
+				log_s.push('\t'+key+'\n');
 				pass = false;
+				pass_i = false;
 				for (var j=0; j<sresult[i][key].flags.length;j++){
-					html.push('(Line '+ String(i+1)+') '+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'<br>');
-					log_s.push('\t(Line '+ String(i+1)+') '+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'\n');
+					html.push('&nbsp'+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'<br>');
+					log_s.push('\t'+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'\n');
 				}
-			}
-		});				
+			}			
+		});	
+		if (pass_i){
+			html.pop();
+			log_s.pop();
+		}
 	}
 	if (sresult[sresult.length-1].flags.length >0){
 		pass = false;
