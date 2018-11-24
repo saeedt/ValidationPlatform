@@ -1,8 +1,8 @@
 var shipment;
 var company;
 var cfile_ok;
-var log_e;
-var log_s;
+var log_e = [];
+var log_s = [];
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
 	document.getElementById('cfile').addEventListener('change', readFile_e, false);

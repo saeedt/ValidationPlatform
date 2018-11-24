@@ -18,10 +18,10 @@ function check_req_char(input, type, config){
 	return(!filter.test(input));
 }
 
-// field length validation function
-function field_length_check(input, type, config){  
-	var lowerbound = parseInt(eval(config)[type].minlength);
-	var upperbound = parseInt(eval(config)[type].maxlength);
+// length field validation function
+function length_field_check(input, type, config){  
+	var lowerbound = eval(config)[type].minlenght;
+	var upperbound =eval(config)[type].maxlenght;
     if(input.length >= lowerbound && input.length <=upperbound)
       {  	
 	   return true;
@@ -31,40 +31,27 @@ function field_length_check(input, type, config){
        return false;  	
       }  
 }
+
 //Range value check function
-function range_val_check(input, type, config, lbeq=false, ubeq=false){  
+function range_val_check(input, type, config){  
 	var min_pass=true;
 	var max_pass=true;
 	var cfg=eval(config)[type];
 	if (typeof(cfg.minRange)!= "undefined"){
-		if (lbeq){
-			if (parseFloat(input) <= cfg.minRange) {
-				min_pass=false;
-			}
-		} else {
-			if (parseFloat(input) < cfg.minRange) {
-				min_pass=false;
-			}
-		}		
+		if (input < cfg.minRange) {
+			min_pass=false;
+		}
 	}
 	if (typeof(cfg.maxRange)!= "undefined"){
-		if (ubeq){
-			if (parseFloat(input) >= cfg.maxRange) {
-				max_pass=false;
-			}
-		} else {
-			if (parseFloat(input) > cfg.maxRange) {
-				max_pass=false;
-			}
-		}		
+		if (input > cfg.maxRange) {
+			max_pass=false;
+		}
 	}
 	if (min_pass && max_pass){
 		return true;
-	} else{
-		return false;
 	}
+	return false;
 }
-
 //Presence check
 function presence_check(input){	
 	if ( typeof(input) == 'undefined') { 
@@ -200,18 +187,4 @@ function merge_objs(obj1,obj2){
 		}
 	}
 	return obj1;
-}
-
-function auto_fill(list,attrib){
-	if (list.length >2){
-		for (var i = 0; i < list.length-2; i++){
-			if (list[i+1][attrib] - list[i][attrib] == 1){
-				if (list[i+2][attrib]-list[i+1][attrib] == 1){
-					return true;
-					}
-				}  		 	
-		     } 
-		return false;
-	}
-	return true;
 }

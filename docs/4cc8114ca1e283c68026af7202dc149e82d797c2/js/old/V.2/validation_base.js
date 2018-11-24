@@ -35,6 +35,7 @@ function field_length_check(input, type, config){
 function range_val_check(input, type, config, lbeq=false, ubeq=false){  
 	var min_pass=true;
 	var max_pass=true;
+	
 	var cfg=eval(config)[type];
 	if (typeof(cfg.minRange)!= "undefined"){
 		if (lbeq){
@@ -60,11 +61,9 @@ function range_val_check(input, type, config, lbeq=false, ubeq=false){
 	}
 	if (min_pass && max_pass){
 		return true;
-	} else{
-		return false;
 	}
+	return false;
 }
-
 //Presence check
 function presence_check(input){	
 	if ( typeof(input) == 'undefined') { 
@@ -203,15 +202,12 @@ function merge_objs(obj1,obj2){
 }
 
 function auto_fill(list,attrib){
-	if (list.length >2){
-		for (var i = 0; i < list.length-2; i++){
-			if (list[i+1][attrib] - list[i][attrib] == 1){
-				if (list[i+2][attrib]-list[i+1][attrib] == 1){
-					return true;
-					}
-				}  		 	
-		     } 
-		return false;
-	}
-	return true;
+	for (var i = 0; i < list.length-2; i++){
+		if (list[i+1][attrib] - list[i][attrib] == 1){
+			if (list[i+2][attrib]-list[i+1][attrib] == 1){
+				return true;
+				}
+			}  		 	
+	     } 
+	return false;
 }
