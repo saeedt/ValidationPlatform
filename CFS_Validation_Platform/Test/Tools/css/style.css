@@ -1,11 +1,86 @@
-body {                
-    color: #000;
+h1{
+	color: #009999;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;    
-    line-height: 1.4;    
-    color: #111111;
-    background-color: #EEEEEE;
+    line-height: 1;    
     margin: 0;
 }
+
+h2{
+	color: #000000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;    
+    line-height: .8;    
+    margin: 25px 0px 0px 10px;
+}
+
+body {                
+    color: #000000;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;    
+    line-height: 1.5;    
+    padding: 0px 0px 0px 30px;
+}
+
+input {
+	margin: margin: 5px 0px 5px 20px;
+	color: #408080;
+}
+
+#form{
+	
+}
+
+
+#center{	
+	margin: 0 auto;
+	width: 800px;
+}
+
+li {
+  width: 4em;
+  height: 4em;
+  text-align: center;
+  line-height: 4em;
+  border-radius: 3em;
+  background: #00f2ff;
+  margin: 0 1em;
+  display: inline-block;
+  color: white;
+  position: relative;
+}
+
+li::before{
+  content: '';
+  position: absolute;
+  top: 2em;
+  left: -4em;
+  width: 4em;
+  height: .2em;
+  background: #408080;
+  z-index: -1;
+}
+
+
+li:first-child::before {
+  display: none;
+}
+
+.active {
+  background: #00c4ce;
+}
+
+.active ~ li {
+  background: lightblue;
+}
+
+.active ~ li::before {
+  background: lightblue;
+}
+
+
+
+
+
+
+
 #input{
 	width:50%;
 	float:left;
