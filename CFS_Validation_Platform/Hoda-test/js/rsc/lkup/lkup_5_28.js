@@ -142,13 +142,7 @@ var lkup29 = ["2","3","4"];
 
 var lkup30 = ["33","42","45"];
 
-var lkup31 = [];
-
-var lkup32 = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
-
-var lkup33 = ["CANADA", "MEXICO"];
-
-var lkup34 = [
+var lkup31 = [
 	{
 	"sctg": "08310",
 	"unna": "1170"
@@ -369,4 +363,10 @@ var lkup34 = [
 	"sctg": "40120",
 	"unna": "0161"
 	}	
-]
+];
+
+var lkup32 = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+
+var lkup33 = ["CANADA", "MEXICO"];
+
+	
