@@ -18,34 +18,40 @@
 		<script type="text/javascript" src="js/validation_company.js"></script>
 		<script type="text/javascript" src="js/validation_shipment.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<link rel="shortcut icon" href="#" />
     </head>
     <body>
     	<div id="input">
-    	<div id="head"><h2>Data Validation Platform Demo</h2></div>   	
+    	<div id="head"><h2>Data Files</h2></div>   	
     	<div id='bodytext'>
-    	Submit input data files <br>
-    	Select the company data file    	
-    	<input type="file" id="cfile" name="cfile" enctype="multipart/form-data" /> <br>
+    	Select the establishment data file    	
+    	<input type="file" id="cfile" name="cfile" enctype="multipart/form-data" /><br>
+    	<input type="button" id='submit-e' value="Validate" title="Submit establishment file and validate" ><hr>
     	Select the shipment data file    	
-    	<input type="file" id="sfile" name="sfile" enctype="multipart/form-data" /> <br>
-    	Submit and validate
-    	<input type="button" id='submit' value="submit" title="Submit data files and validate" ><hr>
+    	<input type="file" id="sfile" name="sfile" enctype="multipart/form-data" /><br>
+    	<input type="button" id='submit-s' value="Validate" title="Submit shipment file and validate" ><hr>
     	<div id="cfiledetails"></div>
     	<div id="sfiledetails"></div>
     	</div>
     	</div>
     	<div id="log">
-    	<div id="head"><h2>Logs</h2></div>
+    	<div id="head"><h2>Results<input class="ctrl" type="button" id='dl-report' value="Download" title="Download the report" ></h2>    	
+    	</div>
     	<div id='bodytext'>
-    	<div id="log-content">
+    	<div id="log-est">
+    	</div>
+    	<div id="log-shp">
     	</div>
     	</div>
     	</div>
-        <!-- <div id="input">
-    	<div id="head"><h2>Controls</h2></div>   	
+        <div id="input">
+    	<div id="head"><h2>Tools</h2></div>   	
     	<div id='bodytext'>    	    				
-					
-		</div> -->
+		<p><a href="/Tools/company.html" target="_blank">Establishment form</a> <br>
+		A web form for entering establishment information and exporting the results in JSON format. </p>
+		<p><a href="/Tools/converter.html" target="_blank">Lookup table converter tool</a><br>	
+		A tool for creating lookup tables in CSV format. </p>		
+		</div>
 		</div>
     	
 

@@ -1032,20 +1032,20 @@ var flags = {
 		flag: "E38",
 		value:"2",
 		name: "miss_dateOfCeased",
-		msg: "month or day or year is missing ."
+		msg: "month or day or year is missing."
 	},
 	
 	E38_3:{
 		flag: "E38",
 		value: "3",
 		name: "invFormat_dateOfCeased",
-		msg: "Date of ceased is not in corrent range and format of MM/DD/ YYYY ."
+		msg: "Date of ceased is not in corrent range and format of MM/DD/ YYYY."
 	},
 	E38_40:{
 		flag: "E38",
 		value: "40",
 		name: "dateOfCeased_CrossConst",
-		msg: "Ceased operation is selected but the date of ceases is missing or date of ceased is provided but ceased operation check box is not selected. ."
+		msg: "Ceased operation is selected but the date of ceases is missing or date of ceased is provided but ceased operation check box is not selected."
 	},
 	E39_2: {	
 		flag: "E39",
@@ -1117,7 +1117,7 @@ var flags = {
 		flag: "44",
 		value: "2",
 		name: "miss_contactPhone_extention",
-		msg: "Contact information (phone number extention) is missing."
+		msg: "Contact information (phone number extension) is missing."
 	},
 	E45_2: {	
 		flag: "E45",

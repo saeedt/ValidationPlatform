@@ -33,7 +33,7 @@ div#bodytext {
   border: 1px; 
   border-style: dotted;
   border-radius: 2px;  
-  min-height: 200px;
+ /* min-height: 200px;*/
 }
 div#bodytext:hover{
 	background-color: #E8E8EA;
