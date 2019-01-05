@@ -161,7 +161,7 @@ var flags = {
 		value: "4",
 		name: "inv_sctg_unna",
 		msg: "SCTG commodity code/'UN' or 'NA' number combination is not acceptable."
-	}, 
+	}, //Edit flag S9-4 is modified
 	S10_1: {
 		flag: "S10",
 		value: "1",

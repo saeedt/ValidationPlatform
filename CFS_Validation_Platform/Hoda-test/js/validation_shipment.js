@@ -957,6 +957,7 @@ function test_unna(unna, sctg, evalres){
 				if (lkup_binary_m("lkup31", "unna", unna).found){
 					var test1 = {"sctg" : sctg, "unna" : unna };
 					if (!matchObj(test1, test2, "sctg")){
+						//For checking acceptable SCTG/UNNA combinations 
 						//TODO lookup 31 is reserved for the UNNA/SCTG combination list			
 						error = "S9_4";
 						result.flagname.push((flags)[error].name);
