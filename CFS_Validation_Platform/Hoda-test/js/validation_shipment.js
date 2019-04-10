@@ -953,13 +953,18 @@ function test_unna(unna, sctg, evalres){
 		}
 	if (presence_check(unna)){
 		if (evalres.SCTG_COMMODITY_CODE.valid){
-			if (lkup_linear("lkup31", sctg)){
-				//TODO lookup 31 is reserved for the UNNA/SCTG combination list			
-				error = "S9_4";
-				result.flagname.push((flags)[error].name);
-				result.flags.push((flags)[error].flag);
-				result.flagval.push((flags)[error].value);
-				result.flagmsg.push((flags)[error].msg);
+			var test2 = lkup_binary_m("lkup31", "sctg", sctg).data;
+				if (lkup_binary_m("lkup31", "unna", unna).found){
+					var test1 = {"sctg" : sctg, "unna" : unna };
+					if (!matchObj(test1, test2, "sctg")){
+						//For checking acceptable SCTG/UNNA combinations 
+						//TODO lookup 31 is reserved for the UNNA/SCTG combination list			
+						error = "S9_4";
+						result.flagname.push((flags)[error].name);
+						result.flags.push((flags)[error].flag);
+						result.flagval.push((flags)[error].value);
+						result.flagmsg.push((flags)[error].msg);
+					}
 			} else if (result.valid){
 				if (lkup_binary_m("lkup2", "unna_code", unna).found){
 				 	if (!lkup_linear("lkup13", sctg)){	
