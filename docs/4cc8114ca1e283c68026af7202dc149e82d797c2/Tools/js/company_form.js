@@ -35,4 +35,10 @@ function readform () {
 	result.shipment_number = $("input[type=text][name=d_no_shipments]").val();
 	result.shipment_value = $("input[type=text][name=d_val_shipments]").val();
 	console.log(result);
+	var a         = document.createElement('a');
+	a.href        = 'data:attachment/csv,' + encodeURIComponent(JSON.stringify(result));
+	a.target      = '_blank';
+	a.download    = 'Establishment.json';
+	document.body.appendChild(a);
+	a.click();
  }

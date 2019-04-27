@@ -1,18 +1,39 @@
 var shipment;
 var company;
 var cfile_ok;
-var log_e;
-var log_s;
+var log_e = [];
+var log_s = [];
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
+	'use strict';
+	;( function( $, window, document, undefined ) {
+				$( '.inputfile' ).each( function() {
+					var $input	 = $( this ),
+						$label	 = $input.next( 'label' ),
+						labelVal = $label.html();
+					$input.on( 'change', function( e ) {
+						var fileName = '';
+						if( e.target.value )
+							fileName = e.target.value.split( '\\' ).pop();
+						if( fileName )
+							$label.find( 'span' ).html( fileName );
+						else
+							$label.html( labelVal );
+					});
+					// Firefox bug fix
+					$input
+					.on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+					.on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+				});
+			})( jQuery, window, document );
 	document.getElementById('cfile').addEventListener('change', readFile_e, false);
 	document.getElementById('sfile').addEventListener('change', readFile_s, false);
-	document.getElementById("submit-s").disabled = true;
+	/*document.getElementById("submit-s").disabled = true;
 	document.getElementById("submit-e").disabled = true;
 	document.getElementById("dl-report").disabled = true;
 	document.getElementById("submit-s").onclick = process_shp;
 	document.getElementById("submit-e").onclick = process_est;
-	document.getElementById("dl-report").onclick = download_report;
+	document.getElementById("dl-report").onclick = download_report;*/
 });
 
 function readFile_s (evt) {
@@ -46,7 +67,7 @@ function readFile_s (evt) {
 	    		} else {	    			
 	    			html.push(result.data.length+' rows of data, '+result.meta.cursor+' characters <br>');
 	    			html.push('List of columns <br>'+ result.meta.fields.join("<br />")+ '<br>');	    			
-	    			document.getElementById("submit-s").disabled = false;	    			
+	    			/*document.getElementById("submit-s").disabled = false;	  */  			
 	    		}
 	    		$('#sfiledetails').append(html.join('')+'</p>');    		
     		},
@@ -83,9 +104,9 @@ function readFile_e (evt) {
     		html.push('Errors: '+e+'<br>');
     		cfile_ok = false;
     	}
-    	if (cfile_ok){
+    	/*if (cfile_ok){
 			document.getElementById("submit-e").disabled = false;
-		}
+		}*/
     	html.push('</p>');
     	$('#cfiledetails').append(html.join(''));
 	};

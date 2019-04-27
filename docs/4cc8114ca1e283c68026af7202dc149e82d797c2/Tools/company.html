@@ -10,26 +10,15 @@
         <script type="text/javascript" src="js/company_form.js"></script>               
     </head>
     <body>
-    
-	   	<h1> Establishment Information Form</h1><hr>
-	   	<div id="center">
-	    	<ul>
-	  			<li class="active">1</li>
-	  			<li>2</li>
-	  			<li>3</li>
-	  			<li>4</li>
-		  		<li>5</li>
-	  			<li>6</li>
-	  			<li>7</li>
-			</ul>	
-	   	</div>
-	   	<h2>ITEM A: Name and Shipping Address</h2><hr>    	
-	   	COMPANY NAME 1 <input type="text" name="a_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
-	   	COMPANY NAME 2 <input type="text" name="a_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
-	   	ADDRESS <input type="text" name="a_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
-	   	CITY <input type="text" name="a_city" title="City" size="20" maxlength="20" placeholder="City"> STATE <select name="a_state" title="State" > 
-	   	<option value="" selected="selected">(Select a state)</option> 
-	   	<option value="AL">AL</option>
+    	<div id="input">
+    	<div id="head"><h2>Item A: Name and Shipping Address</h2></div>   	
+    	<div id='bodytext'>
+    	Company Name 1 <input type="text" name="a_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
+    	Company Name 2 <input type="text" name="a_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
+    	Address <input type="text" name="a_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
+    	City <input type="text" name="a_city" title="City" size="20" maxlength="20" placeholder="City"> State <select name="a_state" title="State" > 
+    	<option value="" selected="selected">(Select a state)</option> 
+    	<option value="AL">AL</option>
 		<option value="AK">AK</option>
 		<option value="AR">AR</option>	
 		<option value="AZ">AZ</option>
@@ -81,15 +70,17 @@
 		<option value="WV">WV</option>
 		<option value="WY">WY</option>
 		</select> ZIP Code <input type="text" name="a_zip1" title="ZIP Code" size="5" maxlength="5" placeholder="00000">-<input type="text" name="a_zip2" title="ZIP Code" size="4" maxlength="4" placeholder="0000">
-	   	
-	   	<h2>ITEM B: Name and Mailing Address</h2><hr>
-	   	Company Name 1 <input type="text" name="b_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
-	   	Company Name 2 <input type="text" name="b_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
-	   	Attention <input type="text" name="b_att" title="Attention" size="100" maxlength="100" placeholder="Attention"><br>
-	   	Address <input type="text" name="b_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
-	   	City <input type="text" name="b_city" title="City" size="20" maxlength="20" placeholder="City"> State <select name="b_state" title="State" > 
-	   	<option value="" selected="selected">(Select a state)</option> 
-	   	<option value="AL">AL</option>
+    	</div>
+    	    	
+    	<div id="head"><h2>Item B: Name and Mailing Address</h2></div>   	
+    	<div id='bodytext'>
+    	Company Name 1 <input type="text" name="b_cn1" title="Company Name 1" size="100" maxlength="100" placeholder="Company Name 1"><br>
+    	Company Name 2 <input type="text" name="b_cn2" title="Company Name 2" size="100" maxlength="100" placeholder="Company Name 2"><br>
+    	Attention <input type="text" name="b_att" title="Attention" size="100" maxlength="100" placeholder="Attention"><br>
+    	Address <input type="text" name="b_add" title="Address" size="100" maxlength="100" placeholder="Address"><br>
+    	City <input type="text" name="b_city" title="City" size="20" maxlength="20" placeholder="City"> State <select name="b_state" title="State" > 
+    	<option value="" selected="selected">(Select a state)</option> 
+    	<option value="AL">AL</option>
 		<option value="AK">AK</option>
 		<option value="AR">AR</option>	
 		<option value="AZ">AZ</option>
@@ -141,20 +132,6 @@
 		<option value="WV">WV</option>
 		<option value="WY">WY</option>
 		</select> ZIP Code <input type="text" name="b_zip1" title="ZIP Code" size="5" maxlength="5" placeholder="00000">-<input type="text" name="b_zip2" title="ZIP Code" size="4" maxlength="4" placeholder="0000">
-<<<<<<< HEAD
-	   	
-	   	<h2>ITEM C: Operating Status</h2><hr>
-	   	Which of the following best describes this location’s operating status during week 1?<br>    	
-			<input type="radio" name="c_status" value="In_Operation"> In Operation<br>
-	 		<input type="radio" name="c_status" value="Inactive"> Temporarily or seasonally inactive<br>
-	 		<input type="radio" name="c_status" value="Ceased"> Ceased operation - Enter date ceased operation: <input type="text" name="c_co_month" title="Month" size="2" maxlength="2" placeholder="MM"> <input type="text" name="c_co_day" title="Day" size="2" maxlength="2" placeholder="DD"> <input type="text" name="c_co_year" title="Year" size="4" maxlength="4" placeholder="YYYY">	   	
-	   	
-	   	<h2>ITEM D: Total Number and Value of Outbound Shipments</h2><hr>
-	   	Total number of outbound shipments during week1 <input type="text" name="d_no_shipments" title="Total No. of outbound shipments" size="9" maxlength="9"><br>
-	   	Total value of outbound shipments during week1 $<input type="text" name="d_val_shipments" title="Total value of outbound shipments" size="9" maxlength="9"><br><hr>
-	   	Verify the data and submit the From <input type="button" id='submit' value="Submit" title="Submit the form" >
-	   	    	        
-=======
     	</div>
     	
     	<div id="head"><h2>Item C: Operating Status</h2></div>   	
@@ -174,6 +151,5 @@
     	</div>  	
 
         
->>>>>>> branch 'master' of https://github.com/saeedt/ValidationPlatform
     </body>
 </html>

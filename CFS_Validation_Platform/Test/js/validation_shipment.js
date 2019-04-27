@@ -25,7 +25,7 @@ function verify_shipment(input){
 		tmpResult.DOMESTIC_ZIP_CODE = test_destinationZip(input[i].DOMESTIC_ZIP_CODE,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_CITY_NAME,tmpResult);
 		tmpResult.EXPORT_CITY_NAME = test_exportCity(input[i].EXPORT_CITY_NAME);
 		tmpResult.EXPORT_COUNTRY_NAME = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,tmpResult);
-		tmpResult.EXPORT_TRANSPORT_MODE = test_exportMode(input[i].EXPORT_COUNTRY_NAME,tmpResult);
+		tmpResult.EXPORT_TRANSPORT_MODE = test_exportMode(input[i].EXPORT_TRANSPORT_MODE,input[i].EXPORT_COUNTRY_NAME,tmpResult);
 		result.push(tmpResult);
 	}
 	result.push(test_auto_fill_m(input));	
@@ -251,8 +251,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres){
 
 function test_moreThan40Ship(input){
 	var result = new Object();
-	var error;
-	var input = input.toUpperCase();
+	var error;	
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -264,7 +263,7 @@ function test_moreThan40Ship(input){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
 	}
-	else if (!lkup_linear("lkup25", input)){
+	else if (!lkup_linear("lkup25", input.toUpperCase())){
 		error = "S32_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
@@ -580,8 +579,7 @@ function test_ship_weight(weight, mode, naics, evalres){
 
 function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres){
 	var result = new Object();
-	result.valid = true;
-	var temp = temp.toUpperCase();
+	result.valid = true;	
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -595,6 +593,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres){
 		result.flagmsg.push((flags)[error].msg);
 		result.valid = false;
 	} else {
+		temp = temp.toUpperCase();
 		if (!check_allowed_char(sctg, "numeric", "conf1")){ // the other field validation checks are performed if the presence check returns true
 			error = "S38_1";
 			result.flagname.push((flags)[error].name);
@@ -852,8 +851,7 @@ function test_sctg_descr(input){
 
 function test_temp_control(input){
 	var result = new Object();
-	var error;
-	var input = input.toUpperCase();
+	var error;	
 	result.valid = true;
 	result.flagname = [];
 	result.flags = [];
@@ -866,7 +864,7 @@ function test_temp_control(input){
 			result.flagval.push((flags)[error].value);
 			result.flagmsg.push((flags)[error].msg);
 			result.valid = false;
-	} else if (!lkup_linear("lkup25", input)){
+	} else if (!lkup_linear("lkup25", input.toUpperCase())){
 			error = "S11_2";
 			result.flagname.push((flags)[error].name);
 			result.flags.push((flags)[error].flag);
@@ -890,7 +888,8 @@ function test_unna(unna, sctg, evalres){
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
-	result.flagmsg = [];	
+	result.flagmsg = [];
+	if (presence_check(unna)){		
 		if (!check_allowed_char(unna, "numeric", "conf1")){
 			error = "S40_1";
 			result.flagname.push((flags)[error].name);
@@ -915,6 +914,7 @@ function test_unna(unna, sctg, evalres){
 			result.flagmsg.push((flags)[error].msg);
 			result.valid = false;
 		}
+	}
 	if (presence_check(unna)){
 		if (evalres.SCTG_COMMODITY_CODE.valid){
 			if (lkup_linear("lkup31", sctg)){
@@ -1008,7 +1008,7 @@ function test_destinationState(input){
 	var result = new Object();
 	var error;
 	result.valid = true;
-	var input = input.toUpperCase();
+	
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1020,6 +1020,7 @@ function test_destinationState(input){
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);		
 	} else {
+		input = input.toUpperCase();
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
 			error = "S42_1";
 			result.flagname.push((flags)[error].name);
@@ -1174,8 +1175,7 @@ function test_mode(input){
 
 function test_export(input){
 	var result = new Object();
-	var error;
-	var input = input.toUpperCase();
+	var error;	
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1186,7 +1186,7 @@ function test_export(input){
 		result.flags.push((flags)[error].flag);
 		result.flagval.push((flags)[error].value);
 		result.flagmsg.push((flags)[error].msg);
-	} else if (!lkup_linear("lkup25", input)){
+	} else if (!lkup_linear("lkup25", input.toUpperCase())){
 		error = "S45_5";
 		result.flagname.push((flags)[error].name);
 		result.flags.push((flags)[error].flag);
@@ -1236,9 +1236,7 @@ function test_exportCity(input){
 function test_exportCountry(country, city, evalres){
 	var result = new Object();
 	var error;
-	result.valid = true;
-	var country = country.toUpperCase();
-	var city = city.toUpperCase();
+	result.valid = true;	
 	result.flagname = [];
 	result.flags = [];
 	result.flagval = [];
@@ -1258,6 +1256,7 @@ function test_exportCountry(country, city, evalres){
 		result.flagmsg.push((flags)[error].msg);
 		result.valid = false
 	} else {
+		country = country.toUpperCase();
 		if (evalres.EXPORT_CITY_NAME.valid){
 			if (country == "CANADA"){
 				if (!lkup_linear("lkup14", city)){
