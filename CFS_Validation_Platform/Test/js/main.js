@@ -28,14 +28,16 @@ $(document).ready(function(e) {
 			})( jQuery, window, document );
 	document.getElementById('cfile').addEventListener('change', readFile_e, false);
 	document.getElementById('sfile').addEventListener('change', readFile_s, false);
-	/*document.getElementById("submit-s").disabled = true;
-	document.getElementById("submit-e").disabled = true;
-	document.getElementById("dl-report").disabled = true;
+	document.getElementById("submit-s").style.display  = 'none';
+	document.getElementById("submit-e").style.display  = 'none';
+	document.getElementById("tabs").style.display  = 'none';
+	$( "#tabs" ).tabs();
+	/*document.getElementById("dl-report").disabled = true;
 	document.getElementById("submit-s").onclick = process_shp;
 	document.getElementById("submit-e").onclick = process_est;
 	document.getElementById("dl-report").onclick = download_report;*/
 });
-
+//load the shipment data file
 function readFile_s (evt) {
     var file = evt.target.files[0];
     $("#sfiledetails").empty();   
@@ -54,8 +56,7 @@ function readFile_s (evt) {
     		step: undefined,
     		complete: function(result) {
 	    		shipment = result.data;	    		
-	    		var html = [];
-	    		html.push('<p>Shipment data file<br>');
+	    		var html = [];	    		
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -67,7 +68,8 @@ function readFile_s (evt) {
 	    		} else {	    			
 	    			html.push(result.data.length+' rows of data, '+result.meta.cursor+' characters <br>');
 	    			html.push('List of columns <br>'+ result.meta.fields.join("<br />")+ '<br>');	    			
-	    			/*document.getElementById("submit-s").disabled = false;	  */  			
+	    			document.getElementById("submit-s").style.display  = 'inline-block';
+	    			document.getElementById("submit-s").onclick = process_shp;
 	    		}
 	    		$('#sfiledetails').append(html.join('')+'</p>');    		
     		},
@@ -80,7 +82,7 @@ function readFile_s (evt) {
     		withCredentials: undefined   		
     });
  }
-
+//load the establishment file
 function readFile_e (evt) {
     var file = evt.target.files[0];
     var fr = new FileReader();
@@ -89,7 +91,6 @@ function readFile_e (evt) {
     	cfile_ok = false;
     	var html = [];
     	var log_e = [];
-    	html.push('<p>Establishment data file<br>') ;
     	$('#cfiledetails').empty();
     	try {
     		result = JSON.parse(fr.result);
@@ -100,6 +101,8 @@ function readFile_e (evt) {
     		}
     		html.push(keys.length +' attributes in the JSON object<br>'+keys.join("<br />")+'<br>');
     		cfile_ok = true;
+    		document.getElementById("submit-e").style.display  = 'inline-block';
+    		document.getElementById("submit-e").onclick = process_est;
     	} catch(e) {
     		html.push('Errors: '+e+'<br>');
     		cfile_ok = false;

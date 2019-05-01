@@ -1,5 +1,5 @@
 body, html {
-  height: 100%;
+  /* height: 100%; */
   margin: 0;
   font: 15px/1.8 "Lato", sans-serif;
   color: #777;
@@ -18,6 +18,9 @@ h4 {
   color: #444444;
 }
 
+.info {
+	line-height: normal;
+}
 .inputfile {
   	width: 0.1px;
 	height: 0.1px;
@@ -26,7 +29,6 @@ h4 {
 	position: absolute;
 	z-index: -1;
 }
-
 .inputfile + label {
 	font: 16px "Lato", sans-serif;
 	letter-spacing: 1px;
@@ -38,10 +40,8 @@ h4 {
     overflow: hidden;
     padding: 0.625rem 1.25rem;
     color: #f1e5e6;
-    background-color: #858585;   
-
+    background-color: #858585;
 }
-
 .inputfile:focus + label,
 .inputfile.has-focus + label,
 .inputfile + label:hover {
@@ -49,7 +49,6 @@ h4 {
     outline: -webkit-focus-ring-color auto 5px;
     background-color: #535353; 
 }
-
 .inputfile + label svg {
     width: 1em;
     height: 1em;
@@ -60,14 +59,18 @@ h4 {
     margin-right: 0.25em;
     /* 4px */
 }
-
 .head {
   color: #777;
   /* background-color:white;  */
   text-align:center;
   padding:0px 50px; 
 }
-
+.footer {
+  color: #777;
+  /* background-color:white;  */
+  text-align:left;
+  padding:5px; 
+}
 .container {  
   text-align:center;  
   /* position:relative; */  
@@ -78,5 +81,29 @@ h4 {
 	min-width: 400px;
 	border:1px solid #e9e9e9; 	
  	background-color: #e2e2e2;
-
 }
+.cm {
+  cursor: pointer;
+  width: 37px;
+  height: 37px;   
+  display: inline-block;
+  stroke-width: 0;
+  background-color:#858585;
+    
+}
+.cm_check {  
+  stroke-width: 4;
+  stroke: white;
+  fill:none;
+  margin:5px 5px 5px 5px;  
+}
+.cm_box{
+	fill:#858585;	
+}
+.cm:focus,
+.cm.has-focus,
+.cm:hover {
+	outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+    background-color: #535353; 
+} 
