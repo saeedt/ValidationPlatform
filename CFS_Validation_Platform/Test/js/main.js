@@ -30,8 +30,9 @@ $(document).ready(function(e) {
 	document.getElementById('sfile').addEventListener('change', readFile_s, false);
 	document.getElementById("submit-s").style.display  = 'none';
 	document.getElementById("submit-e").style.display  = 'none';
-	document.getElementById("tabs").style.display  = 'none';
-	$( "#tabs" ).tabs();
+	document.getElementById("estTable").style.display  = 'none';
+	document.getElementById("shipTable").style.display  = 'none';
+	/*$( "#tabs" ).tabs();*/
 	/*document.getElementById("dl-report").disabled = true;
 	document.getElementById("submit-s").onclick = process_shp;
 	document.getElementById("submit-e").onclick = process_est;
@@ -115,12 +116,12 @@ function readFile_e (evt) {
 	};
     fr.readAsText(file);        
  }
-
+//process the establishment file
 function process_est(){
-	var cresult = verify_company(company);	
-	$("#log-est").empty();
+	var cresult = verify_est(company);	
+	/*$("#log-est").empty();*/
 	var pass = true;
-	var html = [];
+	/*var html = [];
 	log_e = [];
 	html.push('<p> Establishment data file validation<br>');
 	log_e.push('Establishment data file validation\n');
@@ -134,16 +135,33 @@ function process_est(){
 				log_e.push('\t'+cresult[key].flags[i]+'='+cresult[key].flagval[i]+' '+cresult[key].flagname[i]+' '+cresult[key].flagmsg[i]+'\n');
 			}
 		}		
-	});
-	if (pass){
+	});*/
+	console.log(cresult);
+	document.getElementById("estTable").style.display  = 'block';
+	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+	    } );	     
+	    $('#estTable').DataTable( {
+	        data:           cresult,
+	        scrollY:        200,
+	        scrollCollapse: true,
+	        paging:         false,
+	        columns: [
+	            { data: "flag"}, 
+	            { data: "flagval"}, 
+	            { data: "flagname"}, 
+	            { data: "flagmsg"}
+	        ]
+	    } );	   
+	/*if (pass){
 		html.push('No error found in the establishment data file<br>');
 		log_e.push('No error found in the establishment data file\n');	
 	}		
 	html.push('</p>');
 	$("#log-est").append(html.join(''));
-	document.getElementById("dl-report").disabled = false;	
+	document.getElementById("dl-report").disabled = false;*/	
 }
-
+//process the shipment file
 function process_shp(){
 	var sresult = verify_shipment(shipment);
 	$("#log-shp").empty();
