@@ -31,7 +31,9 @@ $(document).ready(function(e) {
 	document.getElementById("submit-s").style.display  = 'none';
 	document.getElementById("submit-e").style.display  = 'none';
 	document.getElementById("estTable").style.display  = 'none';
+	document.getElementById("t1").style.display  = 'none';
 	document.getElementById("shipTable").style.display  = 'none';
+	document.getElementById("t2").style.display  = 'none';
 	/*$( "#tabs" ).tabs();*/
 	/*document.getElementById("dl-report").disabled = true;
 	document.getElementById("submit-s").onclick = process_shp;
@@ -57,7 +59,8 @@ function readFile_s (evt) {
     		step: undefined,
     		complete: function(result) {
 	    		shipment = result.data;	    		
-	    		var html = [];	    		
+	    		var html = [];
+	    		document.getElementById("sfiledetails").style.display  = 'block';
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -92,6 +95,7 @@ function readFile_e (evt) {
     	cfile_ok = false;
     	var html = [];
     	var log_e = [];
+    	document.getElementById("cfiledetails").style.display  = 'block';
     	$('#cfiledetails').empty();
     	try {
     		result = JSON.parse(fr.result);
@@ -136,16 +140,21 @@ function process_est(){
 			}
 		}		
 	});*/
-	console.log(cresult);
 	document.getElementById("estTable").style.display  = 'block';
+	document.getElementById("t1").style.display  = 'block';
+	$( "#tabs" ).tabs();
+	collapse(document.getElementById("p1"));
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );	     
 	    $('#estTable').DataTable( {
-	        data:           cresult,
-	        scrollY:        200,
+	        data:           cresult,	        
 	        scrollCollapse: true,
-	        paging:         false,
+	        paging: true,
+	        autoWidth: true,
+	        ordering: true,
+	        dom: 'Bfrtip',
+	        buttons: ['copy', 'csv', 'excel', 'pdf'],	        
 	        columns: [
 	            { data: "flag"}, 
 	            { data: "flagval"}, 
@@ -204,6 +213,19 @@ function process_shp(){
 	html.push('</p>');
 	$("#log-shp").append(html.join(''));
 	document.getElementById("dl-report").disabled = false;
+}
+
+function collapse(obj){
+	obj.addEventListener("click", function() {
+	    //this.classList.toggle("active");
+	    var content = this.getElementsByTagName('div')[0];
+	    if (content.style.display === "block") {
+	    	content.style.display = "none";
+	    } else {
+	      content.style.display = "block";
+	    }
+	  });
+	obj.dispatchEvent(new Event("click"));
 }
 
 function download_report(){

@@ -1090,7 +1090,7 @@ var flags = {
 		msg: "Contact information (title) is not alphabetic."
 	},
 	E42_2: {
-		flag: "42",
+		flag: "E42",
 		value: "2",
 		name: "miss_contactTitle",
 		msg: "Contact information (title) is missing."
@@ -1102,19 +1102,19 @@ var flags = {
 		msg: "Contact information (phone number) is not numeric."
 	},
 	E43_2: {
-		flag: "43",
+		flag: "E43",
 		value: "2",
 		name: "miss_contactPhone",
 		msg: "Contact information (phone number) is missing."
 	},	
 	E43_4: {
-		flag: "43",
+		flag: "E43",
 		value: "4",
 		name: "inv_contactPhone",
 		msg: "Contact information (phone number) is not a 10 digit number."
 	},
 	E44_2: {
-		flag: "44",
+		flag: "E44",
 		value: "2",
 		name: "miss_contactPhone_extention",
 		msg: "Contact information (phone number extension) is missing."
