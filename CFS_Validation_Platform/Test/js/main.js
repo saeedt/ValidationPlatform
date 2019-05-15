@@ -60,7 +60,7 @@ function readFile_s (evt) {
     		complete: function(result) {
 	    		shipment = result.data;	    		
 	    		var html = [];
-	    		document.getElementById("sfiledetails").style.display  = 'block';
+	    		document.getElementById("sfiledetails").style.display  = "block";
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -95,7 +95,7 @@ function readFile_e (evt) {
     	cfile_ok = false;
     	var html = [];
     	var log_e = [];
-    	document.getElementById("cfiledetails").style.display  = 'block';
+    	//document.getElementById("cfiledetails").style.display  = "block";
     	$('#cfiledetails').empty();
     	try {
     		result = JSON.parse(fr.result);
@@ -104,7 +104,7 @@ function readFile_e (evt) {
     		for (var i in result){
     			keys.push(i);
     		}
-    		html.push(keys.length +' attributes in the JSON object<br>'+keys.join("<br />")+'<br>');
+    		html.push('<h2>Attributes</h2><div>'+keys.join("<br />")+'</div>');
     		cfile_ok = true;
     		document.getElementById("submit-e").style.display  = 'inline-block';
     		document.getElementById("submit-e").onclick = process_est;
@@ -117,6 +117,7 @@ function readFile_e (evt) {
 		}*/
     	html.push('</p>');
     	$('#cfiledetails').append(html.join(''));
+    	collapse(document.getElementById("p1"));
 	};
     fr.readAsText(file);        
  }
@@ -140,21 +141,22 @@ function process_est(){
 			}
 		}		
 	});*/
-	document.getElementById("estTable").style.display  = 'block';
+	/*document.getElementById("estTable").style.display  = 'block';*/
 	document.getElementById("t1").style.display  = 'block';
-	$( "#tabs" ).tabs();
-	collapse(document.getElementById("p1"));
+	$( "#tabs" ).tabs();	
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	    } );	     
 	    $('#estTable').DataTable( {
-	        data:           cresult,	        
+	        data: cresult,	        
 	        scrollCollapse: true,
 	        paging: true,
 	        autoWidth: true,
 	        ordering: true,
-	        dom: 'Bfrtip',
-	        buttons: ['copy', 'csv', 'excel', 'pdf'],	        
+	        select: true,
+	        dom: 'Blfrtip',
+	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
 	        columns: [
 	            { data: "flag"}, 
 	            { data: "flagval"}, 
@@ -212,13 +214,13 @@ function process_shp(){
 	}		
 	html.push('</p>');
 	$("#log-shp").append(html.join(''));
-	document.getElementById("dl-report").disabled = false;
+	//document.getElementById("dl-report").disabled = false;
 }
 
-function collapse(obj){
+/*function collapse(obj){
 	obj.addEventListener("click", function() {
 	    //this.classList.toggle("active");
-	    var content = this.getElementsByTagName('div')[0];
+	    var content = obj.getElementsByTagName('div')[0];
 	    if (content.style.display === "block") {
 	    	content.style.display = "none";
 	    } else {
@@ -226,6 +228,18 @@ function collapse(obj){
 	    }
 	  });
 	obj.dispatchEvent(new Event("click"));
+	//obj.dispatchEvent(new Event("click"));
+}*/
+
+function collapse(obj){
+	var content = obj.getElementsByTagName('div')[0];
+  $( function() {
+	  $(content).accordion({
+		  header: 'h2',
+	      collapsible: true
+	    });
+	  } );
+	
 }
 
 function download_report(){
