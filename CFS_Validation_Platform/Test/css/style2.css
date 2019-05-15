@@ -9,6 +9,7 @@ h2 {
   text-transform: capitalize;
   font: 20px "Lato", sans-serif;
   color: #444444;
+  text-align: center;
 } 
 h3 {
   letter-spacing: 5px;

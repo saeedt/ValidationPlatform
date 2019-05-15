@@ -60,7 +60,7 @@ function readFile_s (evt) {
     		complete: function(result) {
 	    		shipment = result.data;	    		
 	    		var html = [];
-	    		document.getElementById("sfiledetails").style.display  = "block";
+	    		$('#sfiledetails').empty();	    		
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -68,14 +68,14 @@ function readFile_s (evt) {
 	    				' index:'+result.errors[i].index+' '+result.errors[i].type+
 	    				':'+result.errors[i].message);
 	    			}
-	    			html.push('Errors: <br>'+ errors.join("<br />")+'<br>');	
+	    			html.push('<h2>Errors</h2><div>'+ errors.join("<br/>")+'</div>');	
 	    		} else {	    			
-	    			html.push(result.data.length+' rows of data, '+result.meta.cursor+' characters <br>');
-	    			html.push('List of columns <br>'+ result.meta.fields.join("<br />")+ '<br>');	    			
+	    			html.push('<h2>Attributes</h2><div>'+ result.meta.fields.join("<br/>")+'</div>');	    			
 	    			document.getElementById("submit-s").style.display  = 'inline-block';
 	    			document.getElementById("submit-s").onclick = process_shp;
 	    		}
-	    		$('#sfiledetails').append(html.join('')+'</p>');    		
+	    		$('#sfiledetails').append(html.join(''));
+	        	collapse_e(document.getElementById("p2"));
     		},
     		error: undefined,
     		download: false,
@@ -104,20 +104,18 @@ function readFile_e (evt) {
     		for (var i in result){
     			keys.push(i);
     		}
-    		html.push('<h2>Attributes</h2><div>'+keys.join("<br />")+'</div>');
-    		cfile_ok = true;
-    		document.getElementById("submit-e").style.display  = 'inline-block';
-    		document.getElementById("submit-e").onclick = process_est;
+    		html.push('<h2>Attributes</h2><div>'+keys.join("<br/>")+'</div>');
+    		cfile_ok = true;    		
     	} catch(e) {
-    		html.push('Errors: '+e+'<br>');
+    		html.push('<h2>Errors</h2><div>'+e+'</div>');
     		cfile_ok = false;
-    	}
-    	/*if (cfile_ok){
-			document.getElementById("submit-e").disabled = false;
-		}*/
-    	html.push('</p>');
+    	}    	
     	$('#cfiledetails').append(html.join(''));
-    	collapse(document.getElementById("p1"));
+    	collapse_e(document.getElementById("p1"));
+    	if (cfile_ok){			
+			document.getElementById("submit-e").style.display  = 'inline-block';
+    		document.getElementById("submit-e").onclick = process_est;
+		}    	
 	};
     fr.readAsText(file);        
  }
@@ -141,8 +139,10 @@ function process_est(){
 			}
 		}		
 	});*/
-	/*document.getElementById("estTable").style.display  = 'block';*/
+	document.getElementById("estTable").style.display  = 'block';
 	document.getElementById("t1").style.display  = 'block';
+	document.getElementById("submit-e").style.display  = 'none';
+	collapse_c(document.getElementById("p1"));
 	$( "#tabs" ).tabs();	
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
@@ -174,13 +174,37 @@ function process_est(){
 }
 //process the shipment file
 function process_shp(){
-	var sresult = verify_shipment(shipment);
-	$("#log-shp").empty();
+	var cresult = verify_shipment(shipment);
+	/*console.log(cresult);*/
 	var pass = true;
-	var pass_i;
-	var html = [];
-	log_s = [];
-	html.push('<p> Shipment data file validation<br>');
+	document.getElementById("shipTable").style.display  = 'block';
+	document.getElementById("t2").style.display  = 'block';
+	document.getElementById("submit-s").style.display  = 'none';
+	collapse_c(document.getElementById("p2"));
+	$( "#tabs" ).tabs();	
+	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+	    } );	
+	 document.getElementById("tabs-2").dispatchEvent(new Event("click"));
+	    $('#shipTable').DataTable( {
+	        data: cresult,	        
+	        scrollCollapse: true,
+	        paging: true,
+	        autoWidth: true,
+	        ordering: true,
+	        select: true,
+	        dom: 'Blfrtip',
+	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
+	        columns: [
+	        	{ data: "line"},
+	        	{ data: "flag"}, 
+	            { data: "flagval"}, 
+	            { data: "flagname"}, 
+	            { data: "flagmsg"}
+	        ]
+	    } );
+	/*html.push('<p> Shipment data file validation<br>');
 	log_s.push('Shipment data file validation\n');
 	for (var i=0; i<sresult.length-1; i++){
 		html.push('Line '+ String(i+1)+'<br>');
@@ -213,7 +237,7 @@ function process_shp(){
 		log_s.push('No error found in the shipment data file\n');
 	}		
 	html.push('</p>');
-	$("#log-shp").append(html.join(''));
+	$("#log-shp").append(html.join(''));*/
 	//document.getElementById("dl-report").disabled = false;
 }
 
@@ -231,17 +255,20 @@ function process_shp(){
 	//obj.dispatchEvent(new Event("click"));
 }*/
 
-function collapse(obj){
+function collapse_e(obj){
 	var content = obj.getElementsByTagName('div')[0];
   $( function() {
 	  $(content).accordion({
 		  header: 'h2',
+		  icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" },
 	      collapsible: true
 	    });
 	  } );
-	
 }
-
+function collapse_c(obj){
+	var content = obj.getElementsByTagName('h2')[0];
+	content.dispatchEvent(new Event("click"));
+}
 function download_report(){
 	var output = log_e.concat(log_s);
 	var a         = document.createElement('a');
