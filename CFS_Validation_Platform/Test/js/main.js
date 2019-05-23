@@ -75,7 +75,7 @@ function readFile_s (evt) {
 	    			document.getElementById("submit-s").onclick = process_shp;
 	    		}
 	    		$('#sfiledetails').append(html.join(''));
-	        	collapse_e(document.getElementById("p2"));
+	        	collapse_e('sfiledetails');
     		},
     		error: undefined,
     		download: false,
@@ -111,7 +111,7 @@ function readFile_e (evt) {
     		cfile_ok = false;
     	}    	
     	$('#cfiledetails').append(html.join(''));
-    	collapse_e(document.getElementById("p1"));
+    	collapse_e('cfiledetails');
     	if (cfile_ok){			
 			document.getElementById("submit-e").style.display  = 'inline-block';
     		document.getElementById("submit-e").onclick = process_est;
@@ -122,27 +122,11 @@ function readFile_e (evt) {
 //process the establishment file
 function process_est(){
 	var cresult = verify_est(company);	
-	/*$("#log-est").empty();*/
-	var pass = true;
-	/*var html = [];
-	log_e = [];
-	html.push('<p> Establishment data file validation<br>');
-	log_e.push('Establishment data file validation\n');
-	Object.keys(cresult).forEach(function(key,index) {
-		if (cresult[key].flags.length>0) {
-			pass = false;
-			html.push(key+'<br>');
-			log_e.push(key+'\n');
-			for (var i=0; i<cresult[key].flags.length; i++){
-				html.push(cresult[key].flags[i]+'='+cresult[key].flagval[i]+' '+cresult[key].flagname[i]+' '+cresult[key].flagmsg[i]+'<br>');
-				log_e.push('\t'+cresult[key].flags[i]+'='+cresult[key].flagval[i]+' '+cresult[key].flagname[i]+' '+cresult[key].flagmsg[i]+'\n');
-			}
-		}		
-	});*/
+	var pass = true;	
 	document.getElementById("estTable").style.display  = 'block';
 	document.getElementById("t1").style.display  = 'block';
 	document.getElementById("submit-e").style.display  = 'none';
-	collapse_c(document.getElementById("p1"));
+	collapse_c('cfiledetails');
 	$( "#tabs" ).tabs();	
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
@@ -163,24 +147,16 @@ function process_est(){
 	            { data: "flagname"}, 
 	            { data: "flagmsg"}
 	        ]
-	    } );	   
-	/*if (pass){
-		html.push('No error found in the establishment data file<br>');
-		log_e.push('No error found in the establishment data file\n');	
-	}		
-	html.push('</p>');
-	$("#log-est").append(html.join(''));
-	document.getElementById("dl-report").disabled = false;*/	
+	    } );		
 }
 //process the shipment file
 function process_shp(){
 	var cresult = verify_shipment(shipment);
-	/*console.log(cresult);*/
 	var pass = true;
 	document.getElementById("shipTable").style.display  = 'block';
 	document.getElementById("t2").style.display  = 'block';
 	document.getElementById("submit-s").style.display  = 'none';
-	collapse_c(document.getElementById("p2"));
+	collapse_c('sfiledetails');
 	$( "#tabs" ).tabs();	
 	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
@@ -203,42 +179,7 @@ function process_shp(){
 	            { data: "flagname"}, 
 	            { data: "flagmsg"}
 	        ]
-	    } );
-	/*html.push('<p> Shipment data file validation<br>');
-	log_s.push('Shipment data file validation\n');
-	for (var i=0; i<sresult.length-1; i++){
-		html.push('Line '+ String(i+1)+'<br>');
-		log_s.push('Line '+ String(i+1)+'\n');
-		pass_i = true;
-		Object.keys(sresult[i]).forEach(function(key,index) {			
-			if (sresult[i][key].flags.length>0) {				
-				html.push('&nbsp'+key+'<br>');
-				log_s.push('\t'+key+'\n');
-				pass = false;
-				pass_i = false;
-				for (var j=0; j<sresult[i][key].flags.length;j++){
-					html.push('&nbsp'+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'<br>');
-					log_s.push('\t'+sresult[i][key].flags[j]+'='+sresult[i][key].flagval[j]+' '+sresult[i][key].flagname[j]+' '+sresult[i][key].flagmsg[j]+'\n');
-				}
-			}			
-		});	
-		if (pass_i){
-			html.pop();
-			log_s.pop();
-		}
-	}
-	if (sresult[sresult.length-1].flags.length >0){
-		pass = false;
-		html.push(sresult[sresult.length-1].flags[0]+'='+sresult[sresult.length-1].flagval[0]+' '+sresult[sresult.length-1].flagname[0]+' '+sresult[sresult.length-1].flagmsg[0]+'<br>');
-		log_s.push(sresult[sresult.length-1].flags[0]+'='+sresult[sresult.length-1].flagval[0]+' '+sresult[sresult.length-1].flagname[0]+' '+sresult[sresult.length-1].flagmsg[0]+'\n');
-	}
-	if (pass){
-		html.push('No error found in the shipment data file<br>');
-		log_s.push('No error found in the shipment data file\n');
-	}		
-	html.push('</p>');
-	$("#log-shp").append(html.join(''));*/
-	//document.getElementById("dl-report").disabled = false;
+	    } );	
 }
 
 /*function collapse(obj){
@@ -256,18 +197,25 @@ function process_shp(){
 }*/
 
 function collapse_e(obj){
-	var content = obj.getElementsByTagName('div')[0];
+  var ref = document.getElementById(obj);
   $( function() {
-	  $(content).accordion({
+	  $(ref).accordion({
 		  header: 'h2',
 		  icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" },
 	      collapsible: true
 	    });
-	  } );
+	  });
 }
 function collapse_c(obj){
-	var content = obj.getElementsByTagName('h2')[0];
-	content.dispatchEvent(new Event("click"));
+	var ref = document.getElementById(obj);
+	var handle = ref.getElementsByTagName('h2')[0];
+	//var active = $(handle).hasClass('ui-state-active')
+	//var active = $(ref).accordion( "option", "active" );
+	//console.log(active);
+	//console.log(content["id"]);
+	if ($(handle).hasClass('ui-state-active')){
+		handle.dispatchEvent(new Event("click"));
+	}
 }
 function download_report(){
 	var output = log_e.concat(log_s);
