@@ -42,8 +42,7 @@ $(document).ready(function(e) {
 });
 //load the shipment data file
 function readFile_s (evt) {
-    var file = evt.target.files[0];
-    $("#sfiledetails").empty();   
+    var file = evt.target.files[0];      
     Papa.parse(file, {    	
     		delimiter: ",",
     		newline: "",	// auto-detect
@@ -60,7 +59,10 @@ function readFile_s (evt) {
     		complete: function(result) {
 	    		shipment = result.data;	    		
 	    		var html = [];
-	    		$('#sfiledetails').empty();	    		
+	    		try {
+	    	    	$( '#sfiledetails' ).accordion( "destroy" );
+	    	    	} catch(e){}
+	    	    $("#sfiledetails").empty(); 
 	    		if (result.errors.length>0){
 	    			var errors = [];
 	    			for (var i=0; i<result.errors.length;i++){
@@ -95,6 +97,9 @@ function readFile_e (evt) {
     	cfile_ok = false;
     	var html = [];
     	var log_e = [];
+    	try {
+    	$( '#cfiledetails' ).accordion( "destroy" );
+    	} catch(e){}
     	//document.getElementById("cfiledetails").style.display  = "block";
     	$('#cfiledetails').empty();
     	try {
@@ -127,27 +132,31 @@ function process_est(){
 	document.getElementById("t1").style.display  = 'block';
 	document.getElementById("submit-e").style.display  = 'none';
 	collapse_c('cfiledetails');
-	$( "#tabs" ).tabs();	
-	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	$( "#tabs" ).tabs();
+	$("#tabs").tabs("option", "active", 0);
+	$('#estTable').DataTable().destroy();
+	$('#estTable').empty();		
+	/*$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	    } );	     
-	    $('#estTable').DataTable( {
-	        data: cresult,	        
-	        scrollCollapse: true,
-	        paging: true,
-	        autoWidth: true,
-	        ordering: true,
-	        select: true,
-	        dom: 'Blfrtip',
-	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
-	        columns: [
-	            { data: "flag"}, 
-	            { data: "flagval"}, 
-	            { data: "flagname"}, 
-	            { data: "flagmsg"}
-	        ]
-	    } );		
+	    } );*/	
+	/*document.getElementById("tabs-1").dispatchEvent(new Event("click"));*/
+    $('#estTable').DataTable( {
+        data: cresult,	        
+        scrollCollapse: true,
+        paging: true,
+        autoWidth: true,
+        ordering: true,
+        select: true,
+        dom: 'Blfrtip',
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],       
+        "columnDefs": [
+            { "title": "Flag",   "targets": 0 ,  "data": "flag"},
+            { "title": "Value",  "targets": 1 , "data": "flagval"},
+            { "title": "Flag Name", "targets": 2, "data":"flagname" },
+            { "title": "Description",  "targets": 3 , "data": "flagmsg"}]        
+    } );	
+    //$('#estTable').DataTable().columns.adjust().draw();
 }
 //process the shipment file
 function process_shp(){
@@ -155,14 +164,17 @@ function process_shp(){
 	var pass = true;
 	document.getElementById("shipTable").style.display  = 'block';
 	document.getElementById("t2").style.display  = 'block';
-	document.getElementById("submit-s").style.display  = 'none';
+	document.getElementById("submit-s").style.display  = 'none';	
 	collapse_c('sfiledetails');
-	$( "#tabs" ).tabs();	
-	 $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+	$( "#tabs" ).tabs();
+	$("#tabs").tabs("option", "active", 1);
+	$('#shipTable').DataTable().destroy();
+	$('#shipTable').empty();
+	/*$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
 	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	    } );	
-	 document.getElementById("tabs-2").dispatchEvent(new Event("click"));
-	    $('#shipTable').DataTable( {
+	    } );*/
+	//document.getElementById("tabs-2").dispatchEvent(new Event("click"));
+	$('#shipTable').DataTable( {
 	        data: cresult,	        
 	        scrollCollapse: true,
 	        paging: true,
@@ -171,14 +183,13 @@ function process_shp(){
 	        select: true,
 	        dom: 'Blfrtip',
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
-	        columns: [
-	        	{ data: "line"},
-	        	{ data: "flag"}, 
-	            { data: "flagval"}, 
-	            { data: "flagname"}, 
-	            { data: "flagmsg"}
-	        ]
+	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+	        "columnDefs": [
+	        	{ "title": "Line#",   "targets": 0 ,  "data": "flag"},
+	            { "title": "Flag",   "targets": 1 ,  "data": "flag"},
+	            { "title": "Value",  "targets": 2 , "data": "flagval"},
+	            { "title": "Flag Name", "targets": 3, "data":"flagname" },
+	            { "title": "Description",  "targets": 4 , "data": "flagmsg"}]	        
 	    } );	
 }
 
