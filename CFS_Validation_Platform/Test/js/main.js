@@ -185,7 +185,7 @@ function process_shp(){
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
 	        "columnDefs": [
-	        	{ "title": "Line#",   "targets": 0 ,  "data": "flag"},
+	        	{ "title": "Line#",   "targets": 0 ,  "data": "line"},
 	            { "title": "Flag",   "targets": 1 ,  "data": "flag"},
 	            { "title": "Value",  "targets": 2 , "data": "flagval"},
 	            { "title": "Flag Name", "targets": 3, "data":"flagname" },

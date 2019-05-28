@@ -1,11 +1,11 @@
 //main function
 function verify_shipment(input){
 	var Result =  [];
-	var tmp = new Object();;
+	var tmp;
 	var evalres;
 	//TODO implement test_naic function : presence check and field validation
 	//tmpResult.NAICS = test_naics(NAICS);
-	for (var i=0; i<input.length; i++){
+	for (var i=0; i<input.length; i++){		
 		evalres = new Object();		
 		tmp = test_numberOfShip(input[i].SHIP_NUM,input.length,i+1);
 		if (!tmp.pass){
@@ -1590,6 +1590,7 @@ function test_auto_fill_m(input,line){ //TODO: add a new flag if number of repor
 	var count = 0;
 	var tmp = new Object();
 	var errors = [];
+	var failed_attribs = [];
 	if (!auto_fill(input, "SHIPMENT_VALUE")){
 		count ++;
 		failed_attribs.push("SHIPMENT_VALUE");
@@ -1616,11 +1617,11 @@ function test_auto_fill_m(input,line){ //TODO: add a new flag if number of repor
 	}		
 	if (count > 0){
 		error = "S15";
-		tmp.line = line;
-		tmp.flagname.push((flags)[error].name);
-		tmp.flag.push((flags)[error].flag);
-		tmp.flagmsg.push((flags)[error].msg+failed_attribs.join(';'));
-		tmp.flagval.push(count);
+		tmp.line = line;		
+		tmp.flagname = (flags)[error].name;
+		tmp.flag = (flags)[error].flag;
+		tmp.flagmsg = (flags)[error].msg+failed_attribs.join(';');
+		tmp.flagval = count;
 		errors.push(tmp);
 	}
 	if (errors.length>0){
