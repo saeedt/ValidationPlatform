@@ -9,7 +9,7 @@ function evalVar(input,type){
 		score = 0;
 		scr = new Object();		
 		for (var kwd of list[id].keys){			
-			if (input.includes(kwd)){
+			if (input.toLowerCase().includes(kwd.toLowerCase())){
 				score++;
 			}				
 		}
@@ -19,6 +19,11 @@ function evalVar(input,type){
 		result.eval.push(scr);
 	}	
 	result.eval.sort(compare);
+	if (result.eval[0].score > result.eval[1].score){
+		result.match = true;
+	} else {
+		result.match = false;
+	}
 	return result;
 }
 
@@ -55,14 +60,21 @@ function evalVars(input,type){
 		
 	}
 }
-//Returns the key that matches a variable id, if there is one valid match, otherwise returns "none"
+//Checks whether multiple attributes match the same variable or not
+// we run evalvar on individual attributes first, then check them all together
 function findVar(id,input){
-	var count = 0;
-	for (var obj of input){		
-		if (obj.eval[0].score>0){//this is an issue: it should find the max score and then count it
-			if (obj.eval[0].id == id)
-				count++
+	var maxScore = 0;
+	var maxIndex = -1;
+	for (var i=0; i<input.length; i++){	
+		if (input[i].match){			
+			if (input[i].eval[0].id == id && input[i].eval[0].id > maxScore){
+				maxIndex = i;
+				maxScore = input[i].eval[0].score;
+			} else if (input[i].eval[0].id == id && input[i].eval[0].id == maxScore){
+				maxIndex = -1;
+				break;
+			}				
 		}
 	}
-	
+	return maxIndex;	
 } 
