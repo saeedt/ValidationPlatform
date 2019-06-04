@@ -84,24 +84,20 @@ h4 {
   text-align:center;  
   /* position:relative; */  
 }
-.c1{
-	padding-right: 10px;
-	display: inline-block;
-	vertical-align: top;
-	min-width: 50px;
-	line-height: 15.25pt;
+.atable{
+	padding-left: 20px;
 	text-align:left;	
 }
-.c2{
-	display: inline-block;
-	vertical-align: top;
-	min-width: 50px;
-	text-align:right;
+.ocombo{
+	border: 1px solid #444444;
+}
+.ecombo{
+	border: 2px solid red;
 }
 .pallette{
 	display: inline-block;
 	vertical-align: top;
-	min-width: 400px;
+	min-width: 550px;
 	border:1px solid #e9e9e9; 	
  	background-color: #e2e2e2;
 }

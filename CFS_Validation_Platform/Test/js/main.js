@@ -110,16 +110,11 @@ function readFile_e (evt) {
     			keys.push(i);
     		}
     		var attrib = processVars(keys,'est');
-    		html.push('<h2>Attributes</h2><div>');
-    		var c1 = [];
-    		var c2 = [];
+    		html.push('<h2>Attributes</h2><div><table class="atable">');    		
     		for (var i =0; i<attrib.data.length; i++){
-    			c1.push(attrib.data[i].varname+' ');
-    			c2.push(attrib.data[i].combo);
-    		}
-    		html.push('<div class="c1">'+c1.join('<br>')+'</div>');
-    		html.push('<div class="c2">'+c2.join('<br>')+'</div>');
-    		html.push('</div>');
+    			html.push('<tr><td>'+attrib.data[i].varname+' </td><td>'+attrib.data[i].combo+'</td></tr>');
+    		}    		
+    		html.push('</table></div>');    		
     		if (attrib.match)
     			cfile_ok = true;    		
     	} catch(e) {
@@ -128,6 +123,7 @@ function readFile_e (evt) {
     		cfile_ok = false;
     	}    	
     	$('#cfiledetails').append(html.join(''));
+    	activate_combos();
     	collapse_e('cfiledetails');
     	if (cfile_ok){			
 			document.getElementById("submit-e").style.display  = 'inline-block';
