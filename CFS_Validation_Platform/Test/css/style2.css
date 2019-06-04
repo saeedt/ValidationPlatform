@@ -84,6 +84,20 @@ h4 {
   text-align:center;  
   /* position:relative; */  
 }
+.c1{
+	padding-right: 10px;
+	display: inline-block;
+	vertical-align: top;
+	min-width: 50px;
+	line-height: 15.25pt;
+	text-align:left;	
+}
+.c2{
+	display: inline-block;
+	vertical-align: top;
+	min-width: 50px;
+	text-align:right;
+}
 .pallette{
 	display: inline-block;
 	vertical-align: top;

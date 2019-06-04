@@ -109,10 +109,22 @@ function readFile_e (evt) {
     		for (var i in result){
     			keys.push(i);
     		}
-    		html.push('<h2>Attributes</h2><div>'+keys.join("<br/>")+'</div>');
-    		cfile_ok = true;    		
+    		var attrib = processVars(keys,'est');
+    		html.push('<h2>Attributes</h2><div>');
+    		var c1 = [];
+    		var c2 = [];
+    		for (var i =0; i<attrib.data.length; i++){
+    			c1.push(attrib.data[i].varname+' ');
+    			c2.push(attrib.data[i].combo);
+    		}
+    		html.push('<div class="c1">'+c1.join('<br>')+'</div>');
+    		html.push('<div class="c2">'+c2.join('<br>')+'</div>');
+    		html.push('</div>');
+    		if (attrib.match)
+    			cfile_ok = true;    		
     	} catch(e) {
     		html.push('<h2>Errors</h2><div>'+e+'</div>');
+    		console.log(e);
     		cfile_ok = false;
     	}    	
     	$('#cfiledetails').append(html.join(''));
