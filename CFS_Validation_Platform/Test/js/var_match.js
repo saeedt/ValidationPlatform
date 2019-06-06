@@ -10,6 +10,11 @@ function evalVars(input,type){
 		tmp = new Object();
 		tmp.id = id;
 		tmp.varname = list[id].name;
+		if (list[id].required){
+			tmp.required = true;
+		} else {
+			tmp.required = false;
+		}		
 		tmp.eval = [];
 		for (var i=0; i<input.length; i++){
 			score = 0;
@@ -77,8 +82,10 @@ function getCombo(input, type){
 		buffer.push('<option value ="'+input.eval[0].id+'" selected>'+ input.eval[0].name + '</option>');
 		for (var i=1; i<input.eval.length; i++){
 			buffer.push('<option value ="'+ input.eval[i].id +'">'+ input.eval[i].name + '</option>');
-		}
-	}	
+		}		
+	}
+	if (!input.required)
+		buffer.push('<option value ="100">Not Available</option>');
 	buffer.push('</select>');
 	return buffer.join('');
 }
@@ -127,16 +134,19 @@ function verify_combos(type){
 		for (var i=0; i<vars.length; i++){	
 			if (vars[i].match){
 				for (var j=0; j<vars.length; j++){
-					if (i==j)
+					if (i==j || vars[j].eval[0].id==100)
 						continue;
 					if (vars[j].match && vars[i].eval[0].id == vars[j].eval[0].id){
 						if (vars[i].eval[0].score > vars[j].eval[0].score){
 							vars[j].match = false;
+							match = false;
 						} else if (vars[i].eval[0].score < vars[j].eval[0].score){
 							vars[i].match = false;
+							match = false;
 						} else {
 							vars[i].match = false;
 							vars[j].match = false;
+							match = false;
 						}
 					}				
 				}							
@@ -151,12 +161,26 @@ function verify_combos(type){
 			document.getElementById(type+vars[i].id).classList.remove("ocombo");
 			document.getElementById(type+vars[i].id).classList.add("ecombo");
 		}		
-	}
+	}	
+	if (type=='est'){
+		if (match){
+			document.getElementById("submit-e").style.display  = 'inline-block';
+			document.getElementById("submit-e").onclick = process_est;
+		}else {
+			document.getElementById("submit-e").style.display  = 'none';			
+		}		
+	}else if (type=='shp'){
+		if (match){
+			document.getElementById("submit-s").style.display  = 'inline-block';
+			document.getElementById("submit-s").onclick = process_shp;
+		}else {
+			document.getElementById("submit-s").style.display  = 'none';			
+		}
+	}	
 	result.data = vars;
 	result.match = match;
 	return result;
 }
-
 function activate_combos(){
 	$("select").each(function(){		
 		$(this).change(function() {	
@@ -165,28 +189,3 @@ function activate_combos(){
 		});
 	});	
 }
-
-function combo_change(type){
-	
-}
-//Checks whether multiple attributes are matched with the same variable 
-//input: array of objs from evalvar() 
-/*function corssChkVars(input){	//No longer needed - merged with evalvars
-	for (var i=0; i<input.length; i++){	
-		if (input[i].match){
-			for (var j=0; j<input.length; j++){
-				if (input[j].match && input[i].eval[0].id == input[j].eval[0].id){
-					if (input[i].eval[0].score > input[j].eval[0].score){
-						input[j].match = false;
-					} else if (input[i].eval[0].score < input[j].eval[0].score){
-						input[i].match = false;
-					} else {
-						input[i].match = false;
-						input[j].match = false;
-					}
-				}				
-			}							
-		}
-	}	
-	return input;	
-}*/

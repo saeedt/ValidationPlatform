@@ -3,6 +3,7 @@ function verify_shipment(input){
 	var Result =  [];
 	var tmp;
 	var evalres;
+	var attr = verify_combos('est');
 	//TODO implement test_naic function : presence check and field validation
 	//tmpResult.NAICS = test_naics(NAICS);
 	for (var i=0; i<input.length; i++){		

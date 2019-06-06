@@ -22,8 +22,7 @@ var conf1= {
 	alphanumeric:{
 		allowed: /[^0-9a-zA-Z!@$%*&'#/.\s]/g
 		
-	},
-	
+	},	
 	city:{
 		not_allowed: /(APO|FPO|DPO)/g
 	},	
