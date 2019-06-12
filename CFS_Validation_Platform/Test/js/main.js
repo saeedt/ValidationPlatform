@@ -72,10 +72,10 @@ function readFile_s (evt) {
 	    			}
 	    			html.push('<h2>Errors</h2><div>'+ errors.join("<br/>")+'</div>');	
 	    		} else {
-	    			var attrib = processVars(result.meta.fields,'shp');
+	    			var attrib = processVars(result.meta.fields,'shp');	    			
 	        		html.push('<h2>Attributes</h2><div><table class="atable">');    		
 	        		for (var i =0; i<attrib.data.length; i++){
-	        			html.push('<tr><td>'+attrib.data[i].varname+' </td><td>'+attrib.data[i].combo+'</td></tr>');
+	        			html.push('<tr><td>'+attrib.data[i].varname+'</td><td>'+attrib.data[i].combo+'</td></tr>');
 	        		}    		
 	        		html.push('</table></div>');
 	        		if (attrib.match){
@@ -114,7 +114,7 @@ function readFile_e (evt) {
     		comments: false,
     		step: undefined,
     		complete: function(result) {
-	    		shipment = result.data;	    		
+    			establishment = result.data;	    		
 	    		var html = [];
 	    		try {
 	    	    	$( '#efiledetails' ).accordion( "destroy" );
@@ -129,7 +129,7 @@ function readFile_e (evt) {
 	    			}
 	    			html.push('<h2>Errors</h2><div>'+ errors.join("<br/>")+'</div>');	
 	    		} else {
-	    			var attrib = processVars(result.meta.fields,'est');
+	    			var attrib = processVars(result.meta.fields,'est');	    			
 	        		html.push('<h2>Attributes</h2><div><table class="atable">');    		
 	        		for (var i =0; i<attrib.data.length; i++){
 	        			html.push('<tr><td>'+attrib.data[i].varname+' </td><td>'+attrib.data[i].combo+'</td></tr>');
@@ -155,7 +155,7 @@ function readFile_e (evt) {
  }
 //process the establishment file
 function process_est(){
-	var cresult = verify_est(company);	
+	var cresult = verify_est(establishment);	
 	var pass = true;	
 	document.getElementById("estTable").style.display  = 'block';
 	document.getElementById("t1").style.display  = 'block';

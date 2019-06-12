@@ -10,6 +10,7 @@ function evalVars(input,type){
 		tmp = new Object();
 		tmp.id = id;
 		tmp.varname = list[id].name;
+		tmp.hint = list[id].hint;
 		if (list[id].required){
 			tmp.required = true;
 		} else {
@@ -72,13 +73,13 @@ function compare(a, b) {
 function getCombo(input, type){
 	var buffer = [];	
 	if (!input.match){
-		buffer.push('<select id="'+type+input.id+'" class="ecombo">');
+		buffer.push('<select id="'+type+input.id+'" class="ecombo" title="'+input.hint+'">');
 		buffer.push('<option value ="-1" selected disabled hidden>Make a selection</option>');
 		for (var i=0; i<input.eval.length; i++){
 			buffer.push('<option value ="'+ input.eval[i].id +'">'+ input.eval[i].name + '</option>');
 		}
 	} else {
-		buffer.push('<select id="'+type+input.id+'" class="ocombo">');
+		buffer.push('<select id="'+type+input.id+'" class="ocombo" title="'+input.hint+'">');
 		buffer.push('<option value ="'+input.eval[0].id+'" selected>'+ input.eval[0].name + '</option>');
 		for (var i=1; i<input.eval.length; i++){
 			buffer.push('<option value ="'+ input.eval[i].id +'">'+ input.eval[i].name + '</option>');
@@ -132,7 +133,7 @@ function verify_combos(type){
 	}	
 	if (match){
 		for (var i=0; i<vars.length; i++){	
-			if (vars[i].match){
+			if (vars[i].match || vars[i].eval[0].id!=100){
 				for (var j=0; j<vars.length; j++){
 					if (i==j || vars[j].eval[0].id==100)
 						continue;
@@ -187,5 +188,15 @@ function activate_combos(){
 			//console.log($(this).attr('id').slice(0, 3));
 			verify_combos($(this).attr('id').slice(0, 3));			
 		});
-	});	
+	});
+	$( function() {
+	    var tooltips = $( "[title]" ).tooltip({
+	    items: "select",
+	      position: {
+	        my: "left top",
+	        at: "right+5 top-5",
+	        collision: "none"
+	      }
+	    });	    
+	  });	
 }
