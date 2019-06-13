@@ -4,7 +4,7 @@ function verify_shipment(input){
 	var tmp;
 	var evalres;
 	var attr = verify_combos('shp');
-	console.log(attr);
+	//console.log(attr);
 	//TODO Add NAICS to the variables list (optional)
 	//tmpResult.NAICS = test_naics(NAICS);
 	for (var i=0; i<input.length; i++){		

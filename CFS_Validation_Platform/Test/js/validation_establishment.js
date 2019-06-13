@@ -3,93 +3,124 @@ function verify_est(input){
 	var Result = [];
 	var tmp;
 	var attr = verify_combos('est');
-	console.log(attr);
+	//console.log(attr);
 	for (var i=0; i<input.length; i++){
 		var evalres = new Object();
-		tmp = shipping_Company_name_1(input[i][attr.data[1].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = shipping_Company_name_2(input[i][attr.data[2].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = shipping_address(input[i][attr.data[3].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = shipping_city(input[i][attr.data[4].eval[0].name]);
-		evalres.shipping_city = new Object();
-		evalres.shipping_city.valid = tmp.valid;
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);	
-		tmp = shipping_state(input[i][attr.data[5].eval[0].name]);
-		evalres.shipping_state = new Object();
-		evalres.shipping_state.valid = tmp.valid;
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = shipping_zip5(input[i][attr.data[4].eval[0].name],input[i][attr.data[5].eval[0].name],input[i][attr.data[6].eval[0].name],evalres);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = shipping_zip4(iinput[i][attr.data[7].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_company_name_1(input[i][attr.data[8].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_company_name_2(input[i][attr.data[9].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_attention(input[i][attr.data[10].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_address(input[i][attr.data[11].eval[0].name]);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_city(input[i][attr.data[12].eval[0].name]);
-		evalres.mailing_city = new Object();
-		evalres.mailing_city.valid = tmp.valid;
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_state(input[i][attr.data[13].eval[0].name]);
-		evalres.mailing_state = new Object();
-		evalres.mailing_state.valid = tmp.valid;
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_zip5(input[i][attr.data[12].eval[0].name],input[i][attr.data[13].eval[0].name],input[i][attr.data[14].eval[0].name],evalres);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = mailing_zip4(input.Mailing_zip4);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
+		if (input[i][attr.data[1].eval[0].id] !=100){
+			tmp = shipping_Company_name_1(input[i][attr.data[1].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[2].eval[0].id] !=100){
+			tmp = shipping_Company_name_2(input[i][attr.data[2].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[3].eval[0].id] !=100){
+			tmp = shipping_address(input[i][attr.data[3].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[4].eval[0].id] !=100){
+			tmp = shipping_city(input[i][attr.data[4].eval[0].name],i+1);
+			evalres.shipping_city = new Object();
+			evalres.shipping_city.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);	
+		}
+		if (input[i][attr.data[5].eval[0].id] !=100){
+			tmp = shipping_state(input[i][attr.data[5].eval[0].name],i+1);
+			evalres.shipping_state = new Object();
+			evalres.shipping_state.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[4].eval[0].id] !=100 && input[i][attr.data[5].eval[0].id] !=100 && input[i][attr.data[6].eval[0].id] !=100){
+			tmp = shipping_zip5(input[i][attr.data[4].eval[0].name],input[i][attr.data[5].eval[0].name],input[i][attr.data[6].eval[0].name],evalres,i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[7].eval[0].id] !=100){
+			tmp = shipping_zip4(input[i][attr.data[7].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[8].eval[0].id] !=100){
+			tmp = mailing_company_name_1(input[i][attr.data[8].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[9].eval[0].id] !=100){
+			tmp = mailing_company_name_2(input[i][attr.data[9].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[10].eval[0].id] !=100){
+			tmp = mailing_attention(input[i][attr.data[10].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[11].eval[0].id] !=100){
+			tmp = mailing_address(input[i][attr.data[11].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[12].eval[0].id] !=100){
+			tmp = mailing_city(input[i][attr.data[12].eval[0].name],i+1);
+			evalres.mailing_city = new Object();
+			evalres.mailing_city.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[13].eval[0].id] !=100){
+			tmp = mailing_state(input[i][attr.data[13].eval[0].name],i+1);
+			evalres.mailing_state = new Object();
+			evalres.mailing_state.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[12].eval[0].id] !=100){
+			tmp = mailing_zip5(input[i][attr.data[12].eval[0].name],input[i][attr.data[13].eval[0].name],input[i][attr.data[14].eval[0].name],evalres,i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[8].eval[0].id] !=100){
+			tmp = mailing_zip4(input[i][attr.data[8].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
 		//var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
-		tmp = date_Of_Ceased(input[i][attr.data[18].eval[0].name],input[i][attr.data[17].eval[0].name],input[i][attr.data[19].eval[0].name]);
-		evalres.date_of_ceased = new Object();
-		evalres.date_of_ceased.valid = tmp.valid;
+		if (input[i][attr.data[18].eval[0].id] !=100 && input[i][attr.data[17].eval[0].id] !=100 && input[i][attr.data[19].eval[0].id] !=100){
+			tmp = date_Of_Ceased(input[i][attr.data[18].eval[0].name],input[i][attr.data[17].eval[0].name],input[i][attr.data[19].eval[0].name],i+1);
+			evalres.date_of_ceased = new Object();
+			evalres.date_of_ceased.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		/*tmp = contact_name(input.contact_name,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);
-		/*tmp = contact_name(input.contact_name);
+		tmp = contact_title(input.contact_title,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);
-		tmp = contact_title(input.contact_title);
+		tmp = contact_phone(input.contact_phone,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);
-		tmp = contact_phone(input.contact_phone);
+		tmp = contact_fax_number(input.contact_fax_number,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);
-		tmp = contact_fax_number(input.contact_fax_number);
+		tmp = completion_time(input.time_hours, input.time_minutes,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);
-		tmp = completion_time(input.time_hours, input.time_minutes);
-		if (!tmp.pass)
-			Result = Result.concat(tmp.errors);
-		tmp = remarks(input.remarks);
+		tmp = remarks(input.remarks,i+1);
 		evalres.remarks = new Object();
 		evalres.remarks.valid = tmp.valid;
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);*/
-		/*tmp = check_operating_Status(input[i][attr.data[16].eval[0].name],input.status_temporary,input.status_ceased,evalres);
+		/*tmp = check_operating_Status(input[i][attr.data[16].eval[0].name],input.status_temporary,input.status_ceased,evalres,i+1);
 		if (!tmp.pass)
 			Result = Result.concat(tmp.errors);*/
-	}
-	
+	}	
 	return Result;
 }
 
@@ -587,7 +618,7 @@ function mailing_address(input,line){
 }
 
 //Mailing city
-function mailing_city(input){
+function mailing_city(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
@@ -1171,7 +1202,7 @@ function remarks(input,line){
 }
 
 //Operating Status check and missing remarks cross check 
-function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
+function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalres are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	

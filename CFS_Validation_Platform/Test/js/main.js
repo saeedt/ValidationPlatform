@@ -155,12 +155,13 @@ function readFile_e (evt) {
  }
 //process the establishment file
 function process_est(){
-	var cresult = verify_est(establishment);	
+	var cresult = verify_est(establishment);
+	//console.log(cresult);
 	var pass = true;	
 	document.getElementById("estTable").style.display  = 'block';
 	document.getElementById("t1").style.display  = 'block';
 	document.getElementById("submit-e").style.display  = 'none';
-	collapse_c('cfiledetails');
+	collapse_c('efiledetails');
 	$( "#tabs" ).tabs();
 	$("#tabs").tabs("option", "active", 0);
 	$('#estTable').DataTable().destroy();
