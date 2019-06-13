@@ -3,23 +3,27 @@ function verify_shipment(input){
 	var Result =  [];
 	var tmp;
 	var evalres;
-	//TODO implement test_naic function : presence check and field validation
+	var attr = verify_combos('shp');
+	//console.log(attr);
+	//TODO Add NAICS to the variables list (optional)
 	//tmpResult.NAICS = test_naics(NAICS);
 	for (var i=0; i<input.length; i++){		
-		evalres = new Object();		
-		tmp = test_numberOfShip(input[i].SHIP_NUM,input.length,i+1);
+		evalres = new Object();
+		if (input[i][attr.data[0].eval[0].id] !=100){
+			tmp = test_ship_ID(input[i][attr.data[0].eval[0].name],i+1);
+			if (!tmp.pass){
+				Result = Result.concat(tmp.errors);
+			}
+		}
+		/*tmp = test_numberOfShip(input[i].SHIP_NUM,input.length,i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
-		}			
-		tmp = test_ship_ID(input[i].SHIP_ID,i+1);
+		}*/		
+		tmp = test_ship_month(input[i][attr.data[1].eval[0].name],i+1);	
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_ship_month(input[i].SHIPMENT_MONTH,i+1);	
-		if (!tmp.pass){
-			Result = Result.concat(tmp.errors);
-		}
-		tmp = test_ship_day(input[i].SHIPMT_DAY,i+1);
+		tmp = test_ship_day(input[i][attr.data[2].eval[0].name],i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
@@ -29,73 +33,73 @@ function verify_shipment(input){
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}		
-		tmp = test_temp_control(input[i].TEMPERATURE_CONTROL_YN,i+1);
+		tmp = test_temp_control(input[i][attr.data[7].eval[0].name],i+1);
 		evalres.TEMPERATURE_CONTROL_YN = new Object();
 		evalres.TEMPERATURE_CONTROL_YN.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_mode(input[i].DOMESTIC_TRANSPORT_MODE,i+1);
+		tmp = test_mode(input[i][attr.data[12].eval[0].name],i+1);
 		evalres.DOMESTIC_TRANSPORT_MODE = new Object();
 		evalres.DOMESTIC_TRANSPORT_MODE.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_destinationState(input[i].DOMESTIC_STATE_ABBREV,i+1);
+		tmp = test_destinationState(input[i][attr.data[10].eval[0].name],i+1);
 		evalres.DOMESTIC_STATE_ABBREV = new Object();
 		evalres.DOMESTIC_STATE_ABBREV.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_ship_weight(input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].NAICS,evalres,i+1);
+		tmp = test_ship_weight(input[i][attr.data[4].eval[0].name],input[i][attr.data[12].eval[0].name],input[i].NAICS,evalres,i+1);
 		evalres.SHIPMENT_WEIGHT = new Object();
 		evalres.SHIPMENT_WEIGHT.valid = tmp.valid
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_ship_value(input[i].SHIPMENT_VALUE,i+1);
+		tmp = test_ship_value(input[i][attr.data[3].eval[0].name],i+1);
 		evalres.SHIPMENT_VALUE = new Object();
 		evalres.SHIPMENT_VALUE.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_sctg(input[i].SCTG_COMMODITY_CODE,input[i].SHIPMENT_VALUE,input[i].SHIPMENT_WEIGHT,input[i].DOMESTIC_TRANSPORT_MODE,input[i].TEMPERATURE_CONTROL_YN,input[i].NAICS,input[i].DOMESTIC_STATE_ABBREV,evalres,i+1);
+		tmp = test_sctg(input[i][attr.data[5].eval[0].name],input[i][attr.data[3].eval[0].name],input[i][attr.data[4].eval[0].name],input[i][attr.data[12].eval[0].name],input[i][attr.data[7].eval[0].name],input[i].NAICS,input[i][attr.data[10].eval[0].name],evalres,i+1);
 		evalres.SCTG_COMMODITY_CODE = new Object();
 		evalres.SCTG_COMMODITY_CODE.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}		
-		tmp = test_sctg_descr(input[i].COMMODITY_DESCRIPTION,i+1);
+		tmp = test_sctg_descr(input[i][attr.data[6].eval[0].name],i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_unna(input[i].HAZMAT_CODE,input[i].SCTG_COMMODITY_CODE,evalres,i+1);
+		tmp = test_unna(input[i][attr.data[8].eval[0].name],input[i][attr.data[5].eval[0].name],evalres,i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_destinationCity(input[i].DOMESTIC_CITY_NAME,i+1);
+		tmp = test_destinationCity(input[i][attr.data[9].eval[0].name],i+1);
 		evalres.DOMESTIC_CITY_NAME = new Object();
 		evalres.DOMESTIC_CITY_NAME.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_destinationZip(input[i].DOMESTIC_ZIP_CODE,input[i].DOMESTIC_STATE_ABBREV,input[i].DOMESTIC_CITY_NAME,evalres,i+1);
+		tmp = test_destinationZip(input[i][attr.data[11].eval[0].name],input[i][attr.data[10].eval[0].name],input[i][attr.data[9].eval[0].name],evalres,i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_exportCity(input[i].EXPORT_CITY_NAME,i+1);
+		tmp = test_exportCity(input[i][attr.data[14].eval[0].name],i+1);
 		evalres.EXPORT_CITY_NAME = new Object();
 		evalres.EXPORT_CITY_NAME.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}		
-		tmp = test_exportCountry(input[i].EXPORT_COUNTRY_NAME,input[i].EXPORT_CITY_NAME,evalres,i+1);
+		tmp = test_exportCountry(input[i][attr.data[15].eval[0].name],input[i][attr.data[14].eval[0].name],evalres,i+1);
 		evalres.EXPORT_COUNTRY_NAME = new Object();
 		evalres.EXPORT_COUNTRY_NAME.valid = tmp.valid;
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}
-		tmp = test_exportMode(input[i].EXPORT_TRANSPORT_MODE,input[i].EXPORT_COUNTRY_NAME,evalres,i+1);
+		tmp = test_exportMode(input[i][attr.data[16].eval[0].name],input[i][attr.data[15].eval[0].name],evalres,i+1);
 		if (!tmp.pass){
 			Result = Result.concat(tmp.errors);
 		}		

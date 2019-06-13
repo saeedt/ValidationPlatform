@@ -1,105 +1,139 @@
 //main function
 function verify_est(input){
 	var Result = [];
-	var tmp = new Object();
-	var evalres = new Object();	
-	tmp = shipping_Company_name_1(input.shipping_comapny_name_1);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_Company_name_1(input.shipping_comapny_name_1);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_Company_name_2(input.shipping_comapny_name_2);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_address(input.shipping_address);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_city(input.shipping_city);
-	evalres.shipping_city = new Object();
-	evalres.shipping_city.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);	
-	tmp = shipping_state(input.shipping_state);
-	evalres.shipping_state = new Object();
-	evalres.shipping_state.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_zip5(input.shipping_city,input.shipping_state,input.shipping_zip5,evalres);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = shipping_zip4(input.shipping_zip4);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_company_name_1(input.Mailing_comapny_name_1);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_company_name_2(input.Mailing_comapny_name_2);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_attention(input.Mailing_attention);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_address(input.Mailing_address);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_city(input.Mailing_city);
-	evalres.mailing_city = new Object();
-	evalres.mailing_city.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_state(input.Mailing_state);
-	evalres.mailing_state = new Object();
-	evalres.mailing_state.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_zip5(input.Mailing_city,input.Mailing_state,input.Mailing_zip5,evalres);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = mailing_zip4(input.Mailing_zip4);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	//var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
-	tmp = date_Of_Ceased(input.status_ceased_month,input.status_ceased_day, input.status_ceased_year);
-	evalres.date_of_ceased = new Object();
-	evalres.date_of_ceased.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = contact_name(input.contact_name);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = contact_title(input.contact_title);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = contact_phone(input.contact_phone);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = contact_fax_number(input.contact_fax_number);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = completion_time(input.time_hours, input.time_minutes);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = remarks(input.remarks);
-	evalres.remarks = new Object();
-	evalres.remarks.valid = tmp.valid;
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
-	tmp = check_operating_Status(input.status_inoperation,input.status_temporary,input.status_ceased,evalres);
-	if (!tmp.pass)
-		Result = Result.concat(tmp.errors);
+	var tmp;
+	var attr = verify_combos('est');
+	//console.log(attr);
+	for (var i=0; i<input.length; i++){
+		var evalres = new Object();
+		if (input[i][attr.data[1].eval[0].id] !=100){
+			tmp = shipping_Company_name_1(input[i][attr.data[1].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[2].eval[0].id] !=100){
+			tmp = shipping_Company_name_2(input[i][attr.data[2].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[3].eval[0].id] !=100){
+			tmp = shipping_address(input[i][attr.data[3].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[4].eval[0].id] !=100){
+			tmp = shipping_city(input[i][attr.data[4].eval[0].name],i+1);
+			evalres.shipping_city = new Object();
+			evalres.shipping_city.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);	
+		}
+		if (input[i][attr.data[5].eval[0].id] !=100){
+			tmp = shipping_state(input[i][attr.data[5].eval[0].name],i+1);
+			evalres.shipping_state = new Object();
+			evalres.shipping_state.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[4].eval[0].id] !=100 && input[i][attr.data[5].eval[0].id] !=100 && input[i][attr.data[6].eval[0].id] !=100){
+			tmp = shipping_zip5(input[i][attr.data[4].eval[0].name],input[i][attr.data[5].eval[0].name],input[i][attr.data[6].eval[0].name],evalres,i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[7].eval[0].id] !=100){
+			tmp = shipping_zip4(input[i][attr.data[7].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[8].eval[0].id] !=100){
+			tmp = mailing_company_name_1(input[i][attr.data[8].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[9].eval[0].id] !=100){
+			tmp = mailing_company_name_2(input[i][attr.data[9].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[10].eval[0].id] !=100){
+			tmp = mailing_attention(input[i][attr.data[10].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[11].eval[0].id] !=100){
+			tmp = mailing_address(input[i][attr.data[11].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[12].eval[0].id] !=100){
+			tmp = mailing_city(input[i][attr.data[12].eval[0].name],i+1);
+			evalres.mailing_city = new Object();
+			evalres.mailing_city.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[13].eval[0].id] !=100){
+			tmp = mailing_state(input[i][attr.data[13].eval[0].name],i+1);
+			evalres.mailing_state = new Object();
+			evalres.mailing_state.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[12].eval[0].id] !=100){
+			tmp = mailing_zip5(input[i][attr.data[12].eval[0].name],input[i][attr.data[13].eval[0].name],input[i][attr.data[14].eval[0].name],evalres,i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		if (input[i][attr.data[8].eval[0].id] !=100){
+			tmp = mailing_zip4(input[i][attr.data[8].eval[0].name],i+1);
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		//var ceased_op_date = input.status_ceased_month+'/'+input.status_ceased_day+'/'+input.status_ceased_year;
+		if (input[i][attr.data[18].eval[0].id] !=100 && input[i][attr.data[17].eval[0].id] !=100 && input[i][attr.data[19].eval[0].id] !=100){
+			tmp = date_Of_Ceased(input[i][attr.data[18].eval[0].name],input[i][attr.data[17].eval[0].name],input[i][attr.data[19].eval[0].name],i+1);
+			evalres.date_of_ceased = new Object();
+			evalres.date_of_ceased.valid = tmp.valid;
+			if (!tmp.pass)
+				Result = Result.concat(tmp.errors);
+		}
+		/*tmp = contact_name(input.contact_name,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);
+		tmp = contact_title(input.contact_title,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);
+		tmp = contact_phone(input.contact_phone,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);
+		tmp = contact_fax_number(input.contact_fax_number,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);
+		tmp = completion_time(input.time_hours, input.time_minutes,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);
+		tmp = remarks(input.remarks,i+1);
+		evalres.remarks = new Object();
+		evalres.remarks.valid = tmp.valid;
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);*/
+		/*tmp = check_operating_Status(input[i][attr.data[16].eval[0].name],input.status_temporary,input.status_ceased,evalres,i+1);
+		if (!tmp.pass)
+			Result = Result.concat(tmp.errors);*/
+	}	
 	return Result;
 }
 
 // shipping address 
-  function Verfication_companyName_Shipping_name (input){
+  function Verfication_companyName_Shipping_name (input,line){
 		var result = new Object();
 		var errors = [];
 		var tmp = new Object();	
 		var error;
 		result.pass = true;
 		if (!presence_check(input)){
-			error = "E20_2"
+			error = "E20_2";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -114,14 +148,15 @@ function verify_est(input){
 }
   
 //company name 1
-function shipping_Company_name_1 (input){
+function shipping_Company_name_1 (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E21_2"
+		error = "E21_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -129,7 +164,8 @@ function shipping_Company_name_1 (input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
-				error = "E21_1"
+				error = "E21_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -145,14 +181,15 @@ function shipping_Company_name_1 (input){
 }	
 
 //Company name 2
-function shipping_Company_name_2(input){ //need presence check
+function shipping_Company_name_2(input,line){ //need presence check
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E22_2"
+		error = "E22_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -161,7 +198,8 @@ function shipping_Company_name_2(input){ //need presence check
 	} 
 	else { 
 		if (!check_allowed_char(input, "alphanumeric", "conf1")){
-		error = "E22_1"
+		error = "E22_1";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -177,14 +215,15 @@ function shipping_Company_name_2(input){ //need presence check
 }
 
 //Shipping address
-function shipping_address(input){
+function shipping_address(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E23_2"
+		error = "E23_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -193,7 +232,8 @@ function shipping_address(input){
 		}
 	else{
 		if (!check_allowed_char(input, "shippingAddress", "conf1")){
-				error = "E23_1"
+				error = "E23_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -201,7 +241,8 @@ function shipping_address(input){
 				errors.push(tmp);
 		}	
 		if (check_invalid_char(input, "shippingAddress", "conf1")){
-				error = "E23_5"
+				error = "E23_5";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -217,14 +258,15 @@ function shipping_address(input){
 }	
 
 //city
-function shipping_city(input){
+function shipping_city(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.valid = true;	
 	if (!presence_check(input)){
-		error = "E24_2"
+		error = "E24_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -232,7 +274,8 @@ function shipping_city(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E24_1"
+				error = "E24_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -251,14 +294,15 @@ function shipping_city(input){
 }
 
 //state
-function shipping_state(input){
+function shipping_state(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.valid = true;	
 	if (!presence_check(input)){
-		error = "E25_2"
+		error = "E25_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -266,7 +310,8 @@ function shipping_state(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E25_1"
+				error = "E25_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -274,7 +319,8 @@ function shipping_state(input){
 				errors.push(tmp);
 				}	
 			if(!field_length_check(input, "state", "conf1")){
-				error = "E25_4"
+				error = "E25_4";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -284,7 +330,8 @@ function shipping_state(input){
 		}
 	if (!errors.length>0){
 		if (lkup_linear('lkup32',input)){
-			error = "E25_22"
+			error = "E25_22";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -303,14 +350,15 @@ function shipping_state(input){
 }
 
 //5 digit zip code 
-function shipping_zip5(city, state, zip, evalres){ // need to change based on shipment-crsooscheck zip
+function shipping_zip5(city, state, zip, evalres,line){ // need to change based on shipment-crsooscheck zip
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true; 
 	if (!presence_check(zip)){
-		error = "E26_2"
+		error = "E26_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -318,7 +366,8 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(zip, "numeric", "conf1")){
-			error = "E26_1"
+			error = "E26_1";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -326,7 +375,8 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 			errors.push(tmp);
 		}
 		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
-			error = "E26_4"
+			error = "E26_4";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -339,7 +389,8 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 			if((lkup_binary_m("lkup4","zipCode",zip).found )){
 				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
 					if(!matchObj(test1, test2, "zipCode")){
-						error = "E26_23"
+						error = "E26_23";
+						tmp.line = line;
 						tmp.flagname = flags[error].name;
 						tmp.flag = flags[error].flag;
 						tmp.flagval = flags[error].value;
@@ -348,7 +399,8 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 					}
 				}
 			} else {
-				error = "E26_22"
+				error = "E26_22";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -368,14 +420,15 @@ function shipping_zip5(city, state, zip, evalres){ // need to change based on sh
 
 		
 //4 digit zip code extension
-function shipping_zip4 (input){
+function shipping_zip4 (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E27_2"
+		error = "E27_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -383,7 +436,8 @@ function shipping_zip4 (input){
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(input, "numeric", "conf1")){	
-			error = "E27_1"
+			error = "E27_1";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -391,7 +445,8 @@ function shipping_zip4 (input){
 			errors.push(tmp);
 		}
 		else if(!field_length_check(input, "zipCode4", "conf1")){
-			error = "E27_4"
+			error = "E27_4";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -407,14 +462,15 @@ function shipping_zip4 (input){
 }
 //TODO: fix the name 
 // verification Mailing address integration functions
-function Verfication_companyName_Mailing_name (input){
+function Verfication_companyName_Mailing_name (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E28_2"
+		error = "E28_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -429,14 +485,15 @@ function Verfication_companyName_Mailing_name (input){
 }	
 
 //mailing address attributes integration functions
-function mailing_company_name_1(input){
+function mailing_company_name_1(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E29_2"
+		error = "E29_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -444,7 +501,8 @@ function mailing_company_name_1(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
-				error = "E29_1"
+				error = "E29_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -460,14 +518,15 @@ function mailing_company_name_1(input){
 }
 
 //Mailing company name 2
-function mailing_company_name_2(input){ 
+function mailing_company_name_2(input,line){ 
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E30_2"
+		error = "E30_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -475,7 +534,8 @@ function mailing_company_name_2(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
-				error = "E30_1"
+				error = "E30_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -491,14 +551,15 @@ function mailing_company_name_2(input){
 }	
 
 //Mailing address attention
-function mailing_attention (input){
+function mailing_attention (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E30_2"
+		error = "E30_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -506,7 +567,8 @@ function mailing_attention (input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){	
-				error = "E31_1"
+				error = "E31_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -522,14 +584,15 @@ function mailing_attention (input){
 }
 
 //Mailing address
-function mailing_address(input){ 
+function mailing_address(input,line){ 
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E32_2"
+		error = "E32_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -537,7 +600,8 @@ function mailing_address(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "shippingAddress", "conf1")){
-				error = "E32_1"
+				error = "E32_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -554,14 +618,15 @@ function mailing_address(input){
 }
 
 //Mailing city
-function mailing_city(input){
+function mailing_city(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.valid = true;
 	if (!presence_check(input)){
-		error = "E33_2"
+		error = "E33_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -569,7 +634,8 @@ function mailing_city(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E33_1"
+				error = "E33_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -589,14 +655,15 @@ function mailing_city(input){
 }
 	
 //Mailing state
-function mailing_state(input){
+function mailing_state(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.valid = true;
 	if (!presence_check(input)){
-		error = "E34_2"
+		error = "E34_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -604,7 +671,8 @@ function mailing_state(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E34_1"
+				error = "E34_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -612,7 +680,8 @@ function mailing_state(input){
 				errors.push(tmp);
 				}			
 			if(!field_length_check(input, "state", "conf1")){
-				error = "E34_4"
+				error = "E34_4";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -621,7 +690,8 @@ function mailing_state(input){
 				}
 			if (!errors.length>0){
 				if (lkup_linear('lkup32',input)){
-					error = "E34_22"
+					error = "E34_22";
+					tmp.line = line;
 					tmp.flagname = flags[error].name;
 					tmp.flag = flags[error].flag;
 					tmp.flagval = flags[error].value;
@@ -642,14 +712,15 @@ function mailing_state(input){
 }
 
 //5 digit mailing zip code
-function mailing_zip5(city, state, zip,evalres){
+function mailing_zip5(city, state, zip,evalres,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true; 
 	if (!presence_check(zip)){
-		error = "E35_2"
+		error = "E35_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -658,7 +729,8 @@ function mailing_zip5(city, state, zip,evalres){
 	} 
 	else {
 		if (!check_allowed_char(zip, "numeric", "conf1")){
-			error = "E35_1"
+			error = "E35_1";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -666,7 +738,8 @@ function mailing_zip5(city, state, zip,evalres){
 			errors.push(tmp);
 		}
 		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
-			error = "E35_4"
+			error = "E35_4";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -679,7 +752,8 @@ function mailing_zip5(city, state, zip,evalres){
 			if((lkup_binary_m("lkup4","zipCode",zip).found )){
 				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
 					if(!matchObj(test1, test2, "zipCode")){
-						error = "E35_23"
+						error = "E35_23";
+						tmp.line = line;
 						tmp.flagname = flags[error].name;
 						tmp.flag = flags[error].flag;
 						tmp.flagval = flags[error].value;
@@ -689,7 +763,8 @@ function mailing_zip5(city, state, zip,evalres){
 				}
 			} 
 			else {
-				error = "E35_22"
+				error = "E35_22";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -708,14 +783,15 @@ function mailing_zip5(city, state, zip,evalres){
 }
 
 // 4 digit mailing zip code extension
-function mailing_zip4 (input){
+function mailing_zip4 (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E36_2"
+		error = "E36_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -723,7 +799,8 @@ function mailing_zip4 (input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){	
-				error = "E36_1"
+				error = "E36_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -731,7 +808,8 @@ function mailing_zip4 (input){
 				errors.push(tmp);
 			}
 			else if(!field_length_check(input, "zipCode4", "conf1")){
-				error = "E36_4"
+				error = "E36_4";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -747,14 +825,15 @@ function mailing_zip4 (input){
 }
 
 //Date of ceased operations
-function date_Of_Ceased(month, day, year){ //needs presence check: // added presence checks
+function date_Of_Ceased(month, day, year, line){ //needs presence check: // added presence checks
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
 	result.valid = true;
 	if (!presence_check(month) || !presence_check(day) || !presence_check(year)) {
-	error = "E38_2"
+	error = "E38_2";
+	tmp.line = line;
 	tmp.flagname = flags[error].name;
 	tmp.flag = flags[error].flag;
 	tmp.flagval = flags[error].value;
@@ -764,7 +843,8 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 	} 
 	if (presence_check(month) && presence_check(day) && presence_check(year)) {
 		if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
-		error = "E38_1"
+		error = "E38_1";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -772,7 +852,8 @@ function date_Of_Ceased(month, day, year){ //needs presence check: // added pres
 		errors.push(tmp);
 		}
 		if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
-		error = "E38_3"
+		error = "E38_3";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -862,14 +943,15 @@ function CrossCheck_operatingStatus_dateOfCeased (ceasedOp, evalres){
 */
 
 //  Integration functions for verification of Primary Industry Activities
-function Verfication_priamaryIndustry_checkBox (input){
+function Verfication_priamaryIndustry_checkBox (input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E39_2"
+		error = "E39_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -884,14 +966,15 @@ function Verfication_priamaryIndustry_checkBox (input){
 }
 
 // Integration function for Name of contact information
-function contact_name(input){
+function contact_name(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E41_2"
+		error = "E41_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -899,7 +982,8 @@ function contact_name(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E41_1"
+				error = "E41_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -915,14 +999,15 @@ function contact_name(input){
 }
 
 //Integration function for title of contact information
-function contact_title(input){
+function contact_title(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;	
 	if (!presence_check(input)){
-		error = "E42_2"
+		error = "E42_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -930,7 +1015,8 @@ function contact_title(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
-				error = "E42_1"
+				error = "E42_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -946,14 +1032,15 @@ function contact_title(input){
 }
 
 //Integration function for phone number of contact information
-function contact_phone(input1, exten){
+function contact_phone(input1, exten, line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input1)){
-		error = "E43_2"
+		error = "E43_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -961,7 +1048,8 @@ function contact_phone(input1, exten){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input1, "numeric", "conf1")){
-				error = "E43_1"
+				error = "E43_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -969,7 +1057,8 @@ function contact_phone(input1, exten){
 				errors.push(tmp);
 				}
 			if(!field_length_check(input1, "phone_main", "conf1")){
-				error = "E43_4"
+				error = "E43_4";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -978,7 +1067,8 @@ function contact_phone(input1, exten){
 			}
 		}
 	if (!presence_check(exten)){
-		error = "E44_2"
+		error = "E44_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -986,7 +1076,8 @@ function contact_phone(input1, exten){
 		errors.push(tmp);
 		} else {
 			if (!field_length_check(exten, "phone_extent", "conf1")){
-				error = "E44_4"
+				error = "E44_4";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -1002,14 +1093,15 @@ function contact_phone(input1, exten){
 }
 
 //Integration function for fax number of contact information
-function contact_fax_number(input){
+function contact_fax_number(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input)){
-		error = "E45_2"
+		error = "E45_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -1017,7 +1109,8 @@ function contact_fax_number(input){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){
-				error = "E7_1"
+				error = "E7_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -1025,7 +1118,8 @@ function contact_fax_number(input){
 				errors.push(tmp);
 				}
 			if(!field_length_check(input, "faxNum", "conf1")){
-				error = "E7_2"
+				error = "E7_2";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -1041,14 +1135,15 @@ function contact_fax_number(input){
 }
 
 //Survey completion time
-function completion_time(input1, input2){
+function completion_time(input1, input2, line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;
 	if (!presence_check(input1) || !presence_check(input2)){
-		error = "E10_2"
+		error = "E10_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -1056,7 +1151,8 @@ function completion_time(input1, input2){
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input1, "numeric", "conf1") ||!check_allowed_char(input2, "numeric", "conf1")){
-				error = "E10_1"
+				error = "E10_1";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -1064,7 +1160,8 @@ function completion_time(input1, input2){
 				errors.push(tmp);
 				}
 			else if(!range_val_check(input1, "hour", "conf1")){
-				error = "E10_3"
+				error = "E10_3";
+				tmp.line = line;
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
@@ -1079,14 +1176,15 @@ function completion_time(input1, input2){
 	return result;
 }
 
-function remarks(input){
+function remarks(input,line){
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.valid = true;	
 	if (!presence_check(input)){
-		error = "E46_2"
+		error = "E46_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -1104,14 +1202,15 @@ function remarks(input){
 }
 
 //Operating Status check and missing remarks cross check 
-function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
+function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalres are added instead of function CrossCheck_operatingStatus_dateOfCeased and 
 	var result = new Object();
 	var errors = [];
 	var tmp = new Object();	
 	var error;
 	result.pass = true;	
 	if (!presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
-		error = "E37_2"
+		error = "E37_2";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
@@ -1120,7 +1219,8 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 		}
 	if (presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
 		if(evalres.remarks.valid){// in remarks result.valid is added
-			error = "E46_40"
+			error = "E46_40";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -1130,7 +1230,8 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 	}
 	if (evalres.date_of_ceased.valid){ // if (day, month , year)from date-of-Ceased function pass presence check evalres2=true
 		if (presence_check(ceasedOp)){
-			error = "E5_1"
+			error = "E5_1";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -1138,7 +1239,8 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 			errors.push(tmp);
 			}
 		if (!presence_check(ceasedOp)){
-			error = "E38_40"
+			error = "E38_40";
+			tmp.line = line;
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
@@ -1146,7 +1248,8 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres){//evalres are
 			errors.push(tmp);
 			}
 	} else if (presence_check(ceasedOp)){// if evalres2=false presence check of ceasedOp is checked
-		error = "E38_40"
+		error = "E38_40";
+		tmp.line = line;
 		tmp.flagname = flags[error].name;
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;

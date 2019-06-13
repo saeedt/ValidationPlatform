@@ -1,5 +1,5 @@
 var shipment;
-var company;
+var establishment;
 var cfile_ok;
 var log_e = [];
 var log_s = [];
@@ -71,12 +71,20 @@ function readFile_s (evt) {
 	    				':'+result.errors[i].message);
 	    			}
 	    			html.push('<h2>Errors</h2><div>'+ errors.join("<br/>")+'</div>');	
-	    		} else {	    			
-	    			html.push('<h2>Attributes</h2><div>'+ result.meta.fields.join("<br/>")+'</div>');	    			
-	    			document.getElementById("submit-s").style.display  = 'inline-block';
-	    			document.getElementById("submit-s").onclick = process_shp;
+	    		} else {
+	    			var attrib = processVars(result.meta.fields,'shp');	    			
+	        		html.push('<h2>Attributes</h2><div><table class="atable">');    		
+	        		for (var i =0; i<attrib.data.length; i++){
+	        			html.push('<tr><td>'+attrib.data[i].varname+'</td><td>'+attrib.data[i].combo+'</td></tr>');
+	        		}    		
+	        		html.push('</table></div>');
+	        		if (attrib.match){
+	        			document.getElementById("submit-s").style.display  = 'inline-block';
+		    			document.getElementById("submit-s").onclick = process_shp;
+	        		}	    			
 	    		}
 	    		$('#sfiledetails').append(html.join(''));
+	    		activate_combos();
 	        	collapse_e('sfiledetails');
     		},
     		error: undefined,
@@ -90,48 +98,70 @@ function readFile_s (evt) {
  }
 //load the establishment file
 function readFile_e (evt) {
-    var file = evt.target.files[0];
-    var fr = new FileReader();
-    fr.onload = function () {
-    	var result;
-    	cfile_ok = false;
-    	var html = [];
-    	var log_e = [];
-    	try {
-    	$( '#cfiledetails' ).accordion( "destroy" );
-    	} catch(e){}
-    	//document.getElementById("cfiledetails").style.display  = "block";
-    	$('#cfiledetails').empty();
-    	try {
-    		result = JSON.parse(fr.result);
-    		company = result;
-    		var keys = [];
-    		for (var i in result){
-    			keys.push(i);
-    		}
-    		html.push('<h2>Attributes</h2><div>'+keys.join("<br/>")+'</div>');
-    		cfile_ok = true;    		
-    	} catch(e) {
-    		html.push('<h2>Errors</h2><div>'+e+'</div>');
-    		cfile_ok = false;
-    	}    	
-    	$('#cfiledetails').append(html.join(''));
-    	collapse_e('cfiledetails');
-    	if (cfile_ok){			
-			document.getElementById("submit-e").style.display  = 'inline-block';
-    		document.getElementById("submit-e").onclick = process_est;
-		}    	
-	};
-    fr.readAsText(file);        
+    var file = evt.target.files[0];    
+    var file = evt.target.files[0];      
+    Papa.parse(file, {    	
+    		delimiter: ",",
+    		newline: "",	// auto-detect
+    		quoteChar: '"',
+    		escapeChar: '"',
+    		header: true, //store in array - 
+    		trimHeader: true,
+    		dynamicTyping: false,
+    		preview: 0,
+    		encoding: "",
+    		worker: false,
+    		comments: false,
+    		step: undefined,
+    		complete: function(result) {
+    			establishment = result.data;	    		
+	    		var html = [];
+	    		try {
+	    	    	$( '#efiledetails' ).accordion( "destroy" );
+	    	    	} catch(e){}
+	    	    $("#efiledetails").empty(); 
+	    		if (result.errors.length>0){
+	    			var errors = [];
+	    			for (var i=0; i<result.errors.length;i++){
+	    				errors.push('row:'+result.errors[i].row+
+	    				' index:'+result.errors[i].index+' '+result.errors[i].type+
+	    				':'+result.errors[i].message);
+	    			}
+	    			html.push('<h2>Errors</h2><div>'+ errors.join("<br/>")+'</div>');	
+	    		} else {
+	    			var attrib = processVars(result.meta.fields,'est');	    			
+	        		html.push('<h2>Attributes</h2><div><table class="atable">');    		
+	        		for (var i =0; i<attrib.data.length; i++){
+	        			html.push('<tr><td>'+attrib.data[i].varname+' </td><td>'+attrib.data[i].combo+'</td></tr>');
+	        		}    		
+	        		html.push('</table></div>');
+	        		if (attrib.match){
+	        			document.getElementById("submit-e").style.display  = 'inline-block';
+		    			document.getElementById("submit-e").onclick = process_est;
+	        		}	    			
+	    		}
+	    		$('#efiledetails').append(html.join(''));
+	    		activate_combos();
+	        	collapse_e('efiledetails');
+    		},
+    		error: undefined,
+    		download: false,
+    		skipEmptyLines: true,
+    		chunk: undefined,
+    		fastMode: undefined,
+    		beforeFirstChunk: undefined,
+    		withCredentials: undefined   		
+    });            
  }
 //process the establishment file
 function process_est(){
-	var cresult = verify_est(company);	
+	var cresult = verify_est(establishment);
+	//console.log(cresult);
 	var pass = true;	
 	document.getElementById("estTable").style.display  = 'block';
 	document.getElementById("t1").style.display  = 'block';
 	document.getElementById("submit-e").style.display  = 'none';
-	collapse_c('cfiledetails');
+	collapse_c('efiledetails');
 	$( "#tabs" ).tabs();
 	$("#tabs").tabs("option", "active", 0);
 	$('#estTable').DataTable().destroy();
@@ -151,10 +181,11 @@ function process_est(){
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],       
         "columnDefs": [
-            { "title": "Flag",   "targets": 0 ,  "data": "flag"},
-            { "title": "Value",  "targets": 1 , "data": "flagval"},
-            { "title": "Flag Name", "targets": 2, "data":"flagname" },
-            { "title": "Description",  "targets": 3 , "data": "flagmsg"}]        
+            { "title": "Line#",   "targets": 0 ,  "data": "line"},
+            { "title": "Flag",   "targets": 1 ,  "data": "flag"},
+            { "title": "Value",  "targets": 2 , "data": "flagval"},
+            { "title": "Flag Name", "targets": 3, "data":"flagname" },
+            { "title": "Description",  "targets": 4 , "data": "flagmsg"}]        
     } );	
     //$('#estTable').DataTable().columns.adjust().draw();
 }
