@@ -4,456 +4,532 @@ var flags = {
 		flag: "S1",
 		value: "1",
 		name: "overseas_military_zip",
-		msg: "U.S. destination (zip) contains overseas millitary address."
+		msg: "U.S. destination ZIP contains an overseas millitary address.",
+		priority: ""		
 	},	
 	S1_2: {
 		flag: "S1",
 		value: "2",
 		name: "inv_zip_state",
-		msg: "U.S. destination state/zip combination is invalid."
+		msg: "U.S. destination state/zip combination is invalid.",
+		priority: ""
 	},
 	S2_1: {
 		flag: "S2",
 		value: "1",
 		name: "miss_mode",
-		msg: "Mode of transport is missing."
+		msg: "Mode of transportation is missing.",
+		priority: ""
 	},
 	S2_2: {
 		flag: "S2",
 		value: "2",
 		name: "nonNumeric_mode",
-		msg: "Mode of transport is not numeric."
+		msg: "Mode of transportation is not numeric.",
+		priority: ""
 	},
 	S2_3: {
 		flag: "S2",
 		value: "3",
 		name: "inv_mode",
-		msg: "Mode of transport contains a numeric entry but is not a valid mode including multi-mode."
+		msg: "Mode of transportation contains a numeric entry, but is not a valid mode including multi-mode.",
+		priority: ""
 	},
 	S3_1: {
 		flag: "S3",
 		value: "1",
 		name: "miss_sctg",
-		msg: "SCTG commodity code is missing."
+		msg: "SCTG commodity code is missing.",
+		priority: ""
 	},
 	S3_2: {
 		flag: "S3",
 		value: "2",
 		name: "notFound_sctg",
-		msg: "SCTG commodity code is invalid."
+		msg: "SCTG commodity code is invalid.",
+		priority: ""
 	},	
 	S3_3: {
 		flag: "S3",
 		value: "3",
 		name: "16xxx_sctg",
-		msg: "SCTG commodity code is invalid."
+		msg: "SCTG commodity code is invalid.",
+		priority: ""
 	},	
 	S4_1: {
 		flag: "S4",
 		value: "1",
 		name: "inv_sctg_mode7",
-		msg: "SCTG commodity code is invalid for mode includes pipeline (7)."
+		msg: "SCTG commodity code is invalid: mode includes pipeline (7).",
+		priority: ""
 	},
 	S4_2: {
 		flag: "S4",
 		value: "2",
 		name: "inv_sctg_mode1_weight_state",
-		msg: "SCTG commodity code is invalid for mode includes parcel (1), shipment weight and state provided."		
+		msg: "SCTG commodity code is invalid: mode includes parcel (1), shipment weight and state provided.",
+		priority: ""
 	},
 	S4_3: {
 		flag: "S4",
 		value: "3",
 		name: "inv_sctg_mode8_weight_state",
-		msg: "SCTG commodity code is invalid for mode includes air (8), shipment weight and state provided."
+		msg: "SCTG commodity code is invalid: mode includes air (8), shipment weight and state provided.",
+		priority: ""
 	},
 	S5_1: {
 		flag: "S5",
 		value: "1",
 		name: "miss_ship_value",
-		msg: "Shipment value is missing."
+		msg: "Shipment value is missing.",
+		priority: ""
 	},
 	S5_2: {
 		flag: "S5",
 		value: "2",
 		name: "nonPositive_ship_value",
-		msg: "Shipment value is invalid. The value must be greater than zero."
+		msg: "Shipment value is invalid. The value must be greater than zero.",
+		priority: ""
 	},
 	S6_1: {
 		flag: "S6",
 		value: "1",
 		name: "miss_ship_weight",
-		msg: "Shipment weight is missing."
+		msg: "Shipment weight is missing.",
+		priority: ""
 	},
 	S6_2: {
 		flag: "S6",
 		value: "2",
 		name: "nonPositive_ship_weight",
-		msg: "Shipment weight is invalid. The value must be greater than zero."
+		msg: "Shipment weight is invalid. The value must be greater than zero.",
+		priority: ""
 	},
 	S7_1: {
 		flag: "S7",
 		value: "1",
 		name: "maxWeight_threshold_mode",
-		msg: "Shipment weight exceeds maximum weight for modes 1, 2, 3, 8, 12, 13, 18, 21, 31 and 81."
+		msg: "Shipment weight exceeds maximum weight for modes 1, 2, 3, 8, 12, 13, 18, 21, 31 and 81.",
+		priority: ""
 	},
 	S7_2: {
 		flag: "S7",
 		value: "2",
 		name: "minWeight_threshold_mode",
-		msg: "Shipment weight is less than minimum weight for modes 4, 5 and 6."
+		msg: "Shipment weight is less than minimum weight for modes 4, 5 and 6.",
+		priority: ""
 	},
 	S8_1: {
 		flag: "S8",
 		value: "1",
 		name: "vw_sctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
+		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33.",
+		priority: ""
 	},
 	S8_2: {
 		flag: "S8",
 		value: "2",
 		name: "vw_sctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33."
+		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 02, 10, 11, 12, 13, 14, 15, 19, 22, 25, 31, 32 and 33.",
+		priority: ""
 	},
 	S8_3: {
 		flag: "S8",
 		value: "3",
 		name: "vw_sctg16_17_18_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18."
+		msg: "Shipment value to weight ratio is less than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18.",
+		priority: ""
 	},
 	S8_4: {
 		flag: "S8",
 		value: "4",
 		name: "vw_sctg16_17_18_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18."
+		msg: "Shipment value to weight ratio is greater than excpected for the 2-digit SCTG commodity codes of 16, 17 and 18.",
+		priority: ""
 	},		
 	S8_5: {
 		flag: "S8",
 		value: "5",
 		name: "vw_allSctg_lessThanExpected",
-		msg: "Shipment value to weight ratio is less than excpected for SCTG commodity code provided."
+		msg: "Shipment value to weight ratio is less than excpected for SCTG commodity code provided.",
+		priority: ""
 	},
 	S8_6: {
 		flag: "S8",
 		value: "6",
 		name: "vw_allSctg_greaterThanExpected",
-		msg: "Shipment value to weight ratio is greater than excpected for SCTG commodity code provided."
+		msg: "Shipment value to weight ratio is greater than excpected for SCTG commodity code provided.",
+		priority: ""
 	},
 	S9_1: {
 		flag: "S9",
 		value: "1",
 		name: "sctg_miss_unna",
-		msg: "The 4-digit 'UN' or 'NA' number for SCTG commodity code provided is missing."
+		msg: "The 4-digit 'UN' or 'NA' number for SCTG commodity code provided is missing.",
+		priority: ""
 	},
 	S9_2: {
 		flag: "S9",
 		value: "2",
 		name: "notFound_unna",
-		msg: "The 4-digit 'UN' or 'NA' number is invalid."
+		msg: "The 4-digit 'UN' or 'NA' number is invalid.",
+		priority: ""
 	},
 	S9_3: {
 		flag: "S9",
 		value: "3",
 		name: "notAllowed_sctg_unna",
-		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid."
+		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid.",
+		priority: ""
 	},
 	S9_4: {
 		flag: "S9",
 		value: "4",
 		name: "inv_sctg_unna",
-		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid."
+		msg: "SCTG commodity code/'UN' or 'NA' number combination is invalid.",
+		priority: ""
 	}, 
 	S10_1: {
 		flag: "S10",
 		value: "1",
 		name: "sctg_naics_provisionalPass",
-		msg: "NAICS code/SCTG commodity code combination is invalid."
+		msg: "NAICS code/SCTG commodity code combination is invalid.",
+		priority: ""
 	},
 	S10_2: {
 		flag: "S10",
 		value: "2",
 		name: "sctg_naics_provisionalStop",
-		msg: "NAICS code/SCTG commodity code combination is invalid."
+		msg: "NAICS code/SCTG commodity code combination is invalid.",
+		priority: ""
 	},
 	S10_3: {
 		flag: "S10",
 		value: "3",
 		name: "sctg_naics_automaticStop",
-		msg: "NAICS code/SCTG commodity code combination is invalid."
+		msg: "NAICS code/SCTG commodity code combination is invalid.",
+		priority: ""
 	},
 	S11_1: {
 		flag: "S11",
 		value: "1",
 		name: "miss_tempCont",
-		msg: "No selection is made."
+		msg: "No selection is made.",
+		priority: ""
 	},
 	S11_2: {
 		flag: "S11",
 		value: "2",
 		name: "inv_tempCont",
-		msg: "Input is invalid."
+		msg: "Input is invalid.",
+		priority: ""
 	},
 	S12_1: {
 		flag: "S12",
 		value: "1",
 		name: "inv_sctg_tempContY",
-		msg: "SCTG commodity code is invalid with a positive temperature control response."
+		msg: "SCTG commodity code is invalid with a positive temperature control response.",
+		priority: ""
 	},
 	S12_2: {
 		flag: "S12",
 		value: "2",
 		name: "inv_sctg_tempContY",
-		msg: "SCTG commodity code is invalid with a positive temperature control response."
+		msg: "SCTG commodity code is invalid with a positive temperature control response.",
+		priority: ""
 	},
 	S12_3: {
 		flag: "S12",
 		value: "3",
 		name: "inv_sctg_tempContN",
-		msg: "SCTG commodity code is invalid with a negative temperature control response."
+		msg: "SCTG commodity code is invalid with a negative temperature control response.",
+		priority: ""
 	},
 	S13_1: {
 		flag: "S13",
 		value: "1",
 		name: "mode7_tempContY",
-		msg: "Temperature control response is invalid with pipeline (7) as mode of transport."
+		msg: "Temperature control response is invalid with pipeline (7) as mode of transport.",
+		priority: ""
 	},
 	S14_1: {
 		flag: "S14",
 		value: "1",
 		name: "ship_month_quarter1",
-		msg: "Shipment date (month) is not within the quarter reported."
+		msg: "Shipment date (month) is not within the quarter reported.",
+		priority: ""
 	},
 	S14_2: {
 		flag: "S14",
 		value: "2",
 		name: "ship_month_quarter2",
-		msg: "Shipment date (month) is not within the quarter reported."
+		msg: "Shipment date (month) is not within the quarter reported.",
+		priority: ""
 	},
 	S14_3: {
 		flag: "S14",
 		value: "3",
 		name: "ship_month_quarter3",
-		msg: "Shipment date (month) is not within the quarter reported."
+		msg: "Shipment date (month) is not within the quarter reported.",
+		priority: ""
 	},
 	S14_4: {
 		flag: "S14",
 		value: "4",
 		name: "ship_month_quarter4",
-		msg: "Shipment date (month) is not within the quarter reported."
+		msg: "Shipment date (month) is not within the quarter reported.",
+		priority: ""
 	},
 	S14_5: {
 		flag: "S14",
 		value: "5",
 		name: "miss_ship_month",
-		msg: "Shipment date (month) is missing."
+		msg: "Shipment date (month) is missing.",
+		priority: ""
 	},
 	S15: {
 		flag: "S15",
 		name: "autoFill_error",
-		msg: "Autofill error on : "
+		msg: "Autofill error on : ",
+		priority: ""
 	},
 	S16_1: {
 		flag: "S16",
 		value: "1",
 		name: "inv_mode_exportCountry",
-		msg: "Export mode of transport (truck or rail) is invalid for countries other than Mexico or Canada."
+		msg: "Export mode of transport (truck or rail) is invalid for countries other than Mexico or Canada.",
+		priority: ""
 	},
 	S17_1: {
 		flag: "S17",
 		value: "1",
 		name: "inv_exportCity_country",
-		msg: "Export city is invalid for Canada or Mexico."
+		msg: "Export city is invalid for Canada or Mexico.",
+		priority: ""
 	},
 	S17_2: {
 		flag: "S17",
 		value: "2",
 		name: "inv_exportCountry",
-		msg: "Export country is invalid."
+		msg: "Export country is invalid.",
+		priority: ""
 	},
 	S30_1: {
 		flag: "S30",
 		value: "1",
 		name: "nonNumeric_numberOfShip",
-		msg: "Total number of outbound shipments is not numeric."
+		msg: "Total number of outbound shipments is not numeric.",
+		priority: ""
 	},
 	S30_2: {
 		flag: "S30",
 		value: "2",
 		name: "miss_numberOfShip",
-		msg: "Total number of outbound shipments is missing."
+		msg: "Total number of outbound shipments is missing.",
+		priority: ""
 	},
 	S31_1: {
 		flag: "S31",
 		value: "1",
 		name: "nonNumeric_totShipValue",
-		msg: "Total value of shipments is not numeric."
+		msg: "Total value of shipments is not numeric.",
+		priority: ""
 	},
 	S31_2: {
 		flag: "S31",
 		value: "2",
 		name: "miss_totShipValue",
-		msg: "Total value of shipments is missing."
+		msg: "Total value of shipments is missing.",
+		priority: ""
 	},
 	S31_20: {
 		flag: "S31",
 		value: "20",
 		name: "zero_totShipValue",
-		msg: "Total value of shipments is invalid. The value must be greater than zero."
+		msg: "Total value of shipments is invalid. The value must be greater than zero.",
+		priority: ""
 	},
 	S32_2: {
 		flag: "S32",
 		value: "2",
 		name: "miss_moreThan40ship",
-		msg: "No selection is made."
+		msg: "No selection is made.",
+		priority: ""
 	},
 	S32_5: {
 		flag: "S32",
 		value: "5",
 		name: "inv_moreThan40ship",
-		msg: "Input is invalid."
+		msg: "Input is invalid.",
+		priority: ""
 	},
 	S33_1: {
 		flag: "S33",
 		value: "1",
 		name: "nonAlphanumeric_ship_ID",
-		msg: "Shipment ID number is not alphanumeric."
+		msg: "Shipment ID number is not alphanumeric.",
+		priority: ""
 	},
 	S33_2: {
 		flag: "S33",
 		value: "2",
 		name: "miss_ship_ID",
-		msg: "Shipment ID number is missing."
+		msg: "Shipment ID number is missing.",
+		priority: ""
 	},
 	S34_1: {
 		flag: "S34",
 		value: "1",
 		name: "nonNumeric_ship_date_month",
-		msg: "Shipment date (month) is not numeric."
+		msg: "Shipment date (month) is not numeric.",
+		priority: ""
 	},
 	S34_20: {
 		flag: "S34",
 		value: "20",
 		name: "outOfRange_ship_date_month",
-		msg: "Shipment date (month) is not in range."
+		msg: "Shipment date (month) is not in range.",
+		priority: ""
 	},
 	S35_1: {
 		flag: "S35",
 		value: "1",
 		name: "nonNumeric_ship_date_day",
-		msg: "Shipment date (day) is not numeric."
+		msg: "Shipment date (day) is not numeric.",
+		priority: ""
 	},
 	S35_2: {
 		flag: "S35",
 		value: "2",
 		name: "miss_ship_date_day",
-		msg: "Shipment date (day) is missing."
+		msg: "Shipment date (day) is missing.",
+		priority: ""
 	},
 	S35_20: {
 		flag: "S35",
 		value: "20",
 		name: "outOfRange_ship_date_day",
-		msg: "Shipment date (day) is not in range."
+		msg: "Shipment date (day) is not in range.",
+		priority: ""
 	},
 	S36_1: {
 		flag: "S36",
 		value: "1",
 		name: "nonNumeric_shipValue",
-		msg: "Shipment value is not numeric."
+		msg: "Shipment value is not numeric.",
+		priority: ""
 	},
 	S37_1: {
 		flag: "S37",
 		value: "1",
 		name: "nonNumeric_shipWeight",
-		msg: "Shipment weight is not numeric."
+		msg: "Shipment weight is not numeric.",
+		priority: ""
 	},
 	S38_1: {
 		flag: "S38",
 		value: "1",
 		name: "nonNumeric_sctg",
-		msg: "SCTG commodity code is not numeric."
+		msg: "SCTG commodity code is not numeric.",
+		priority: ""
 	},
 	S38_4: {
 		flag: "S38",
 		value: "4",
 		name: "inv_sctg",
-		msg: "SCTG commodity code is not a 5-digit number."
+		msg: "SCTG commodity code is not a 5-digit number.",
+		priority: ""
 	},
 	S38_20: {
 		flag: "S38",
 		value: "20",
 		name: "outOfRange_sctg",
-		msg: "SCTG commodity code is not in range."
+		msg: "SCTG commodity code is not in range.",
+		priority: ""
 	},
 	S39_1: {
 		flag: "S39",
 		value: "1",
 		name: "nonAlphanumeric_sctg_descr",
-		msg: "Commodity description is not alphanumeric."
+		msg: "Commodity description is not alphanumeric.",
+		priority: ""
 	},
 	S39_2: {
 		flag: "S39",
 		value: "2",
 		name: "miss_sctg_descr",
-		msg: "Commodity description is missing."
+		msg: "Commodity description is missing.",
+		priority: ""
 	},
 	S40_1: {
 		flag: "S40",
 		value: "1",
 		name: "nonNumeric_unna",
-		msg: "'UN' or 'NA' code is not numeric."
+		msg: "'UN' or 'NA' code is not numeric.",
+		priority: ""
 	},
 	S40_4: {
 		flag: "S40",
 		value: "4",
 		name: "inv_unna",
-		msg: "'UN' or 'NA' code is not a 4-digit number."
+		msg: "'UN' or 'NA' code is not a 4-digit number.",
+		priority: ""
 	},
 	S40_20: {
 		flag: "S40",
 		value: "20",
 		name: "outOfRange_unna",
-		msg: "'UN' or 'NA' code is not in range."
+		msg: "'UN' or 'NA' code is not in range.",
+		priority: ""
 	},
 	S41_1: {
 		flag: "S41",
 		value: "1",
 		name: "nonAlphabetic_destinationCity",
-		msg: "U.S. destination (city) is not alphabetic."
+		msg: "U.S. destination (city) is not alphabetic.",
+		priority: ""
 	},
 	S41_2: {
 		flag: "S41",
 		value: "2",
 		name: "miss_destinationCity",
-		msg: "U.S. destination (city) is missing."
+		msg: "U.S. destination (city) is missing.",
+		priority: ""
 	},
 	S41_5: {
 		flag: "S41",
 		value: "5",
 		name: "invChar_destinationCity",
-		msg: "U.S. destination (city) has invalid character (a value of APO, FPO, and DPO)."
+		msg: "U.S. destination (city) has invalid character (a value of APO, FPO, and DPO).",
+		priority: ""
 	},
 	S42_1: {
 		flag: "S42",
 		value: "1",
 		name: "nonAlphabetic_destinationState",
-		msg: "U.S. destination (state) is not alphabetic."
+		msg: "U.S. destination (state) is not alphabetic.",
+		priority: ""
 	},
 	S42_2: {
 		flag: "S42",
 		value: "2",
 		name: "miss_destinationState",
-		msg: "U.S. destination (state) is missing."
+		msg: "U.S. destination (state) is missing.",
+		priority: ""
 	},
 	S42_4: {
 		flag: "S42",
 		value: "4",
 		name: "inv_destinationState",
-		msg: "U.S. destination (state) is not a two-letter abbreviation."
+		msg: "U.S. destination (state) is not a two-letter abbreviation.",
+		priority: ""
 	},
 	S42_5: {
 		flag: "S42",
 		value: "5",
 		name: "invChar_destinationState",
-		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP)."
+		msg: "U.S. destination (state) has invalid character (a value of AA, AE, and AP).",
+		priority: ""
 	},
 	S42_22: {
 		flag: "S42",
