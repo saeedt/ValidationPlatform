@@ -634,7 +634,7 @@ var flags = {
 		value: 1,
 		name: "nonNumeric_NAICS",
 		msg: "NAICS code is not numeric.",
-		priority: ""
+		priority: 3
 	},
 	S49_2: {
 		flag: "S49",

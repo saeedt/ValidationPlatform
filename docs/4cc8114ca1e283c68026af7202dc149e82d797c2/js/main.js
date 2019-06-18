@@ -200,6 +200,7 @@ function process_est(){
 function process_shp(){
 	var cresult = verify_shipment(shipment);
 	var pass = true;
+	//console.log(cresult);
 	document.getElementById("shipTable").style.display  = 'block';
 	document.getElementById("t2").style.display  = 'block';
 	document.getElementById("submit-s").style.display  = 'none';	
