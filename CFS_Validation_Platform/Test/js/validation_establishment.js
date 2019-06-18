@@ -138,6 +138,7 @@ function verify_est(input){
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			}		
 		if (errors.length>0){
@@ -161,6 +162,7 @@ function shipping_Company_name_1 (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
@@ -170,6 +172,7 @@ function shipping_Company_name_1 (input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}				
@@ -194,6 +197,7 @@ function shipping_Company_name_2(input,line){ //need presence check
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} 
 	else { 
@@ -204,6 +208,7 @@ function shipping_Company_name_2(input,line){ //need presence check
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	}
@@ -228,6 +233,7 @@ function shipping_address(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	else{
@@ -238,6 +244,7 @@ function shipping_address(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 		}	
 		if (check_invalid_char(input, "shippingAddress", "conf1")){
@@ -247,6 +254,7 @@ function shipping_address(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 		}
 	}
@@ -271,6 +279,7 @@ function shipping_city(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -280,6 +289,7 @@ function shipping_city(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}	
@@ -307,6 +317,7 @@ function shipping_state(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -316,6 +327,7 @@ function shipping_state(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}	
 			if(!field_length_check(input, "state", "conf1")){
@@ -325,6 +337,7 @@ function shipping_state(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 					}
 		}
@@ -335,7 +348,8 @@ function shipping_state(input,line){
 			tmp.flagname = flags[error].name;
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
-			tmp.flagmsg = flags[error].msg;	
+			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;	
 			errors.push(tmp);
 		}
 	}
@@ -363,6 +377,7 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(zip, "numeric", "conf1")){
@@ -372,6 +387,7 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
@@ -381,6 +397,7 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!errors.length >0){ 
@@ -395,6 +412,7 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 						tmp.flag = flags[error].flag;
 						tmp.flagval = flags[error].value;
 						tmp.flagmsg = flags[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}
@@ -405,6 +423,7 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -433,6 +452,7 @@ function shipping_zip4 (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(input, "numeric", "conf1")){	
@@ -442,6 +462,7 @@ function shipping_zip4 (input,line){
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		else if(!field_length_check(input, "zipCode4", "conf1")){
@@ -451,6 +472,7 @@ function shipping_zip4 (input,line){
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}		
 	}
@@ -475,6 +497,7 @@ function Verfication_companyName_Mailing_name (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	if (errors.length>0){
@@ -498,6 +521,7 @@ function mailing_company_name_1(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
@@ -507,6 +531,7 @@ function mailing_company_name_1(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}
@@ -531,6 +556,7 @@ function mailing_company_name_2(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphanumeric", "conf1")){
@@ -540,6 +566,7 @@ function mailing_company_name_2(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}
@@ -564,6 +591,7 @@ function mailing_attention (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){	
@@ -573,6 +601,7 @@ function mailing_attention (input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -597,6 +626,7 @@ function mailing_address(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "shippingAddress", "conf1")){
@@ -607,6 +637,7 @@ function mailing_address(input,line){
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
 				tmp.flag = flags[error].flag;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}
@@ -631,6 +662,7 @@ function mailing_city(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -640,6 +672,7 @@ function mailing_city(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}
@@ -668,6 +701,7 @@ function mailing_state(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -677,6 +711,7 @@ function mailing_state(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}			
 			if(!field_length_check(input, "state", "conf1")){
@@ -686,6 +721,7 @@ function mailing_state(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 			if (!errors.length>0){
@@ -695,7 +731,8 @@ function mailing_state(input,line){
 					tmp.flagname = flags[error].name;
 					tmp.flag = flags[error].flag;
 					tmp.flagval = flags[error].value;
-					tmp.flagmsg = flags[error].msg;	
+					tmp.flagmsg = flags[error].msg;
+					tmp.priority = (flags)[error].priority;	
 					errors.push(tmp);
 				}
 			}
@@ -725,6 +762,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} 
 	else {
@@ -735,6 +773,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if(!field_length_check(zip, "zipCode5", "conf1")){ // means that if zip is not numeric filed-length is not needed to be checked
@@ -744,6 +783,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!errors.length >0){ 
@@ -758,6 +798,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 						tmp.flag = flags[error].flag;
 						tmp.flagval = flags[error].value;
 						tmp.flagmsg = flags[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}
@@ -769,6 +810,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -796,6 +838,7 @@ function mailing_zip4 (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){	
@@ -805,6 +848,7 @@ function mailing_zip4 (input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 			else if(!field_length_check(input, "zipCode4", "conf1")){
@@ -814,6 +858,7 @@ function mailing_zip4 (input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -838,6 +883,7 @@ function date_Of_Ceased(month, day, year, line){ //needs presence check: // adde
 	tmp.flag = flags[error].flag;
 	tmp.flagval = flags[error].value;
 	tmp.flagmsg = flags[error].msg;
+	tmp.priority = (flags)[error].priority;
 	errors.push(tmp);
 	result.valid= false; 
 	} 
@@ -849,6 +895,7 @@ function date_Of_Ceased(month, day, year, line){ //needs presence check: // adde
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 		if (!range_val_check(month, "ship_date_month", "conf1")||!range_val_check(day, "ship_date_day", "conf1")||!field_length_check(year, "ship_date_year", "conf1") ){
@@ -858,6 +905,7 @@ function date_Of_Ceased(month, day, year, line){ //needs presence check: // adde
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} 			
 	}
@@ -956,6 +1004,7 @@ function Verfication_priamaryIndustry_checkBox (input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	if (errors.length>0){
@@ -979,6 +1028,7 @@ function contact_name(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -988,6 +1038,7 @@ function contact_name(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}	
@@ -1012,6 +1063,7 @@ function contact_title(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -1021,6 +1073,7 @@ function contact_title(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 		}	
@@ -1045,6 +1098,7 @@ function contact_phone(input1, exten, line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input1, "numeric", "conf1")){
@@ -1054,6 +1108,7 @@ function contact_phone(input1, exten, line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 			if(!field_length_check(input1, "phone_main", "conf1")){
@@ -1063,6 +1118,7 @@ function contact_phone(input1, exten, line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -1073,6 +1129,7 @@ function contact_phone(input1, exten, line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!field_length_check(exten, "phone_extent", "conf1")){
@@ -1082,6 +1139,7 @@ function contact_phone(input1, exten, line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -1106,6 +1164,7 @@ function contact_fax_number(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input, "numeric", "conf1")){
@@ -1115,6 +1174,7 @@ function contact_fax_number(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 			if(!field_length_check(input, "faxNum", "conf1")){
@@ -1124,6 +1184,7 @@ function contact_fax_number(input,line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -1148,6 +1209,7 @@ function completion_time(input1, input2, line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
 			if (!check_allowed_char(input1, "numeric", "conf1") ||!check_allowed_char(input2, "numeric", "conf1")){
@@ -1157,6 +1219,7 @@ function completion_time(input1, input2, line){
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
 				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 				}
 			else if(!range_val_check(input1, "hour", "conf1")){
@@ -1165,7 +1228,8 @@ function completion_time(input1, input2, line){
 				tmp.flagname = flags[error].name;
 				tmp.flag = flags[error].flag;
 				tmp.flagval = flags[error].value;
-				tmp.flagmsg = flags[error].msg;	
+				tmp.flagmsg = flags[error].msg;
+				tmp.priority = (flags)[error].priority;	
 				errors.push(tmp);
 			}
 		}	
@@ -1189,6 +1253,7 @@ function remarks(input,line){
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	}
 	if (errors.length>0){
@@ -1215,6 +1280,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalr
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	if (presence_check(inOperat) && !presence_check(temp) && ! presence_check(ceasedOp)){
@@ -1225,6 +1291,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalr
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}
@@ -1236,6 +1303,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalr
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			}
 		if (!presence_check(ceasedOp)){
@@ -1245,6 +1313,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalr
 			tmp.flag = flags[error].flag;
 			tmp.flagval = flags[error].value;
 			tmp.flagmsg = flags[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			}
 	} else if (presence_check(ceasedOp)){// if evalres2=false presence check of ceasedOp is checked
@@ -1254,6 +1323,7 @@ function check_operating_Status(inOperat, temp, ceasedOp, evalres, line){//evalr
 		tmp.flag = flags[error].flag;
 		tmp.flagval = flags[error].value;
 		tmp.flagmsg = flags[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 			}	
 	if (errors.length>0){

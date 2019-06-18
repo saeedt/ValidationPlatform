@@ -1,8 +1,6 @@
 var shipment;
 var establishment;
 var cfile_ok;
-var log_e = [];
-var log_s = [];
 //binding the event listener to the file picker button
 $(document).ready(function(e) {
 	'use strict';
@@ -34,11 +32,16 @@ $(document).ready(function(e) {
 	document.getElementById("t1").style.display  = 'none';
 	document.getElementById("shipTable").style.display  = 'none';
 	document.getElementById("t2").style.display  = 'none';
-	/*$( "#tabs" ).tabs();*/
-	/*document.getElementById("dl-report").disabled = true;
-	document.getElementById("submit-s").onclick = process_shp;
-	document.getElementById("submit-e").onclick = process_est;
-	document.getElementById("dl-report").onclick = download_report;*/
+	$.fn.dataTable.ext.search.push(
+	    function( settings, data, dataIndex ) {
+	    	var level = filters[settings.nTable.id+'_filter'];
+	        var prio = parseFloat( data[3] ) || 10;		 
+	        if (prio <= level) {
+	            return true;
+	        }
+	        return false;
+	    }
+	);	
 });
 //load the shipment data file
 function readFile_s (evt) {
@@ -165,18 +168,14 @@ function process_est(){
 	$( "#tabs" ).tabs();
 	$("#tabs").tabs("option", "active", 0);
 	$('#estTable').DataTable().destroy();
-	$('#estTable').empty();		
-	/*$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	    } );*/	
-	/*document.getElementById("tabs-1").dispatchEvent(new Event("click"));*/
-    $('#estTable').DataTable( {
+	$('#estTable').empty();	
+    var table = $('#estTable').DataTable( {
         data: cresult,	        
         scrollCollapse: true,
         paging: true,
         autoWidth: true,
         ordering: true,
-        select: true,
+        select: false,
         dom: 'Blfrtip',
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],       
@@ -184,10 +183,18 @@ function process_est(){
             { "title": "Line#",   "targets": 0 ,  "data": "line"},
             { "title": "Flag",   "targets": 1 ,  "data": "flag"},
             { "title": "Value",  "targets": 2 , "data": "flagval"},
-            { "title": "Flag Name", "targets": 3, "data":"flagname" },
-            { "title": "Description",  "targets": 4 , "data": "flagmsg"}]        
-    } );	
-    //$('#estTable').DataTable().columns.adjust().draw();
+            { "title": "Priority",  "targets": 3 , "data": "priority"},
+            { "title": "Flag Name", "targets": 4, "data":"flagname" },
+            { "title": "Description",  "targets": 5 , "data": "flagmsg"}],
+            "createdRow": function( row, data, dataIndex){        	
+            	$(row).css('background-color', colors[data["priority"]].color);                
+            }
+    } );
+    $('#estTable_length').append(' Error priority level <select id="estTable_cmb"><option value ="1">1</option><option value ="2">2</option><option value ="3" selected>3</option>');
+	$('#estTable_cmb').change(function() {
+		filters['estTable_filter'] = this.value;
+		table.draw();			
+	});
 }
 //process the shipment file
 function process_shp(){
@@ -200,18 +207,14 @@ function process_shp(){
 	$( "#tabs" ).tabs();
 	$("#tabs").tabs("option", "active", 1);
 	$('#shipTable').DataTable().destroy();
-	$('#shipTable').empty();
-	/*$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-	        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	    } );*/
-	//document.getElementById("tabs-2").dispatchEvent(new Event("click"));
-	$('#shipTable').DataTable( {
+	$('#shipTable').empty();	
+	var table = $('#shipTable').DataTable( {
 	        data: cresult,	        
 	        scrollCollapse: true,
 	        paging: true,
 	        autoWidth: true,
 	        ordering: true,
-	        select: true,
+	        select: false,
 	        dom: 'Blfrtip',
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -219,25 +222,19 @@ function process_shp(){
 	        	{ "title": "Line#",   "targets": 0 ,  "data": "line"},
 	            { "title": "Flag",   "targets": 1 ,  "data": "flag"},
 	            { "title": "Value",  "targets": 2 , "data": "flagval"},
-	            { "title": "Flag Name", "targets": 3, "data":"flagname" },
-	            { "title": "Description",  "targets": 4 , "data": "flagmsg"}]	        
-	    } );	
+	            { "title": "Priority",  "targets": 3 , "data": "priority"},
+	            { "title": "Flag Name", "targets": 4, "data":"flagname" },
+	            { "title": "Description",  "targets": 5 , "data": "flagmsg"}],
+            "createdRow": function( row, data, dataIndex){        	
+            	$(row).css('background-color', colors[data["priority"]].color);                
+            }
+	    } );
+	$('#shipTable_length').append('&ensp; Error priority level <select id="shipTable_cmb"><option value ="1">1</option><option value ="2">2</option><option value ="3" selected>3</option>');
+	$('#shipTable_cmb').change(function() {
+		filters['shipTable_filter'] = this.value;
+		table.draw();			
+	});
 }
-
-/*function collapse(obj){
-	obj.addEventListener("click", function() {
-	    //this.classList.toggle("active");
-	    var content = obj.getElementsByTagName('div')[0];
-	    if (content.style.display === "block") {
-	    	content.style.display = "none";
-	    } else {
-	      content.style.display = "block";
-	    }
-	  });
-	obj.dispatchEvent(new Event("click"));
-	//obj.dispatchEvent(new Event("click"));
-}*/
-
 function collapse_e(obj){
   var ref = document.getElementById(obj);
   $( function() {
@@ -250,21 +247,8 @@ function collapse_e(obj){
 }
 function collapse_c(obj){
 	var ref = document.getElementById(obj);
-	var handle = ref.getElementsByTagName('h2')[0];
-	//var active = $(handle).hasClass('ui-state-active')
-	//var active = $(ref).accordion( "option", "active" );
-	//console.log(active);
-	//console.log(content["id"]);
+	var handle = ref.getElementsByTagName('h2')[0];	
 	if ($(handle).hasClass('ui-state-active')){
 		handle.dispatchEvent(new Event("click"));
 	}
-}
-function download_report(){
-	var output = log_e.concat(log_s);
-	var a         = document.createElement('a');
-	a.href        = 'data:attachment/txt,' + encodeURIComponent(output.join(''));
-	a.target      = '_blank';
-	a.download    = 'Report.txt';
-	document.body.appendChild(a);
-	a.click();
 }

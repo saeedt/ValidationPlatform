@@ -127,6 +127,7 @@ function test_numberOfShip(shipNum,nos,line){
 		tmp.flag= (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		if (nos == 0){	
 			error = "E1_4";
@@ -135,6 +136,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		} 
 		if (nos > 0){ //FIXME: input is a local variable - not valid here. pass a parameter 'nos' to this function instead 
@@ -144,6 +146,7 @@ function test_numberOfShip(shipNum,nos,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		}
 	}
@@ -155,6 +158,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}		
 		if (!range_val_check(shipNum, "tot_ship_week", "conf1")){ 
@@ -164,6 +168,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}		
 		if (shipNum == 0 && nos > 0){ 
@@ -173,6 +178,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (shipNum > 0 && nos == 0){ 
@@ -182,6 +188,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!range_val_check(shipNum, "tot_ship_week", "conf1") && nos > 0){ 
@@ -191,6 +198,7 @@ function test_numberOfShip(shipNum,nos,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (shipNum != 0 ){
@@ -226,6 +234,7 @@ function test_numberOfShip(shipNum,nos,line){
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
 				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 			else if (!range_val_check(required, "requiredCase2", "conf1") && !range_val_check(difReNos, "difReNos", "conf1")){
@@ -235,6 +244,7 @@ function test_numberOfShip(shipNum,nos,line){
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
 				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 		}
@@ -268,6 +278,7 @@ function MOS_vs_ATV(ATV, MOS, estbWeight, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		} else if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(ratio, "ratio", "ATV_MOS_case2"))){
 			error = "E3_2";
@@ -276,6 +287,7 @@ function MOS_vs_ATV(ATV, MOS, estbWeight, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}	
@@ -300,6 +312,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres,line
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(totShipVal, "numeric", "conf1")){
@@ -309,6 +322,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres,line
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!range_val_check(totShipVal, "totShipValue", "conf1")){
@@ -318,6 +332,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres,line
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}
@@ -335,6 +350,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres,line
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if ((!range_val_check(dif, "dif", "ATV_MOS_case2") || !range_val_check(estbWeight, "estabWeight", "ATV_MOS_case2")) && ( ATV==0 || !range_val_check(ratio, "ratio", "ATV_MOS_case2"))){
@@ -344,6 +360,7 @@ function test_totShipValue(totShipVal, totValWeek, ATV, estbWeight, evalres,line
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}		
@@ -368,6 +385,7 @@ function test_moreThan40Ship(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	}
 	else if (!lkup_linear("lkup25", input.toUpperCase())){
@@ -377,6 +395,7 @@ function test_moreThan40Ship(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	}
 	//TODO check valid inputs Y and N similar to temp control field
@@ -402,6 +421,7 @@ function test_ship_ID(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else if (!check_allowed_char(input, "alphanumeric", "conf1")){
 			error = "S33_1";
@@ -410,6 +430,7 @@ function test_ship_ID(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;	
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 	}
 	if (errors.length>0){
@@ -434,6 +455,7 @@ function test_ship_month(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(input, "numeric", "conf1")){
@@ -443,6 +465,7 @@ function test_ship_month(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!range_val_check(input, "ship_date_month", "conf1")){
@@ -452,6 +475,7 @@ function test_ship_month(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}	
@@ -477,6 +501,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(quarter, "numeric", "conf1")){
@@ -486,6 +511,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 			tmp.flag.push((flags)[error].flag);
 			tmp.flagval.push((flags)[error].value);
 			tmp.flagmsg.push((flags)[error].msg);
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!range_val_check(quarter, "ship_date_quarter", "conf1")){
@@ -495,6 +521,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}
@@ -509,6 +536,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 					break;
 				case 2:
@@ -518,6 +546,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 					break;
 				case 3:
@@ -527,6 +556,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 					break;
 				case 4:
@@ -536,6 +566,7 @@ function test_ship_quarter(ship_month, quarter, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 					break;		
 			}
@@ -572,6 +603,7 @@ function test_ship_day(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!range_val_check(input, "ship_date_day", "conf1")){
@@ -581,6 +613,7 @@ function test_ship_day(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}		
 	}
@@ -606,6 +639,7 @@ function test_ship_value(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!range_val_check(input, "ship_value", "conf1")){
@@ -615,6 +649,7 @@ function test_ship_value(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!check_allowed_char(input, "numeric", "conf1")){
@@ -624,6 +659,7 @@ function test_ship_value(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}			
 	}
@@ -650,6 +686,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else {
@@ -660,6 +697,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -670,6 +708,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -687,6 +726,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}	
 				if (lkup_result.data[0].minWeight >= parseFlaot(weight)){
@@ -696,6 +736,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}
 				if (evalres.NAICS.valid){
@@ -707,6 +748,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 							}
 						}
@@ -736,6 +778,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else {
@@ -747,6 +790,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			tmp.valid = false;
 		}
@@ -757,6 +801,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -767,6 +812,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -786,6 +832,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}	
 					if (lkup_result1.data[0].vw_ub < vw_ratio){	
@@ -795,6 +842,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					} 
 				 } 
@@ -806,6 +854,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}	
 					if (lkup_result1.data[0].vw_ub < vw_ratio){		
@@ -815,6 +864,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				} else {
@@ -825,6 +875,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 					if (lkup_result1.data[0].vw_lb < vw_ratio){	
@@ -834,6 +885,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}
@@ -845,6 +897,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
 				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}
 			// SCTG & NAICS
@@ -859,6 +912,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						}
 						if (lkup_result2.data[0].flag_value == "1"){
@@ -868,6 +922,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						}
 						if (lkup_result2.data[0].flag_value == "2"){
@@ -877,6 +932,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						}
 						if (lkup_result2.data[0].flag_value == "3"){
@@ -886,6 +942,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						}
 					}
@@ -901,6 +958,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}
@@ -916,6 +974,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						} else if (lkup_linear("lkup8", sctg.substr(0,2)) && state != "AK"){
 								error = "S4_2";
@@ -924,6 +983,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 								tmp.flag = (flags)[error].flag;
 								tmp.flagval = (flags)[error].value;
 								tmp.flagmsg = (flags)[error].msg;
+								tmp.priority = (flags)[error].priority;
 								errors.push(tmp);
 						}
 					}
@@ -937,6 +997,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 							tmp.flag = (flags)[error].flag;
 							tmp.flagval = (flags)[error].value;
 							tmp.flagmsg = (flags)[error].msg;
+							tmp.priority = (flags)[error].priority;
 							errors.push(tmp);
 						}
 						else if (lkup_linear("lkup8", sctg.substr(0,2)) && state != "AK"){
@@ -945,7 +1006,8 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 								tmp.flagname = (flags)[error].name;
 								tmp.flag = (flags)[error].flag;
 								tmp.flagval = (flags)[error].value;
-								tmp.flagmsg = (flags)[error].msg;	
+								tmp.flagmsg = (flags)[error].msg;
+								tmp.priority = (flags)[error].priority;	
 								errors.push(tmp);
 						}					
 					}
@@ -961,6 +1023,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}	
 					else if (lkup_linear("lkup10", sctg.substr(0,2))){ 			
@@ -970,6 +1033,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}
@@ -980,6 +1044,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}
 				if (evalres.DOMESTIC_TRANSPORT_MODE.valid){
@@ -990,6 +1055,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					}
 				}				
@@ -1001,6 +1067,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}		
@@ -1026,6 +1093,7 @@ function test_sctg_descr(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else if (!check_allowed_char(input, "alphanumeric", "conf1")){
 		error = "S39_1";
@@ -1034,6 +1102,7 @@ function test_sctg_descr(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	}
 	if (errors.length>0){
@@ -1058,6 +1127,7 @@ function test_temp_control(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 	} else if (!lkup_linear("lkup25", input.toUpperCase())){
@@ -1067,6 +1137,7 @@ function test_temp_control(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}		
@@ -1093,6 +1164,7 @@ function test_unna(unna, sctg, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -1103,6 +1175,7 @@ function test_unna(unna, sctg, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -1113,6 +1186,7 @@ function test_unna(unna, sctg, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -1127,6 +1201,7 @@ function test_unna(unna, sctg, evalres,line){
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
 				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			} else if (result.valid){
 				if (lkup_binary_m("lkup2", "unna_code", unna).found){
@@ -1136,7 +1211,8 @@ function test_unna(unna, sctg, evalres,line){
 				 		tmp.flagname = (flags)[error].name;
 				 		tmp.flag = (flags)[error].flag;
 				 		tmp.flagval = (flags)[error].value;
-				 		tmp.flagmsg = (flags)[error].msg;	
+				 		tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;	
 				 		errors.push(tmp);
 				 	} 
 				} else {
@@ -1147,6 +1223,7 @@ function test_unna(unna, sctg, evalres,line){
 						tmp.flag = (flags)[error].flag;
 						tmp.flagval = (flags)[error].value;
 						tmp.flagmsg = (flags)[error].msg;
+						tmp.priority = (flags)[error].priority;
 						errors.push(tmp);
 					} 
 				}
@@ -1160,7 +1237,8 @@ function test_unna(unna, sctg, evalres,line){
 				tmp.flagname = (flags)[error].name;
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
-				tmp.flagmsg = (flags)[error].msg;	
+				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;	
 				errors.push(tmp);
 			}
 		}			
@@ -1187,6 +1265,7 @@ function test_destinationCity(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(input, "alphabetic", "conf1")){
@@ -1196,6 +1275,7 @@ function test_destinationCity(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (check_invalid_char(input, "city", "conf1")){
@@ -1205,6 +1285,7 @@ function test_destinationCity(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}
@@ -1231,6 +1312,7 @@ function test_destinationState(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		input = input.toUpperCase();
@@ -1241,6 +1323,7 @@ function test_destinationState(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!field_length_check(input, "state", "conf1")){
@@ -1250,6 +1333,7 @@ function test_destinationState(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}	
 		if (check_invalid_char(input, "state", "conf1")){
@@ -1259,6 +1343,7 @@ function test_destinationState(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!lkup_linear("lkup32",input)){
@@ -1268,6 +1353,7 @@ function test_destinationState(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}// TODO: add a flag for invalid state and update 		
 	}					
@@ -1293,6 +1379,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(zip, "numeric", "conf1")){
@@ -1302,6 +1389,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if (!field_length_check(zip, "zipCode5", "conf1")){
@@ -1311,6 +1399,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}
@@ -1323,6 +1412,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 		if ((lkup_binary_m("lkup4", "zip", zip).found)){
@@ -1335,6 +1425,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 					tmp.flag = flags[error].flag;
 					tmp.flagval = flags[error].value;
 					tmp.flagmsg = flags[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}
 			} 			
@@ -1345,6 +1436,7 @@ function test_destinationZip(city, state, zip, evalres,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}
 	}	
@@ -1370,6 +1462,7 @@ function test_mode(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else if (!check_allowed_char(input, "numeric", "conf1")){
@@ -1379,6 +1472,7 @@ function test_mode(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else if (!field_length_check(input, "mode", "conf1")){
@@ -1388,6 +1482,7 @@ function test_mode(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else {
@@ -1398,6 +1493,7 @@ function test_mode(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 		}				
 	}
@@ -1422,6 +1518,7 @@ function test_export(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else if (!lkup_linear("lkup25", input.toUpperCase())){
 		error = "S45_5";
@@ -1430,6 +1527,7 @@ function test_export(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	}
 	if (errors.length>0){
@@ -1454,6 +1552,7 @@ function test_exportCity(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else if (!check_allowed_char(input, "alphabetic", "conf1")){
 		error = "S46_1";
@@ -1462,6 +1561,7 @@ function test_exportCity(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} 
 	if (errors.length>0){
@@ -1487,6 +1587,7 @@ function test_exportCountry(country, city, evalres, line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false
 	} else if (!check_allowed_char(country, "alphabetic", "conf1")){
@@ -1496,6 +1597,7 @@ function test_exportCountry(country, city, evalres, line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false
 	} else {
@@ -1509,6 +1611,7 @@ function test_exportCountry(country, city, evalres, line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}
 			}	
@@ -1520,6 +1623,7 @@ function test_exportCountry(country, city, evalres, line){
 					tmp.flag = (flags)[error].flag;
 					tmp.flagval = (flags)[error].value;
 					tmp.flagmsg = (flags)[error].msg;
+					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}
 			}
@@ -1531,6 +1635,7 @@ function test_exportCountry(country, city, evalres, line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false
 		}
@@ -1556,6 +1661,7 @@ function test_exportMode(exp_mode, country, evalres, line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else if (!check_allowed_char(exp_mode, "numeric", "conf1")){
 		error = "S48_1";
@@ -1564,6 +1670,7 @@ function test_exportMode(exp_mode, country, evalres, line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (evalres.EXPORT_COUNTRY_NAME.valid){
@@ -1575,6 +1682,7 @@ function test_exportMode(exp_mode, country, evalres, line){
 				tmp.flag = (flags)[error].flag;
 				tmp.flagval = (flags)[error].value;
 				tmp.flagmsg = (flags)[error].msg;
+				tmp.priority = (flags)[error].priority;
 				errors.push(tmp);
 			}	
 		}
@@ -1625,6 +1733,7 @@ function test_auto_fill_m(input,line){ //TODO: add a new flag if number of repor
 		tmp.flagname = (flags)[error].name;
 		tmp.flag = (flags)[error].flag;
 		tmp.flagmsg = (flags)[error].msg+failed_attribs.join(';');
+		tmp.priority = (flags)[error].priority;
 		tmp.flagval = count;
 		errors.push(tmp);
 	}
@@ -1650,6 +1759,7 @@ function test_naics(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else {
@@ -1660,6 +1770,7 @@ function test_naics(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}	
@@ -1670,6 +1781,7 @@ function test_naics(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}	
@@ -1680,6 +1792,7 @@ function test_naics(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;	
 		}
@@ -1706,6 +1819,7 @@ function test_MOS(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else if (!check_allowed_char(input, "numeric", "conf1")){
@@ -1715,6 +1829,7 @@ function test_MOS(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	}
@@ -1740,6 +1855,7 @@ function test_ATV(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		result.valid = false;
 	} else {
@@ -1750,6 +1866,7 @@ function test_ATV(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
@@ -1760,6 +1877,7 @@ function test_ATV(input,line){
 			tmp.flag = (flags)[error].flag;
 			tmp.flagval = (flags)[error].value;
 			tmp.flagmsg = (flags)[error].msg;
+			tmp.priority = (flags)[error].priority;
 			errors.push(tmp);
 			result.valid = false;
 		}
