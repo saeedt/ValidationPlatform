@@ -921,77 +921,77 @@ var flags = {
 		flag: "E23",
 		value: 5,
 		name: "invChar_shipAddress",
-		msg: "Shipping address has invalid character (a value of P_O_/P.O_/P..B/P.O_/P.O./PO_B/PO_D/POB_/POST).",
+		msg: "Shipping address contains invalid characters (a value of P_O_/P.O_/P..B/P.O_/P.O./PO_B/PO_D/POB_/POST).",
 		priority: 1
 	},
 	E24_1: {	
 		flag: "E24",
 		value: 1,
 		name: "nonAlphabetic_shipCity",
-		msg: "Shipping address (city) is not alphabetic.",
+		msg: "Shipping address city is not alphabetic.",
 		priority: 2
 	},
 	E24_2: {	
 		flag: "E24",
 		value: 2,
 		name: "miss_shipCity",
-		msg: "Shipping address (city) is missing.",
+		msg: "Shipping address city is missing.",
 		priority: 2
 	},
 	E25_1: {	
 		flag: "E25",
 		value: 1,
 		name: "nonAlphabetic_shipState",
-		msg: "Shipping address (state) is not alphabetic.",
+		msg: "Shipping address state is not alphabetic.",
 		priority: 1
 	},
 	E25_2: {	
 		flag: "E25",
 		value: 2,
 		name: "miss_shipState",
-		msg: "Shipping address (state) is missing.",
+		msg: "Shipping address state is missing.",
 		priority: 1
 	},
 	E25_4: {		
 		flag: "E25",
 		value: 4,
 		name: "inv_shipState",
-		msg: "Shipping address (state) is not a two-letter abbreviation.",
+		msg: "Shipping address state is not a two-letter abbreviation.",
 		priority: 1
 	},
 	E25_22: {		
 		flag: "E25",
 		value: "22",
 		name: "notFound-state",
-		msg: "Shipping address (state) is not found.",
+		msg: "Shipping address state is not found.",
 		priority: 1
 	},
 	E26_1: {	
 		flag: "E26",
 		value: 1,
 		name: "nonNumeric_shipZip",
-		msg: "Shipping address (zip basic part) is not numeric.",
+		msg: "Shipping address 5 digit zip code is not numeric.",
 		priority: 2
 	},
 	E26_2: {	
 		flag: "E26",
 		value: 2,
 		name: "miss_shipZip",
-		msg: "Shipping address (zip basic part) is missing.",
+		msg: "Shipping address 5 digit zip code is missing.",
 		priority: 2
 	},
 	E26_4: {	
 		flag: "E26",
 		value: 4,
 		name: "inv_shipZip",
-		msg: "Shipping address (zip basic part) is not a 5-digit number.",
+		msg: "Shipping address 5 digit zip code is not a 5-digit number.",
 		priority: 2
 	},
 	E26_22: {	
 		flag: "E26",
 		value: "22",
 		name: "notFound_shipZip",
-		msg: "Shipping address (zip) is invalid.",
+		msg: "Shipping address 5 digit zip code is invalid.",
 		priority: 2
 	},
 	E26_23: {	
@@ -1061,42 +1061,42 @@ var flags = {
 		flag: "E31",
 		value: 1,
 		name: "nonAlphanumeric_mailAddressAttention",
-		msg: "Mailing address (attention) is not alphanumeric.",
+		msg: "Mailing address attention is not alphanumeric.",
 		priority: 3
 	},
 	E31_2: {	
 		flag: "E31",
 		value: 2,
 		name: "miss_mailAddressAttention",
-		msg: "Mailing address (attention) is missing.",
+		msg: "Mailing address attention is missing.",
 		priority: 3
 	},
 	E32_1: {
 		flag: "E32",
 		value:1,
 		name:"nonAlphanumeric_mailAddress_address",
-		msg: "Mailing address (address) is not alphanumeric.",
+		msg: "Mailing address is not alphanumeric.",
 		priority: 3
 	},
 	E32_2: {	
 		flag: "E32",
 		value: 2,
 		name: "miss_mailAddress_address",
-		msg: "Mailing address (address) is missing.",
+		msg: "Mailing address is missing.",
 		priority: 3
 	},
 	E33_1: {	
 		flag: "E33",
 		value: 1,
 		name: "nonAlphabetic_mailCity",
-		msg: "Mailing address (city) is not alphabetic.",
+		msg: "Mailing address city is not alphabetic.",
 		priority: 3
 	},
 	E33_2: {	
 		flag: "E33",
 		value: 2,
 		name: "miss_mailCity",
-		msg: "Mailing address (city) is missing.",
+		msg: "Mailing address city is missing.",
 		priority: 3
 	},
 	
@@ -1104,56 +1104,56 @@ var flags = {
 		flag: "E34",
 		value: 1,
 		name: "nonAlphabetic_mailState",
-		msg: "Mailing address (state) is not alphabetic.",
+		msg: "Mailing address state is not alphabetic.",
 		priority: 3
 	},
 	E34_2: {
 		flag: "E34",
 		value: 2,
 		name: "miss_mailStat",
-		msg: "Mailing address (state) is missing.",
+		msg: "Mailing address state is missing.",
 		priority: 3
 	},
 	E34_4: {	
 		flag: "E34",
 		value: 4,
 		name: "inv_mailState",
-		msg: "Mailing address (state) is not a two-letter abbreviation.",
+		msg: "Mailing address state is not a two-letter abbreviation.",
 		priority: 3
 	},
 	E34_22: {	
 		flag: "E34",
 		value: "22",
 		name: "notFound_mailState",
-		msg: "Mailing address (state) is not found.",
+		msg: "Mailing address state is invalid.",
 		priority: 3
 	},
 	E35_1: {	
 		flag: "E35",
 		value: 1,
 		name: "nonNumeric_mailZip",
-		msg: "Mailing address (zip basic part) is not numeric.",
+		msg: "Mailing address 5 digit zip code is not numeric.",
 		priority: 3
 	},
 	E35_2: {		
 		flag: "E35",
 		value: 2,
 		name: "miss_mailZip",
-		msg: "Mailing address (zip basic part) is missing.",
+		msg: "Mailing address 5 digit zip code is missing.",
 		priority: 3
 	},
 	E35_4: {	
 		flag: "E35",
 		value: 4,
 		name: "inv_mailZip",
-		msg: "Mailing address (zip basic part) is not a 5-digit number.",
+		msg: "Mailing address 5 digit zip code is not a 5-digit number.",
 		priority: 3
 	},
 	E35_22: {	
 		flag: "E35",
 		value: "22",
 		name: "notFound_mailZip",
-		msg: "Mailing address (zip) is invalid.",
+		msg: "Mailing address 5 digit zip code is invalid.",
 		priority: 3
 	},
 	E35_23: {	
@@ -1167,28 +1167,28 @@ var flags = {
 		flag: "E36",
 		value: 1,
 		name: "nonNumeric_mailZip",
-		msg: "Mailing address (zip extra part) is not numeric.",
+		msg: "Mailing address 4 digit zip code extension is not numeric.",
 		priority: 3
 	},
 	E36_2: {		
 		flag: "E36",
 		value: 2,
 		name: "miss_mailZip",
-		msg: "Mailing address (zip extra part) is missing.",
+		msg: "Mailing address 4 digit zip code extension is missing.",
 		priority: 3
 	},
 	E36_4: {	
 		flag: "E36",
 		value: 4,
 		name: "inv_mailZip",
-		msg: "Mailing address (zip extra part) is not a 5-digit number.",
+		msg: "Mailing address 4 digit zip code extension is not a 5-digit number.",
 		priority: 3
 	},	
 	E37_2: {	
 		flag: "E37",
 		value: 2,
 		name: "checkBox_operatingStatus",
-		msg: "No selection is made.",
+		msg: "Operating status is missing.",
 		priority: 3
 	},
 	E38_1:{
@@ -1202,7 +1202,7 @@ var flags = {
 		flag: "E38",
 		value:2,
 		name: "miss_dateOfCeased",
-		msg: "month or day or year is missing.",
+		msg: "Month or day or year of operation cease date is missing.",
 		priority: 3
 	},
 	
@@ -1210,14 +1210,14 @@ var flags = {
 		flag: "E38",
 		value: 3,
 		name: "invFormat_dateOfCeased",
-		msg: "Date of ceased is not in corrent range and format of MM/DD/ YYYY.",
+		msg: "Date of cease operation is not in corrent range and format of MM/DD/YYYY.",
 		priority: 3
 	},
 	E38_40:{
 		flag: "E38",
 		value: "40",
 		name: "dateOfCeased_CrossConst",
-		msg: "Ceased operation is selected but the date of ceases is missing or date of ceased is provided but ceased operation check box is not selected.",
+		msg: "Ceased operation is selected but the date of cease is missing or date of cease is provided but ceased operation status is missing.",
 		priority: 3
 	},
 	E39_2: {	

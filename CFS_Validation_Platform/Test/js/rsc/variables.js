@@ -110,16 +110,16 @@ var est = {
 			hint: 'Establishment unique identifier.'
 		},
 		2: {
-			name: 'Shipping_Campany_Name_1',
+			name: 'Shipping_Company_Name_1',
 			keys: ['ship','shp','company','name','1'],
 			required: true,
-			hint: 'Name of the company for which the shipping address in provided.'
+			hint: 'Name of the company for which the shipping address is provided.'
 		},
 		3: {
-			name: 'Shipping_Campany_Name_2',
+			name: 'Shipping_Company_Name_2',
 			keys: ['ship','shp','company','name','2'],
 			required: false,
-			hint: 'Name of the company for which the shipping address in provided.'
+			hint: 'Name of the company for which the shipping address is provided.'
 		},
 		4: {
 			name: 'Shipping_Address',
@@ -152,22 +152,22 @@ var est = {
 			hint: 'Shipping address 4 digit zip code extension.'
 		},		
 		9: {
-			name: 'Mailing_Comapny_Name_1',
+			name: 'Mailing_Company_Name_1',
 			keys: ['mail','company','name','1'],
 			required: false,
-			hint: 'Name of the company for which the mailing address in provided.'
+			hint: 'Name of the company for which the mailing address is provided.'
 		},
 		10: {
-			name: 'Mailing_Comapny_Name_2',
+			name: 'Mailing_Company_Name_2',
 			keys: ['mail','company','name','2'],
 			required: false,
-			hint: 'Name of the company for which the mailing address in provided.'
+			hint: 'Name of the company for which the mailing address is provided.'
 		},
 		11: {
 			name: 'Mailing_Attention',
 			keys: ['mail','attention','attn'],
 			required: false,
-			hint: 'A person, division, or department recieveing the CFS correpondance.'
+			hint: 'A person, division, or department recieveing the CFS corrsepondance.'
 		},		
 		12: {
 			name: 'Mailing_Address',
