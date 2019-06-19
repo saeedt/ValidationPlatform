@@ -169,6 +169,7 @@ function process_est(){
 	$("#tabs").tabs("option", "active", 0);
 	$('#estTable').DataTable().destroy();
 	$('#estTable').empty();	
+	
     var table = $('#estTable').DataTable( {
         data: cresult,	        
         scrollCollapse: true,
@@ -178,7 +179,39 @@ function process_est(){
         select: false,
         dom: 'Blfrtip',
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],       
+        buttons: ['csv', 
+                  {extend: 'excel',
+                	  customize: function( xlsx ) {
+                          var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+                          $('row', sheet).each( function (e) {
+                        	  //console.log($('c[r^="D"]', this).text());
+                        	  if ( $('c[r^="D"]', this).text() == 1 ){
+                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '10');                        		  
+                        	  } else if ( $('c[r^="D"]', this).text() == 2 ){
+                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '5');                        		  
+                        	  }   else if ( $('c[r^="D"]', this).text() == 3 ){
+                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '20');                        		  
+                        	  }});                          
+                      }},
+                  {extend: 'pdf',
+                	  customize: function( pdf ) {
+                		  var p = table.column(3).data().toArray();                		  
+                		  for (var i = 0; i < p.length; i++) {
+                	        if (p[i]==1) {
+                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+                	        		e.fillColor = '#ffcccc';
+                	        	});                	          
+                	        } else if (p[i]==2){
+                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+                	        		e.fillColor = '#ffd699';
+                	        	});
+                	        } else if (p[i]==3){
+                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+                	        		e.fillColor = '#ffffcc';
+                	        	});
+                	        }
+                	  }
+                  }}],                  
         "columnDefs": [
             { "title": "Line#",   "targets": 0 ,  "data": "line"},
             { "title": "Flag",   "targets": 1 ,  "data": "flag"},
@@ -190,6 +223,7 @@ function process_est(){
             	$(row).css('background-color', colors[data["priority"]].color);                
             }
     } );
+    //console.log(pdftable);
     $('#estTable_length').append(' Error priority level <select id="estTable_cmb"><option value ="1">1</option><option value ="2">2</option><option value ="3" selected>3</option>');
 	$('#estTable_cmb').change(function() {
 		filters['estTable_filter'] = this.value;
@@ -200,7 +234,6 @@ function process_est(){
 function process_shp(){
 	var cresult = verify_shipment(shipment);
 	var pass = true;
-	//console.log(cresult);
 	document.getElementById("shipTable").style.display  = 'block';
 	document.getElementById("t2").style.display  = 'block';
 	document.getElementById("submit-s").style.display  = 'none';	
@@ -218,7 +251,39 @@ function process_shp(){
 	        select: false,
 	        dom: 'Blfrtip',
 	        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-	        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+	        buttons: ['csv', 
+	                  {extend: 'excel',
+	                	  customize: function( xlsx ) {
+	                          var sheet = xlsx.xl.worksheets['sheet1.xml']; 
+	                          $('row', sheet).each( function (e) {
+	                        	  //console.log($('c[r^="D"]', this).text());
+	                        	  if ( $('c[r^="D"]', this).text() == 1 ){
+	                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '10');                        		  
+	                        	  } else if ( $('c[r^="D"]', this).text() == 2 ){
+	                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '5');                        		  
+	                        	  }   else if ( $('c[r^="D"]', this).text() == 3 ){
+	                        		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '20');                        		  
+	                        	  }});                          
+	                      }},
+	                  {extend: 'pdf',
+	                	  customize: function( pdf ) {
+	                		  var p = table.column(3).data().toArray();                		  
+	                		  for (var i = 0; i < p.length; i++) {
+	                	        if (p[i]==1) {
+	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+	                	        		e.fillColor = '#ffcccc';
+	                	        	});                	          
+	                	        } else if (p[i]==2){
+	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+	                	        		e.fillColor = '#ffd699';
+	                	        	});
+	                	        } else if (p[i]==3){
+	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
+	                	        		e.fillColor = '#ffffcc';
+	                	        	});
+	                	        }
+	                	  }
+	                  }}],
 	        "columnDefs": [
 	        	{ "title": "Line#",   "targets": 0 ,  "data": "line"},
 	            { "title": "Flag",   "targets": 1 ,  "data": "flag"},
