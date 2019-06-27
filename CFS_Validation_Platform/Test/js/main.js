@@ -233,6 +233,7 @@ function process_est(){
 //process the shipment file
 function process_shp(){
 	var cresult = verify_shipment(shipment);
+	//console.log(cresult);
 	var pass = true;
 	document.getElementById("shipTable").style.display  = 'block';
 	document.getElementById("t2").style.display  = 'block';

@@ -594,6 +594,7 @@ function test_ship_day(input,line){
 		tmp.flag = (flags)[error].flag;
 		tmp.flagval = (flags)[error].value;
 		tmp.flagmsg = (flags)[error].msg;
+		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 	} else {
 		if (!check_allowed_char(input, "numeric", "conf1")){
