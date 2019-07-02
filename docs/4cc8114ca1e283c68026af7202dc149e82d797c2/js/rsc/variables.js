@@ -1,101 +1,107 @@
 var shp = {
 		1: {
+			name: 'Establishment_ID',
+			keys: ['est','company','id','num'],
+			required: false,
+			hint: 'Establishment unique identifier.'
+		},
+		2: {
 			name: 'Shipment_ID',
 			keys: ['ship','shp','num','key','id','unique','identification','cargo','package','product','consignment'],
 			required: false,
 			hint: 'Your	shipment ID	number.'
 		},
-		2: {
+		3: {
 			name: 'Ship_Month',
 			keys: ['ship','shp','month','delivery'],
 			required: true,
 			hint: 'Month for the shipment date.'
 		},
-		3: {
+		4: {
 			name: 'Ship_Day',
 			keys: ['ship','shp','day','delivery'],
 			required: true,
 			hint: 'Day for the shipment date.'
 		},
-		4: {
+		5: {
 			name: 'Shipment_Value',
 			keys: ['ship','shp','val','order','amount','cost','rate','price','merchandise','consignment','package','parcel'],
 			required: true,
 			hint: 'Shipment value excluding freight charges	and excise taxes)in whole dollars. Estimates acceptable.'
 		},
-		5: {
+		6: {
 			name: 'Shipment_Weight',
 			keys: ['ship','shp','weight','wgt','tonnage','order','product','merchandise','consignment','package','parcel','gross','cargo','inbound','outbound','commodity','freight'],
 			required: true,
 			hint: 'Net shipment	weight in pounds. Estimates	acceptable.'
 		},
-		6: {
+		7: {
 			name: 'SCTG_Commodity_Code',
 			keys: ['sctg','commodity','code'],
 			required: true,
 			hint: 'SCTG	commodity code from	the accompanying booklet. For shipments consisting of more than one commodity, report the code	and description of the commodity that contributed the greatest weight of the shipment.'
 		},
-		7: {
+		8: {
 			name: 'Commodity_Description',
 			keys: ['commodity','desc','product','ship','consignment','cargo'],
 			required: true,
 			hint: 'Commodity Description. For shipments consisting of more than one commodity, report the code	and description of the commodity that contributed the greatest weight of the shipment.'
 		},
-		8: {
+		9: {
 			name: 'Temp_Control_YN',
 			keys: ['temp','control','ctrl'],
 			required: true,
 			hint: 'Is the item being shipped temperature controlled? (Y/N)'
 		},
-		9: {
+		10: {
 			name: 'HAZMAT_Code',
 			keys: ['hazmat','code','hazardous','material','dangerous','control','ctrl'],
 			required: true,
 			hint: 'Is item being shipped a hazardous material?	Enter "UN" or "NA" number.'
 		},
-		10: {
+		11: {
 			name: 'Domestic_City_Name',
 			keys: ['city','name','domestic','town'],
 			required: true,
 			hint: 'U.S. destination or U.S. exit port city for the shipment.'
 		},
-		11: {
+		12: {
 			name: 'Domestic_State_Abbrev',
 			keys: ['State','domestic','abbr','name'],
 			required: true,
 			hint: 'U.S. destination or U.S. exit port state for the shipment.'
 		},
-		12: {
+		13: {
 			name: 'Domestic_ZIP_Code',
 			keys: ['zip','code','domestic','post'],
 			required: true,
 			hint: 'U.S. destination or U.S. exit port ZIP code for the shipment.'
 		},
-		13: {
+		14: {
 			name: 'Domestic_Transport_Mode',
 			keys: ['mode','freight','domestic','transport','tsp'],
 			required: true,
 			hint: 'Mode(s) of transport to U.S. destination. Enter all that	apply in order used: 1-Parcel delivery, courier, or U.S. Parcel Post; 2-Company-owned truck; 3-For-hire truck;	4-Railroad;	5-Inland water;	6-Deep sea;	7-Pipeline;	8-Air; 9-Other mode; 0-Unknown'
 		},
-		14: {
+		15: {
 			name: 'Export_YN',
 			keys: ['export','yn'],
-			required: true,
+			required: false,
 			hint: 'Is the item exported? (Y/N)'
 		},
-		15: {
+		16: {
 			name: 'Export_City',
 			keys: ['export','city','name','town'],
 			required: true,
 			hint: 'Foreign destination city for export shipments only.'
 				},
-		16: {
+		17: {
 			name: 'Export_Country',
 			keys: ['export','country','name'],
 			required: true,
 			hint: 'Foreign destination country for export shipments only.'
 		},
-		17: {
+		18: {
 			name: 'Export_Transport_Mode',
 			keys: ['export','transport','mode','transit','tsp'],
 			required: true,
@@ -105,7 +111,7 @@ var shp = {
 var est = {
 		1: {
 			name: 'Establishment_ID',
-			keys: ['est','company','id'],
+			keys: ['est','company','id','num'],
 			required: false,
 			hint: 'Establishment unique identifier.'
 		},
