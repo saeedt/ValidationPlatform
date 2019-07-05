@@ -1,0 +1,1 @@
+var lkup18 = ["Afghanistan", "Albania", "Algeria", "Angola", "Argentina"];
