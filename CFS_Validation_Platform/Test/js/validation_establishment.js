@@ -123,30 +123,6 @@ function verify_est(input){
 	}	
 	return Result;
 }
-
-// shipping address 
-  function Verfication_companyName_Shipping_name (input,line){
-		var result = new Object();
-		var errors = [];
-		var tmp = new Object();	
-		var error;
-		result.pass = true;
-		if (!presence_check(input)){
-			error = "E20_2";
-			tmp.line = line;
-			tmp.flagname = flags[error].name;
-			tmp.flag = flags[error].flag;
-			tmp.flagval = flags[error].value;
-			tmp.flagmsg = flags[error].msg;
-			tmp.priority = (flags)[error].priority;
-			errors.push(tmp);
-			}		
-		if (errors.length>0){
-			result.pass = false;
-			result.errors = errors;
-		}		 
-		return result;
-}
   
 //company name 1
 function shipping_Company_name_1 (input,line){
@@ -342,7 +318,7 @@ function shipping_state(input,line){
 					}
 		}
 	if (!errors.length>0){
-		if (lkup_linear('lkup32',input)){
+		if (!lkup_linear('lkup32',input)){
 			error = "E25_22";
 			tmp.line = line;
 			tmp.flagname = flags[error].name;
@@ -401,11 +377,11 @@ function shipping_zip5(city, state, zip, evalres,line){ // need to change based 
 			errors.push(tmp);
 		}
 		if (!errors.length >0){ 
-			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
+			var test2 = lkup_binary_m("lkup4","zip", zip);
 			var test1 = {"city" : city, "state" : state, "zip" : zip };
-			if((lkup_binary_m("lkup4","zipCode",zip).found )){
+			if(test2.found){
 				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
-					if(!matchObj(test1, test2, "zipCode")){
+					if(!matchObj(test1, test2.data, "zip")){
 						error = "E26_23";
 						tmp.line = line;
 						tmp.flagname = flags[error].name;
@@ -594,7 +570,7 @@ function mailing_attention (input,line){
 		tmp.priority = (flags)[error].priority;
 		errors.push(tmp);
 		} else {
-			if (!check_allowed_char(input, "numeric", "conf1")){	
+			if (!check_allowed_char(input, "alphanumeric", "conf1")){	
 				error = "E31_1";
 				tmp.line = line;
 				tmp.flagname = flags[error].name;
@@ -787,11 +763,11 @@ function mailing_zip5(city, state, zip,evalres,line){
 			errors.push(tmp);
 		}
 		if (!errors.length >0){ 
-			var test2 = lkup_binary_m("lkup4","zipCode", zip).data;
+			var test2 = lkup_binary_m("lkup4","zip", zip);
 			var test1 = {"city" : city, "state" : state, "zip" : zip };
-			if((lkup_binary_m("lkup4","zipCode",zip).found )){
+			if(test2.found){
 				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
-					if(!matchObj(test1, test2, "zipCode")){
+					if(!matchObj(test1, test2.data, "zip")){
 						error = "E35_23";
 						tmp.line = line;
 						tmp.flagname = flags[error].name;

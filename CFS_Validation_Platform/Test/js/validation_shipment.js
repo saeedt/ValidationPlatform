@@ -713,7 +713,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 			errors.push(tmp);
 			result.valid = false;
 		}
-		// FIXME add range cheack for weight: weights must be >0
+		// FIXME add range check for weight: weights must be >0
 	//Updated the config
 	}
 	if (!errors.length>0){
@@ -730,7 +730,7 @@ function test_ship_weight(weight, mode, naics, evalres,line){
 					tmp.priority = (flags)[error].priority;
 					errors.push(tmp);
 				}	
-				if (lkup_result.data[0].minWeight >= parseFlaot(weight)){
+				if (lkup_result.data[0].minWeight >= parseFloat(weight)){
 					error = "S7_2";
 					tmp.line = line;
 					tmp.flagname = (flags)[error].name;
