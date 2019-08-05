@@ -458,30 +458,6 @@ function shipping_zip4 (input,line){
 	}
 	return result;
 }
-//TODO: fix the name 
-// verification Mailing address integration functions
-function Verfication_companyName_Mailing_name (input,line){
-	var result = new Object();
-	var errors = [];
-	var tmp = new Object();	
-	var error;	
-	result.pass = true;
-	if (!presence_check(input)){
-		error = "E28_2";
-		tmp.line = line;
-		tmp.flagname = flags[error].name;
-		tmp.flag = flags[error].flag;
-		tmp.flagval = flags[error].value;
-		tmp.flagmsg = flags[error].msg;
-		tmp.priority = (flags)[error].priority;
-		errors.push(tmp);
-		}
-	if (errors.length>0){
-		result.pass = false;
-		result.errors = errors;
-	}
-	return result;
-}	
 
 //mailing address attributes integration functions
 function mailing_company_name_1(input,line){
@@ -701,7 +677,7 @@ function mailing_state(input,line){
 				errors.push(tmp);
 				}
 			if (!errors.length>0){
-				if (lkup_linear('lkup32',input)){
+				if (!lkup_linear('lkup32',input)){
 					error = "E34_22";
 					tmp.line = line;
 					tmp.flagname = flags[error].name;
@@ -766,7 +742,7 @@ function mailing_zip5(city, state, zip,evalres,line){
 			var test2 = lkup_binary_m("lkup4","zip", zip);
 			var test1 = {"city" : city, "state" : state, "zip" : zip };
 			if(test2.found){
-				if (evalres.shipping_state.valid && evalres.shipping_city.valid){
+				if (evalres.mailing_state.valid && evalres.mailing_city.valid){
 					if(!matchObj(test1, test2.data, "zip")){
 						error = "E35_23";
 						tmp.line = line;
