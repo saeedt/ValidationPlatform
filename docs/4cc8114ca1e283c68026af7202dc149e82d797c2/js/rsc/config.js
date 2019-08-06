@@ -4,31 +4,30 @@ var conf1= {
 		maxlength:3
 	},
 	email: {
-		allowed: /[^a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/g,
-		not_allowed: /[(),:;<>[\]]/g,
+		allowed: /[a-zA-Z0-9!@#$%&'*+-/=?^_`{|}~.]/,
+		not_allowed: /[(),:;<>[\]]/,
 		required: /^.+@{1}.+[.].+$/
 	},
 	
 	shippingAddress: {
-		not_allowed: /([P_O_]|[P.O_]|[P..B]|[P.O_]|[P.O.]|[PO_B]|[PO_D]|[POB_]|[POST])/g,
-		allowed: /[^0-9a-zA-Z!,'#/.-_\s]/g
+		not_allowed: /(P_O_|P.O_|P.B|P.O_|P.O.|PO_B|PO_D|POB|P.O.B|POST)/i,
+		allowed: /[0-9a-zA-Z!,'#/.-_\s]/
 	},
 	numeric:{
-		allowed: /[0-9]/g
+		allowed: /[0-9]/
 	}, 
 	alphabetic:{
-		allowed: /[A-Za-z]/g
+		allowed: /[A-Za-z]/
 	},
 	alphanumeric:{
-		allowed: /[^0-9a-zA-Z!@$%*&'#/.\s]/g
+		allowed: /[0-9a-zA-Z!@$%*&'#/.\s]/
 		
-	},
-	
+	},	
 	city:{
-		not_allowed: /(APO|FPO|DPO)/g
+		not_allowed: /(APO|FPO|DPO)/i
 	},	
 	state:{
-		not_allowed: /(AA|AE|AP)/g,
+		not_allowed: /(AA|AE|AP)/i,
 		minlength:2,
 		maxlength:2
 	},

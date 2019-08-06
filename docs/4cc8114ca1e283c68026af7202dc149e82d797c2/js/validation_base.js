@@ -1,7 +1,8 @@
+//returns true if the string contains the allowed characters
 function check_allowed_char(input,type,config){
 	var filter = eval(config)[type].allowed;
 	//console.log(filter.test(input))
-	return(!filter.test(input));
+	return(filter.test(input));
 }
 
 //returns true if the string contains any illegal characters
