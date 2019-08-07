@@ -1,7 +1,7 @@
 var shipment;
 var establishment;
 var cfile_ok;
-//binding the event listener to the file picker button
+//binding the event listener to the file picker button 
 $(document).ready(function(e) {
 	'use strict';
 	;( function( $, window, document, undefined ) {

@@ -902,7 +902,7 @@ function test_sctg(sctg, value, weight, mode, temp, naics, state, evalres,line){
 				errors.push(tmp);
 			}
 			// SCTG & NAICS
-			if (eavlres.NAICS.valid) {
+			if (evalres.NAICS.valid) {
 				var lkup_result2 = lkup_binary_m("lkup17","partial_naics", naics);			
 				if (lkup_result2.found){
 					if (lkup_result2.data[0].sctg_2digit == sctg.substr(0,2)){

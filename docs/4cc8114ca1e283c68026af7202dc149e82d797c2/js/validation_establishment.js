@@ -85,7 +85,7 @@ function verify_est(input){
 				Result = Result.concat(tmp.errors);
 		}
 		if (input[i][attr.data[8].eval[0].id] !=100){
-			tmp = mailing_zip4(input[i][attr.data[8].eval[0].name],i+1);
+			tmp = mailing_zip4(input[i][attr.data[8].eval[0].name],i+1);			
 			if (!tmp.pass)
 				Result = Result.concat(tmp.errors);
 		}
@@ -827,7 +827,7 @@ function date_Of_Ceased(month, day, year, line){ //needs presence check: // adde
 	var errors = [];
 	var tmp = new Object();	
 	var error;	
-	result.valid = true;
+	result.pass = true;
 	if (!presence_check(month) || !presence_check(day) || !presence_check(year)) {
 	error = "E38_2";
 	tmp.line = line;
@@ -837,7 +837,7 @@ function date_Of_Ceased(month, day, year, line){ //needs presence check: // adde
 	tmp.flagmsg = flags[error].msg;
 	tmp.priority = (flags)[error].priority;
 	errors.push(tmp);
-	result.valid= false; 
+	result.pass= false; 
 	} 
 	if (presence_check(month) && presence_check(day) && presence_check(year)) {
 		if (!check_allowed_char(day, "numeric", "conf1")||!check_allowed_char(month, "numeric", "conf1")||!check_allowed_char(year, "numeric", "conf1")){
