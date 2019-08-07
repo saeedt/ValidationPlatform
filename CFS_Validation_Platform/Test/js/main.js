@@ -158,6 +158,7 @@ function readFile_e (evt) {
  }
 //process the establishment file
 function process_est(){
+	//console.log(establishment);
 	var cresult = verify_est(establishment);
 	//console.log(cresult);
 	var pass = true;	
