@@ -4,7 +4,7 @@ var flags = {
 		flag: "S1",
 		value: 1,
 		name: "overseas_military_zip",
-		msg: "U.S. destination ZIP contains an overseas millitary address.",
+		msg: "U.S. destination ZIP contains an overseas military address.",
 		priority: 1		
 	},	
 	S1_2: {
