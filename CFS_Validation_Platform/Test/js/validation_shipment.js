@@ -203,28 +203,28 @@ function test_numberOfShip(shipNum,nos,line){
 		}
 		if (shipNum != 0 ){
 			if (range_val_check(shipNum, "interval1", "conf1")){
-				interval = Math.ceil(parseInt(shipNum/conf1.interval1.sample_rate))
+				interval = Math.ceil(parseInt(shipNum)/conf1.interval1.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval2", "conf1")){
-				interval = 5 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval2.sample_rate))
+				interval = 5 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval2.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval3", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval3.sample_rate))
+				interval = 10 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval3.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval4", "conf1")){
-				interval = 10 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval4.sample_rate))
+				interval = 10 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval4.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval5", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval5.sample_rate))
+				interval = 20 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval5.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval6", "conf1")){
-				interval = 20 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval6.sample_rate))
+				interval = 20 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval6.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval7", "conf1")){
-				interval = 50 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval7.sample_rate))
+				interval = 50 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval7.sample_rate)
 			}
 			else if (range_val_check(shipNum, "interval8", "conf1")){
-				interval = 100 * Math.ceil(parseInt(shipNum/shipNum/conf1.interval8.sample_rate))
+				interval = 100 * Math.ceil(parseInt(shipNum)/shipNum/conf1.interval8.sample_rate)
 			}
 			required = Math.floor(shipNum/interval);
 			if (!range_val_check(required, "requiredCase1", "conf1") && !range_val_check(reqRatio,"requiredRatio", "conf1")){
