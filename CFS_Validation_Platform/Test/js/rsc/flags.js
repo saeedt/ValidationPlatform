@@ -647,7 +647,7 @@ var flags = {
 		flag: "S49",
 		value: 4,
 		name: "inv_NAICS",
-		msg: "Number of NAICS code's digit is invalid.",
+		msg: "Number of NAICS code digits is invalid.",
 		priority: 3
 	},
 	S49_20: {
@@ -823,7 +823,7 @@ var flags = {
 		flag: "E7",
 		value: 2,
 		name: "inv_fax",
-		msg: "Fax number is not a 10 digit number.",
+		msg: "Fax number is not a 10-digit number.",
 		priority: 3
 	},
 	E8_1: {
@@ -899,7 +899,7 @@ var flags = {
 	E22_2: {		
 		flag: "E22",
 		value: 2,
-		name: "miss_companyShipName1",
+		name: "miss_companyShipName2",
 		msg: "Shipping company name 2 is missing.",
 		priority: 3
 	},
@@ -970,28 +970,28 @@ var flags = {
 		flag: "E26",
 		value: 1,
 		name: "nonNumeric_shipZip",
-		msg: "Shipping address 5 digit zip code is not numeric.",
+		msg: "Shipping address 5-digit zip code is not numeric.",
 		priority: 2
 	},
 	E26_2: {	
 		flag: "E26",
 		value: 2,
 		name: "miss_shipZip",
-		msg: "Shipping address 5 digit zip code is missing.",
+		msg: "Shipping address 5-digit zip code is missing.",
 		priority: 2
 	},
 	E26_4: {	
 		flag: "E26",
 		value: 4,
 		name: "inv_shipZip",
-		msg: "Shipping address 5 digit zip code is not a 5-digit number.",
+		msg: "Shipping address 5-digit zip code is not a 5-digit number.",
 		priority: 2
 	},
 	E26_22: {	
 		flag: "E26",
 		value: "22",
 		name: "notFound_shipZip",
-		msg: "Shipping address 5 digit zip code is invalid.",
+		msg: "Shipping address 5-digit zip code is invalid.",
 		priority: 2
 	},
 	E26_23: {	
@@ -1005,21 +1005,21 @@ var flags = {
 		flag: "E27",
 		value: 1,
 		name: "nonNumeric_shipZip",
-		msg: "Zip code 4 digit extension is not numeric.",
+		msg: "Zip code 4-digit extension is not numeric.",
 		priority: 3
 	},
 	E27_2: {	
 		flag: "E27",
 		value: 2,
 		name: "miss_shipZip",
-		msg: "Zip code 4 digit extension is missing.",
+		msg: "Zip code 4-digit extension is missing.",
 		priority: 3
 	},
 	E27_4: {	
 		flag: "E27",
 		value: 4,
 		name: "inv_shipZip",
-		msg: "Zip code 4 digit extension is not a 4-digit number.",
+		msg: "Zip code 4-digit extension is not a 4-digit number.",
 		priority: 3
 	},
 	E28_2: {		
@@ -1132,28 +1132,28 @@ var flags = {
 		flag: "E35",
 		value: 1,
 		name: "nonNumeric_mailZip",
-		msg: "Mailing address 5 digit zip code is not numeric.",
+		msg: "Mailing address 5-digit zip code is not numeric.",
 		priority: 3
 	},
 	E35_2: {		
 		flag: "E35",
 		value: 2,
 		name: "miss_mailZip",
-		msg: "Mailing address 5 digit zip code is missing.",
+		msg: "Mailing address 5-digit zip code is missing.",
 		priority: 3
 	},
 	E35_4: {	
 		flag: "E35",
 		value: 4,
 		name: "inv_mailZip",
-		msg: "Mailing address 5 digit zip code is not a 5-digit number.",
+		msg: "Mailing address 5-digit zip code is not a 5-digit number.",
 		priority: 3
 	},
 	E35_22: {	
 		flag: "E35",
 		value: "22",
 		name: "notFound_mailZip",
-		msg: "Mailing address 5 digit zip code is invalid.",
+		msg: "Mailing address 5-digit zip code is invalid.",
 		priority: 3
 	},
 	E35_23: {	
@@ -1167,21 +1167,21 @@ var flags = {
 		flag: "E36",
 		value: 1,
 		name: "nonNumeric_mailZip",
-		msg: "Mailing address 4 digit zip code extension is not numeric.",
+		msg: "Mailing address 4-digit zip code extension is not numeric.",
 		priority: 3
 	},
 	E36_2: {		
 		flag: "E36",
 		value: 2,
 		name: "miss_mailZip",
-		msg: "Mailing address 4 digit zip code extension is missing.",
+		msg: "Mailing address 4-digit zip code extension is missing.",
 		priority: 3
 	},
 	E36_4: {	
 		flag: "E36",
 		value: 4,
 		name: "inv_mailZip",
-		msg: "Mailing address 4 digit zip code extension is not a 5-digit number.",
+		msg: "Mailing address 4-digit zip code extension is not a 4-digit number.",
 		priority: 3
 	},	
 	E37_2: {	
@@ -1294,7 +1294,7 @@ var flags = {
 		flag: "E43",
 		value: 4,
 		name: "inv_contactPhone",
-		msg: "Contact information (phone number) is not a 10 digit number.",
+		msg: "Contact information (phone number) is not a 10-digit number.",
 		priority: 3
 	},
 	E44_2: {
