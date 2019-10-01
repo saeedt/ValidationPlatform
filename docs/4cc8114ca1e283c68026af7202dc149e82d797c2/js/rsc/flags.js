@@ -61,7 +61,7 @@ var flags = {
 		value: 1,
 		name: "inv_sctg_mode7",
 		msg: "SCTG commodity code is invalid: mode includes pipeline (7).",
-		priority: ""
+		priority: 2
 	},
 	S4_2: {
 		flag: "S4",
