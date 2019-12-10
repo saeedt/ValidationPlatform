@@ -184,8 +184,7 @@ function process_est(){
                   {extend: 'excel',
                 	  customize: function( xlsx ) {
                           var sheet = xlsx.xl.worksheets['sheet1.xml']; 
-                          $('row', sheet).each( function (e) {
-                        	  //console.log($('c[r^="D"]', this).text());
+                          $('row', sheet).each( function (e) {                        	  
                         	  if ( $('c[r^="D"]', this).text() == 1 ){
                         		  $('row:nth-child('+(e+1)+') c', sheet).attr('s', '10');                        		  
                         	  } else if ( $('c[r^="D"]', this).text() == 2 ){
@@ -200,15 +199,15 @@ function process_est(){
                 		  for (var i = 0; i < p.length; i++) {
                 	        if (p[i]==1) {
                 	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-                	        		e.fillColor = '#ffcccc';
+                	        		e.fillColor = colors["1"].pdfColor;
                 	        	});                	          
                 	        } else if (p[i]==2){
                 	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-                	        		e.fillColor = '#ffd699';
+                	        		e.fillColor = colors["2"].pdfColor;
                 	        	});
                 	        } else if (p[i]==3){
                 	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-                	        		e.fillColor = '#ffffcc';
+                	        		e.fillColor = colors["3"].pdfColor;
                 	        	});
                 	        }
                 	  }
@@ -221,7 +220,7 @@ function process_est(){
             { "title": "Flag Name", "targets": 4, "data":"flagname" },
             { "title": "Description",  "targets": 5 , "data": "flagmsg"}],
             "createdRow": function( row, data, dataIndex){        	
-            	$(row).css('background-color', colors[data["priority"]].color);                
+            	$(row).css('background-color', colors[data["priority"]].webColor);                
             }
     } );
     //console.log(pdftable);
@@ -273,15 +272,15 @@ function process_shp(){
 	                		  for (var i = 0; i < p.length; i++) {
 	                	        if (p[i]==1) {
 	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-	                	        		e.fillColor = '#ffcccc';
+	                	        		e.fillColor = colors["1"].pdfColor;
 	                	        	});                	          
 	                	        } else if (p[i]==2){
 	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-	                	        		e.fillColor = '#ffd699';
+	                	        		e.fillColor = colors["2"].pdfColor;
 	                	        	});
 	                	        } else if (p[i]==3){
 	                	        	pdf.content[1].table.body[i+1].forEach(function(e,l){
-	                	        		e.fillColor = '#ffffcc';
+	                	        		e.fillColor = colors["3"].pdfColor;
 	                	        	});
 	                	        }
 	                	  }
@@ -294,7 +293,7 @@ function process_shp(){
 	            { "title": "Flag Name", "targets": 4, "data":"flagname" },
 	            { "title": "Description",  "targets": 5 , "data": "flagmsg"}],
             "createdRow": function( row, data, dataIndex){        	
-            	$(row).css('background-color', colors[data["priority"]].color);                
+            	$(row).css('background-color', colors[data["priority"]].webColor);                
             }
 	    } );
 	$('#shipTable_length').append('&ensp; Error priority level <select id="shipTable_cmb"><option value ="1">1</option><option value ="2">2</option><option value ="3" selected>3</option>');
